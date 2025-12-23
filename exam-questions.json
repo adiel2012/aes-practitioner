@@ -1,0 +1,1958 @@
+{
+  "examInfo": {
+    "title": "AWS Certified Cloud Practitioner Practice Exam",
+    "examCode": "CLF-C02",
+    "totalQuestions": 65,
+    "passingScore": 700,
+    "duration": 90,
+    "domains": [
+      {
+        "name": "Cloud Concepts",
+        "percentage": 24
+      },
+      {
+        "name": "Security and Compliance",
+        "percentage": 30
+      },
+      {
+        "name": "Cloud Technology and Services",
+        "percentage": 34
+      },
+      {
+        "name": "Billing, Pricing, and Support",
+        "percentage": 12
+      }
+    ]
+  },
+  "questions": [
+    {
+      "id": 1,
+      "domain": "Cloud Concepts",
+      "topic": "Cloud Benefits",
+      "difficulty": "easy",
+      "questionType": "multiple-choice",
+      "question": "Which of the following are advantages of cloud computing? (Select TWO)",
+      "options": [
+        "A. Trade capital expense for variable expense",
+        "B. Maintain physical servers in your data center",
+        "C. Benefit from massive economies of scale",
+        "D. Increase time to market for new features",
+        "E. Reduce your focus on customers"
+      ],
+      "correctAnswers": ["A", "C"],
+      "explanation": "Cloud computing allows you to trade capital expense (buying servers) for variable expense (pay-as-you-go), and you benefit from AWS's massive economies of scale which result in lower pay-as-you-go prices. Cloud actually decreases time to market and allows you to focus more on customers."
+    },
+    {
+      "id": 2,
+      "domain": "Cloud Concepts",
+      "topic": "Cloud Computing Models",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "A company wants to deploy applications but does not want to manage the underlying infrastructure. Which cloud service model should they use?",
+      "options": [
+        "A. Infrastructure as a Service (IaaS)",
+        "B. Platform as a Service (PaaS)",
+        "C. Software as a Service (SaaS)",
+        "D. Function as a Service (FaaS)"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "PaaS removes the need to manage underlying infrastructure (hardware, operating systems) and allows you to focus on deploying and managing applications. Examples include AWS Elastic Beanstalk and AWS Lambda."
+    },
+    {
+      "id": 3,
+      "domain": "Cloud Concepts",
+      "topic": "Well-Architected Framework",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "Which pillar of the AWS Well-Architected Framework focuses on the ability to recover from failures and dynamically acquire computing resources to meet demand?",
+      "options": [
+        "A. Operational Excellence",
+        "B. Security",
+        "C. Reliability",
+        "D. Performance Efficiency"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "The Reliability pillar focuses on the ability of a workload to perform its intended function correctly and consistently, recover from failures, and dynamically acquire computing resources to meet demand."
+    },
+    {
+      "id": 4,
+      "domain": "Cloud Concepts",
+      "topic": "Migration Strategies",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "A company wants to move its on-premises application to AWS without making any changes to the application. Which migration strategy should they use?",
+      "options": [
+        "A. Refactoring",
+        "B. Replatforming",
+        "C. Rehosting",
+        "D. Repurchasing"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Rehosting (also known as 'lift and shift') involves moving applications to AWS without making changes. This is the fastest migration approach."
+    },
+    {
+      "id": 5,
+      "domain": "Cloud Concepts",
+      "topic": "Total Cost of Ownership",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which of the following is a benefit of moving from an on-premises data center to the AWS Cloud in terms of cost?",
+      "options": [
+        "A. Increased capital expenditure",
+        "B. Elimination of all operational expenditure",
+        "C. Trade capital expense for variable expense",
+        "D. Increased need for capacity planning"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Moving to AWS allows you to trade capital expense (CapEx) for variable expense (OpEx). Instead of investing heavily in data centers and servers before knowing how you're going to use them, you pay only when you consume computing resources."
+    },
+    {
+      "id": 6,
+      "domain": "Security and Compliance",
+      "topic": "Shared Responsibility Model",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "According to the AWS Shared Responsibility Model, which of the following is a customer responsibility?",
+      "options": [
+        "A. Physical security of data centers",
+        "B. Hardware maintenance",
+        "C. Network infrastructure",
+        "D. Security group configuration"
+      ],
+      "correctAnswers": ["D"],
+      "explanation": "Customers are responsible for security IN the cloud, which includes configuring security groups, managing IAM users, and securing their data. AWS is responsible for security OF the cloud (physical security, hardware, network infrastructure)."
+    },
+    {
+      "id": 7,
+      "domain": "Security and Compliance",
+      "topic": "Shared Responsibility Model",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which of the following is AWS responsible for under the Shared Responsibility Model?",
+      "options": [
+        "A. Customer data encryption",
+        "B. Operating system patches on EC2 instances",
+        "C. Physical security of data centers",
+        "D. IAM user access management"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "AWS is responsible for security OF the cloud, which includes physical security of data centers, hardware, and the global infrastructure. Customers are responsible for security IN the cloud, including OS patches, data encryption, and IAM management."
+    },
+    {
+      "id": 8,
+      "domain": "Security and Compliance",
+      "topic": "IAM",
+      "difficulty": "medium",
+      "questionType": "multiple-choice",
+      "question": "Which IAM best practices should be followed? (Select TWO)",
+      "options": [
+        "A. Use the root account for daily administrative tasks",
+        "B. Enable Multi-Factor Authentication (MFA) on the root account",
+        "C. Share access keys between users for convenience",
+        "D. Grant least privilege access",
+        "E. Disable MFA for better usability"
+      ],
+      "correctAnswers": ["B", "D"],
+      "explanation": "Best practices include enabling MFA on the root account, granting least privilege (minimum permissions needed), creating individual IAM users instead of using root, and never sharing access keys."
+    },
+    {
+      "id": 9,
+      "domain": "Security and Compliance",
+      "topic": "IAM",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What is the purpose of AWS Identity and Access Management (IAM)?",
+      "options": [
+        "A. Monitor application performance",
+        "B. Manage user access to AWS resources",
+        "C. Encrypt data at rest",
+        "D. Create virtual private networks"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "IAM enables you to manage access to AWS services and resources securely. You can create and manage AWS users and groups, and use permissions to allow and deny their access to AWS resources."
+    },
+    {
+      "id": 10,
+      "domain": "Security and Compliance",
+      "topic": "Security Services",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS service provides DDoS protection at no additional cost?",
+      "options": [
+        "A. AWS WAF",
+        "B. AWS Shield Standard",
+        "C. AWS Shield Advanced",
+        "D. Amazon GuardDuty"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Shield Standard is automatically enabled for all AWS customers at no additional cost and provides protection against common DDoS attacks. Shield Advanced requires a subscription fee."
+    },
+    {
+      "id": 11,
+      "domain": "Security and Compliance",
+      "topic": "Security Services",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "A company needs to identify and protect sensitive data stored in Amazon S3. Which AWS service should they use?",
+      "options": [
+        "A. AWS WAF",
+        "B. Amazon Macie",
+        "C. AWS Shield",
+        "D. Amazon Inspector"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Macie is a data security service that uses machine learning to automatically discover, classify, and protect sensitive data such as personally identifiable information (PII) in S3."
+    },
+    {
+      "id": 12,
+      "domain": "Security and Compliance",
+      "topic": "Compliance",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "Which AWS service provides on-demand access to AWS security and compliance reports?",
+      "options": [
+        "A. AWS CloudTrail",
+        "B. AWS Config",
+        "C. AWS Artifact",
+        "D. Amazon Inspector"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "AWS Artifact is a self-service portal for on-demand access to AWS compliance reports such as SOC, PCI, and ISO certifications. It's available at no cost."
+    },
+    {
+      "id": 13,
+      "domain": "Security and Compliance",
+      "topic": "Encryption",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS service helps you create and manage cryptographic keys?",
+      "options": [
+        "A. AWS Certificate Manager",
+        "B. AWS Key Management Service (KMS)",
+        "C. AWS Secrets Manager",
+        "D. AWS CloudHSM"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS KMS makes it easy to create and manage cryptographic keys and control their use across AWS services and in your applications. It integrates with most AWS services for encryption."
+    },
+    {
+      "id": 14,
+      "domain": "Security and Compliance",
+      "topic": "Multi-Account Management",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which service allows you to centrally manage multiple AWS accounts?",
+      "options": [
+        "A. AWS IAM",
+        "B. AWS Organizations",
+        "C. AWS Control Tower",
+        "D. AWS Directory Service"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Organizations helps you centrally manage and govern multiple AWS accounts. It provides consolidated billing, account grouping with organizational units (OUs), and policy-based management with Service Control Policies (SCPs)."
+    },
+    {
+      "id": 15,
+      "domain": "Security and Compliance",
+      "topic": "Threat Detection",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS service uses machine learning to detect threats and unauthorized activity in your AWS environment?",
+      "options": [
+        "A. Amazon Inspector",
+        "B. AWS Shield",
+        "C. Amazon GuardDuty",
+        "D. AWS WAF"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Amazon GuardDuty is a threat detection service that continuously monitors for malicious activity and unauthorized behavior using machine learning, anomaly detection, and integrated threat intelligence."
+    },
+    {
+      "id": 16,
+      "domain": "Cloud Technology and Services",
+      "topic": "Global Infrastructure",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What is an AWS Availability Zone?",
+      "options": [
+        "A. A geographic location with multiple data centers",
+        "B. One or more discrete data centers with redundant power and networking",
+        "C. A content delivery network endpoint",
+        "D. A virtual private network"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "An Availability Zone (AZ) is one or more discrete data centers with redundant power, networking, and connectivity in an AWS Region. Each Region has multiple isolated AZs."
+    },
+    {
+      "id": 17,
+      "domain": "Cloud Technology and Services",
+      "topic": "Global Infrastructure",
+      "difficulty": "medium",
+      "questionType": "multiple-choice",
+      "question": "Which factors should you consider when choosing an AWS Region? (Select TWO)",
+      "options": [
+        "A. Proximity to customers for lower latency",
+        "B. Number of Availability Zones (must be exactly 3)",
+        "C. Compliance with data residency requirements",
+        "D. Availability of all AWS services",
+        "E. Time zone of the Region"
+      ],
+      "correctAnswers": ["A", "C"],
+      "explanation": "When selecting a Region, consider: proximity to users (latency), compliance/data residency requirements, available services in that Region, and pricing (varies by Region). Not all services are available in all Regions."
+    },
+    {
+      "id": 18,
+      "domain": "Cloud Technology and Services",
+      "topic": "Compute - EC2",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What is Amazon EC2?",
+      "options": [
+        "A. A managed database service",
+        "B. A content delivery network",
+        "C. Virtual servers in the cloud",
+        "D. Object storage service"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Amazon EC2 (Elastic Compute Cloud) provides resizable virtual servers (instances) in the cloud. It allows you to quickly scale compute capacity up or down as needed."
+    },
+    {
+      "id": 19,
+      "domain": "Cloud Technology and Services",
+      "topic": "Compute - EC2",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which EC2 pricing model provides up to 90% discount but instances can be terminated by AWS with a 2-minute warning?",
+      "options": [
+        "A. On-Demand Instances",
+        "B. Reserved Instances",
+        "C. Spot Instances",
+        "D. Dedicated Hosts"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Spot Instances let you take advantage of unused EC2 capacity at up to 90% discount compared to On-Demand prices. However, AWS can reclaim the capacity with a 2-minute warning when needed."
+    },
+    {
+      "id": 20,
+      "domain": "Cloud Technology and Services",
+      "topic": "Compute - EC2",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "A company needs to run EC2 instances for 3 years continuously with predictable usage. Which pricing option would be MOST cost-effective?",
+      "options": [
+        "A. On-Demand Instances",
+        "B. Spot Instances",
+        "C. 3-year Reserved Instances",
+        "D. Dedicated Hosts"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "For steady-state, predictable workloads running continuously, Reserved Instances provide up to 75% discount compared to On-Demand. A 3-year commitment provides the highest discount."
+    },
+    {
+      "id": 21,
+      "domain": "Cloud Technology and Services",
+      "topic": "Compute - Lambda",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS service allows you to run code without provisioning or managing servers?",
+      "options": [
+        "A. Amazon EC2",
+        "B. AWS Lambda",
+        "C. Amazon ECS",
+        "D. AWS Elastic Beanstalk"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Lambda is a serverless compute service that runs your code in response to events and automatically manages the compute resources. You only pay for the compute time consumed."
+    },
+    {
+      "id": 22,
+      "domain": "Cloud Technology and Services",
+      "topic": "Storage - S3",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What is Amazon S3 primarily used for?",
+      "options": [
+        "A. Block storage for EC2 instances",
+        "B. Object storage",
+        "C. File system storage",
+        "D. Database storage"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon S3 (Simple Storage Service) is an object storage service designed to store and retrieve any amount of data from anywhere. It's ideal for backup, archiving, analytics, and hosting static websites."
+    },
+    {
+      "id": 23,
+      "domain": "Cloud Technology and Services",
+      "topic": "Storage - S3",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which S3 storage class is designed for data that is accessed less frequently but requires rapid access when needed?",
+      "options": [
+        "A. S3 Standard",
+        "B. S3 Standard-IA",
+        "C. S3 Glacier Flexible Retrieval",
+        "D. S3 Glacier Deep Archive"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "S3 Standard-IA (Infrequent Access) is designed for data that is accessed less frequently but requires rapid access when needed. It offers lower storage cost than S3 Standard with a retrieval fee."
+    },
+    {
+      "id": 24,
+      "domain": "Cloud Technology and Services",
+      "topic": "Storage - S3",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the durability of Amazon S3 Standard storage class?",
+      "options": [
+        "A. 99.9%",
+        "B. 99.99%",
+        "C. 99.999999999% (11 nines)",
+        "D. 100%"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Amazon S3 provides 99.999999999% (11 nines) durability by automatically storing data redundantly across multiple devices in multiple facilities within a Region."
+    },
+    {
+      "id": 25,
+      "domain": "Cloud Technology and Services",
+      "topic": "Storage - EBS",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What type of storage does Amazon EBS provide?",
+      "options": [
+        "A. Object storage",
+        "B. Block storage for use with EC2",
+        "C. File storage for multiple instances",
+        "D. Archive storage"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon EBS (Elastic Block Store) provides block-level storage volumes for use with EC2 instances. EBS volumes are attached to a single EC2 instance and persist independently from the instance lifecycle."
+    },
+    {
+      "id": 26,
+      "domain": "Cloud Technology and Services",
+      "topic": "Storage - EFS",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which storage service allows multiple EC2 instances to access the same file system simultaneously?",
+      "options": [
+        "A. Amazon S3",
+        "B. Amazon EBS",
+        "C. Amazon EFS",
+        "D. AWS Storage Gateway"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Amazon EFS (Elastic File System) is a managed NFS file system that can be mounted on multiple EC2 instances simultaneously, allowing shared access to files."
+    },
+    {
+      "id": 27,
+      "domain": "Cloud Technology and Services",
+      "topic": "Database - RDS",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which database engines are supported by Amazon RDS? (Select all that apply)",
+      "options": [
+        "A. MySQL",
+        "B. PostgreSQL",
+        "C. MongoDB",
+        "D. Oracle",
+        "E. Cassandra"
+      ],
+      "correctAnswers": ["A", "B", "D"],
+      "explanation": "Amazon RDS supports six database engines: MySQL, PostgreSQL, MariaDB, Oracle, Microsoft SQL Server, and Amazon Aurora. MongoDB and Cassandra are NoSQL databases not supported by RDS."
+    },
+    {
+      "id": 28,
+      "domain": "Cloud Technology and Services",
+      "topic": "Database - RDS",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the purpose of Multi-AZ deployments in Amazon RDS?",
+      "options": [
+        "A. Improve read performance",
+        "B. Provide high availability and automatic failover",
+        "C. Reduce costs",
+        "D. Increase storage capacity"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Multi-AZ deployments provide enhanced availability and durability by automatically replicating data to a standby instance in a different Availability Zone and providing automatic failover in case of an outage."
+    },
+    {
+      "id": 29,
+      "domain": "Cloud Technology and Services",
+      "topic": "Database - DynamoDB",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What type of database is Amazon DynamoDB?",
+      "options": [
+        "A. Relational database",
+        "B. NoSQL key-value and document database",
+        "C. Graph database",
+        "D. In-memory cache"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. It supports both key-value and document data models."
+    },
+    {
+      "id": 30,
+      "domain": "Cloud Technology and Services",
+      "topic": "Networking - VPC",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the difference between a security group and a network ACL?",
+      "options": [
+        "A. Security groups are stateless; NACLs are stateful",
+        "B. Security groups are stateful; NACLs are stateless",
+        "C. Security groups operate at the subnet level; NACLs at the instance level",
+        "D. There is no difference"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Security groups are stateful (return traffic is automatically allowed) and operate at the instance level. Network ACLs are stateless (return traffic must be explicitly allowed) and operate at the subnet level."
+    },
+    {
+      "id": 31,
+      "domain": "Cloud Technology and Services",
+      "topic": "Networking - CloudFront",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is Amazon CloudFront?",
+      "options": [
+        "A. A database service",
+        "B. A content delivery network (CDN)",
+        "C. A compute service",
+        "D. A monitoring service"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon CloudFront is a fast content delivery network (CDN) service that securely delivers data, videos, applications, and APIs to customers globally with low latency and high transfer speeds."
+    },
+    {
+      "id": 32,
+      "domain": "Cloud Technology and Services",
+      "topic": "Networking - Route 53",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What type of service is Amazon Route 53?",
+      "options": [
+        "A. Content delivery network",
+        "B. DNS web service",
+        "C. Load balancing service",
+        "D. VPN service"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Route 53 is a highly available and scalable Domain Name System (DNS) web service. It also provides domain registration and health checking of resources."
+    },
+    {
+      "id": 33,
+      "domain": "Cloud Technology and Services",
+      "topic": "Networking - ELB",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which type of load balancer operates at Layer 7 (application layer) and supports advanced routing?",
+      "options": [
+        "A. Classic Load Balancer",
+        "B. Network Load Balancer",
+        "C. Application Load Balancer",
+        "D. Gateway Load Balancer"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Application Load Balancer operates at Layer 7 (HTTP/HTTPS) and provides advanced routing features like host-based and path-based routing, making it ideal for web applications."
+    },
+    {
+      "id": 34,
+      "domain": "Cloud Technology and Services",
+      "topic": "Management - CloudWatch",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the primary purpose of Amazon CloudWatch?",
+      "options": [
+        "A. Deploy applications",
+        "B. Monitor resources and applications",
+        "C. Manage user access",
+        "D. Store log files long-term"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon CloudWatch is a monitoring and observability service that collects and tracks metrics, collects and monitors log files, sets alarms, and automatically reacts to changes in your AWS resources."
+    },
+    {
+      "id": 35,
+      "domain": "Cloud Technology and Services",
+      "topic": "Management - CloudTrail",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What does AWS CloudTrail record?",
+      "options": [
+        "A. Resource performance metrics",
+        "B. API calls made in your AWS account",
+        "C. Application logs",
+        "D. Network traffic"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS CloudTrail records API calls made in your AWS account, providing event history for governance, compliance, and auditing. It tracks who did what, when, and from where."
+    },
+    {
+      "id": 36,
+      "domain": "Cloud Technology and Services",
+      "topic": "Management - CloudFormation",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is AWS CloudFormation used for?",
+      "options": [
+        "A. Monitoring cloud resources",
+        "B. Managing infrastructure as code",
+        "C. Creating virtual networks",
+        "D. Deploying machine learning models"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS CloudFormation is an Infrastructure as Code (IaC) service that allows you to model and provision AWS resources using templates (JSON or YAML), enabling automated and repeatable deployments."
+    },
+    {
+      "id": 37,
+      "domain": "Cloud Technology and Services",
+      "topic": "Management - Trusted Advisor",
+      "difficulty": "easy",
+      "questionType": "multiple-choice",
+      "question": "Which categories does AWS Trusted Advisor provide recommendations for? (Select TWO)",
+      "options": [
+        "A. Cost Optimization",
+        "B. Application Development",
+        "C. Security",
+        "D. Database Migration",
+        "E. Code Quality"
+      ],
+      "correctAnswers": ["A", "C"],
+      "explanation": "AWS Trusted Advisor provides recommendations in five categories: Cost Optimization, Performance, Security, Fault Tolerance, and Service Limits. It helps optimize your AWS environment."
+    },
+    {
+      "id": 38,
+      "domain": "Cloud Technology and Services",
+      "topic": "Migration - Snow Family",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS Snow Family device can store up to 100 PB of data?",
+      "options": [
+        "A. Snowcone",
+        "B. Snowball Edge",
+        "C. Snowmobile",
+        "D. Snowpack"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "AWS Snowmobile is an exabyte-scale data transfer service that can move up to 100 PB of data in a 45-foot shipping container. Snowcone stores 8 TB, and Snowball Edge stores up to 80 TB."
+    },
+    {
+      "id": 39,
+      "domain": "Cloud Technology and Services",
+      "topic": "Analytics",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS service allows you to query data in S3 using standard SQL?",
+      "options": [
+        "A. Amazon RDS",
+        "B. Amazon Athena",
+        "C. Amazon EMR",
+        "D. Amazon Kinesis"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Athena is an interactive query service that makes it easy to analyze data in Amazon S3 using standard SQL. It's serverless and you pay only for the queries you run."
+    },
+    {
+      "id": 40,
+      "domain": "Cloud Technology and Services",
+      "topic": "Integration",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS service provides a fully managed message queuing service?",
+      "options": [
+        "A. Amazon SNS",
+        "B. Amazon SQS",
+        "C. Amazon EventBridge",
+        "D. AWS Step Functions"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon SQS (Simple Queue Service) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications."
+    },
+    {
+      "id": 41,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Pricing Models",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "Which pricing model allows you to pay only for the compute time you consume?",
+      "options": [
+        "A. Reserved Instances",
+        "B. Dedicated Hosts",
+        "C. On-Demand Instances",
+        "D. Spot Instances"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "On-Demand Instances let you pay for compute capacity by the hour or second with no long-term commitments. You pay only for the compute time you consume."
+    },
+    {
+      "id": 42,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Pricing Models",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which EC2 pricing option provides the HIGHEST discount?",
+      "options": [
+        "A. On-Demand Instances",
+        "B. Reserved Instances (1-year term)",
+        "C. Reserved Instances (3-year term)",
+        "D. Savings Plans"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "3-year Reserved Instances provide the highest discount (up to 75%) compared to On-Demand pricing. The longer the commitment and the more upfront you pay, the greater the discount."
+    },
+    {
+      "id": 43,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Cost Management",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS tool helps you visualize and analyze your AWS costs and usage over time?",
+      "options": [
+        "A. AWS Pricing Calculator",
+        "B. AWS Cost Explorer",
+        "C. AWS Budgets",
+        "D. AWS Cost and Usage Report"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Cost Explorer provides visualizations of your AWS costs and usage over time, allows you to filter and group data, and can forecast future costs based on historical data."
+    },
+    {
+      "id": 44,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Cost Management",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which service allows you to set custom cost and usage budgets and receive alerts?",
+      "options": [
+        "A. AWS Cost Explorer",
+        "B. AWS Budgets",
+        "C. AWS Pricing Calculator",
+        "D. CloudWatch Billing Alarms"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Budgets allows you to set custom cost and usage budgets and receive alerts via email or SNS when your usage or costs exceed (or are forecasted to exceed) your budgeted amount."
+    },
+    {
+      "id": 45,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Cost Management",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What is the AWS Free Tier?",
+      "options": [
+        "A. A permanent free tier for all AWS services",
+        "B. Free access to select AWS services for 12 months plus always-free offers",
+        "C. A discount program for startups only",
+        "D. Free technical support"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "The AWS Free Tier provides limited free usage of select AWS services for 12 months after account creation, plus always-free offers for certain services, and short-term free trials for others."
+    },
+    {
+      "id": 46,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Support Plans",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS Support plan provides a Technical Account Manager (TAM)?",
+      "options": [
+        "A. Basic",
+        "B. Developer",
+        "C. Business",
+        "D. Enterprise"
+      ],
+      "correctAnswers": ["D"],
+      "explanation": "Only the Enterprise Support plan includes a dedicated Technical Account Manager (TAM) who provides consultative architectural and operational guidance."
+    },
+    {
+      "id": 47,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Support Plans",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the response time for a business-critical system down issue with Enterprise Support?",
+      "options": [
+        "A. 24 hours",
+        "B. 4 hours",
+        "C. 1 hour",
+        "D. 15 minutes"
+      ],
+      "correctAnswers": ["D"],
+      "explanation": "Enterprise Support provides a 15-minute response time for business-critical system down issues. Business Support provides 1 hour for production system down issues."
+    },
+    {
+      "id": 48,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Support Plans",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "Which AWS Support plan is available to all AWS customers at no additional cost?",
+      "options": [
+        "A. Developer",
+        "B. Business",
+        "C. Basic",
+        "D. Enterprise"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "The Basic Support plan is included free for all AWS customers and provides 24/7 access to customer service, documentation, whitepapers, and support forums."
+    },
+    {
+      "id": 49,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Consolidated Billing",
+      "difficulty": "medium",
+      "questionType": "multiple-choice",
+      "question": "What are benefits of using AWS Organizations with consolidated billing? (Select TWO)",
+      "options": [
+        "A. One bill for all accounts",
+        "B. Automatic cost optimization",
+        "C. Volume pricing discounts across accounts",
+        "D. Free technical support",
+        "E. Automatic resource tagging"
+      ],
+      "correctAnswers": ["A", "C"],
+      "explanation": "Consolidated billing provides one bill for multiple accounts and allows you to combine usage across accounts to receive volume pricing discounts. It doesn't provide automatic optimization or free support."
+    },
+    {
+      "id": 50,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Pricing",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "For most AWS services, which type of data transfer is typically FREE?",
+      "options": [
+        "A. Data transfer out to the Internet",
+        "B. Data transfer in from the Internet",
+        "C. Data transfer between Regions",
+        "D. Data transfer to CloudFront from other AWS services"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Data transfer IN to AWS from the Internet is typically free for most services. Data transfer OUT to the Internet is charged based on the amount of data transferred."
+    },
+    {
+      "id": 51,
+      "domain": "Security and Compliance",
+      "topic": "IAM Roles",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the recommended way to grant permissions to an EC2 instance to access S3?",
+      "options": [
+        "A. Store access keys on the EC2 instance",
+        "B. Attach an IAM role to the EC2 instance",
+        "C. Use the root account credentials",
+        "D. Create an IAM user and share the password"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "The best practice is to attach an IAM role to the EC2 instance. This provides temporary credentials that are automatically rotated, eliminating the need to store long-term credentials on the instance."
+    },
+    {
+      "id": 52,
+      "domain": "Cloud Technology and Services",
+      "topic": "Containers",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS service provides serverless container orchestration?",
+      "options": [
+        "A. Amazon ECS with EC2 launch type",
+        "B. Amazon EKS",
+        "C. AWS Fargate",
+        "D. AWS Lambda"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "AWS Fargate is a serverless compute engine for containers that works with both Amazon ECS and Amazon EKS. It removes the need to provision and manage servers."
+    },
+    {
+      "id": 53,
+      "domain": "Cloud Technology and Services",
+      "topic": "Hybrid Cloud",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS service extends AWS infrastructure and services to your on-premises data center?",
+      "options": [
+        "A. AWS Direct Connect",
+        "B. AWS VPN",
+        "C. AWS Outposts",
+        "D. AWS Storage Gateway"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "AWS Outposts brings native AWS services, infrastructure, and operating models to virtually any data center, co-location space, or on-premises facility, enabling a truly consistent hybrid experience."
+    },
+    {
+      "id": 54,
+      "domain": "Cloud Concepts",
+      "topic": "Well-Architected Framework",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which Well-Architected Framework pillar focuses on minimizing environmental impact?",
+      "options": [
+        "A. Cost Optimization",
+        "B. Performance Efficiency",
+        "C. Sustainability",
+        "D. Operational Excellence"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "The Sustainability pillar, added in 2021, focuses on minimizing the environmental impacts of running cloud workloads, including energy consumption and resource efficiency."
+    },
+    {
+      "id": 55,
+      "domain": "Cloud Technology and Services",
+      "topic": "Machine Learning",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "Which AWS service helps you build, train, and deploy machine learning models?",
+      "options": [
+        "A. Amazon Comprehend",
+        "B. Amazon Rekognition",
+        "C. Amazon SageMaker",
+        "D. Amazon Lex"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Amazon SageMaker is a fully managed service that provides developers and data scientists the ability to build, train, and deploy machine learning models quickly."
+    },
+    {
+      "id": 56,
+      "domain": "Cloud Technology and Services",
+      "topic": "Database - Redshift",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is Amazon Redshift primarily used for?",
+      "options": [
+        "A. Transactional database (OLTP)",
+        "B. Data warehousing and analytics (OLAP)",
+        "C. NoSQL document storage",
+        "D. In-memory caching"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Redshift is a fast, fully managed data warehouse that makes it simple and cost-effective to analyze large amounts of data using SQL and business intelligence tools."
+    },
+    {
+      "id": 57,
+      "domain": "Security and Compliance",
+      "topic": "Network Security",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS service protects web applications from common web exploits like SQL injection and cross-site scripting?",
+      "options": [
+        "A. AWS Shield",
+        "B. AWS WAF",
+        "C. Amazon GuardDuty",
+        "D. AWS Firewall Manager"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS WAF (Web Application Firewall) helps protect web applications from common web exploits and bots that could affect availability, compromise security, or consume excessive resources."
+    },
+    {
+      "id": 58,
+      "domain": "Cloud Technology and Services",
+      "topic": "Storage - Glacier",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which S3 storage class offers the lowest storage cost and is designed for long-term archive with retrieval times of 12-48 hours?",
+      "options": [
+        "A. S3 Standard",
+        "B. S3 Glacier Instant Retrieval",
+        "C. S3 Glacier Flexible Retrieval",
+        "D. S3 Glacier Deep Archive"
+      ],
+      "correctAnswers": ["D"],
+      "explanation": "S3 Glacier Deep Archive is the lowest-cost storage class, designed for data that is rarely accessed and requires retrieval times of 12-48 hours. It's ideal for compliance archives."
+    },
+    {
+      "id": 59,
+      "domain": "Cloud Technology and Services",
+      "topic": "Auto Scaling",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the primary benefit of using Amazon EC2 Auto Scaling?",
+      "options": [
+        "A. Reduce costs by terminating all instances during low demand",
+        "B. Automatically adjust compute capacity to maintain performance and optimize costs",
+        "C. Automatically patch EC2 instances",
+        "D. Improve security by rotating instances regularly"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "EC2 Auto Scaling helps maintain application availability and allows you to automatically add or remove EC2 instances according to conditions you define, optimizing both performance and costs."
+    },
+    {
+      "id": 60,
+      "domain": "Cloud Concepts",
+      "topic": "Cloud Deployment Models",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "Which deployment model connects cloud resources to on-premises infrastructure?",
+      "options": [
+        "A. Cloud deployment",
+        "B. On-premises deployment",
+        "C. Hybrid deployment",
+        "D. Multi-cloud deployment"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "A hybrid deployment connects cloud-based resources to on-premises infrastructure, allowing you to extend and grow your infrastructure while connecting cloud resources to internal systems."
+    },
+    {
+      "id": 61,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Cost Optimization",
+      "difficulty": "medium",
+      "questionType": "multiple-choice",
+      "question": "Which strategies can help optimize costs in AWS? (Select TWO)",
+      "options": [
+        "A. Right-sizing instances based on utilization",
+        "B. Running all workloads on the largest instance types",
+        "C. Using Reserved Instances for steady-state workloads",
+        "D. Keeping all resources running 24/7",
+        "E. Storing all data in S3 Standard regardless of access patterns"
+      ],
+      "correctAnswers": ["A", "C"],
+      "explanation": "Cost optimization strategies include right-sizing instances to match workload requirements, using Reserved Instances or Savings Plans for predictable workloads, and choosing appropriate storage classes based on access patterns."
+    },
+    {
+      "id": 62,
+      "domain": "Cloud Technology and Services",
+      "topic": "Messaging",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS service implements a publish/subscribe (pub/sub) messaging pattern?",
+      "options": [
+        "A. Amazon SQS",
+        "B. Amazon SNS",
+        "C. Amazon Kinesis",
+        "D. AWS Step Functions"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon SNS (Simple Notification Service) is a pub/sub messaging service that enables you to send messages to multiple subscribers, including email, SMS, mobile push, and HTTP endpoints."
+    },
+    {
+      "id": 63,
+      "domain": "Security and Compliance",
+      "topic": "Monitoring",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which service continuously monitors and records AWS resource configurations for compliance auditing?",
+      "options": [
+        "A. AWS CloudTrail",
+        "B. Amazon CloudWatch",
+        "C. AWS Config",
+        "D. AWS Systems Manager"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "AWS Config continuously monitors and records your AWS resource configurations, allowing you to audit and evaluate configurations against desired settings for compliance and troubleshooting."
+    },
+    {
+      "id": 64,
+      "domain": "Cloud Technology and Services",
+      "topic": "Elastic Beanstalk",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What level of control does AWS Elastic Beanstalk provide over infrastructure?",
+      "options": [
+        "A. No control - fully abstracted",
+        "B. Full control over all underlying resources",
+        "C. Control over application deployment with automatic infrastructure management",
+        "D. Control only over database configuration"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Elastic Beanstalk automatically handles capacity provisioning, load balancing, and auto-scaling, but you retain full control over the underlying resources and can access them directly if needed."
+    },
+    {
+      "id": 65,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "AWS Pricing Calculator",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What is the purpose of the AWS Pricing Calculator?",
+      "options": [
+        "A. To view your current AWS bill",
+        "B. To estimate the cost of AWS services for your use case",
+        "C. To automatically optimize your AWS costs",
+        "D. To purchase Reserved Instances"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "The AWS Pricing Calculator allows you to explore AWS services and create cost estimates for your use cases without needing an AWS account. It helps in planning and budgeting."
+    },
+    {
+      "id": 66,
+      "domain": "Cloud Technology and Services",
+      "topic": "Direct Connect",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the primary benefit of using AWS Direct Connect over a VPN connection?",
+      "options": [
+        "A. Lower cost",
+        "B. Faster to set up",
+        "C. More consistent network performance and higher bandwidth",
+        "D. Better encryption"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "AWS Direct Connect provides a dedicated private connection from your data center to AWS, offering more consistent network performance, reduced bandwidth costs, and higher throughput compared to Internet-based connections."
+    },
+    {
+      "id": 67,
+      "domain": "Security and Compliance",
+      "topic": "Compliance",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which compliance program is specifically for payment card industry requirements?",
+      "options": [
+        "A. HIPAA",
+        "B. SOC 2",
+        "C. PCI DSS",
+        "D. FedRAMP"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "PCI DSS (Payment Card Industry Data Security Standard) is a set of security standards designed to ensure that companies that accept, process, store, or transmit credit card information maintain a secure environment."
+    },
+    {
+      "id": 68,
+      "domain": "Cloud Technology and Services",
+      "topic": "Database - Aurora",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What are the database engines compatible with Amazon Aurora?",
+      "options": [
+        "A. Oracle and SQL Server",
+        "B. MySQL and PostgreSQL",
+        "C. MongoDB and Cassandra",
+        "D. MariaDB and Oracle"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Aurora is compatible with MySQL and PostgreSQL, offering up to 5x the performance of MySQL and 3x the performance of PostgreSQL at a fraction of the cost of commercial databases."
+    },
+    {
+      "id": 69,
+      "domain": "Cloud Concepts",
+      "topic": "Elasticity",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What does elasticity mean in cloud computing?",
+      "options": [
+        "A. The ability to manually add resources when needed",
+        "B. The ability to automatically scale resources up or down based on demand",
+        "C. The ability to move workloads between regions",
+        "D. The ability to restore from backups"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Elasticity is the ability to automatically acquire and release resources as needed to match demand, ensuring you have the right amount of resources at any given time without over or under-provisioning."
+    },
+    {
+      "id": 70,
+      "domain": "Cloud Technology and Services",
+      "topic": "AI Services",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS service provides image and video analysis capabilities?",
+      "options": [
+        "A. Amazon Comprehend",
+        "B. Amazon Rekognition",
+        "C. Amazon Polly",
+        "D. Amazon Transcribe"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Rekognition is a service that makes it easy to add image and video analysis to applications using proven, highly scalable, deep learning technology."
+    },
+    {
+      "id": 71,
+      "domain": "Security and Compliance",
+      "topic": "MFA",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What does MFA stand for in AWS security?",
+      "options": [
+        "A. Multiple Factor Authentication",
+        "B. Multi-Factor Authentication",
+        "C. Managed Factor Authorization",
+        "D. Multi-Firewall Access"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "MFA stands for Multi-Factor Authentication, which adds an extra layer of protection by requiring both a password and a second factor (like a code from an authenticator app) to sign in."
+    },
+    {
+      "id": 72,
+      "domain": "Cloud Technology and Services",
+      "topic": "Storage - S3 Lifecycle",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What can S3 Lifecycle policies be used for?",
+      "options": [
+        "A. Automatically delete or transition objects between storage classes",
+        "B. Automatically encrypt objects",
+        "C. Automatically replicate objects to other buckets",
+        "D. Automatically compress objects"
+      ],
+      "correctAnswers": ["A"],
+      "explanation": "S3 Lifecycle policies allow you to automatically transition objects between storage classes or expire (delete) objects based on age, helping optimize storage costs."
+    },
+    {
+      "id": 73,
+      "domain": "Cloud Technology and Services",
+      "topic": "Lambda",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the maximum execution time for an AWS Lambda function?",
+      "options": [
+        "A. 5 minutes",
+        "B. 10 minutes",
+        "C. 15 minutes",
+        "D. 30 minutes"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "AWS Lambda functions have a maximum execution timeout of 15 minutes. For longer-running tasks, consider using ECS, EC2, or Step Functions."
+    },
+    {
+      "id": 74,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Support Plans",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What is the response time for a production system down issue with Business Support?",
+      "options": [
+        "A. 15 minutes",
+        "B. 30 minutes",
+        "C. 1 hour",
+        "D. 4 hours"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Business Support provides a 1-hour response time for production system down issues. Enterprise Support provides 15 minutes for business-critical system down."
+    },
+    {
+      "id": 75,
+      "domain": "Cloud Technology and Services",
+      "topic": "Database - ElastiCache",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which caching engines does Amazon ElastiCache support? (Select TWO)",
+      "options": [
+        "A. Redis",
+        "B. Memcached",
+        "C. Varnish",
+        "D. HAProxy",
+        "E. Nginx"
+      ],
+      "correctAnswers": ["A", "B"],
+      "explanation": "Amazon ElastiCache supports two open-source in-memory caching engines: Redis and Memcached. Both provide sub-millisecond latency for caching use cases."
+    },
+    {
+      "id": 76,
+      "domain": "Cloud Concepts",
+      "topic": "Cloud Economics",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which of the following represents a Capital Expenditure (CapEx)?",
+      "options": [
+        "A. Monthly AWS bill for services used",
+        "B. Purchasing physical servers for a data center",
+        "C. Paying for Lambda function executions",
+        "D. S3 storage costs"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Capital Expenditure (CapEx) refers to upfront purchases of physical infrastructure like servers and data centers. Cloud services like AWS represent Operational Expenditure (OpEx)."
+    },
+    {
+      "id": 77,
+      "domain": "Cloud Technology and Services",
+      "topic": "Networking - VPC",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What allows instances in a private subnet to access the internet for updates while remaining private?",
+      "options": [
+        "A. Internet Gateway",
+        "B. NAT Gateway",
+        "C. VPN Gateway",
+        "D. Direct Connect"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "A NAT Gateway enables instances in private subnets to connect to the internet (for updates, patches) while preventing inbound connections from the internet."
+    },
+    {
+      "id": 78,
+      "domain": "Security and Compliance",
+      "topic": "Encryption",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which type of encryption protects data while it is being transmitted over a network?",
+      "options": [
+        "A. Encryption at rest",
+        "B. Encryption in transit",
+        "C. Encryption in use",
+        "D. Client-side encryption"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Encryption in transit protects data as it moves between locations (e.g., from your application to AWS services) using protocols like TLS/SSL. Encryption at rest protects stored data."
+    },
+    {
+      "id": 79,
+      "domain": "Cloud Technology and Services",
+      "topic": "SNS vs SQS",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What is the primary difference between Amazon SNS and Amazon SQS?",
+      "options": [
+        "A. SNS is push-based; SQS is pull-based",
+        "B. SNS is pull-based; SQS is push-based",
+        "C. SNS stores messages; SQS doesn't",
+        "D. There is no difference"
+      ],
+      "correctAnswers": ["A"],
+      "explanation": "SNS is a push notification service that sends messages to subscribers immediately. SQS is a message queue where consumers pull messages when ready. SNS is pub/sub; SQS is point-to-point."
+    },
+    {
+      "id": 80,
+      "domain": "Cloud Technology and Services",
+      "topic": "EC2 Instance Types",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which EC2 instance family is optimized for memory-intensive applications?",
+      "options": [
+        "A. C5 (Compute Optimized)",
+        "B. R5 (Memory Optimized)",
+        "C. T3 (General Purpose)",
+        "D. I3 (Storage Optimized)"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "R-family instances (like R5, R6) are memory-optimized and designed for memory-intensive applications like in-memory databases, big data analytics, and real-time processing."
+    },
+    {
+      "id": 81,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Savings Plans",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which services are covered by AWS Compute Savings Plans?",
+      "options": [
+        "A. Only EC2",
+        "B. EC2, Lambda, and Fargate",
+        "C. All AWS compute services",
+        "D. EC2 and RDS"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Compute Savings Plans provide flexibility across EC2, Lambda, and Fargate usage, regardless of instance family, size, OS, tenancy, or Region."
+    },
+    {
+      "id": 82,
+      "domain": "Cloud Technology and Services",
+      "topic": "Database - RDS Read Replicas",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the primary purpose of Amazon RDS Read Replicas?",
+      "options": [
+        "A. Automatic failover for high availability",
+        "B. Scale read-heavy database workloads",
+        "C. Backup and disaster recovery",
+        "D. Encrypt data at rest"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Read Replicas are used to scale out read-heavy workloads by offloading read queries from the primary database. Multi-AZ is used for high availability and failover."
+    },
+    {
+      "id": 83,
+      "domain": "Security and Compliance",
+      "topic": "Security Groups",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "By default, what traffic do security groups allow?",
+      "options": [
+        "A. All inbound and outbound traffic",
+        "B. All outbound traffic; no inbound traffic",
+        "C. All inbound traffic; no outbound traffic",
+        "D. No traffic in either direction"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "By default, security groups allow all outbound traffic and deny all inbound traffic. You must explicitly add inbound rules to allow traffic to your instances."
+    },
+    {
+      "id": 84,
+      "domain": "Cloud Technology and Services",
+      "topic": "CloudFront",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the benefit of using CloudFront with S3?",
+      "options": [
+        "A. Increased storage capacity",
+        "B. Lower latency for global users",
+        "C. Automatic data encryption",
+        "D. Reduced storage costs"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "CloudFront is a CDN that caches S3 content at edge locations worldwide, providing lower latency and faster delivery to users regardless of their geographic location."
+    },
+    {
+      "id": 85,
+      "domain": "Cloud Concepts",
+      "topic": "Agility",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "How does cloud computing increase agility for organizations?",
+      "options": [
+        "A. By reducing the need for IT staff",
+        "B. By making resources available in minutes instead of weeks",
+        "C. By eliminating all security concerns",
+        "D. By reducing all operational costs to zero"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Cloud computing increases agility by allowing organizations to provision resources in minutes rather than weeks, enabling faster experimentation, innovation, and time to market."
+    },
+    {
+      "id": 86,
+      "domain": "Cloud Technology and Services",
+      "topic": "S3 Transfer Acceleration",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the purpose of S3 Transfer Acceleration?",
+      "options": [
+        "A. Encrypt data during upload",
+        "B. Speed up long-distance file transfers to S3 using CloudFront edge locations",
+        "C. Automatically compress files",
+        "D. Replicate data across regions"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "S3 Transfer Acceleration uses CloudFront's globally distributed edge locations to accelerate uploads to S3, improving transfer speeds for users far from the bucket's region."
+    },
+    {
+      "id": 87,
+      "domain": "Security and Compliance",
+      "topic": "AWS Organizations - SCPs",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What are Service Control Policies (SCPs) used for in AWS Organizations?",
+      "options": [
+        "A. Set billing budgets for accounts",
+        "B. Define maximum available permissions for accounts in an organization",
+        "C. Configure network access rules",
+        "D. Automate resource tagging"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "SCPs are a type of organization policy that you can use to manage permissions in your organization. They set the maximum available permissions and don't grant permissions themselves."
+    },
+    {
+      "id": 88,
+      "domain": "Cloud Technology and Services",
+      "topic": "Systems Manager",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS Systems Manager capability allows you to securely connect to EC2 instances without SSH keys or bastion hosts?",
+      "options": [
+        "A. Run Command",
+        "B. Session Manager",
+        "C. Parameter Store",
+        "D. Patch Manager"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Session Manager provides secure and auditable instance management without the need to open inbound ports, maintain bastion hosts, or manage SSH keys."
+    },
+    {
+      "id": 89,
+      "domain": "Cloud Technology and Services",
+      "topic": "Database - DynamoDB",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What type of scaling does DynamoDB provide?",
+      "options": [
+        "A. Manual scaling only",
+        "B. Automatic horizontal scaling",
+        "C. Automatic vertical scaling",
+        "D. No scaling capabilities"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "DynamoDB automatically scales horizontally to handle increased traffic by distributing data across multiple partitions, providing seamless performance at any scale."
+    },
+    {
+      "id": 90,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Reserved Instances",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the difference between Standard and Convertible Reserved Instances?",
+      "options": [
+        "A. Standard RIs cost more",
+        "B. Convertible RIs allow you to change instance families; Standard RIs don't",
+        "C. Standard RIs have longer commitment terms",
+        "D. Convertible RIs don't provide any discount"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Convertible Reserved Instances allow you to change instance families, operating systems, and tenancies, while Standard RIs offer higher discounts but less flexibility."
+    },
+    {
+      "id": 91,
+      "domain": "Cloud Technology and Services",
+      "topic": "Migration - Database Migration Service",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is AWS Database Migration Service (DMS) primarily used for?",
+      "options": [
+        "A. Backing up databases",
+        "B. Migrating databases to AWS with minimal downtime",
+        "C. Monitoring database performance",
+        "D. Creating database replicas for testing"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS DMS helps you migrate databases to AWS quickly and securely. The source database remains fully operational during migration, minimizing downtime."
+    },
+    {
+      "id": 92,
+      "domain": "Cloud Technology and Services",
+      "topic": "AI Services - Comprehend",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What does Amazon Comprehend do?",
+      "options": [
+        "A. Converts text to speech",
+        "B. Analyzes images and videos",
+        "C. Performs natural language processing to extract insights from text",
+        "D. Translates text between languages"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Amazon Comprehend uses natural language processing (NLP) to extract insights and relationships from text, including sentiment analysis, entity recognition, and topic modeling."
+    },
+    {
+      "id": 93,
+      "domain": "Security and Compliance",
+      "topic": "Inspector",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What does Amazon Inspector assess?",
+      "options": [
+        "A. Network traffic patterns",
+        "B. Security vulnerabilities and deviations from best practices",
+        "C. Cost optimization opportunities",
+        "D. Database query performance"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Inspector automatically assesses applications for security vulnerabilities and deviations from best practices, providing detailed findings prioritized by severity."
+    },
+    {
+      "id": 94,
+      "domain": "Cloud Technology and Services",
+      "topic": "EBS Snapshots",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Where are EBS snapshots stored?",
+      "options": [
+        "A. On the EC2 instance",
+        "B. In Amazon S3",
+        "C. In Amazon Glacier",
+        "D. On the EBS volume"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "EBS snapshots are automatically stored in Amazon S3 with built-in redundancy across multiple Availability Zones within a region, though you don't directly access them through S3."
+    },
+    {
+      "id": 95,
+      "domain": "Cloud Concepts",
+      "topic": "Well-Architected Framework",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which Well-Architected pillar includes the principle 'Implement a strong identity foundation'?",
+      "options": [
+        "A. Operational Excellence",
+        "B. Security",
+        "C. Reliability",
+        "D. Cost Optimization"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "The Security pillar includes implementing a strong identity foundation as one of its key design principles, emphasizing the principle of least privilege and IAM best practices."
+    },
+    {
+      "id": 96,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Cost Anomaly Detection",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What does AWS Cost Anomaly Detection use to identify unusual spending?",
+      "options": [
+        "A. Manual rules you configure",
+        "B. Machine learning",
+        "C. CloudWatch alarms",
+        "D. Trusted Advisor checks"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Cost Anomaly Detection uses machine learning to automatically detect and alert you to unusual spending patterns, helping you identify cost overruns quickly."
+    },
+    {
+      "id": 97,
+      "domain": "Cloud Technology and Services",
+      "topic": "Kinesis",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "Which Kinesis service is used to load streaming data into AWS data stores?",
+      "options": [
+        "A. Kinesis Data Streams",
+        "B. Kinesis Data Firehose",
+        "C. Kinesis Data Analytics",
+        "D. Kinesis Video Streams"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Kinesis Data Firehose is the easiest way to load streaming data into data stores and analytics tools like S3, Redshift, Elasticsearch, and Splunk with minimal configuration."
+    },
+    {
+      "id": 98,
+      "domain": "Cloud Technology and Services",
+      "topic": "CloudFormation",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What format(s) can AWS CloudFormation templates be written in?",
+      "options": [
+        "A. JSON only",
+        "B. YAML only",
+        "C. JSON or YAML",
+        "D. XML or JSON"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "CloudFormation templates can be written in either JSON or YAML format, allowing you to define infrastructure as code using whichever format you prefer."
+    },
+    {
+      "id": 99,
+      "domain": "Security and Compliance",
+      "topic": "Secrets Manager",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is AWS Secrets Manager used for?",
+      "options": [
+        "A. Managing encryption keys",
+        "B. Storing and rotating database credentials and API keys",
+        "C. Creating SSL/TLS certificates",
+        "D. Monitoring security threats"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Secrets Manager helps you protect access to applications, services, and IT resources by enabling you to easily rotate, manage, and retrieve database credentials, API keys, and other secrets."
+    },
+    {
+      "id": 100,
+      "domain": "Cloud Technology and Services",
+      "topic": "Step Functions",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is AWS Step Functions used for?",
+      "options": [
+        "A. Managing IAM policies",
+        "B. Orchestrating workflows and coordinating multiple AWS services",
+        "C. Monitoring application performance",
+        "D. Storing application state"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Step Functions is a serverless workflow orchestration service that lets you coordinate multiple AWS services into serverless workflows using visual workflows called state machines."
+    },
+    {
+      "id": 101,
+      "domain": "Cloud Concepts",
+      "topic": "High Availability",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS best practice helps achieve high availability?",
+      "options": [
+        "A. Deploy resources in a single Availability Zone",
+        "B. Deploy resources across multiple Availability Zones",
+        "C. Use only the largest instance types",
+        "D. Store all backups in the same region as production"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Deploying resources across multiple Availability Zones helps achieve high availability by protecting against failures in a single data center or AZ."
+    },
+    {
+      "id": 102,
+      "domain": "Cloud Technology and Services",
+      "topic": "Lightsail",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "Who is Amazon Lightsail designed for?",
+      "options": [
+        "A. Enterprise customers running complex architectures",
+        "B. Users who need simple virtual private servers with predictable pricing",
+        "C. Machine learning engineers",
+        "D. Database administrators only"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Lightsail is designed for users who need simple virtual private servers with predictable monthly pricing, making it ideal for simple web applications, blogs, and small businesses."
+    },
+    {
+      "id": 103,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Free Tier Types",
+      "difficulty": "medium",
+      "questionType": "multiple-choice",
+      "question": "Which services have always-free tier offerings? (Select TWO)",
+      "options": [
+        "A. Amazon DynamoDB (25 GB storage)",
+        "B. Amazon EC2 (750 hours per month)",
+        "C. AWS Lambda (1 million requests per month)",
+        "D. Amazon RDS (750 hours per month)",
+        "E. Amazon S3 (5 GB storage)"
+      ],
+      "correctAnswers": ["A", "C"],
+      "explanation": "DynamoDB (25 GB storage, 25 provisioned capacity units) and Lambda (1 million requests per month) are always free. EC2, RDS, and S3 free tiers expire after 12 months."
+    },
+    {
+      "id": 104,
+      "domain": "Cloud Technology and Services",
+      "topic": "Global Accelerator",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What is AWS Global Accelerator used for?",
+      "options": [
+        "A. Caching content at edge locations",
+        "B. Improving availability and performance using AWS global network",
+        "C. Accelerating database queries",
+        "D. Speeding up EC2 instance launches"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Global Accelerator improves availability and performance of applications by routing traffic through AWS's global network infrastructure to optimal endpoints based on health, geography, and routing policies."
+    },
+    {
+      "id": 105,
+      "domain": "Security and Compliance",
+      "topic": "CloudHSM",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "When should you use AWS CloudHSM instead of AWS KMS?",
+      "options": [
+        "A. When you need simple encryption key management",
+        "B. When you require dedicated hardware security modules for regulatory compliance",
+        "C. When you want the lowest cost option",
+        "D. When you need automatic key rotation"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "CloudHSM provides dedicated hardware security modules in the AWS Cloud for customers who require dedicated hardware for regulatory compliance or additional control over key management."
+    },
+    {
+      "id": 106,
+      "domain": "Cloud Technology and Services",
+      "topic": "API Gateway",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is Amazon API Gateway commonly used with?",
+      "options": [
+        "A. Amazon RDS",
+        "B. AWS Lambda",
+        "C. Amazon S3",
+        "D. Amazon DynamoDB"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon API Gateway is commonly used with AWS Lambda to create serverless APIs, though it can also be used with EC2, ECS, and other AWS services."
+    },
+    {
+      "id": 107,
+      "domain": "Cloud Technology and Services",
+      "topic": "X-Ray",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is AWS X-Ray used for?",
+      "options": [
+        "A. Encrypting data",
+        "B. Analyzing and debugging distributed applications",
+        "C. Monitoring costs",
+        "D. Managing IAM policies"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS X-Ray helps developers analyze and debug distributed applications, providing insights into how applications and underlying services are performing to identify bottlenecks."
+    },
+    {
+      "id": 108,
+      "domain": "Cloud Concepts",
+      "topic": "Fault Tolerance",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the difference between high availability and fault tolerance?",
+      "options": [
+        "A. There is no difference",
+        "B. High availability minimizes downtime; fault tolerance has zero downtime",
+        "C. Fault tolerance is cheaper to implement",
+        "D. High availability requires manual intervention"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "High availability focuses on minimizing downtime with quick recovery. Fault tolerance is designed to continue operating without interruption even when components fail, typically at higher cost."
+    },
+    {
+      "id": 109,
+      "domain": "Cloud Technology and Services",
+      "topic": "WorkSpaces",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What is Amazon WorkSpaces?",
+      "options": [
+        "A. A project management tool",
+        "B. A managed desktop-as-a-service (DaaS) solution",
+        "C. A collaboration platform",
+        "D. A development environment"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon WorkSpaces is a managed, secure Desktop-as-a-Service (DaaS) solution that allows users to access their cloud-based desktops from anywhere."
+    },
+    {
+      "id": 110,
+      "domain": "Cloud Technology and Services",
+      "topic": "AppSync",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What type of APIs does AWS AppSync create?",
+      "options": [
+        "A. REST APIs",
+        "B. SOAP APIs",
+        "C. GraphQL APIs",
+        "D. gRPC APIs"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "AWS AppSync is a managed service that uses GraphQL to make it easy for applications to get exactly the data they need, enabling real-time data synchronization."
+    },
+    {
+      "id": 111,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Support Plans",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "How many Trusted Advisor checks are available with Basic and Developer support?",
+      "options": [
+        "A. All checks",
+        "B. 7 core checks",
+        "C. 14 checks",
+        "D. No checks"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Basic and Developer support plans have access to 7 core Trusted Advisor checks. Business and Enterprise plans have access to all checks."
+    },
+    {
+      "id": 112,
+      "domain": "Cloud Technology and Services",
+      "topic": "Batch",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What type of workloads is AWS Batch designed for?",
+      "options": [
+        "A. Real-time streaming",
+        "B. Batch computing jobs at any scale",
+        "C. Interactive web applications",
+        "D. Database transactions"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Batch enables you to run batch computing workloads on AWS, dynamically provisioning the optimal quantity and type of compute resources based on volume and requirements."
+    },
+    {
+      "id": 113,
+      "domain": "Security and Compliance",
+      "topic": "Certificate Manager",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What does AWS Certificate Manager (ACM) provide?",
+      "options": [
+        "A. Encryption keys for S3",
+        "B. Free SSL/TLS certificates for AWS services",
+        "C. Identity management",
+        "D. Network security"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Certificate Manager provides free public SSL/TLS certificates for use with AWS services like ELB, CloudFront, and API Gateway, with automatic renewal."
+    },
+    {
+      "id": 114,
+      "domain": "Cloud Technology and Services",
+      "topic": "EventBridge",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What was Amazon EventBridge previously called?",
+      "options": [
+        "A. Amazon SNS",
+        "B. CloudWatch Events",
+        "C. AWS Step Functions",
+        "D. Amazon SQS"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon EventBridge is an evolution of CloudWatch Events, providing a serverless event bus service that makes it easy to connect applications using events."
+    },
+    {
+      "id": 115,
+      "domain": "Cloud Concepts",
+      "topic": "Scalability",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the difference between vertical and horizontal scaling?",
+      "options": [
+        "A. Vertical adds more instances; horizontal increases instance size",
+        "B. Vertical increases instance size; horizontal adds more instances",
+        "C. They are the same thing",
+        "D. Vertical is for databases; horizontal is for compute"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Vertical scaling (scale up) means increasing the size/power of individual resources. Horizontal scaling (scale out) means adding more instances. Cloud excels at horizontal scaling."
+    },
+    {
+      "id": 116,
+      "domain": "Cloud Technology and Services",
+      "topic": "Glue",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is AWS Glue primarily used for?",
+      "options": [
+        "A. Monitoring applications",
+        "B. ETL (Extract, Transform, Load) operations",
+        "C. Deploying applications",
+        "D. Managing databases"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Glue is a fully managed ETL (Extract, Transform, Load) service that makes it easy to prepare and transform data for analytics, with a serverless architecture."
+    },
+    {
+      "id": 117,
+      "domain": "Cloud Technology and Services",
+      "topic": "QuickSight",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is Amazon QuickSight?",
+      "options": [
+        "A. A monitoring service",
+        "B. A business intelligence and data visualization service",
+        "C. A machine learning service",
+        "D. A content delivery network"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon QuickSight is a fast, cloud-powered business intelligence service that makes it easy to create and publish interactive dashboards with ML-powered insights."
+    },
+    {
+      "id": 118,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Cost and Usage Report",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Where is the AWS Cost and Usage Report delivered?",
+      "options": [
+        "A. Via email",
+        "B. To an S3 bucket",
+        "C. Through the AWS Console only",
+        "D. Via SNS notification"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "The AWS Cost and Usage Report is delivered to an S3 bucket you specify, providing the most comprehensive cost and usage data available in CSV or Parquet format."
+    },
+    {
+      "id": 119,
+      "domain": "Cloud Technology and Services",
+      "topic": "Control Tower",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What is AWS Control Tower used for?",
+      "options": [
+        "A. Monitoring application performance",
+        "B. Setting up and governing a secure multi-account AWS environment",
+        "C. Managing single AWS accounts",
+        "D. Deploying applications"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Control Tower provides an easy way to set up and govern a secure, multi-account AWS environment based on best practices, using pre-configured guardrails and account blueprints."
+    },
+    {
+      "id": 120,
+      "domain": "Security and Compliance",
+      "topic": "Detective",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What does Amazon Detective help with?",
+      "options": [
+        "A. Preventing security incidents",
+        "B. Investigating potential security issues and finding root causes",
+        "C. Encrypting data",
+        "D. Managing access policies"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Detective makes it easy to analyze, investigate, and quickly identify the root cause of potential security issues or suspicious activities using machine learning and graph theory."
+    }
+  ]
+}
