@@ -1,0 +1,613 @@
+\chapter{Additional AWS Services and Advanced Topics}
+
+\section{Developer Tools and CI/CD}
+
+\subsection{AWS CodeCommit}
+\begin{itemize}
+  \item Git-based source control repository
+  \item Secure, highly available
+  \item No size limits on repositories
+  \item Integrates with existing Git tools
+  \item Encrypted at rest and in transit
+  \item Free tier: 5 active users per month
+\end{itemize}
+
+\subsection{AWS CodeBuild}
+\begin{itemize}
+  \item Fully managed build service
+  \item Compiles source code, runs tests, produces packages
+  \item Scales automatically
+  \item Pay only for build time
+  \item Pre-configured environments or custom Docker images
+  \item Integrates with CodeCommit, GitHub, Bitbucket
+\end{itemize}
+
+\subsection{AWS CodeDeploy}
+\begin{itemize}
+  \item Automated deployment service
+  \item Deploy to EC2, Lambda, on-premises servers
+  \item Deployment strategies: In-place, blue/green
+  \item Automatic rollback on failure
+  \item Integration with existing CI/CD tools
+  \item No additional charge (pay for resources)
+\end{itemize}
+
+\subsection{AWS CodePipeline}
+\begin{itemize}
+  \item Continuous delivery service
+  \item Automates release pipeline
+  \item Integrates with CodeCommit, CodeBuild, CodeDeploy
+  \item Third-party integrations (GitHub, Jenkins)
+  \item Visual workflow builder
+  \item \$1 per active pipeline per month
+\end{itemize}
+
+\subsection{AWS CodeStar}
+\begin{itemize}
+  \item Unified user interface for development activities
+  \item Quickly develop, build, and deploy applications
+  \item Project templates for various languages and platforms
+  \item Integrated dashboard for monitoring
+  \item Team collaboration features
+  \item No additional charge
+\end{itemize}
+
+\subsection{AWS Cloud9}
+\begin{itemize}
+  \item Cloud-based IDE (Integrated Development Environment)
+  \item Write, run, and debug code in browser
+  \item Supports 40+ programming languages
+  \item Built-in terminal with AWS CLI
+  \item Collaborative coding features
+  \item Pay only for underlying EC2 instance
+\end{itemize}
+
+\section{Application Integration Services}
+
+\subsection{Amazon EventBridge}
+\begin{itemize}
+  \item Serverless event bus service
+  \item Connect applications using events
+  \item Formerly CloudWatch Events
+  \item Event sources: AWS services, custom applications, SaaS apps
+  \item Event patterns for filtering
+  \item Multiple targets per rule
+  \item Pay per event
+\end{itemize}
+
+\subsection{Amazon MQ}
+\begin{itemize}
+  \item Managed message broker service
+  \item Supports Apache ActiveMQ and RabbitMQ
+  \item For migrating existing applications using message brokers
+  \item Alternative to SNS/SQS for specific protocols
+  \item Industry-standard APIs and protocols (MQTT, AMQP, STOMP)
+  \item Single-instance or active/standby deployment
+\end{itemize}
+
+\subsection{AWS App Mesh}
+\begin{itemize}
+  \item Service mesh for microservices
+  \item Monitor and control communications
+  \item Works with ECS, EKS, EC2
+  \item Provides observability, traffic management
+  \item Based on Envoy proxy
+  \item No additional charge (pay for resources)
+\end{itemize}
+
+\section{End User Computing}
+
+\subsection{Amazon WorkSpaces}
+\begin{itemize}
+  \item Managed Desktop-as-a-Service (DaaS)
+  \item Virtual Windows or Linux desktops
+  \item Access from any device
+  \item Persistent desktop storage
+  \item Integrated with Active Directory
+  \item Pricing: Monthly or hourly
+  \item Use cases: Remote work, contractors, BYOD
+\end{itemize}
+
+\subsection{Amazon AppStream 2.0}
+\begin{itemize}
+  \item Application streaming service
+  \item Stream desktop applications to browser
+  \item No need to install applications locally
+  \item Scales automatically
+  \item Pay as you go
+  \item Use cases: Training, POC, software trials
+\end{itemize}
+
+\subsection{Amazon WorkDocs}
+\begin{itemize}
+  \item Secure document storage and collaboration
+  \item Similar to Dropbox or Google Drive
+  \item 1 TB storage per user
+  \item File comments and feedback
+  \item Active Directory integration
+  \item Mobile and desktop apps
+\end{itemize}
+
+\subsection{Amazon WorkLink}
+\begin{itemize}
+  \item Secure mobile access to internal websites
+  \item No VPN required
+  \item Renders content in browser on AWS
+  \item Only pixels sent to device
+  \item Protects corporate network
+  \item Per user per month pricing
+\end{itemize}
+
+\section{IoT Services}
+
+\subsection{AWS IoT Core}
+\begin{itemize}
+  \item Connect IoT devices to cloud
+  \item Supports billions of devices
+  \item MQTT, HTTPS, WebSockets protocols
+  \item Device shadow for state management
+  \item Rules engine for data processing
+  \item Integration with other AWS services
+\end{itemize}
+
+\subsection{AWS IoT Greengrass}
+\begin{itemize}
+  \item Extend AWS to edge devices
+  \item Local compute, messaging, and data caching
+  \item Run Lambda functions at the edge
+  \item Operate offline
+  \item Secure communication with cloud
+  \item ML inference at edge
+\end{itemize}
+
+\subsection{AWS IoT Analytics}
+\begin{itemize}
+  \item Analytics for IoT data
+  \item Process and analyze IoT data
+  \item Pre-built analytics templates
+  \item Integration with QuickSight
+  \item SQL queries on time-series data
+  \item Machine learning integration
+\end{itemize}
+
+\section{Media Services}
+
+\subsection{Amazon Elastic Transcoder}
+\begin{itemize}
+  \item Convert media files between formats
+  \item Scalable media transcoding
+  \item Pre-configured presets
+  \item Pay per minute of transcoding
+  \item Integration with S3, CloudFront
+\end{itemize}
+
+\subsection{AWS Elemental MediaConvert}
+\begin{itemize}
+  \item File-based video transcoding
+  \item Broadcast-grade features
+  \item Supports various formats and codecs
+  \item On-demand or reserved pricing
+  \item More advanced than Elastic Transcoder
+\end{itemize}
+
+\subsection{Amazon Kinesis Video Streams}
+\begin{itemize}
+  \item Capture, process, and store video streams
+  \item Millions of devices
+  \item Playback, analytics, ML integration
+  \item Use cases: Security cameras, live streaming
+  \item Pay for data ingested and consumed
+\end{itemize}
+
+\section{Additional AI/ML Services}
+
+\subsection{Amazon Polly}
+\begin{itemize}
+  \item Text-to-speech service
+  \item Natural sounding speech
+  \item Multiple languages and voices
+  \item Neural TTS for more natural sound
+  \item Pay per character
+  \item Use cases: E-learning, accessibility
+\end{itemize}
+
+\subsection{Amazon Transcribe}
+\begin{itemize}
+  \item Automatic speech recognition (ASR)
+  \item Convert speech to text
+  \item Real-time and batch processing
+  \item Speaker identification
+  \item Custom vocabulary
+  \item Pay per second of audio
+\end{itemize}
+
+\subsection{Amazon Translate}
+\begin{itemize}
+  \item Neural machine translation
+  \item Translate text between languages
+  \item 75+ languages supported
+  \item Custom terminology
+  \item Pay per character
+  \item Use cases: Localization, content creation
+\end{itemize}
+
+\subsection{Amazon Forecast}
+\begin{itemize}
+  \item Time-series forecasting service
+  \item Uses machine learning
+  \item No ML expertise required
+  \item More accurate than traditional methods
+  \item Use cases: Demand forecasting, resource planning
+\end{itemize}
+
+\subsection{Amazon Kendra}
+\begin{itemize}
+  \item Intelligent search service
+  \item ML-powered enterprise search
+  \item Natural language queries
+  \item Learns from user interactions
+  \item Connects to various data sources
+\end{itemize}
+
+\subsection{Amazon Personalize}
+\begin{itemize}
+  \item Real-time recommendations
+  \item Same technology as Amazon.com
+  \item No ML expertise required
+  \item Real-time and batch recommendations
+  \item Use cases: Product recommendations, personalized content
+\end{itemize}
+
+\subsection{Amazon Textract}
+\begin{itemize}
+  \item Extract text and data from documents
+  \item OCR and form recognition
+  \item Preserves structure and relationships
+  \item Works with PDFs, images
+  \item Pay per page
+\end{itemize}
+
+\section{Business Applications}
+
+\subsection{Amazon Connect}
+\begin{itemize}
+  \item Cloud-based contact center
+  \item Omnichannel customer service
+  \item AI-powered chatbots
+  \item Pay as you go
+  \item Integration with other AWS services
+  \item Use cases: Customer support, helpdesk
+\end{itemize}
+
+\subsection{Amazon Simple Email Service (SES)}
+\begin{itemize}
+  \item Email sending and receiving
+  \item Transactional and marketing emails
+  \item High deliverability
+  \item Pay per email sent
+  \item Free tier: 62,000 emails/month (from EC2)
+  \item Email validation and filtering
+\end{itemize}
+
+\subsection{Amazon Pinpoint}
+\begin{itemize}
+  \item Marketing communication service
+  \item Email, SMS, push notifications
+  \item Customer segmentation
+  \item Campaign management
+  \item Analytics and engagement metrics
+  \item Pay for messages sent
+\end{itemize}
+
+\subsection{AWS WorkMail}
+\begin{itemize}
+  \item Managed email and calendar service
+  \item Alternative to Exchange/Gmail
+  \item Web-based access
+  \item Mobile and desktop clients
+  \item Active Directory integration
+  \item \$4 per user per month
+\end{itemize}
+
+\subsection{Amazon Chime}
+\begin{itemize}
+  \item Video conferencing and communication
+  \item Meetings, chat, business calling
+  \item Screen sharing
+  \item Per user per day pricing
+  \item Alternative to Zoom, Teams
+\end{itemize}
+
+\section{Management and Governance (Advanced)}
+
+\subsection{AWS License Manager}
+\begin{itemize}
+  \item Manage software licenses
+  \item Track license usage
+  \item Set usage limits
+  \item Prevent license violations
+  \item Works with Microsoft, Oracle, SAP, etc.
+\end{itemize}
+
+\subsection{AWS Service Catalog}
+\begin{itemize}
+  \item Create and manage catalogs of IT services
+  \item Standardized products
+  \item Control which services users can deploy
+  \item Version control for products
+  \item Governance and compliance
+  \item Self-service portal for end users
+\end{itemize}
+
+\subsection{AWS Well-Architected Tool}
+\begin{itemize}
+  \item Review workload architecture
+  \item Compare against best practices
+  \item Six pillars assessment
+  \item Get improvement plan
+  \item Free service
+  \item Periodic reviews recommended
+\end{itemize}
+
+\subsection{AWS Personal Health Dashboard}
+\begin{itemize}
+  \item Personalized view of AWS service health
+  \item Alerts for service events affecting you
+  \item Proactive notifications
+  \item Remediation guidance
+  \item Available to all customers
+  \item Different from Service Health Dashboard (global status)
+\end{itemize}
+
+\subsection{AWS Compute Optimizer}
+\begin{itemize}
+  \item Recommends optimal AWS resources
+  \item ML-based recommendations
+  \item Analyzes historical utilization
+  \item Suggests EC2 instance types, EBS volumes, Lambda memory
+  \item Cost savings opportunities
+  \item No additional charge
+\end{itemize}
+
+\section{Migration and Transfer Services}
+
+\subsection{AWS Application Discovery Service}
+\begin{itemize}
+  \item Discover on-premises applications
+  \item Plan migrations
+  \item Collect server utilization and dependency data
+  \item Agentless or agent-based discovery
+  \item Export data for analysis
+  \item Integration with Migration Hub
+\end{itemize}
+
+\subsection{AWS Migration Hub}
+\begin{itemize}
+  \item Track application migrations
+  \item Single location to monitor migrations
+  \item Works with migration tools
+  \item Visualize migration progress
+  \item No additional cost
+\end{itemize}
+
+\subsection{AWS Server Migration Service (SMS)}
+\begin{itemize}
+  \item Migrate on-premises servers to AWS
+  \item Incremental replication
+  \item Minimal downtime
+  \item Supports VMware, Hyper-V, Azure
+  \item No additional charge
+  \item Being replaced by Application Migration Service
+\end{itemize}
+
+\subsection{AWS DataSync}
+\begin{itemize}
+  \item Transfer data between on-premises and AWS
+  \item Up to 10x faster than open-source tools
+  \item Automated data transfer
+  \item Supports NFS, SMB protocols
+  \item Transfers to S3, EFS, FSx
+  \item Pay per GB transferred
+\end{itemize}
+
+\subsection{AWS Transfer Family}
+\begin{itemize}
+  \item Fully managed SFTP, FTPS, FTP
+  \item Transfer files to/from S3 or EFS
+  \item No infrastructure to manage
+  \item Integration with existing auth systems
+  \item Pay per protocol enabled + data transfer
+\end{itemize}
+
+\section{Networking (Advanced)}
+
+\subsection{AWS Global Accelerator}
+\begin{itemize}
+  \item Improve availability and performance
+  \item Uses AWS global network
+  \item Static anycast IP addresses
+  \item Automatic failover
+  \item Health checks
+  \item Use cases: Gaming, IoT, VoIP
+  \item Different from CloudFront (not caching)
+\end{itemize}
+
+\subsection{AWS App Mesh}
+\begin{itemize}
+  \item Service mesh for microservices
+  \item Monitor and control communications
+  \item Works with ECS, EKS, EC2
+  \item Based on Envoy proxy
+  \item Traffic management, observability
+\end{itemize}
+
+\subsection{AWS Cloud Map}
+\begin{itemize}
+  \item Service discovery
+  \item Register application resources
+  \item Discover services via API or DNS
+  \item Health checking
+  \item Integration with ECS, EKS
+\end{itemize}
+
+\section{Additional Storage Services}
+
+\subsection{Amazon FSx}
+\begin{itemize}
+  \item Fully managed file systems
+  \item \textbf{FSx for Windows File Server}:
+  \begin{itemize}
+    \item Windows native file system
+    \item SMB protocol
+    \item Active Directory integration
+    \item For Windows applications
+  \end{itemize}
+  \item \textbf{FSx for Lustre}:
+  \begin{itemize}
+    \item High-performance file system
+    \item ML, HPC, video processing
+    \item Integration with S3
+    \item Sub-millisecond latencies
+  \end{itemize}
+\end{itemize}
+
+\subsection{AWS Backup}
+\begin{itemize}
+  \item Centralized backup service
+  \item Automate and manage backups
+  \item Backup across AWS services
+  \item Backup policies and retention
+  \item Compliance reporting
+  \item Pay for storage used
+\end{itemize}
+
+\section{Blockchain and Quantum}
+
+\subsection{Amazon Managed Blockchain}
+\begin{itemize}
+  \item Create and manage blockchain networks
+  \item Supports Hyperledger Fabric and Ethereum
+  \item Fully managed
+  \item Scales automatically
+  \item Use cases: Supply chain, finance
+\end{itemize}
+
+\subsection{Amazon Braket}
+\begin{itemize}
+  \item Quantum computing service
+  \item Develop quantum algorithms
+  \item Test on quantum simulators
+  \item Run on quantum hardware
+  \item Pay for simulation and quantum tasks
+\end{itemize}
+
+\section{Exam Tips for Service Selection}
+
+\subsection{Database Selection Decision Tree}
+
+\textbf{Choose Database Based on Requirements}:
+
+\begin{itemize}
+  \item \textbf{Need SQL and ACID transactions?}
+  \begin{itemize}
+    \item Traditional app, existing database → \textbf{RDS}
+    \item Need extreme performance → \textbf{Aurora}
+    \item Specific needs: Oracle/SQL Server → \textbf{RDS} with that engine
+  \end{itemize}
+
+  \item \textbf{Need NoSQL?}
+  \begin{itemize}
+    \item Key-value, scale to millions of requests/sec → \textbf{DynamoDB}
+    \item Document database, MongoDB compatible → \textbf{DocumentDB}
+    \item Graph relationships → \textbf{Neptune}
+  \end{itemize}
+
+  \item \textbf{Need caching?}
+  \begin{itemize}
+    \item In-memory cache → \textbf{ElastiCache}
+    \item Redis features needed → ElastiCache for Redis
+    \item Simple caching → ElastiCache for Memcached
+  \end{itemize}
+
+  \item \textbf{Need data warehouse/analytics?}
+  \begin{itemize}
+    \item OLAP, BI, big data → \textbf{Redshift}
+    \item Query data in S3 → \textbf{Athena}
+    \item Real-time analytics → \textbf{Kinesis Data Analytics}
+  \end{itemize}
+
+  \item \textbf{Time-series data?}
+  \begin{itemize}
+    \item IoT, metrics, logs → \textbf{Timestream}
+  \end{itemize}
+\end{itemize}
+
+\subsection{Compute Selection Flowchart}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{5cm}|p{5cm}|p{4cm}|}
+\hline
+\textbf{Requirement} & \textbf{Best Choice} & \textbf{Why} \\
+\hline
+
+Full OS control & EC2 & Complete flexibility \\
+\hline
+
+Serverless, event-driven & Lambda & No servers, pay per use \\
+\hline
+
+Deploy app quickly & Elastic Beanstalk & PaaS, managed \\
+\hline
+
+Containers, Kubernetes & EKS & Kubernetes compatible \\
+\hline
+
+Containers, AWS native & ECS & Simpler than EKS \\
+\hline
+
+Containers, no servers & Fargate & Serverless containers \\
+\hline
+
+Batch processing & AWS Batch & Optimized for batch \\
+\hline
+
+Simple website, blog & Lightsail & Predictable pricing \\
+\hline
+\caption{Compute Service Selection}
+\end{tabular}
+\end{table}
+
+\subsection{Storage Selection Guide}
+
+\begin{longtable}{|p{4cm}|p{5cm}|p{5cm}|}
+\hline
+\textbf{Use Case} & \textbf{Service} & \textbf{Reason} \\
+\hline
+\endhead
+
+Backups, archives & S3 Glacier & Lowest cost \\
+\hline
+
+Website content & S3 + CloudFront & Scalable, global \\
+\hline
+
+EC2 boot volume & EBS & Block storage \\
+\hline
+
+Shared file system & EFS & Multi-attach \\
+\hline
+
+Windows file shares & FSx for Windows & SMB, AD integration \\
+\hline
+
+HPC workloads & FSx for Lustre & High performance \\
+\hline
+
+Temporary data & Instance Store & Highest IOPS \\
+\hline
+
+Offline transfer & Snow Family & Large data volumes \\
+\hline
+\caption{Storage Selection Guide}
+\end{longtable}

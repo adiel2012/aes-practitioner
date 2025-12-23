@@ -2,7 +2,7 @@
   "examInfo": {
     "title": "AWS Certified Cloud Practitioner Practice Exam",
     "examCode": "CLF-C02",
-    "totalQuestions": 65,
+    "totalQuestions": 200,
     "passingScore": 700,
     "duration": 90,
     "domains": [
@@ -1953,6 +1953,1295 @@
       ],
       "correctAnswers": ["B"],
       "explanation": "Amazon Detective makes it easy to analyze, investigate, and quickly identify the root cause of potential security issues or suspicious activities using machine learning and graph theory."
+    },
+    {
+      "id": 121,
+      "domain": "Cloud Technology and Services",
+      "topic": "EMR",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is Amazon EMR (Elastic MapReduce) primarily used for?",
+      "options": [
+        "A. Managing relational databases",
+        "B. Processing and analyzing large amounts of data using big data frameworks",
+        "C. Deploying web applications",
+        "D. Content delivery"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon EMR is a managed cluster platform that simplifies running big data frameworks like Apache Hadoop, Spark, and Presto to process and analyze vast amounts of data."
+    },
+    {
+      "id": 122,
+      "domain": "Security and Compliance",
+      "topic": "IAM Policies",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "A company wants to ensure that users can only access S3 buckets from within their corporate network. Which IAM policy condition should they use?",
+      "options": [
+        "A. aws:SourceVpc",
+        "B. aws:SourceIp",
+        "C. aws:SecureTransport",
+        "D. aws:UserAgent"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "The aws:SourceIp condition key restricts access based on the requester's IP address, allowing you to limit access to resources from specific IP ranges like corporate networks."
+    },
+    {
+      "id": 123,
+      "domain": "Cloud Concepts",
+      "topic": "Well-Architected Framework",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which Well-Architected Framework pillar focuses on making trade-offs between cost and performance?",
+      "options": [
+        "A. Cost Optimization",
+        "B. Performance Efficiency",
+        "C. Both A and B",
+        "D. Operational Excellence"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Both Cost Optimization and Performance Efficiency pillars involve making informed trade-offs. Cost Optimization focuses on avoiding unnecessary costs while Performance Efficiency focuses on using resources efficiently to meet requirements."
+    },
+    {
+      "id": 124,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Support Plans",
+      "difficulty": "medium",
+      "questionType": "multiple-choice",
+      "question": "Which support plans include access to AWS Support API for automated support case management? (Select TWO)",
+      "options": [
+        "A. Basic",
+        "B. Developer",
+        "C. Business",
+        "D. Enterprise",
+        "E. All plans"
+      ],
+      "correctAnswers": ["C", "D"],
+      "explanation": "The AWS Support API is available only with Business and Enterprise support plans, allowing programmatic access to AWS Support center features."
+    },
+    {
+      "id": 125,
+      "domain": "Cloud Technology and Services",
+      "topic": "Machine Learning - SageMaker",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "A data scientist needs to quickly deploy a pre-trained machine learning model. Which SageMaker feature should they use?",
+      "options": [
+        "A. SageMaker Studio",
+        "B. SageMaker Ground Truth",
+        "C. SageMaker JumpStart",
+        "D. SageMaker Neo"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "SageMaker JumpStart provides pre-trained models and solutions that can be deployed with just a few clicks, accelerating ML projects with ready-to-use models."
+    },
+    {
+      "id": 126,
+      "domain": "Security and Compliance",
+      "topic": "Encryption",
+      "difficulty": "medium",
+      "questionType": "multiple-choice",
+      "question": "Which AWS services provide encryption at rest by default? (Select TWO)",
+      "options": [
+        "A. Amazon S3 Glacier",
+        "B. Amazon EBS",
+        "C. AWS CloudTrail logs",
+        "D. Amazon EC2 instance storage",
+        "E. Amazon RDS"
+      ],
+      "correctAnswers": ["A", "C"],
+      "explanation": "S3 Glacier and CloudTrail logs are encrypted at rest by default. For EBS, RDS, and most other services, encryption at rest is optional and must be explicitly enabled."
+    },
+    {
+      "id": 127,
+      "domain": "Cloud Technology and Services",
+      "topic": "Networking - VPC Peering",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is VPC peering used for?",
+      "options": [
+        "A. Connecting a VPC to the internet",
+        "B. Connecting two VPCs privately using AWS's network",
+        "C. Monitoring VPC traffic",
+        "D. Creating subnets within a VPC"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "VPC peering allows you to connect two VPCs privately so that instances in either VPC can communicate as if they are within the same network, without going over the internet."
+    },
+    {
+      "id": 128,
+      "domain": "Cloud Concepts",
+      "topic": "Cloud Benefits",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "How does cloud computing eliminate the need to guess infrastructure capacity needs?",
+      "options": [
+        "A. By requiring upfront commitments",
+        "B. By providing fixed capacity allocations",
+        "C. By allowing you to scale up or down based on actual usage",
+        "D. By limiting resource growth"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Cloud computing allows you to scale resources up or down based on actual demand, eliminating the need to guess capacity requirements and avoiding over-provisioning or under-provisioning."
+    },
+    {
+      "id": 129,
+      "domain": "Security and Compliance",
+      "topic": "IAM",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is an IAM policy?",
+      "options": [
+        "A. A physical security measure",
+        "B. A JSON document that defines permissions",
+        "C. A type of encryption key",
+        "D. A network security rule"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "An IAM policy is a JSON document that defines permissions, specifying what actions are allowed or denied on which resources for users, groups, or roles."
+    },
+    {
+      "id": 130,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Cost Optimization",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "A company has variable workloads that spike unpredictably. They need guaranteed capacity for baseline requirements but want to save costs. Which combination is MOST cost-effective?",
+      "options": [
+        "A. 100% Reserved Instances",
+        "B. 100% On-Demand Instances",
+        "C. Reserved Instances for baseline + On-Demand for spikes",
+        "D. 100% Spot Instances"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Using Reserved Instances for predictable baseline capacity provides maximum savings, while On-Demand instances handle unpredictable spikes. Spot Instances aren't suitable for guaranteed capacity."
+    },
+    {
+      "id": 131,
+      "domain": "Cloud Technology and Services",
+      "topic": "Storage - S3 Cross-Region Replication",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the primary use case for S3 Cross-Region Replication (CRR)?",
+      "options": [
+        "A. Reducing storage costs",
+        "B. Disaster recovery and compliance with geographic data residency",
+        "C. Improving performance within a single region",
+        "D. Encrypting objects"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "S3 Cross-Region Replication automatically replicates objects across buckets in different AWS Regions, providing disaster recovery, compliance, and lower latency access for global users."
+    },
+    {
+      "id": 132,
+      "domain": "Cloud Technology and Services",
+      "topic": "Analytics - Athena",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "How are you charged for Amazon Athena?",
+      "options": [
+        "A. Per hour of cluster runtime",
+        "B. Per query executed",
+        "C. Per terabyte of data scanned",
+        "D. Fixed monthly fee"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Amazon Athena charges based on the amount of data scanned per query. You can reduce costs by compressing data, partitioning, or converting to columnar formats like Parquet."
+    },
+    {
+      "id": 133,
+      "domain": "Security and Compliance",
+      "topic": "Compliance Programs",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which compliance program is required for organizations handling protected health information (PHI)?",
+      "options": [
+        "A. PCI DSS",
+        "B. HIPAA",
+        "C. SOC 2",
+        "D. ISO 27001"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "HIPAA (Health Insurance Portability and Accountability Act) compliance is required for organizations that handle protected health information (PHI) in the healthcare industry."
+    },
+    {
+      "id": 134,
+      "domain": "Cloud Concepts",
+      "topic": "Global Infrastructure",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What is an AWS Edge Location?",
+      "options": [
+        "A. A full AWS Region",
+        "B. A data center for CloudFront content caching",
+        "C. A backup facility",
+        "D. An Availability Zone"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Edge Locations are data centers used by CloudFront to cache copies of content closer to users for faster delivery. There are many more Edge Locations than Regions or Availability Zones."
+    },
+    {
+      "id": 135,
+      "domain": "Cloud Technology and Services",
+      "topic": "Containers - ECS vs EKS",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What is the main difference between Amazon ECS and Amazon EKS?",
+      "options": [
+        "A. ECS is serverless; EKS requires servers",
+        "B. ECS uses AWS-native orchestration; EKS uses Kubernetes",
+        "C. ECS is more expensive than EKS",
+        "D. ECS doesn't support Docker containers"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "ECS is Amazon's native container orchestration service, while EKS is a managed Kubernetes service. EKS is ideal if you need Kubernetes compatibility or are migrating from on-premises Kubernetes."
+    },
+    {
+      "id": 136,
+      "domain": "Security and Compliance",
+      "topic": "Network Security",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "A company needs to protect its application from SQL injection attacks. Which service should they use?",
+      "options": [
+        "A. AWS Shield",
+        "B. AWS WAF",
+        "C. Amazon GuardDuty",
+        "D. AWS Firewall Manager"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS WAF (Web Application Firewall) protects web applications from common web exploits like SQL injection and cross-site scripting by allowing you to create custom security rules."
+    },
+    {
+      "id": 137,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Pricing Models",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which S3 storage class is the most cost-effective for data that is rarely accessed but must be retrieved immediately when needed?",
+      "options": [
+        "A. S3 Standard",
+        "B. S3 Intelligent-Tiering",
+        "C. S3 One Zone-IA",
+        "D. S3 Glacier Instant Retrieval"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "S3 One Zone-IA provides immediate access at the lowest cost for infrequently accessed data by storing data in a single AZ. S3 Glacier Instant Retrieval is cheaper but for archive storage."
+    },
+    {
+      "id": 138,
+      "domain": "Cloud Technology and Services",
+      "topic": "Application Integration",
+      "difficulty": "medium",
+      "questionType": "multiple-choice",
+      "question": "Which AWS services enable decoupling of application components? (Select TWO)",
+      "options": [
+        "A. Amazon SQS",
+        "B. Amazon EC2",
+        "C. Amazon SNS",
+        "D. Amazon S3",
+        "E. AWS Lambda"
+      ],
+      "correctAnswers": ["A", "C"],
+      "explanation": "Amazon SQS (queue service) and Amazon SNS (pub/sub messaging) are specifically designed for decoupling application components, allowing them to operate independently and scale separately."
+    },
+    {
+      "id": 139,
+      "domain": "Cloud Concepts",
+      "topic": "Migration Strategies",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "A company wants to re-architect its application to take full advantage of cloud-native features. Which migration strategy should they use?",
+      "options": [
+        "A. Rehosting",
+        "B. Replatforming",
+        "C. Refactoring/Re-architecting",
+        "D. Repurchasing"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Refactoring (or re-architecting) involves reimagining how the application is architected and developed using cloud-native features, offering the most benefits but requiring the most effort."
+    },
+    {
+      "id": 140,
+      "domain": "Security and Compliance",
+      "topic": "Data Protection",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which service automatically discovers and classifies sensitive data like credit card numbers and social security numbers in S3?",
+      "options": [
+        "A. Amazon Inspector",
+        "B. Amazon Macie",
+        "C. Amazon GuardDuty",
+        "D. AWS Config"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Macie uses machine learning to automatically discover, classify, and protect sensitive data such as PII (Personally Identifiable Information) and financial data stored in S3."
+    },
+    {
+      "id": 141,
+      "domain": "Cloud Technology and Services",
+      "topic": "Database - Purpose-Built",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "Which database service should you use for a leaderboard application that needs to maintain rankings in real-time?",
+      "options": [
+        "A. Amazon RDS",
+        "B. Amazon DynamoDB",
+        "C. Amazon ElastiCache for Redis with sorted sets",
+        "D. Amazon Aurora"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "ElastiCache for Redis provides sorted sets data structure, which is ideal for leaderboards and real-time ranking systems with sub-millisecond latency and automatic sorting."
+    },
+    {
+      "id": 142,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Resource Optimization",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which tool provides recommendations to help you reduce costs, increase performance, and improve security?",
+      "options": [
+        "A. AWS Cost Explorer",
+        "B. AWS Budgets",
+        "C. AWS Trusted Advisor",
+        "D. AWS Config"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "AWS Trusted Advisor inspects your AWS environment and provides real-time recommendations across cost optimization, performance, security, fault tolerance, and service limits."
+    },
+    {
+      "id": 143,
+      "domain": "Cloud Technology and Services",
+      "topic": "Serverless Architecture",
+      "difficulty": "medium",
+      "questionType": "multiple-choice",
+      "question": "Which services are considered serverless? (Select TWO)",
+      "options": [
+        "A. AWS Lambda",
+        "B. Amazon EC2",
+        "C. Amazon DynamoDB",
+        "D. Amazon RDS",
+        "E. Amazon ECS with EC2 launch type"
+      ],
+      "correctAnswers": ["A", "C"],
+      "explanation": "Lambda and DynamoDB are serverless services where you don't manage servers. EC2 and RDS require server management, and ECS with EC2 launch type requires managing EC2 instances."
+    },
+    {
+      "id": 144,
+      "domain": "Security and Compliance",
+      "topic": "Identity Federation",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "A company wants employees to use their existing corporate Active Directory credentials to access AWS. Which service should they use?",
+      "options": [
+        "A. IAM users",
+        "B. AWS Single Sign-On (AWS SSO)",
+        "C. Amazon Cognito",
+        "D. AWS Organizations"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Single Sign-On (now AWS IAM Identity Center) allows users to sign in with their existing corporate credentials through integration with Active Directory or SAML 2.0 identity providers."
+    },
+    {
+      "id": 145,
+      "domain": "Cloud Concepts",
+      "topic": "Design Principles",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which design principle suggests treating servers as disposable resources rather than fixed components?",
+      "options": [
+        "A. Monolithic architecture",
+        "B. Infrastructure as code",
+        "C. Cattle vs Pets",
+        "D. Vertical scaling"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "The 'Cattle vs Pets' principle treats servers as disposable resources (cattle) that can be easily replaced, rather than unique servers (pets) that require individual care and management."
+    },
+    {
+      "id": 146,
+      "domain": "Cloud Technology and Services",
+      "topic": "AI Services - Transcribe",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What does Amazon Transcribe do?",
+      "options": [
+        "A. Converts text to speech",
+        "B. Converts speech to text",
+        "C. Translates text between languages",
+        "D. Analyzes sentiment"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Transcribe is an automatic speech recognition (ASR) service that converts audio to text, supporting features like speaker identification and custom vocabularies."
+    },
+    {
+      "id": 147,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Tagging",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is a primary benefit of implementing a tagging strategy for AWS resources?",
+      "options": [
+        "A. Improved security",
+        "B. Cost allocation and tracking by project or department",
+        "C. Faster resource provisioning",
+        "D. Automatic backups"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Resource tagging enables cost allocation tracking, allowing you to organize and track AWS costs by project, department, environment, or any custom category for better financial management."
+    },
+    {
+      "id": 148,
+      "domain": "Security and Compliance",
+      "topic": "Penetration Testing",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is AWS's policy on penetration testing?",
+      "options": [
+        "A. It is completely prohibited",
+        "B. It requires prior approval for all AWS services",
+        "C. It is permitted for most services without prior approval",
+        "D. It is only allowed by AWS staff"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "AWS allows penetration testing for most services without prior approval, though certain prohibited activities and some services still require approval. You must follow the AWS Customer Support Policy for Penetration Testing."
+    },
+    {
+      "id": 149,
+      "domain": "Cloud Technology and Services",
+      "topic": "Deployment Services",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which service automates code deployments to maintain application uptime during updates?",
+      "options": [
+        "A. AWS CodeCommit",
+        "B. AWS CodeBuild",
+        "C. AWS CodeDeploy",
+        "D. AWS CodePipeline"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "AWS CodeDeploy is a deployment service that automates application deployments to EC2, Lambda, ECS, and on-premises servers, providing features like rolling deployments and rollback."
+    },
+    {
+      "id": 150,
+      "domain": "Cloud Concepts",
+      "topic": "Cloud Computing Models",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "Which cloud computing model gives you the MOST control over the underlying infrastructure?",
+      "options": [
+        "A. Software as a Service (SaaS)",
+        "B. Platform as a Service (PaaS)",
+        "C. Infrastructure as a Service (IaaS)",
+        "D. Function as a Service (FaaS)"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "IaaS provides the most control, giving you access to virtual machines, storage, and networks. You manage the OS and applications. PaaS and SaaS abstract more infrastructure details."
+    },
+    {
+      "id": 151,
+      "domain": "Cloud Technology and Services",
+      "topic": "IoT Services",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS service helps you connect and manage billions of IoT devices?",
+      "options": [
+        "A. AWS IoT Core",
+        "B. Amazon Kinesis",
+        "C. AWS Lambda",
+        "D. Amazon SNS"
+      ],
+      "correctAnswers": ["A"],
+      "explanation": "AWS IoT Core is a managed cloud service that lets connected devices easily and securely interact with cloud applications and other devices, supporting billions of devices and trillions of messages."
+    },
+    {
+      "id": 152,
+      "domain": "Security and Compliance",
+      "topic": "Disaster Recovery",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "Which disaster recovery strategy has the lowest RTO (Recovery Time Objective) but highest cost?",
+      "options": [
+        "A. Backup and Restore",
+        "B. Pilot Light",
+        "C. Warm Standby",
+        "D. Multi-Site Active-Active"
+      ],
+      "correctAnswers": ["D"],
+      "explanation": "Multi-Site Active-Active runs full production workloads in multiple locations simultaneously, providing near-zero RTO but at the highest cost. Backup and Restore has the highest RTO but lowest cost."
+    },
+    {
+      "id": 153,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Support Plans",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which support plan is the minimum required for access to AWS Infrastructure Event Management?",
+      "options": [
+        "A. Basic",
+        "B. Developer",
+        "C. Business",
+        "D. Enterprise"
+      ],
+      "correctAnswers": ["D"],
+      "explanation": "AWS Infrastructure Event Management is available only with Enterprise Support, providing architectural and operational guidance for planned events like product launches or migrations."
+    },
+    {
+      "id": 154,
+      "domain": "Cloud Technology and Services",
+      "topic": "AI Services - Polly",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What does Amazon Polly do?",
+      "options": [
+        "A. Converts speech to text",
+        "B. Converts text to lifelike speech",
+        "C. Translates text between languages",
+        "D. Recognizes objects in images"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Polly is a text-to-speech service that uses advanced deep learning technologies to synthesize natural-sounding human speech in multiple languages and voices."
+    },
+    {
+      "id": 155,
+      "domain": "Cloud Technology and Services",
+      "topic": "Edge Computing",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS service brings compute and storage services to the edge for 5G and IoT applications?",
+      "options": [
+        "A. AWS Outposts",
+        "B. AWS Wavelength",
+        "C. AWS Local Zones",
+        "D. AWS Direct Connect"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Wavelength embeds AWS compute and storage services within telecommunications providers' data centers at the edge of the 5G network, minimizing latency for mobile applications."
+    },
+    {
+      "id": 156,
+      "domain": "Security and Compliance",
+      "topic": "IAM Roles",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is the advantage of using IAM roles instead of IAM users for applications?",
+      "options": [
+        "A. Roles are easier to create",
+        "B. Roles provide temporary credentials that rotate automatically",
+        "C. Roles don't require permissions",
+        "D. Roles are less secure"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "IAM roles provide temporary security credentials that are automatically rotated, eliminating the need to embed long-term credentials in applications and reducing security risks."
+    },
+    {
+      "id": 157,
+      "domain": "Cloud Concepts",
+      "topic": "Total Cost of Ownership",
+      "difficulty": "medium",
+      "questionType": "multiple-choice",
+      "question": "Which costs are eliminated when moving from on-premises to AWS? (Select TWO)",
+      "options": [
+        "A. Software licensing fees",
+        "B. Hardware procurement and maintenance",
+        "C. Data center facility costs",
+        "D. Training costs",
+        "E. All operational costs"
+      ],
+      "correctAnswers": ["B", "C"],
+      "explanation": "Moving to AWS eliminates hardware procurement/maintenance and data center facility costs (power, cooling, space). Software licensing, training, and some operational costs still exist."
+    },
+    {
+      "id": 158,
+      "domain": "Cloud Technology and Services",
+      "topic": "Database - Neptune",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What type of database is Amazon Neptune?",
+      "options": [
+        "A. Relational database",
+        "B. NoSQL document database",
+        "C. Graph database",
+        "D. Time-series database"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Amazon Neptune is a fast, reliable, fully managed graph database service that makes it easy to build and run applications that work with highly connected datasets, supporting both property graph and RDF models."
+    },
+    {
+      "id": 159,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Data Transfer Costs",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which type of data transfer typically incurs charges?",
+      "options": [
+        "A. Data transfer from S3 to CloudFront",
+        "B. Data transfer between services in the same Availability Zone",
+        "C. Data transfer out to the internet",
+        "D. Data transfer into AWS from the internet"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Data transfer OUT to the internet from AWS services incurs charges. Data transfer IN is typically free, and transfers from S3 to CloudFront are also free."
+    },
+    {
+      "id": 160,
+      "domain": "Security and Compliance",
+      "topic": "Resource Access Manager",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What is AWS Resource Access Manager (RAM) used for?",
+      "options": [
+        "A. Managing IAM policies",
+        "B. Sharing AWS resources across accounts or within AWS Organizations",
+        "C. Monitoring resource usage",
+        "D. Encrypting data"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS RAM enables you to securely share your resources (like subnets, transit gateways, and license configurations) across AWS accounts or within your AWS Organization, avoiding resource duplication."
+    },
+    {
+      "id": 161,
+      "domain": "Cloud Technology and Services",
+      "topic": "Compute - Savings Plans",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "How do Compute Savings Plans differ from EC2 Instance Savings Plans?",
+      "options": [
+        "A. Compute Savings Plans offer higher discounts",
+        "B. Compute Savings Plans provide more flexibility across instance families and services",
+        "C. EC2 Instance Savings Plans cover Lambda",
+        "D. There is no difference"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Compute Savings Plans provide the most flexibility across EC2, Lambda, and Fargate, regardless of instance family. EC2 Instance Savings Plans offer higher discounts but less flexibility."
+    },
+    {
+      "id": 162,
+      "domain": "Cloud Concepts",
+      "topic": "Shared Responsibility Model",
+      "difficulty": "medium",
+      "questionType": "multiple-choice",
+      "question": "Which items are customer responsibilities in the AWS Shared Responsibility Model? (Select TWO)",
+      "options": [
+        "A. Physical security of data centers",
+        "B. Patching guest operating system on EC2",
+        "C. Network infrastructure maintenance",
+        "D. Configuring security groups and NACLs",
+        "E. Hardware disposal"
+      ],
+      "correctAnswers": ["B", "D"],
+      "explanation": "Customers are responsible for security IN the cloud, including guest OS patches and security group configuration. AWS handles physical security, infrastructure, and hardware disposal."
+    },
+    {
+      "id": 163,
+      "domain": "Cloud Technology and Services",
+      "topic": "AI Services - Lex",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is Amazon Lex used for?",
+      "options": [
+        "A. Image recognition",
+        "B. Building conversational interfaces using voice and text (chatbots)",
+        "C. Text translation",
+        "D. Video analysis"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Lex is a service for building conversational interfaces (chatbots) using voice and text, powered by the same technology as Amazon Alexa, with automatic speech recognition and natural language understanding."
+    },
+    {
+      "id": 164,
+      "domain": "Security and Compliance",
+      "topic": "Security Hub",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What does AWS Security Hub provide?",
+      "options": [
+        "A. Firewall rules management",
+        "B. Centralized view of security alerts and compliance status across AWS accounts",
+        "C. Encryption key management",
+        "D. User authentication services"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Security Hub provides a comprehensive view of your security posture across AWS accounts, aggregating findings from multiple AWS security services and partner tools with continuous compliance checks."
+    },
+    {
+      "id": 165,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Cost Allocation Tags",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What must you do before you can use cost allocation tags in billing reports?",
+      "options": [
+        "A. Nothing, they work automatically",
+        "B. Activate the tags in the Billing and Cost Management console",
+        "C. Contact AWS Support",
+        "D. Enable CloudTrail"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "After applying tags to resources, you must activate them in the Billing and Cost Management console before they appear in cost allocation reports. It may take up to 24 hours for tags to activate."
+    },
+    {
+      "id": 166,
+      "domain": "Cloud Technology and Services",
+      "topic": "Database - Timestream",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What type of data is Amazon Timestream optimized for?",
+      "options": [
+        "A. Relational data",
+        "B. Time-series data like IoT sensor data and application metrics",
+        "C. Graph data",
+        "D. Document data"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Timestream is a fast, scalable, serverless time-series database service for IoT and operational applications, making it easy to store and analyze trillions of time-series events per day."
+    },
+    {
+      "id": 167,
+      "domain": "Cloud Concepts",
+      "topic": "Well-Architected Framework",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which Well-Architected Framework pillar includes the principle 'Adopt a consumption model'?",
+      "options": [
+        "A. Cost Optimization",
+        "B. Performance Efficiency",
+        "C. Sustainability",
+        "D. Operational Excellence"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "The Sustainability pillar includes 'Adopt a consumption model' as a design principle, encouraging you to use only the resources you need and scale down when demand decreases to minimize environmental impact."
+    },
+    {
+      "id": 168,
+      "domain": "Cloud Technology and Services",
+      "topic": "Migration - Application Discovery Service",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What does AWS Application Discovery Service help with?",
+      "options": [
+        "A. Discovering AWS services available in your region",
+        "B. Planning migration by gathering information about on-premises data centers",
+        "C. Finding security vulnerabilities",
+        "D. Discovering cost optimization opportunities"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Application Discovery Service helps plan migration projects by collecting usage and configuration data about on-premises servers, identifying server dependencies and configurations."
+    },
+    {
+      "id": 169,
+      "domain": "Security and Compliance",
+      "topic": "VPC Flow Logs",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What information do VPC Flow Logs capture?",
+      "options": [
+        "A. Application-level logs",
+        "B. IP traffic information going to and from network interfaces",
+        "C. User authentication attempts",
+        "D. API calls"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "VPC Flow Logs capture information about the IP traffic going to and from network interfaces in your VPC, helping with security analysis, troubleshooting, and compliance monitoring."
+    },
+    {
+      "id": 170,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Cost Optimization",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "A company has consistent S3 usage but unpredictable access patterns. Which storage class automatically optimizes costs?",
+      "options": [
+        "A. S3 Standard",
+        "B. S3 Standard-IA",
+        "C. S3 Intelligent-Tiering",
+        "D. S3 One Zone-IA"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "S3 Intelligent-Tiering automatically moves objects between access tiers based on changing access patterns, optimizing costs without performance impact or operational overhead, ideal for unpredictable access."
+    },
+    {
+      "id": 171,
+      "domain": "Cloud Technology and Services",
+      "topic": "AI Services - Translate",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What does Amazon Translate do?",
+      "options": [
+        "A. Converts speech to text",
+        "B. Converts text to speech",
+        "C. Translates text between languages",
+        "D. Analyzes sentiment"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Amazon Translate is a neural machine translation service that delivers fast, high-quality, and affordable language translation, supporting text translation between dozens of languages."
+    },
+    {
+      "id": 172,
+      "domain": "Cloud Concepts",
+      "topic": "DevOps Benefits",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "How does AWS support DevOps practices?",
+      "options": [
+        "A. By requiring manual server provisioning",
+        "B. By providing services for automation, CI/CD, and infrastructure as code",
+        "C. By limiting access to production environments",
+        "D. By enforcing waterfall development"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS supports DevOps through services like CodePipeline, CodeDeploy, CloudFormation, and Lambda that enable automation, continuous integration/deployment, and infrastructure as code."
+    },
+    {
+      "id": 173,
+      "domain": "Security and Compliance",
+      "topic": "IAM Access Analyzer",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What does IAM Access Analyzer help identify?",
+      "options": [
+        "A. Unused EC2 instances",
+        "B. Resources shared with external entities outside your AWS organization",
+        "C. Expensive resources",
+        "D. Unencrypted data"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "IAM Access Analyzer helps identify resources in your organization and accounts that are shared with external entities, helping you identify unintended access to your resources and data."
+    },
+    {
+      "id": 174,
+      "domain": "Cloud Technology and Services",
+      "topic": "Managed Services",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What does AWS Managed Services (AMS) provide?",
+      "options": [
+        "A. Free AWS training",
+        "B. Ongoing management and operations of AWS infrastructure",
+        "C. Discounted pricing",
+        "D. Additional AWS services"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Managed Services (AMS) operates AWS on your behalf, providing ongoing management of your AWS infrastructure following ITIL best practices, allowing your team to focus on application development."
+    },
+    {
+      "id": 175,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Marketplace",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is AWS Marketplace?",
+      "options": [
+        "A. A physical store for AWS hardware",
+        "B. A digital catalog of third-party software and services",
+        "C. A stock exchange for AWS credits",
+        "D. An auction site for unused Reserved Instances"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Marketplace is a digital catalog with thousands of software listings from independent software vendors that make it easy to find, test, buy, and deploy software that runs on AWS."
+    },
+    {
+      "id": 176,
+      "domain": "Cloud Technology and Services",
+      "topic": "Networking - Transit Gateway",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What problem does AWS Transit Gateway solve?",
+      "options": [
+        "A. Slow internet connections",
+        "B. Complex network topologies when connecting multiple VPCs and on-premises networks",
+        "C. High compute costs",
+        "D. Data encryption"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Transit Gateway acts as a hub that controls how traffic is routed among connected VPCs and on-premises networks, simplifying network architecture and reducing the number of connections needed."
+    },
+    {
+      "id": 177,
+      "domain": "Security and Compliance",
+      "topic": "Parameter Store",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is AWS Systems Manager Parameter Store used for?",
+      "options": [
+        "A. Storing and managing configuration data and secrets",
+        "B. Monitoring system performance",
+        "C. Managing EC2 instances",
+        "D. Creating backups"
+      ],
+      "correctAnswers": ["A"],
+      "explanation": "Parameter Store provides secure, hierarchical storage for configuration data and secrets management. It's useful for storing database strings, API keys, and license codes, with optional encryption."
+    },
+    {
+      "id": 178,
+      "domain": "Cloud Concepts",
+      "topic": "Cloud Economics",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What does 'pay-as-you-go' pricing mean?",
+      "options": [
+        "A. You pay a fixed monthly fee regardless of usage",
+        "B. You pay only for the resources you actually use",
+        "C. You must pay for resources upfront",
+        "D. You pay based on peak capacity needs"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Pay-as-you-go pricing means you pay only for the individual services you need, for as long as you use them, without long-term contracts or complex licensing dependencies."
+    },
+    {
+      "id": 179,
+      "domain": "Cloud Technology and Services",
+      "topic": "Cache - CloudFront",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "How does CloudFront improve application performance?",
+      "options": [
+        "A. By increasing compute power",
+        "B. By caching content at edge locations closer to users",
+        "C. By compressing all data automatically",
+        "D. By using faster network protocols"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "CloudFront caches copies of your content at edge locations around the world, serving content from the location closest to users, reducing latency and improving load times."
+    },
+    {
+      "id": 180,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Support Plans - Features",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "Which support plan includes access to a Well-Architected Review conducted by AWS Solutions Architects?",
+      "options": [
+        "A. Basic",
+        "B. Developer",
+        "C. Business",
+        "D. Enterprise"
+      ],
+      "correctAnswers": ["D"],
+      "explanation": "Enterprise Support includes consultative Well-Architected Reviews, Infrastructure Event Management, and access to a Technical Account Manager for proactive guidance and best practices."
+    },
+    {
+      "id": 181,
+      "domain": "Security and Compliance",
+      "topic": "Compliance",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which AWS service provides a compliance assessment for your AWS environment?",
+      "options": [
+        "A. AWS Artifact",
+        "B. AWS Audit Manager",
+        "C. AWS Config",
+        "D. AWS Inspector"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Audit Manager helps you continuously audit your AWS usage to simplify risk assessment and compliance with regulations and industry standards through automated evidence collection."
+    },
+    {
+      "id": 182,
+      "domain": "Cloud Technology and Services",
+      "topic": "Blockchain",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "Which AWS service allows you to create and manage blockchain networks?",
+      "options": [
+        "A. AWS Lambda",
+        "B. Amazon Managed Blockchain",
+        "C. Amazon QLDB",
+        "D. Amazon DynamoDB"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Managed Blockchain is a fully managed service that makes it easy to create and manage scalable blockchain networks using Hyperledger Fabric and Ethereum frameworks."
+    },
+    {
+      "id": 183,
+      "domain": "Cloud Concepts",
+      "topic": "Reliability Design",
+      "difficulty": "medium",
+      "questionType": "multiple-choice",
+      "question": "Which practices improve application reliability in AWS? (Select TWO)",
+      "options": [
+        "A. Deploying in a single Availability Zone",
+        "B. Implementing auto scaling",
+        "C. Using the largest instance size",
+        "D. Testing recovery procedures",
+        "E. Disabling monitoring to reduce overhead"
+      ],
+      "correctAnswers": ["B", "D"],
+      "explanation": "Auto scaling helps handle varying loads, and testing recovery procedures ensures you can recover from failures. Multi-AZ deployment and monitoring also improve reliability."
+    },
+    {
+      "id": 184,
+      "domain": "Cloud Technology and Services",
+      "topic": "Database - QLDB",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What makes Amazon QLDB unique compared to other database services?",
+      "options": [
+        "A. It's a graph database",
+        "B. It's an immutable, cryptographically verifiable ledger database",
+        "C. It's a time-series database",
+        "D. It's an in-memory cache"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon QLDB (Quantum Ledger Database) is a ledger database that provides a transparent, immutable, and cryptographically verifiable transaction log, useful for systems of record applications."
+    },
+    {
+      "id": 185,
+      "domain": "Security and Compliance",
+      "topic": "Network Firewall",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is AWS Network Firewall used for?",
+      "options": [
+        "A. Managing IAM policies",
+        "B. Filtering network traffic at the VPC perimeter",
+        "C. Encrypting data",
+        "D. Monitoring API calls"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Network Firewall is a managed service that makes it easy to deploy network protections across VPCs, providing fine-grained control over network traffic with stateful firewall capabilities."
+    },
+    {
+      "id": 186,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "EC2 Pricing",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which EC2 pricing model requires a 1 or 3-year commitment?",
+      "options": [
+        "A. On-Demand",
+        "B. Spot Instances",
+        "C. Reserved Instances",
+        "D. Dedicated Hosts"
+      ],
+      "correctAnswers": ["C"],
+      "explanation": "Reserved Instances require a commitment of 1 or 3 years in exchange for significant discounts (up to 75%) compared to On-Demand pricing."
+    },
+    {
+      "id": 187,
+      "domain": "Cloud Technology and Services",
+      "topic": "Developer Tools",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is AWS CodeCommit?",
+      "options": [
+        "A. A continuous integration service",
+        "B. A source control service (Git repository)",
+        "C. A deployment service",
+        "D. A build service"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS CodeCommit is a fully managed source control service that hosts secure Git-based repositories, making it easy for teams to collaborate on code in a secure and scalable ecosystem."
+    },
+    {
+      "id": 188,
+      "domain": "Cloud Concepts",
+      "topic": "Migration Strategies",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What does the 'Retain' migration strategy mean?",
+      "options": [
+        "A. Keep applications on-premises for now",
+        "B. Decommission the application",
+        "C. Move everything to the cloud immediately",
+        "D. Purchase new software"
+      ],
+      "correctAnswers": ["A"],
+      "explanation": "The Retain (or Revisit) strategy means keeping certain applications on-premises, either temporarily while planning migration or permanently if cloud migration doesn't make sense."
+    },
+    {
+      "id": 189,
+      "domain": "Security and Compliance",
+      "topic": "Credential Management",
+      "difficulty": "medium",
+      "questionType": "multiple-choice",
+      "question": "Which are IAM security best practices? (Select TWO)",
+      "options": [
+        "A. Regularly rotate access keys",
+        "B. Share root account credentials with your team",
+        "C. Use IAM roles for applications running on EC2",
+        "D. Grant full administrative access to all users",
+        "E. Disable MFA for convenience"
+      ],
+      "correctAnswers": ["A", "C"],
+      "explanation": "Best practices include rotating credentials regularly and using IAM roles instead of embedding credentials. Never share root credentials, always use least privilege, and enable MFA."
+    },
+    {
+      "id": 190,
+      "domain": "Cloud Technology and Services",
+      "topic": "HPC - ParallelCluster",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What is AWS ParallelCluster used for?",
+      "options": [
+        "A. Managing multiple EC2 instances",
+        "B. Deploying and managing High Performance Computing (HPC) clusters",
+        "C. Creating container clusters",
+        "D. Database clustering"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS ParallelCluster is an open-source cluster management tool that makes it easy to deploy and manage High Performance Computing (HPC) clusters on AWS for scientific and engineering applications."
+    },
+    {
+      "id": 191,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Organizations - Benefits",
+      "difficulty": "medium",
+      "questionType": "multiple-choice",
+      "question": "What are benefits of using AWS Organizations? (Select TWO)",
+      "options": [
+        "A. Centralized billing across all accounts",
+        "B. Free AWS support",
+        "C. Policy-based management with SCPs",
+        "D. Automatic cost optimization",
+        "E. Unlimited free tier usage"
+      ],
+      "correctAnswers": ["A", "C"],
+      "explanation": "AWS Organizations provides centralized billing with volume discounts and policy-based management through Service Control Policies. It doesn't provide free support or unlimited free tier."
+    },
+    {
+      "id": 192,
+      "domain": "Cloud Technology and Services",
+      "topic": "Quantum Computing",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "Which AWS service provides access to quantum computing?",
+      "options": [
+        "A. AWS Lambda",
+        "B. Amazon Braket",
+        "C. AWS Batch",
+        "D. Amazon SageMaker"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Amazon Braket is a fully managed quantum computing service that allows scientists and developers to explore and experiment with quantum computers from multiple providers."
+    },
+    {
+      "id": 193,
+      "domain": "Security and Compliance",
+      "topic": "DDoS Protection",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What additional protection does AWS Shield Advanced provide compared to Shield Standard?",
+      "options": [
+        "A. Protection against all types of attacks",
+        "B. 24/7 DDoS Response Team (DRT) support and cost protection",
+        "C. Free service",
+        "D. Automatic application deployment"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Shield Advanced provides 24/7 access to the DDoS Response Team, advanced attack mitigation, cost protection against scaling charges during attacks, and real-time visibility of attacks."
+    },
+    {
+      "id": 194,
+      "domain": "Cloud Concepts",
+      "topic": "Operational Excellence",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "Which practice aligns with the Operational Excellence pillar of the Well-Architected Framework?",
+      "options": [
+        "A. Manual deployment processes",
+        "B. Automating operations with infrastructure as code",
+        "C. Minimizing documentation",
+        "D. Avoiding monitoring"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Operational Excellence emphasizes automation, using infrastructure as code, making frequent small changes, learning from failures, and continuously improving operations through documentation and monitoring."
+    },
+    {
+      "id": 195,
+      "domain": "Cloud Technology and Services",
+      "topic": "Media Services",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is AWS Elemental MediaConvert used for?",
+      "options": [
+        "A. Live video streaming",
+        "B. Converting file-based video content for broadcast and multiscreen delivery",
+        "C. Storing video files",
+        "D. Video conferencing"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Elemental MediaConvert is a file-based video transcoding service that formats and compresses video content for delivery to televisions and connected devices."
+    },
+    {
+      "id": 196,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Personal Health Dashboard",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "What does AWS Personal Health Dashboard provide?",
+      "options": [
+        "A. Medical health monitoring",
+        "B. Personalized view of AWS service health affecting your resources",
+        "C. Cost optimization recommendations",
+        "D. Security vulnerability scans"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Personal Health Dashboard provides alerts and remediation guidance when AWS events might affect your resources, offering a personalized view of service health specific to your AWS environment."
+    },
+    {
+      "id": 197,
+      "domain": "Security and Compliance",
+      "topic": "Data Residency",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "How does AWS ensure data residency requirements are met?",
+      "options": [
+        "A. AWS automatically moves data to comply with regulations",
+        "B. Data stored in a Region stays in that Region unless you explicitly move it",
+        "C. All data is stored in the US by default",
+        "D. Data residency cannot be controlled"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS gives you control over data location. Data stored in an AWS Region remains in that Region unless you explicitly transfer it, helping you meet data residency and compliance requirements."
+    },
+    {
+      "id": 198,
+      "domain": "Cloud Technology and Services",
+      "topic": "Satellite",
+      "difficulty": "hard",
+      "questionType": "single-choice",
+      "question": "What does AWS Ground Station provide?",
+      "options": [
+        "A. On-premises AWS hardware",
+        "B. Satellite ground station as a service for communicating with satellites",
+        "C. IoT device management",
+        "D. Edge computing services"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "AWS Ground Station is a fully managed service that lets you control satellite communications, process satellite data, and scale operations without building or managing your own ground station infrastructure."
+    },
+    {
+      "id": 199,
+      "domain": "Cloud Concepts",
+      "topic": "Innovation Speed",
+      "difficulty": "easy",
+      "questionType": "single-choice",
+      "question": "How does cloud computing increase speed of innovation?",
+      "options": [
+        "A. By requiring lengthy approval processes",
+        "B. By providing quick access to new resources and services for experimentation",
+        "C. By limiting technology choices",
+        "D. By requiring upfront commitments"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "Cloud computing accelerates innovation by providing immediate access to new resources and technologies, enabling rapid experimentation, faster time to market, and the ability to fail fast and learn."
+    },
+    {
+      "id": 200,
+      "domain": "Billing, Pricing, and Support",
+      "topic": "Concierge Support",
+      "difficulty": "medium",
+      "questionType": "single-choice",
+      "question": "What is AWS Concierge Support Team?",
+      "options": [
+        "A. A team that handles technical issues",
+        "B. A billing and account assistance team included with Enterprise Support",
+        "C. A team that deploys applications",
+        "D. A security response team"
+      ],
+      "correctAnswers": ["B"],
+      "explanation": "The AWS Concierge Support Team is included with Enterprise Support and provides billing and account best practices guidance, helping with billing analysis and account management."
     }
   ]
 }

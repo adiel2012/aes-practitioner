@@ -1,0 +1,306 @@
+\chapter{Comprehensive Service Comparisons and Decision Trees}
+
+\section{Storage Services Detailed Comparison}
+
+\begin{longtable}{|p{2.5cm}|p{3cm}|p{3cm}|p{3cm}|p{2.5cm}|}
+\hline
+\textbf{Feature} & \textbf{Amazon S3} & \textbf{Amazon EBS} & \textbf{Amazon EFS} & \textbf{Instance Store} \\
+\hline
+\endhead
+
+Type & Object Storage & Block Storage & File Storage & Ephemeral Block \\
+\hline
+
+Use Case & Backups, archives, web content, data lakes & Boot volumes, databases, transactional data & Shared file systems, content management & Temporary data, caches, buffers \\
+\hline
+
+Access & HTTP/S API, SDK, CLI & Attached to EC2 instance & NFSv4 protocol, multiple EC2 instances & Direct attached to EC2 \\
+\hline
+
+Durability & 11 nines (99.999999999\%) & Replicated within AZ & Replicated across AZs in Region & Lost when instance stops \\
+\hline
+
+Scalability & Unlimited & Up to 64 TB per volume & Petabyte scale & Fixed to instance type \\
+\hline
+
+Performance & Varies by class & Up to 256,000 IOPS & Scales with size & Highest IOPS for instance \\
+\hline
+
+Cost & Low per GB, varies by class & \$0.08-0.125/GB-month & \$0.30/GB-month & Included with instance \\
+\hline
+
+Availability & 99.9-99.99\% SLA & 99.8-99.9\% & 99.99\% & Dependent on instance \\
+\hline
+
+Backup & Versioning, lifecycle & Snapshots to S3 & AWS Backup & Not persistent \\
+\hline
+
+Multi-AZ & Yes & No (single AZ) & Yes & No \\
+\hline
+
+Concurrent Access & Unlimited & Single EC2 instance & Thousands of instances & Single instance \\
+\hline
+\caption{Storage Services Comparison}
+\end{longtable}
+
+\section{Database Services Detailed Comparison}
+
+\begin{longtable}{|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2cm}|}
+\hline
+\textbf{Service} & \textbf{Type} & \textbf{Use Case} & \textbf{Scaling} & \textbf{Pricing Model} & \textbf{Managed} \\
+\hline
+\endhead
+
+RDS & Relational (SQL) & Traditional apps, OLTP & Vertical, Read Replicas & Instance + storage & Fully managed \\
+\hline
+
+Aurora & Relational (MySQL/PostgreSQL compatible) & High-performance OLTP & Auto-scaling storage & Serverless or provisioned & Fully managed \\
+\hline
+
+DynamoDB & NoSQL Key-Value & Web/mobile apps, gaming, IoT & Auto horizontal & On-demand or provisioned & Fully managed \\
+\hline
+
+Redshift & Data Warehouse (OLAP) & Analytics, BI, big data & Add nodes & Nodes + storage & Fully managed \\
+\hline
+
+ElastiCache & In-memory cache & Session stores, leaderboards & Add nodes & Nodes (hourly) & Fully managed \\
+\hline
+
+Neptune & Graph database & Social networks, recommendations & Vertical & Instances & Fully managed \\
+\hline
+
+DocumentDB & Document (MongoDB compatible) & Content management, catalogs & Vertical, replicas & Instances & Fully managed \\
+\hline
+
+Timestream & Time series & IoT, DevOps metrics & Auto & Storage + queries & Fully managed \\
+\hline
+\caption{Database Services Comparison}
+\end{longtable}
+
+\section{Compute Services Decision Tree}
+
+\textbf{Choose Your Compute Service:}
+
+\begin{itemize}
+  \item \textbf{Need full control over OS and configuration?}
+  \begin{itemize}
+    \item Yes → Use \textbf{EC2}
+    \item Want to save costs for predictable workloads? → Use \textbf{Reserved Instances}
+    \item Fault-tolerant batch workloads? → Use \textbf{Spot Instances}
+  \end{itemize}
+
+  \item \textbf{Want to run code without managing servers?}
+  \begin{itemize}
+    \item Event-driven, < 15 min execution → Use \textbf{Lambda}
+    \item Long-running, stateless → Use \textbf{Fargate}
+  \end{itemize}
+
+  \item \textbf{Need to deploy web applications quickly?}
+  \begin{itemize}
+    \item Simple deployment, don't want infrastructure management → Use \textbf{Elastic Beanstalk}
+    \item Need predictable pricing for small projects → Use \textbf{Lightsail}
+  \end{itemize}
+
+  \item \textbf{Using containers?}
+  \begin{itemize}
+    \item Want AWS-native orchestration → Use \textbf{ECS}
+    \item Need Kubernetes compatibility → Use \textbf{EKS}
+    \item Don't want to manage servers → Use \textbf{Fargate} (with ECS or EKS)
+  \end{itemize}
+
+  \item \textbf{Running batch processing jobs?}
+  \begin{itemize}
+    \item Use \textbf{AWS Batch}
+  \end{itemize}
+\end{itemize}
+
+\section{Networking Components Deep Dive}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{3cm}|p{5cm}|p{6cm}|}
+\hline
+\textbf{Component} & \textbf{Purpose} & \textbf{Key Points} \\
+\hline
+
+Internet Gateway (IGW) & Connect VPC to internet & One per VPC; enables internet access for public subnets \\
+\hline
+
+NAT Gateway & Outbound internet from private subnets & Highly available; placed in public subnet; charged per hour + data \\
+\hline
+
+NAT Instance & Alternative to NAT Gateway & EC2 instance; you manage; lower cost but less reliable \\
+\hline
+
+VPC Peering & Connect two VPCs & Non-transitive; can be cross-account/region; no overlapping CIDRs \\
+\hline
+
+Transit Gateway & Hub for connecting VPCs & Simplifies complex network topologies; central management \\
+\hline
+
+VPN Gateway & VPN connection to on-premises & IPsec VPN; encrypted over internet; quick setup \\
+\hline
+
+Direct Connect & Dedicated connection to on-premises & Private, consistent bandwidth; expensive; takes weeks to provision \\
+\hline
+
+VPC Endpoints & Private connection to AWS services & No internet required; Interface or Gateway endpoints; reduce costs \\
+\hline
+
+PrivateLink & Private connectivity to services & Access services in other VPCs; doesn't require VPC peering \\
+\hline
+\caption{VPC Components}
+\end{tabular}
+\end{table}
+
+\section{Load Balancer Detailed Comparison}
+
+\begin{longtable}{|p{3cm}|p{4cm}|p{4cm}|p{4cm}|}
+\hline
+\textbf{Feature} & \textbf{ALB} & \textbf{NLB} & \textbf{Gateway LB} \\
+\hline
+\endhead
+
+OSI Layer & Layer 7 (Application) & Layer 4 (Transport) & Layer 3 (Network) \\
+\hline
+
+Protocol & HTTP, HTTPS, WebSocket & TCP, UDP, TLS & IP \\
+\hline
+
+Routing & Path-based, host-based, query string & IP address, port & N/A \\
+\hline
+
+Use Case & Web applications, microservices & High performance, low latency, static IP & Third-party appliances \\
+\hline
+
+Target Types & IP, instance, Lambda & IP, instance, ALB & IP, instance \\
+\hline
+
+Performance & Good & Extreme (millions req/sec) & High \\
+\hline
+
+Static IP & No (DNS only) & Yes (Elastic IP) & N/A \\
+\hline
+
+SSL Termination & Yes & Yes & No \\
+\hline
+
+WebSocket & Yes & Yes & No \\
+\hline
+
+Health Checks & Advanced & Basic & Advanced \\
+\hline
+
+Pricing & Per hour + LCU & Per hour + LCU & Per hour + LCU \\
+\hline
+\caption{Load Balancer Types Comparison}
+\end{longtable}
+
+\section{Security Services Complete Matrix}
+
+\begin{longtable}{|p{3.5cm}|p{5cm}|p{5.5cm}|}
+\hline
+\textbf{Service} & \textbf{What It Does} & \textbf{When to Use} \\
+\hline
+\endhead
+
+IAM & Identity and access management & Control who can access what in AWS \\
+\hline
+
+AWS Organizations & Multi-account management & Centralize billing, apply policies across accounts \\
+\hline
+
+AWS SSO & Single sign-on & Centrally manage access to multiple accounts and applications \\
+\hline
+
+Cognito & User authentication for apps & Add sign-up/sign-in to mobile and web apps \\
+\hline
+
+Directory Service & Managed Active Directory & Integrate AWS with existing Microsoft AD \\
+\hline
+
+Secrets Manager & Store and rotate secrets & Automatically rotate database credentials \\
+\hline
+
+KMS & Encryption key management & Create and control encryption keys \\
+\hline
+
+CloudHSM & Hardware security modules & Dedicated hardware for regulatory compliance \\
+\hline
+
+Certificate Manager & SSL/TLS certificates & Free certificates for ELB, CloudFront, API Gateway \\
+\hline
+
+WAF & Web application firewall & Protect against SQL injection, XSS attacks \\
+\hline
+
+Shield Standard & DDoS protection & Automatic protection (free) \\
+\hline
+
+Shield Advanced & Enhanced DDoS protection & 24/7 DDoS Response Team, cost protection (\$3,000/month) \\
+\hline
+
+GuardDuty & Threat detection & Continuous monitoring for malicious activity \\
+\hline
+
+Inspector & Vulnerability assessment & Scan EC2 and container images for vulnerabilities \\
+\hline
+
+Macie & Data privacy and protection & Discover and protect sensitive data in S3 \\
+\hline
+
+Detective & Security investigation & Analyze and investigate security issues \\
+\hline
+
+Security Hub & Security posture management & Centralized view of security alerts and compliance \\
+\hline
+
+Firewall Manager & Centralized firewall management & Manage WAF, Shield across accounts \\
+\hline
+\caption{Security Services Matrix}
+\end{longtable}
+
+\section{Service Limits Quick Reference}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{5cm}|p{4cm}|p{5cm}|}
+\hline
+\textbf{Service} & \textbf{Default Limit} & \textbf{Notes} \\
+\hline
+
+EC2 Instances (On-Demand) & 20 per region & Can request increase \\
+\hline
+
+VPCs per Region & 5 & Can request increase \\
+\hline
+
+Internet Gateways per Region & 5 & One per VPC typically \\
+\hline
+
+S3 Buckets per Account & 100 & Soft limit, can increase \\
+\hline
+
+S3 Object Size & 5 TB max & Use multipart upload for > 100 MB \\
+\hline
+
+RDS DB Instances & 40 per region & Can request increase \\
+\hline
+
+Lambda Concurrent Executions & 1,000 & Can request increase \\
+\hline
+
+Lambda Function Timeout & 15 minutes max & Cannot be increased \\
+\hline
+
+CloudFormation Stacks & 200 per region & Can request increase \\
+\hline
+
+IAM Users per Account & 5,000 & Use roles/federated identities instead \\
+\hline
+
+IAM Groups per Account & 300 & Plan group structure carefully \\
+\hline
+\caption{Service Limits Quick Reference}
+\end{tabular}
+\end{table}

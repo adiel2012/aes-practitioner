@@ -1,0 +1,342 @@
+\contentsline {chapter}{\numberline {1}Introduction}{6}{chapter.1}%
+\contentsline {section}{\numberline {1.1}About This Guide}{6}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Certification Overview}{6}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Exam Domain Breakdown}{6}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Target Audience}{7}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Domain 1: Cloud Concepts (24\%)}{8}{chapter.2}%
+\contentsline {section}{\numberline {2.1}What is Cloud Computing?}{8}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Definition}{8}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Six Advantages of Cloud Computing}{8}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.2}Cloud Computing Models}{9}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Infrastructure as a Service (IaaS)}{9}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Platform as a Service (PaaS)}{9}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Software as a Service (SaaS)}{9}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}Cloud Deployment Models}{10}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Cloud (Public Cloud)}{10}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Hybrid}{10}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}On-Premises (Private Cloud)}{10}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}AWS Well-Architected Framework}{10}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Six Pillars}{10}{subsection.2.4.1}%
+\contentsline {subsubsection}{1. Operational Excellence}{10}{subsection.2.4.1}%
+\contentsline {subsubsection}{2. Security}{11}{subsection.2.4.1}%
+\contentsline {subsubsection}{3. Reliability}{11}{subsection.2.4.1}%
+\contentsline {subsubsection}{4. Performance Efficiency}{11}{subsection.2.4.1}%
+\contentsline {subsubsection}{5. Cost Optimization}{11}{subsection.2.4.1}%
+\contentsline {subsubsection}{6. Sustainability}{11}{subsection.2.4.1}%
+\contentsline {section}{\numberline {2.5}Cloud Economics}{12}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Total Cost of Ownership (TCO)}{12}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Capital Expenditure (CapEx) vs. Operational Expenditure (OpEx)}{12}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Migration Strategies (6 R's)}{12}{subsection.2.5.3}%
+\contentsline {chapter}{\numberline {3}Domain 2: Security and Compliance (30\%)}{14}{chapter.3}%
+\contentsline {section}{\numberline {3.1}AWS Shared Responsibility Model}{14}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}AWS Responsibility: Security OF the Cloud}{14}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Customer Responsibility: Security IN the Cloud}{14}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Shared Controls}{15}{subsection.3.1.3}%
+\contentsline {section}{\numberline {3.2}AWS Identity and Access Management (IAM)}{15}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Core Components}{15}{subsection.3.2.1}%
+\contentsline {subsubsection}{Users}{15}{subsection.3.2.1}%
+\contentsline {subsubsection}{Groups}{15}{subsection.3.2.1}%
+\contentsline {subsubsection}{Roles}{15}{subsection.3.2.1}%
+\contentsline {subsubsection}{Policies}{16}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}IAM Best Practices}{16}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Multi-Factor Authentication (MFA)}{16}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Security Services}{17}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}AWS Organizations}{17}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}AWS Key Management Service (KMS)}{17}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}AWS Shield}{17}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Amazon GuardDuty}{18}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Amazon Inspector}{18}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.6}AWS WAF (Web Application Firewall)}{18}{subsection.3.3.6}%
+\contentsline {subsection}{\numberline {3.3.7}Amazon Macie}{18}{subsection.3.3.7}%
+\contentsline {subsection}{\numberline {3.3.8}AWS Artifact}{19}{subsection.3.3.8}%
+\contentsline {section}{\numberline {3.4}Compliance}{19}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}AWS Compliance Programs}{19}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}AWS Config}{19}{subsection.3.4.2}%
+\contentsline {chapter}{\numberline {4}Domain 3: Cloud Technology and Services (34\%)}{20}{chapter.4}%
+\contentsline {section}{\numberline {4.1}AWS Global Infrastructure}{20}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Regions}{20}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Availability Zones (AZs)}{20}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Edge Locations}{21}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}AWS Local Zones}{21}{subsection.4.1.4}%
+\contentsline {subsection}{\numberline {4.1.5}AWS Wavelength}{21}{subsection.4.1.5}%
+\contentsline {subsection}{\numberline {4.1.6}AWS Outposts}{21}{subsection.4.1.6}%
+\contentsline {section}{\numberline {4.2}Compute Services}{21}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Amazon EC2 (Elastic Compute Cloud)}{21}{subsection.4.2.1}%
+\contentsline {subsubsection}{Instance Types}{22}{subsection.4.2.1}%
+\contentsline {subsubsection}{Pricing Models}{22}{subsection.4.2.1}%
+\contentsline {subsubsection}{Auto Scaling}{23}{Item.26}%
+\contentsline {subsection}{\numberline {4.2.2}AWS Lambda}{23}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Amazon Lightsail}{24}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}AWS Elastic Beanstalk}{24}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Amazon ECS (Elastic Container Service)}{24}{subsection.4.2.5}%
+\contentsline {subsection}{\numberline {4.2.6}Amazon EKS (Elastic Kubernetes Service)}{24}{subsection.4.2.6}%
+\contentsline {subsection}{\numberline {4.2.7}AWS Fargate}{25}{subsection.4.2.7}%
+\contentsline {section}{\numberline {4.3}Storage Services}{25}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Amazon S3 (Simple Storage Service)}{25}{subsection.4.3.1}%
+\contentsline {subsubsection}{Key Concepts}{25}{subsection.4.3.1}%
+\contentsline {subsubsection}{Storage Classes}{25}{subsection.4.3.1}%
+\contentsline {subsubsection}{S3 Features}{26}{Item.33}%
+\contentsline {subsection}{\numberline {4.3.2}Amazon EBS (Elastic Block Store)}{27}{subsection.4.3.2}%
+\contentsline {subsubsection}{Volume Types}{27}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Amazon EFS (Elastic File System)}{27}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}AWS Storage Gateway}{27}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}AWS Snow Family}{28}{subsection.4.3.5}%
+\contentsline {section}{\numberline {4.4}Database Services}{28}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Amazon RDS (Relational Database Service)}{28}{subsection.4.4.1}%
+\contentsline {subsubsection}{Multi-AZ Deployments}{28}{subsection.4.4.1}%
+\contentsline {subsubsection}{Read Replicas}{29}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Amazon Aurora}{29}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Amazon DynamoDB}{29}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Amazon ElastiCache}{30}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.5}Amazon Redshift}{30}{subsection.4.4.5}%
+\contentsline {subsection}{\numberline {4.4.6}Amazon Neptune}{30}{subsection.4.4.6}%
+\contentsline {subsection}{\numberline {4.4.7}Amazon DocumentDB}{30}{subsection.4.4.7}%
+\contentsline {section}{\numberline {4.5}Networking and Content Delivery}{31}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Amazon VPC (Virtual Private Cloud)}{31}{subsection.4.5.1}%
+\contentsline {subsubsection}{Components}{31}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Amazon CloudFront}{32}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Amazon Route 53}{32}{subsection.4.5.3}%
+\contentsline {subsection}{\numberline {4.5.4}Elastic Load Balancing (ELB)}{32}{subsection.4.5.4}%
+\contentsline {subsubsection}{Types}{32}{subsection.4.5.4}%
+\contentsline {subsection}{\numberline {4.5.5}AWS Direct Connect}{33}{subsection.4.5.5}%
+\contentsline {subsection}{\numberline {4.5.6}AWS VPN}{33}{subsection.4.5.6}%
+\contentsline {section}{\numberline {4.6}Management and Governance}{33}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}AWS CloudFormation}{33}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}AWS CloudTrail}{34}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.3}Amazon CloudWatch}{34}{subsection.4.6.3}%
+\contentsline {subsection}{\numberline {4.6.4}AWS Systems Manager}{35}{subsection.4.6.4}%
+\contentsline {subsection}{\numberline {4.6.5}AWS Trusted Advisor}{35}{subsection.4.6.5}%
+\contentsline {subsection}{\numberline {4.6.6}AWS Control Tower}{35}{subsection.4.6.6}%
+\contentsline {subsection}{\numberline {4.6.7}AWS Service Catalog}{36}{subsection.4.6.7}%
+\contentsline {section}{\numberline {4.7}Additional Services}{36}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Amazon SNS (Simple Notification Service)}{36}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Amazon SQS (Simple Queue Service)}{36}{subsection.4.7.2}%
+\contentsline {subsection}{\numberline {4.7.3}AWS Step Functions}{36}{subsection.4.7.3}%
+\contentsline {subsection}{\numberline {4.7.4}Amazon EventBridge}{37}{subsection.4.7.4}%
+\contentsline {subsection}{\numberline {4.7.5}AWS Batch}{37}{subsection.4.7.5}%
+\contentsline {subsection}{\numberline {4.7.6}Amazon Athena}{37}{subsection.4.7.6}%
+\contentsline {subsection}{\numberline {4.7.7}AWS Glue}{37}{subsection.4.7.7}%
+\contentsline {subsection}{\numberline {4.7.8}Amazon QuickSight}{37}{subsection.4.7.8}%
+\contentsline {subsection}{\numberline {4.7.9}Amazon Kinesis}{38}{subsection.4.7.9}%
+\contentsline {subsection}{\numberline {4.7.10}Amazon SageMaker}{38}{subsection.4.7.10}%
+\contentsline {subsection}{\numberline {4.7.11}Amazon Rekognition}{38}{subsection.4.7.11}%
+\contentsline {subsection}{\numberline {4.7.12}Amazon Comprehend}{38}{subsection.4.7.12}%
+\contentsline {subsection}{\numberline {4.7.13}Amazon Lex}{38}{subsection.4.7.13}%
+\contentsline {subsection}{\numberline {4.7.14}AWS Migration Hub}{39}{subsection.4.7.14}%
+\contentsline {subsection}{\numberline {4.7.15}AWS Database Migration Service (DMS)}{39}{subsection.4.7.15}%
+\contentsline {subsection}{\numberline {4.7.16}AWS Application Discovery Service}{39}{subsection.4.7.16}%
+\contentsline {chapter}{\numberline {5}Domain 4: Billing, Pricing, and Support (12\%)}{40}{chapter.5}%
+\contentsline {section}{\numberline {5.1}AWS Pricing Fundamentals}{40}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Core Principles}{40}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Free Tier}{40}{subsection.5.1.2}%
+\contentsline {section}{\numberline {5.2}Pricing Models by Service Category}{41}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Compute Pricing}{41}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Storage Pricing}{41}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Database Pricing}{41}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Network Pricing}{42}{subsection.5.2.4}%
+\contentsline {section}{\numberline {5.3}Cost Management Tools}{42}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}AWS Pricing Calculator}{42}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}AWS Cost Explorer}{42}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}AWS Budgets}{42}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}AWS Cost and Usage Report}{43}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.5}AWS Cost Anomaly Detection}{43}{subsection.5.3.5}%
+\contentsline {section}{\numberline {5.4}Consolidated Billing and AWS Organizations}{43}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Consolidated Billing}{43}{subsection.5.4.1}%
+\contentsline {section}{\numberline {5.5}AWS Support Plans}{44}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Additional Support Resources}{45}{subsection.5.5.1}%
+\contentsline {subsubsection}{AWS Personal Health Dashboard}{45}{subsection.5.5.1}%
+\contentsline {subsubsection}{AWS Health API}{45}{subsection.5.5.1}%
+\contentsline {subsubsection}{AWS Managed Services (AMS)}{45}{subsection.5.5.1}%
+\contentsline {subsubsection}{AWS Professional Services}{46}{subsection.5.5.1}%
+\contentsline {subsubsection}{AWS Partner Network (APN)}{46}{subsection.5.5.1}%
+\contentsline {section}{\numberline {5.6}Cost Optimization Strategies}{46}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Right Sizing}{46}{subsection.5.6.1}%
+\contentsline {subsection}{\numberline {5.6.2}Reserved Capacity}{46}{subsection.5.6.2}%
+\contentsline {subsection}{\numberline {5.6.3}Spot Instances}{46}{subsection.5.6.3}%
+\contentsline {subsection}{\numberline {5.6.4}Auto Scaling}{47}{subsection.5.6.4}%
+\contentsline {subsection}{\numberline {5.6.5}Storage Optimization}{47}{subsection.5.6.5}%
+\contentsline {subsection}{\numberline {5.6.6}Data Transfer Optimization}{47}{subsection.5.6.6}%
+\contentsline {chapter}{\numberline {6}Practice Questions and Exam Tips}{48}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Sample Questions by Domain}{48}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Domain 1: Cloud Concepts}{48}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Domain 2: Security and Compliance}{48}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Domain 3: Technology and Services}{49}{subsection.6.1.3}%
+\contentsline {subsection}{\numberline {6.1.4}Domain 4: Billing and Pricing}{49}{subsection.6.1.4}%
+\contentsline {section}{\numberline {6.2}Test-Taking Strategies}{50}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Before the Exam}{50}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}During the Exam}{50}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Common Question Patterns}{51}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Common Pitfalls to Avoid}{51}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Key Concepts to Memorize}{51}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Numbers to Remember}{51}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Service Comparisons}{52}{subsection.6.4.2}%
+\contentsline {chapter}{\numberline {7}Comprehensive Service Comparisons and Decision Trees}{53}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Storage Services Detailed Comparison}{53}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Database Services Detailed Comparison}{54}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Compute Services Decision Tree}{54}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Networking Components Deep Dive}{55}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Load Balancer Detailed Comparison}{55}{section.7.5}%
+\contentsline {section}{\numberline {7.6}Security Services Complete Matrix}{56}{section.7.6}%
+\contentsline {section}{\numberline {7.7}Service Limits Quick Reference}{57}{section.7.7}%
+\contentsline {chapter}{\numberline {8}Common Exam Scenarios and Real-World Solutions}{58}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Scenario-Based Learning}{58}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}Scenario 1: Cost Optimization for Predictable Workloads}{58}{subsection.8.1.1}%
+\contentsline {subsection}{\numberline {8.1.2}Scenario 2: Designing for High Availability}{59}{subsection.8.1.2}%
+\contentsline {subsection}{\numberline {8.1.3}Scenario 3: Large Data Migration}{60}{subsection.8.1.3}%
+\contentsline {subsection}{\numberline {8.1.4}Scenario 4: Serverless Application Architecture}{61}{subsection.8.1.4}%
+\contentsline {subsection}{\numberline {8.1.5}Scenario 5: Compliance and Governance}{63}{subsection.8.1.5}%
+\contentsline {subsection}{\numberline {8.1.6}Scenario 6: Disaster Recovery Strategy}{64}{subsection.8.1.6}%
+\contentsline {subsection}{\numberline {8.1.7}Scenario 7: Hybrid Cloud Connectivity}{66}{subsection.8.1.7}%
+\contentsline {section}{\numberline {8.2}Common Troubleshooting Scenarios}{67}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}Cannot Connect to EC2 Instance}{67}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}S3 Access Denied Errors}{68}{subsection.8.2.2}%
+\contentsline {subsection}{\numberline {8.2.3}Lambda Function Issues}{69}{subsection.8.2.3}%
+\contentsline {chapter}{\numberline {9}Additional AWS Services and Advanced Topics}{70}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Developer Tools and CI/CD}{70}{section.9.1}%
+\contentsline {subsection}{\numberline {9.1.1}AWS CodeCommit}{70}{subsection.9.1.1}%
+\contentsline {subsection}{\numberline {9.1.2}AWS CodeBuild}{70}{subsection.9.1.2}%
+\contentsline {subsection}{\numberline {9.1.3}AWS CodeDeploy}{70}{subsection.9.1.3}%
+\contentsline {subsection}{\numberline {9.1.4}AWS CodePipeline}{71}{subsection.9.1.4}%
+\contentsline {subsection}{\numberline {9.1.5}AWS CodeStar}{71}{subsection.9.1.5}%
+\contentsline {subsection}{\numberline {9.1.6}AWS Cloud9}{71}{subsection.9.1.6}%
+\contentsline {section}{\numberline {9.2}Application Integration Services}{72}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Amazon EventBridge}{72}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}Amazon MQ}{72}{subsection.9.2.2}%
+\contentsline {subsection}{\numberline {9.2.3}AWS App Mesh}{72}{subsection.9.2.3}%
+\contentsline {section}{\numberline {9.3}End User Computing}{73}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}Amazon WorkSpaces}{73}{subsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.3.2}Amazon AppStream 2.0}{73}{subsection.9.3.2}%
+\contentsline {subsection}{\numberline {9.3.3}Amazon WorkDocs}{73}{subsection.9.3.3}%
+\contentsline {subsection}{\numberline {9.3.4}Amazon WorkLink}{74}{subsection.9.3.4}%
+\contentsline {section}{\numberline {9.4}IoT Services}{74}{section.9.4}%
+\contentsline {subsection}{\numberline {9.4.1}AWS IoT Core}{74}{subsection.9.4.1}%
+\contentsline {subsection}{\numberline {9.4.2}AWS IoT Greengrass}{74}{subsection.9.4.2}%
+\contentsline {subsection}{\numberline {9.4.3}AWS IoT Analytics}{74}{subsection.9.4.3}%
+\contentsline {section}{\numberline {9.5}Media Services}{75}{section.9.5}%
+\contentsline {subsection}{\numberline {9.5.1}Amazon Elastic Transcoder}{75}{subsection.9.5.1}%
+\contentsline {subsection}{\numberline {9.5.2}AWS Elemental MediaConvert}{75}{subsection.9.5.2}%
+\contentsline {subsection}{\numberline {9.5.3}Amazon Kinesis Video Streams}{75}{subsection.9.5.3}%
+\contentsline {section}{\numberline {9.6}Additional AI/ML Services}{75}{section.9.6}%
+\contentsline {subsection}{\numberline {9.6.1}Amazon Polly}{75}{subsection.9.6.1}%
+\contentsline {subsection}{\numberline {9.6.2}Amazon Transcribe}{76}{subsection.9.6.2}%
+\contentsline {subsection}{\numberline {9.6.3}Amazon Translate}{76}{subsection.9.6.3}%
+\contentsline {subsection}{\numberline {9.6.4}Amazon Forecast}{76}{subsection.9.6.4}%
+\contentsline {subsection}{\numberline {9.6.5}Amazon Kendra}{76}{subsection.9.6.5}%
+\contentsline {subsection}{\numberline {9.6.6}Amazon Personalize}{77}{subsection.9.6.6}%
+\contentsline {subsection}{\numberline {9.6.7}Amazon Textract}{77}{subsection.9.6.7}%
+\contentsline {section}{\numberline {9.7}Business Applications}{77}{section.9.7}%
+\contentsline {subsection}{\numberline {9.7.1}Amazon Connect}{77}{subsection.9.7.1}%
+\contentsline {subsection}{\numberline {9.7.2}Amazon Simple Email Service (SES)}{77}{subsection.9.7.2}%
+\contentsline {subsection}{\numberline {9.7.3}Amazon Pinpoint}{78}{subsection.9.7.3}%
+\contentsline {subsection}{\numberline {9.7.4}AWS WorkMail}{78}{subsection.9.7.4}%
+\contentsline {subsection}{\numberline {9.7.5}Amazon Chime}{78}{subsection.9.7.5}%
+\contentsline {section}{\numberline {9.8}Management and Governance (Advanced)}{78}{section.9.8}%
+\contentsline {subsection}{\numberline {9.8.1}AWS License Manager}{78}{subsection.9.8.1}%
+\contentsline {subsection}{\numberline {9.8.2}AWS Service Catalog}{79}{subsection.9.8.2}%
+\contentsline {subsection}{\numberline {9.8.3}AWS Well-Architected Tool}{79}{subsection.9.8.3}%
+\contentsline {subsection}{\numberline {9.8.4}AWS Personal Health Dashboard}{79}{subsection.9.8.4}%
+\contentsline {subsection}{\numberline {9.8.5}AWS Compute Optimizer}{79}{subsection.9.8.5}%
+\contentsline {section}{\numberline {9.9}Migration and Transfer Services}{80}{section.9.9}%
+\contentsline {subsection}{\numberline {9.9.1}AWS Application Discovery Service}{80}{subsection.9.9.1}%
+\contentsline {subsection}{\numberline {9.9.2}AWS Migration Hub}{80}{subsection.9.9.2}%
+\contentsline {subsection}{\numberline {9.9.3}AWS Server Migration Service (SMS)}{80}{subsection.9.9.3}%
+\contentsline {subsection}{\numberline {9.9.4}AWS DataSync}{80}{subsection.9.9.4}%
+\contentsline {subsection}{\numberline {9.9.5}AWS Transfer Family}{81}{subsection.9.9.5}%
+\contentsline {section}{\numberline {9.10}Networking (Advanced)}{81}{section.9.10}%
+\contentsline {subsection}{\numberline {9.10.1}AWS Global Accelerator}{81}{subsection.9.10.1}%
+\contentsline {subsection}{\numberline {9.10.2}AWS App Mesh}{81}{subsection.9.10.2}%
+\contentsline {subsection}{\numberline {9.10.3}AWS Cloud Map}{81}{subsection.9.10.3}%
+\contentsline {section}{\numberline {9.11}Additional Storage Services}{82}{section.9.11}%
+\contentsline {subsection}{\numberline {9.11.1}Amazon FSx}{82}{subsection.9.11.1}%
+\contentsline {subsection}{\numberline {9.11.2}AWS Backup}{82}{subsection.9.11.2}%
+\contentsline {section}{\numberline {9.12}Blockchain and Quantum}{82}{section.9.12}%
+\contentsline {subsection}{\numberline {9.12.1}Amazon Managed Blockchain}{82}{subsection.9.12.1}%
+\contentsline {subsection}{\numberline {9.12.2}Amazon Braket}{83}{subsection.9.12.2}%
+\contentsline {section}{\numberline {9.13}Exam Tips for Service Selection}{83}{section.9.13}%
+\contentsline {subsection}{\numberline {9.13.1}Database Selection Decision Tree}{83}{subsection.9.13.1}%
+\contentsline {subsection}{\numberline {9.13.2}Compute Selection Flowchart}{84}{subsection.9.13.2}%
+\contentsline {subsection}{\numberline {9.13.3}Storage Selection Guide}{84}{subsection.9.13.3}%
+\contentsline {chapter}{\numberline {10}Study Plan and Resources}{85}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Recommended Study Timeline}{85}{section.10.1}%
+\contentsline {subsection}{\numberline {10.1.1}4-Week Study Plan}{85}{subsection.10.1.1}%
+\contentsline {subsubsection}{Week 1: Cloud Concepts and Foundations}{85}{subsection.10.1.1}%
+\contentsline {subsubsection}{Week 2: Security and Compliance}{85}{subsection.10.1.1}%
+\contentsline {subsubsection}{Week 3: Technology and Services}{85}{subsection.10.1.1}%
+\contentsline {subsubsection}{Week 4: Billing and Review}{86}{subsection.10.1.1}%
+\contentsline {subsection}{\numberline {10.1.2}2-Week Intensive Plan}{86}{subsection.10.1.2}%
+\contentsline {section}{\numberline {10.2}Official AWS Resources}{86}{section.10.2}%
+\contentsline {subsection}{\numberline {10.2.1}Free Resources}{86}{subsection.10.2.1}%
+\contentsline {subsection}{\numberline {10.2.2}Paid Resources}{87}{subsection.10.2.2}%
+\contentsline {section}{\numberline {10.3}Third-Party Resources}{87}{section.10.3}%
+\contentsline {subsection}{\numberline {10.3.1}Online Courses}{87}{subsection.10.3.1}%
+\contentsline {subsection}{\numberline {10.3.2}Practice Exams}{88}{subsection.10.3.2}%
+\contentsline {subsection}{\numberline {10.3.3}Books}{88}{subsection.10.3.3}%
+\contentsline {subsection}{\numberline {10.3.4}YouTube Channels}{88}{subsection.10.3.4}%
+\contentsline {section}{\numberline {10.4}Hands-On Practice}{88}{section.10.4}%
+\contentsline {subsection}{\numberline {10.4.1}Prerequisites}{88}{subsection.10.4.1}%
+\contentsline {subsection}{\numberline {10.4.2}Lab 1: Set Up Billing Alerts and Budget}{89}{subsection.10.4.2}%
+\contentsline {subsection}{\numberline {10.4.3}Lab 2: IAM Users, Groups, Roles, and MFA}{89}{subsection.10.4.3}%
+\contentsline {subsubsection}{Secure Root Account}{90}{subsection.10.4.3}%
+\contentsline {subsubsection}{Create IAM Admin User}{90}{Item.169}%
+\contentsline {subsubsection}{Create IAM Groups}{90}{Item.181}%
+\contentsline {subsubsection}{Create Additional IAM Users}{91}{Item.188}%
+\contentsline {subsubsection}{Create IAM Role for EC2}{91}{Item.196}%
+\contentsline {subsubsection}{Test IAM Policies}{91}{Item.205}%
+\contentsline {subsection}{\numberline {10.4.4}Lab 3: Launch and Configure EC2 Instance}{92}{subsection.10.4.4}%
+\contentsline {subsubsection}{Connect to EC2 via SSH}{93}{Item.226}%
+\contentsline {subsubsection}{Create AMI (Amazon Machine Image)}{93}{Item.233}%
+\contentsline {subsubsection}{Create Snapshot}{93}{Item.241}%
+\contentsline {subsubsection}{Cleanup (Important!)}{93}{Item.248}%
+\contentsline {subsection}{\numberline {10.4.5}Lab 4: Amazon S3 Storage and Website Hosting}{94}{subsection.10.4.5}%
+\contentsline {subsubsection}{Create S3 Bucket}{94}{subsection.10.4.5}%
+\contentsline {subsubsection}{Upload Objects}{94}{Item.261}%
+\contentsline {subsubsection}{Enable Static Website Hosting}{95}{Item.269}%
+\contentsline {subsubsection}{Configure Bucket Policy}{95}{Item.278}%
+\contentsline {subsubsection}{Configure Versioning}{96}{Item.285}%
+\contentsline {subsubsection}{Create Lifecycle Policy}{96}{Item.291}%
+\contentsline {subsubsection}{Enable Server-Side Encryption}{96}{Item.297}%
+\contentsline {subsubsection}{Cleanup}{96}{Item.303}%
+\contentsline {subsection}{\numberline {10.4.6}Lab 5: VPC, Subnets, and Network Configuration}{97}{subsection.10.4.6}%
+\contentsline {subsubsection}{Create VPC}{97}{subsection.10.4.6}%
+\contentsline {subsubsection}{Review VPC Components}{97}{Item.319}%
+\contentsline {subsubsection}{Create Security Groups}{98}{Item.323}%
+\contentsline {subsubsection}{Launch EC2 in Custom VPC}{98}{Item.335}%
+\contentsline {subsubsection}{Create Network ACL}{99}{Item.343}%
+\contentsline {subsubsection}{Cleanup}{99}{Item.355}%
+\contentsline {subsection}{\numberline {10.4.7}Lab 6: Amazon RDS Database}{99}{subsection.10.4.7}%
+\contentsline {subsubsection}{Connect to RDS (requires EC2 in same VPC)}{100}{Item.377}%
+\contentsline {subsubsection}{Cleanup}{101}{Item.385}%
+\contentsline {subsection}{\numberline {10.4.8}Lab 7: CloudWatch Monitoring and Alarms}{101}{subsection.10.4.8}%
+\contentsline {subsubsection}{Test Alarm (Optional)}{102}{Item.410}%
+\contentsline {subsubsection}{View CloudWatch Logs}{102}{Item.416}%
+\contentsline {subsubsection}{Cleanup}{103}{Item.421}%
+\contentsline {subsection}{\numberline {10.4.9}Lab 8: AWS Cost Management Tools}{103}{subsection.10.4.9}%
+\contentsline {subsubsection}{AWS Pricing Calculator}{103}{subsection.10.4.9}%
+\contentsline {subsubsection}{AWS Cost Explorer}{104}{Item.443}%
+\contentsline {subsubsection}{Review Bills}{104}{Item.453}%
+\contentsline {subsubsection}{AWS Budgets}{104}{Item.458}%
+\contentsline {subsubsection}{Trusted Advisor}{105}{Item.462}%
+\contentsline {subsection}{\numberline {10.4.10}Lab 9: Lambda Serverless Function}{105}{subsection.10.4.10}%
+\contentsline {subsubsection}{Configure Lambda Trigger}{106}{Item.484}%
+\contentsline {subsubsection}{Cleanup}{106}{Item.493}%
+\contentsline {subsection}{\numberline {10.4.11}Lab 10: CloudFormation Infrastructure as Code}{107}{subsection.10.4.11}%
+\contentsline {subsubsection}{Update Stack}{108}{Item.510}%
+\contentsline {subsubsection}{Cleanup}{108}{Item.515}%
+\contentsline {subsection}{\numberline {10.4.12}Additional Practice Recommendations}{108}{subsection.10.4.12}%
+\contentsline {section}{\numberline {10.5}Final Preparation Checklist}{109}{section.10.5}%
+\contentsline {subsection}{\numberline {10.5.1}One Week Before}{109}{subsection.10.5.1}%
+\contentsline {subsection}{\numberline {10.5.2}One Day Before}{109}{subsection.10.5.2}%
+\contentsline {subsection}{\numberline {10.5.3}Exam Day}{109}{subsection.10.5.3}%
+\contentsline {section}{\numberline {10.6}After the Exam}{109}{section.10.6}%
+\contentsline {subsection}{\numberline {10.6.1}Immediate Next Steps}{109}{subsection.10.6.1}%
+\contentsline {subsection}{\numberline {10.6.2}Maintaining Certification}{110}{subsection.10.6.2}%
+\contentsline {chapter}{\numberline {11}Quick Reference}{111}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Service Cheat Sheet}{111}{section.11.1}%
+\contentsline {subsection}{\numberline {11.1.1}Compute}{111}{subsection.11.1.1}%
+\contentsline {subsection}{\numberline {11.1.2}Storage}{111}{subsection.11.1.2}%
+\contentsline {subsection}{\numberline {11.1.3}Database}{111}{subsection.11.1.3}%
+\contentsline {subsection}{\numberline {11.1.4}Networking}{112}{subsection.11.1.4}%
+\contentsline {subsection}{\numberline {11.1.5}Security}{112}{subsection.11.1.5}%
+\contentsline {subsection}{\numberline {11.1.6}Management}{112}{subsection.11.1.6}%
+\contentsline {section}{\numberline {11.2}Acronym Guide}{112}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Exam Day Reminders}{113}{section.11.3}%

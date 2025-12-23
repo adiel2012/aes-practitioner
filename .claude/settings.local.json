@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pdflatex:*)",
+      "Bash(ls:*)",
+      "Bash(du -sh:*)",
+      "Bash(du:*)"
+    ]
+  }
+}

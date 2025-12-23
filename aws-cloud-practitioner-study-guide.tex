@@ -1,0 +1,3186 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{longtable}
+
+% Color definitions
+\definecolor{awsorange}{RGB}{255,153,0}
+\definecolor{awsblue}{RGB}{35,47,62}
+\definecolor{noteblue}{RGB}{220,235,255}
+\definecolor{warningyellow}{RGB}{255,250,205}
+\definecolor{importantred}{RGB}{255,220,220}
+
+% Custom boxes
+\newtcolorbox{keypoint}{
+  colback=noteblue,
+  colframe=awsblue,
+  title=Key Point,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{examtip}{
+  colback=warningyellow,
+  colframe=awsorange,
+  title=Exam Tip,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{important}{
+  colback=importantred,
+  colframe=red,
+  title=Important,
+  fonttitle=\bfseries
+}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{AWS Cloud Practitioner Study Guide}
+\fancyhead[R]{\thepage}
+\fancyfoot[C]{CLF-C02 Certification}
+
+% Hyperlink setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=awsblue,
+    urlcolor=awsorange,
+    pdftitle={AWS Cloud Practitioner Study Guide},
+    pdfauthor={Study Guide}
+}
+
+\title{
+  \Huge\textbf{AWS Certified Cloud Practitioner}\\
+  \LARGE{Comprehensive Study Guide}\\
+  \large{Exam Code: CLF-C02}
+}
+\author{AWS Certification Preparation}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Introduction}
+
+\section{About This Guide}
+This comprehensive study guide is designed to help you prepare for and pass the \textbf{AWS Certified Cloud Practitioner (CLF-C02)} exam. This certification validates your overall understanding of the AWS Cloud, independent of specific technical roles.
+
+\section{Certification Overview}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Exam Code:} CLF-C02
+  \item \textbf{Duration:} 90 minutes
+  \item \textbf{Question Format:} 65 questions (multiple choice and multiple response)
+  \item \textbf{Passing Score:} 700 out of 1000
+  \item \textbf{Cost:} \$100 USD
+  \item \textbf{Validity:} 3 years
+  \item \textbf{Delivery:} Pearson VUE testing center or online proctored
+\end{itemize}
+
+\section{Exam Domain Breakdown}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lc@{}}
+\toprule
+\textbf{Domain} & \textbf{Percentage} \\ \midrule
+Domain 1: Cloud Concepts & 24\% \\
+Domain 2: Security and Compliance & 30\% \\
+Domain 3: Cloud Technology and Services & 34\% \\
+Domain 4: Billing, Pricing, and Support & 12\% \\ \bottomrule
+\end{tabular}
+\caption{AWS Cloud Practitioner Exam Domains}
+\end{table}
+
+\section{Target Audience}
+
+This certification is ideal for:
+\begin{itemize}
+  \item Individuals new to AWS Cloud
+  \item Sales and marketing professionals
+  \item Business analysts and project managers
+  \item IT professionals transitioning to cloud
+  \item Students and recent graduates
+  \item Anyone seeking foundational AWS knowledge
+\end{itemize}
+
+\begin{examtip}
+No technical prerequisites are required, but 6 months of exposure to AWS Cloud is recommended for success.
+\end{examtip}
+
+\chapter{Domain 1: Cloud Concepts (24\%)}
+
+\section{What is Cloud Computing?}
+
+\subsection{Definition}
+Cloud computing is the \textbf{on-demand delivery} of IT resources over the Internet with \textbf{pay-as-you-go pricing}. Instead of buying, owning, and maintaining physical data centers and servers, you access technology services on an as-needed basis.
+
+\subsection{Six Advantages of Cloud Computing}
+
+\begin{enumerate}
+  \item \textbf{Trade capital expense for variable expense}
+  \begin{itemize}
+    \item Pay only for what you consume
+    \item No upfront infrastructure costs
+    \item Lower Total Cost of Ownership (TCO)
+  \end{itemize}
+
+  \item \textbf{Benefit from massive economies of scale}
+  \begin{itemize}
+    \item AWS achieves higher economies of scale
+    \item Lower pay-as-you-go prices
+    \item Prices decrease over time
+  \end{itemize}
+
+  \item \textbf{Stop guessing capacity}
+  \begin{itemize}
+    \item Scale up or down based on demand
+    \item No over or under provisioning
+    \item Elastic resources
+  \end{itemize}
+
+  \item \textbf{Increase speed and agility}
+  \begin{itemize}
+    \item Resources available in minutes
+    \item Faster experimentation and innovation
+    \item Reduced time to market
+  \end{itemize}
+
+  \item \textbf{Stop spending money running and maintaining data centers}
+  \begin{itemize}
+    \item Focus on business differentiators
+    \item AWS manages infrastructure
+    \item Reduce operational burden
+  \end{itemize}
+
+  \item \textbf{Go global in minutes}
+  \begin{itemize}
+    \item Deploy applications globally
+    \item Low latency for users worldwide
+    \item Multiple AWS Regions available
+  \end{itemize}
+\end{enumerate}
+
+\section{Cloud Computing Models}
+
+\subsection{Infrastructure as a Service (IaaS)}
+\begin{itemize}
+  \item Basic building blocks for cloud IT
+  \item Highest level of flexibility and control
+  \item Example: Amazon EC2, Amazon S3
+  \item You manage: OS, applications, data
+  \item AWS manages: Hardware, networking, facilities
+\end{itemize}
+
+\subsection{Platform as a Service (PaaS)}
+\begin{itemize}
+  \item Removes need to manage underlying infrastructure
+  \item Focus on deployment and management of applications
+  \item Example: AWS Elastic Beanstalk, AWS Lambda
+  \item You manage: Applications, data
+  \item AWS manages: Runtime, middleware, OS, servers
+\end{itemize}
+
+\subsection{Software as a Service (SaaS)}
+\begin{itemize}
+  \item Completed product run and managed by service provider
+  \item End-user applications
+  \item Example: Amazon WorkMail, Amazon Chime
+  \item You manage: User access, data input
+  \item AWS manages: Everything else
+\end{itemize}
+
+\section{Cloud Deployment Models}
+
+\subsection{Cloud (Public Cloud)}
+\begin{itemize}
+  \item Fully deployed in the cloud
+  \item All parts of application run in cloud
+  \item Applications built on cloud or migrated
+  \item Can be built on low-level infrastructure or higher-level services
+\end{itemize}
+
+\subsection{Hybrid}
+\begin{itemize}
+  \item Connects cloud resources to on-premises infrastructure
+  \item Integrates cloud with existing infrastructure
+  \item Useful for legacy applications
+  \item Common deployment model for many enterprises
+  \item Uses AWS Direct Connect, VPN
+\end{itemize}
+
+\subsection{On-Premises (Private Cloud)}
+\begin{itemize}
+  \item Resources deployed using virtualization and resource management tools
+  \item Sometimes called "private cloud"
+  \item Uses AWS Outposts for on-premises AWS infrastructure
+  \item Increased resource utilization
+\end{itemize}
+
+\section{AWS Well-Architected Framework}
+
+The AWS Well-Architected Framework describes key concepts, design principles, and architectural best practices for designing and running workloads in the cloud.
+
+\subsection{Six Pillars}
+
+\subsubsection{1. Operational Excellence}
+\begin{itemize}
+  \item Run and monitor systems to deliver business value
+  \item Continually improve supporting processes and procedures
+  \item Key principles: Perform operations as code, annotate documentation, make frequent small reversible changes
+  \item Services: AWS CloudFormation, AWS Config, AWS CloudTrail, Amazon CloudWatch
+\end{itemize}
+
+\subsubsection{2. Security}
+\begin{itemize}
+  \item Protect information, systems, and assets
+  \item Key principles: Implement strong identity foundation, enable traceability, apply security at all layers
+  \item Services: AWS IAM, AWS Organizations, AWS KMS, AWS Shield, Amazon GuardDuty
+\end{itemize}
+
+\subsubsection{3. Reliability}
+\begin{itemize}
+  \item Ensure workload performs its intended function correctly and consistently
+  \item Recover from failures and dynamically acquire computing resources
+  \item Key principles: Automatically recover from failure, test recovery procedures, scale horizontally
+  \item Services: Amazon RDS Multi-AZ, AWS Auto Scaling, Amazon CloudWatch
+\end{itemize}
+
+\subsubsection{4. Performance Efficiency}
+\begin{itemize}
+  \item Use computing resources efficiently to meet requirements
+  \item Maintain efficiency as demand changes and technologies evolve
+  \item Key principles: Democratize advanced technologies, go global in minutes, use serverless architectures
+  \item Services: AWS Lambda, Amazon EBS, Amazon RDS, AWS Auto Scaling
+\end{itemize}
+
+\subsubsection{5. Cost Optimization}
+\begin{itemize}
+  \item Run systems to deliver business value at lowest price point
+  \item Key principles: Implement cloud financial management, adopt consumption model, measure overall efficiency
+  \item Services: AWS Cost Explorer, AWS Budgets, Reserved Instances, Savings Plans
+\end{itemize}
+
+\subsubsection{6. Sustainability}
+\begin{itemize}
+  \item Minimize environmental impacts of running cloud workloads
+  \item Key principles: Understand your impact, establish sustainability goals, maximize utilization
+  \item Services: Amazon EC2 Auto Scaling, AWS Lambda, Amazon S3 Intelligent-Tiering
+\end{itemize}
+
+\begin{keypoint}
+The Well-Architected Framework is frequently tested on the exam. Understand each pillar's purpose and key services.
+\end{keypoint}
+
+\section{Cloud Economics}
+
+\subsection{Total Cost of Ownership (TCO)}
+\begin{itemize}
+  \item Financial estimate to identify direct and indirect costs
+  \item Compare on-premises vs. cloud costs
+  \item Includes: Server costs, storage costs, network costs, IT labor costs
+  \item AWS TCO Calculator helps estimate savings
+\end{itemize}
+
+\subsection{Capital Expenditure (CapEx) vs. Operational Expenditure (OpEx)}
+
+\textbf{CapEx (On-Premises):}
+\begin{itemize}
+  \item Upfront purchase of physical infrastructure
+  \item Fixed, sunk cost
+  \item Depreciates over time
+  \item Requires capacity planning
+\end{itemize}
+
+\textbf{OpEx (Cloud):}
+\begin{itemize}
+  \item Pay for what you use
+  \item Variable cost based on consumption
+  \item No upfront commitment
+  \item Scales with business needs
+\end{itemize}
+
+\subsection{Migration Strategies (6 R's)}
+
+\begin{enumerate}
+  \item \textbf{Rehosting (Lift and Shift)}
+  \begin{itemize}
+    \item Move applications without changes
+    \item Fastest migration approach
+    \item Optimize after migration
+  \end{itemize}
+
+  \item \textbf{Replatforming (Lift, Tinker, and Shift)}
+  \begin{itemize}
+    \item Make a few cloud optimizations
+    \item Don't change core architecture
+    \item Example: Migrate database to RDS
+  \end{itemize}
+
+  \item \textbf{Repurchasing}
+  \begin{itemize}
+    \item Move to a different product
+    \item Often SaaS platforms
+    \item Example: CRM to Salesforce
+  \end{itemize}
+
+  \item \textbf{Refactoring/Re-architecting}
+  \begin{itemize}
+    \item Reimagine how application is architected
+    \item Use cloud-native features
+    \item Most expensive but highest benefit
+  \end{itemize}
+
+  \item \textbf{Retire}
+  \begin{itemize}
+    \item Identify IT assets that are no longer useful
+    \item Shut down and remove from portfolio
+  \end{itemize}
+
+  \item \textbf{Retain}
+  \begin{itemize}
+    \item Keep applications on-premises
+    \item Not ready to migrate
+    \item Hybrid deployment
+  \end{itemize}
+\end{enumerate}
+
+\chapter{Domain 2: Security and Compliance (30\%)}
+
+\section{AWS Shared Responsibility Model}
+
+\begin{important}
+This is one of the most critical concepts for the exam. Understand what AWS manages versus what the customer manages.
+\end{important}
+
+\subsection{AWS Responsibility: Security OF the Cloud}
+AWS is responsible for protecting the infrastructure that runs all services:
+\begin{itemize}
+  \item Physical security of data centers
+  \item Hardware and networking components
+  \item Compute, storage, database, and networking infrastructure
+  \item AWS global infrastructure (Regions, Availability Zones, Edge Locations)
+  \item Managed services (RDS, DynamoDB, etc.)
+\end{itemize}
+
+\subsection{Customer Responsibility: Security IN the Cloud}
+Customers are responsible for:
+\begin{itemize}
+  \item Customer data
+  \item Platform, applications, Identity and Access Management (IAM)
+  \item Operating system, network, and firewall configuration
+  \item Client-side data encryption and data integrity authentication
+  \item Server-side encryption (file system and/or data)
+  \item Network traffic protection (encryption, integrity, identity)
+  \item Security group configuration
+  \item User access management
+\end{itemize}
+
+\subsection{Shared Controls}
+\begin{itemize}
+  \item Patch Management: AWS patches infrastructure; customers patch OS and applications
+  \item Configuration Management: AWS configures infrastructure; customers configure databases and applications
+  \item Awareness and Training: AWS trains employees; customers train their staff
+\end{itemize}
+
+\begin{examtip}
+For any security question, ask: "Who is responsible?" AWS handles the infrastructure; you handle what you put in the cloud.
+\end{examtip}
+
+\section{AWS Identity and Access Management (IAM)}
+
+\subsection{Core Components}
+
+\subsubsection{Users}
+\begin{itemize}
+  \item Individual people or services
+  \item Permanent named operators
+  \item Can have long-term credentials (password, access keys)
+  \item Should represent a physical person or application
+\end{itemize}
+
+\subsubsection{Groups}
+\begin{itemize}
+  \item Collection of users
+  \item Groups cannot be nested
+  \item Users can belong to multiple groups
+  \item Apply policies to groups for easier management
+\end{itemize}
+
+\subsubsection{Roles}
+\begin{itemize}
+  \item Temporary credentials for users, applications, or services
+  \item No username/password or access keys
+  \item Can be assumed by anyone who needs it
+  \item Best practice for EC2 instances accessing AWS services
+  \item Can be used for cross-account access
+\end{itemize}
+
+\subsubsection{Policies}
+\begin{itemize}
+  \item JSON documents defining permissions
+  \item Attached to users, groups, or roles
+  \item Define what actions are allowed or denied
+  \item Follow principle of least privilege
+\end{itemize}
+
+\subsection{IAM Best Practices}
+
+\begin{enumerate}
+  \item \textbf{Root account}: Use only for initial setup, then lock it away
+  \begin{itemize}
+    \item Enable MFA on root account
+    \item Do not create access keys for root
+    \item Create individual IAM users
+  \end{itemize}
+
+  \item \textbf{Principle of Least Privilege}: Grant only permissions required
+
+  \item \textbf{Use Groups}: Assign permissions to groups, not individual users
+
+  \item \textbf{Enable MFA}: Especially for privileged users
+
+  \item \textbf{Use Roles}: For applications running on EC2
+
+  \item \textbf{Rotate Credentials}: Regularly change passwords and access keys
+
+  \item \textbf{Remove Unnecessary Credentials}: Delete unused users, roles, and access keys
+
+  \item \textbf{Use Policy Conditions}: For extra security (IP restrictions, time-based, MFA)
+\end{enumerate}
+
+\subsection{Multi-Factor Authentication (MFA)}
+
+MFA adds extra layer of protection:
+\begin{itemize}
+  \item Something you know (password)
+  \item Something you have (MFA device)
+  \item MFA device options:
+  \begin{itemize}
+    \item Virtual MFA device (Google Authenticator, Authy)
+    \item Hardware MFA device (YubiKey)
+    \item SMS text message (not recommended for root)
+  \end{itemize}
+\end{itemize}
+
+\section{Security Services}
+
+\subsection{AWS Organizations}
+
+\begin{itemize}
+  \item Centrally manage multiple AWS accounts
+  \item Consolidated billing across all accounts
+  \item Hierarchical grouping of accounts (Organizational Units)
+  \item Service Control Policies (SCPs) for governance
+  \item Automate account creation
+  \item Centralize security and compliance
+\end{itemize}
+
+\textbf{Key Features:}
+\begin{itemize}
+  \item Consolidated billing: One bill for all accounts, volume discounts
+  \item SCPs: Control maximum available permissions
+  \item OU structure: Organize accounts by business unit, environment, etc.
+\end{itemize}
+
+\subsection{AWS Key Management Service (KMS)}
+
+\begin{itemize}
+  \item Create and manage cryptographic keys
+  \item Control use of keys across AWS services
+  \item Integrated with most AWS services
+  \item Customer Master Keys (CMKs): AWS managed or customer managed
+  \item Automatic key rotation available
+  \item Audit key usage via CloudTrail
+\end{itemize}
+
+\subsection{AWS Shield}
+
+\textbf{DDoS protection service}
+
+\begin{itemize}
+  \item \textbf{AWS Shield Standard}:
+  \begin{itemize}
+    \item Automatic protection for all AWS customers
+    \item No additional cost
+    \item Protects against common Layer 3/4 attacks
+  \end{itemize}
+
+  \item \textbf{AWS Shield Advanced}:
+  \begin{itemize}
+    \item \$3,000/month per organization
+    \item Enhanced protection for EC2, ELB, CloudFront, Route 53, Global Accelerator
+    \item 24/7 access to DDoS Response Team (DRT)
+    \item Cost protection against usage spikes
+    \item Real-time attack notifications
+  \end{itemize}
+\end{itemize}
+
+\subsection{Amazon GuardDuty}
+
+\begin{itemize}
+  \item Intelligent threat detection service
+  \item Uses machine learning
+  \item Monitors VPC Flow Logs, CloudTrail logs, DNS logs
+  \item Identifies unauthorized or malicious activity
+  \item No software to deploy
+  \item 30-day free trial
+  \item Integrates with EventBridge for automated responses
+\end{itemize}
+
+\subsection{Amazon Inspector}
+
+\begin{itemize}
+  \item Automated security assessment service
+  \item Assesses applications for vulnerabilities
+  \item Checks for exposure, vulnerabilities, deviations from best practices
+  \item Generates detailed security findings
+  \item Prioritized list of security findings
+  \item Supports EC2 instances and container images
+\end{itemize}
+
+\subsection{AWS WAF (Web Application Firewall)}
+
+\begin{itemize}
+  \item Protects web applications from common exploits
+  \item Deployed on CloudFront, Application Load Balancer, API Gateway
+  \item Create custom rules to block attack patterns
+  \item Protects against SQL injection, cross-site scripting (XSS)
+  \item IP-based filtering, geo-blocking
+  \item Rate-based rules to prevent DDoS
+\end{itemize}
+
+\subsection{Amazon Macie}
+
+\begin{itemize}
+  \item Data security and privacy service
+  \item Uses machine learning to discover and protect sensitive data
+  \item Identifies Personally Identifiable Information (PII)
+  \item Monitors S3 buckets
+  \item Provides dashboards and alerts
+  \item Helps meet compliance requirements (GDPR, HIPAA)
+\end{itemize}
+
+\subsection{AWS Artifact}
+
+\begin{itemize}
+  \item On-demand access to AWS compliance reports
+  \item Self-service portal for audit artifacts
+  \item Download AWS security and compliance documents
+  \item Examples: ISO certifications, SOC reports, PCI reports
+  \item No cost
+  \item Support compliance and regulatory requirements
+\end{itemize}
+
+\section{Compliance}
+
+\subsection{AWS Compliance Programs}
+
+AWS complies with numerous compliance programs:
+\begin{itemize}
+  \item \textbf{HIPAA}: Health Insurance Portability and Accountability Act
+  \item \textbf{PCI DSS}: Payment Card Industry Data Security Standard
+  \item \textbf{SOC 1, 2, 3}: Service Organization Controls
+  \item \textbf{ISO 27001}: Information security management
+  \item \textbf{FedRAMP}: Federal Risk and Authorization Management Program
+  \item \textbf{GDPR}: General Data Protection Regulation
+\end{itemize}
+
+\subsection{AWS Config}
+
+\begin{itemize}
+  \item Assess, audit, and evaluate configurations
+  \item Continuous monitoring of resource configurations
+  \item Track configuration changes over time
+  \item Compliance auditing and security analysis
+  \item Config Rules: Define desired configurations
+  \item Automated remediation of non-compliant resources
+\end{itemize}
+
+\chapter{Domain 3: Cloud Technology and Services (34\%)}
+
+This is the largest domain, covering core AWS services across compute, storage, networking, databases, and more.
+
+\section{AWS Global Infrastructure}
+
+\subsection{Regions}
+
+\begin{itemize}
+  \item Geographic area with multiple Availability Zones
+  \item Currently 33 Regions worldwide
+  \item Each Region is completely isolated
+  \item Choose Region based on:
+  \begin{itemize}
+    \item Compliance requirements
+    \item Proximity to users (latency)
+    \item Available services (not all services in all Regions)
+    \item Pricing (varies by Region)
+  \end{itemize}
+\end{itemize}
+
+\subsection{Availability Zones (AZs)}
+
+\begin{itemize}
+  \item One or more discrete data centers
+  \item Each AZ has redundant power, networking, connectivity
+  \item Physically separated within a Region
+  \item Connected with high-bandwidth, low-latency networking
+  \item Minimum of 3 AZs per Region (most have more)
+  \item Deploy resources across multiple AZs for high availability
+\end{itemize}
+
+\subsection{Edge Locations}
+
+\begin{itemize}
+  \item 400+ Edge Locations worldwide
+  \item Used by CloudFront for content caching
+  \item Lower latency for end users
+  \item Also used by Route 53, AWS Shield, AWS WAF
+  \item More locations than Regions
+\end{itemize}
+
+\subsection{AWS Local Zones}
+
+\begin{itemize}
+  \item Extension of Region closer to users
+  \item Single-digit millisecond latency
+  \item For latency-sensitive applications
+  \item Not available everywhere
+\end{itemize}
+
+\subsection{AWS Wavelength}
+
+\begin{itemize}
+  \item Embeds AWS compute and storage in 5G networks
+  \item Ultra-low latency applications
+  \item For mobile edge computing
+\end{itemize}
+
+\subsection{AWS Outposts}
+
+\begin{itemize}
+  \item Fully managed service extending AWS infrastructure to on-premises
+  \item Same AWS APIs, tools, hardware on-premises
+  \item Hybrid cloud deployment
+  \item AWS manages and maintains the infrastructure
+\end{itemize}
+
+\begin{examtip}
+Remember: Regions contain Availability Zones. Edge Locations are separate and used for content delivery.
+\end{examtip}
+
+\section{Compute Services}
+
+\subsection{Amazon EC2 (Elastic Compute Cloud)}
+
+\textbf{Virtual servers in the cloud}
+
+\subsubsection{Instance Types}
+\begin{itemize}
+  \item \textbf{General Purpose}: Balanced compute, memory, networking (T3, M5)
+  \item \textbf{Compute Optimized}: High-performance processors (C5, C6)
+  \item \textbf{Memory Optimized}: Large datasets in memory (R5, X1)
+  \item \textbf{Storage Optimized}: High sequential read/write (I3, D2)
+  \item \textbf{Accelerated Computing}: GPU, FPGA (P3, G4)
+\end{itemize}
+
+\subsubsection{Pricing Models}
+\begin{enumerate}
+  \item \textbf{On-Demand}:
+  \begin{itemize}
+    \item Pay per hour or per second
+    \item No upfront commitment
+    \item Highest per-hour cost
+    \item Good for unpredictable workloads
+  \end{itemize}
+
+  \item \textbf{Reserved Instances (RI)}:
+  \begin{itemize}
+    \item 1 or 3 year commitment
+    \item Up to 75\% discount vs. On-Demand
+    \item Standard RI: Most discount, can't change instance type
+    \item Convertible RI: Less discount, can change instance type
+    \item Good for steady-state workloads
+  \end{itemize}
+
+  \item \textbf{Savings Plans}:
+  \begin{itemize}
+    \item Commit to consistent compute usage (measured in \$/hour)
+    \item 1 or 3 year commitment
+    \item Up to 72\% discount
+    \item More flexible than Reserved Instances
+    \item Applies to EC2, Lambda, Fargate
+  \end{itemize}
+
+  \item \textbf{Spot Instances}:
+  \begin{itemize}
+    \item Bid on unused EC2 capacity
+    \item Up to 90\% discount
+    \item Can be interrupted with 2-minute warning
+    \item Good for fault-tolerant, flexible workloads
+    \item Not suitable for critical workloads
+  \end{itemize}
+
+  \item \textbf{Dedicated Hosts}:
+  \begin{itemize}
+    \item Physical server dedicated to your use
+    \item Most expensive option
+    \item For compliance requirements or licensing
+    \item Socket/core visibility for licensing
+  \end{itemize}
+
+  \item \textbf{Dedicated Instances}:
+  \begin{itemize}
+    \item Instances run on hardware dedicated to you
+    \item May share hardware with other instances in your account
+    \item Less expensive than Dedicated Hosts
+  \end{itemize}
+\end{enumerate}
+
+\subsubsection{Auto Scaling}
+\begin{itemize}
+  \item Automatically adjust capacity based on demand
+  \item Scale out (add instances) or scale in (remove instances)
+  \item Define scaling policies:
+  \begin{itemize}
+    \item Target tracking: Maintain metric at target (e.g., 50\% CPU)
+    \item Step scaling: Scale based on CloudWatch alarms
+    \item Scheduled scaling: Predictable load changes
+  \end{itemize}
+  \item Improves availability and cost optimization
+  \item Works with Elastic Load Balancing
+\end{itemize}
+
+\subsection{AWS Lambda}
+
+\textbf{Serverless compute service}
+
+\begin{itemize}
+  \item Run code without provisioning servers
+  \item Pay only for compute time consumed
+  \item Automatic scaling
+  \item Supports multiple languages (Python, Node.js, Java, Go, C\#, Ruby)
+  \item Maximum execution time: 15 minutes
+  \item Event-driven execution
+  \item Integrated with many AWS services
+  \item Use cases: Data processing, real-time file processing, backends
+\end{itemize}
+
+\textbf{Benefits:}
+\begin{itemize}
+  \item No server management
+  \item Continuous scaling
+  \item Subsecond metering
+  \item High availability built-in
+\end{itemize}
+
+\subsection{Amazon Lightsail}
+
+\begin{itemize}
+  \item Easy-to-use cloud platform
+  \item Virtual private servers (VPS)
+  \item Predictable monthly pricing
+  \item Includes compute, storage, networking
+  \item Ideal for simple web applications, blogs, small businesses
+  \item Pre-configured applications (WordPress, Magento)
+  \item Good for beginners or simple workloads
+\end{itemize}
+
+\subsection{AWS Elastic Beanstalk}
+
+\begin{itemize}
+  \item Platform as a Service (PaaS)
+  \item Deploy and manage applications without infrastructure management
+  \item Supports Java, .NET, PHP, Node.js, Python, Ruby, Go, Docker
+  \item Automatically handles capacity provisioning, load balancing, auto-scaling
+  \item You retain full control of underlying resources
+  \item No additional charge (pay for resources used)
+  \item Good for web applications
+\end{itemize}
+
+\subsection{Amazon ECS (Elastic Container Service)}
+
+\begin{itemize}
+  \item Fully managed container orchestration service
+  \item Run Docker containers
+  \item Launch types:
+  \begin{itemize}
+    \item EC2: You manage the underlying EC2 instances
+    \item Fargate: Serverless, AWS manages infrastructure
+  \end{itemize}
+  \item Integrates with other AWS services
+  \item Use cases: Microservices, batch processing
+\end{itemize}
+
+\subsection{Amazon EKS (Elastic Kubernetes Service)}
+
+\begin{itemize}
+  \item Fully managed Kubernetes service
+  \item Run Kubernetes without managing control plane
+  \item Compatible with standard Kubernetes tooling
+  \item Integrates with AWS services
+  \item For teams already using Kubernetes
+\end{itemize}
+
+\subsection{AWS Fargate}
+
+\begin{itemize}
+  \item Serverless compute engine for containers
+  \item Works with ECS and EKS
+  \item No need to provision or manage servers
+  \item Pay for resources used by containers
+  \item Focus on application, not infrastructure
+\end{itemize}
+
+\begin{keypoint}
+Remember the compute spectrum: EC2 (most control) $\rightarrow$ Containers (ECS/EKS) $\rightarrow$ Lambda (least control, most abstraction)
+\end{keypoint}
+
+\section{Storage Services}
+
+\subsection{Amazon S3 (Simple Storage Service)}
+
+\textbf{Object storage service}
+
+\subsubsection{Key Concepts}
+\begin{itemize}
+  \item \textbf{Buckets}: Containers for objects, globally unique names
+  \item \textbf{Objects}: Files stored in buckets (up to 5 TB)
+  \item \textbf{Keys}: Unique identifier for objects
+  \item \textbf{Durability}: 99.999999999\% (11 nines)
+  \item \textbf{Availability}: Varies by storage class
+\end{itemize}
+
+\subsubsection{Storage Classes}
+\begin{enumerate}
+  \item \textbf{S3 Standard}:
+  \begin{itemize}
+    \item Frequently accessed data
+    \item Low latency, high throughput
+    \item 99.99\% availability
+    \item Most expensive
+  \end{itemize}
+
+  \item \textbf{S3 Intelligent-Tiering}:
+  \begin{itemize}
+    \item Automatically moves objects between tiers
+    \item Optimizes costs for unknown access patterns
+    \item Small monthly monitoring fee
+  \end{itemize}
+
+  \item \textbf{S3 Standard-IA (Infrequent Access)}:
+  \begin{itemize}
+    \item Less frequently accessed data
+    \item Lower storage cost, retrieval fee
+    \item 99.9\% availability
+    \item Minimum 30-day storage
+  \end{itemize}
+
+  \item \textbf{S3 One Zone-IA}:
+  \begin{itemize}
+    \item Single Availability Zone
+    \item 20\% less cost than Standard-IA
+    \item 99.5\% availability
+    \item For recreatable data
+  \end{itemize}
+
+  \item \textbf{S3 Glacier Instant Retrieval}:
+  \begin{itemize}
+    \item Archive data with instant retrieval
+    \item Millisecond retrieval
+    \item Minimum 90-day storage
+  \end{itemize}
+
+  \item \textbf{S3 Glacier Flexible Retrieval}:
+  \begin{itemize}
+    \item Archive data, retrieval in minutes to hours
+    \item Expedited (1-5 min), Standard (3-5 hours), Bulk (5-12 hours)
+    \item Minimum 90-day storage
+  \end{itemize}
+
+  \item \textbf{S3 Glacier Deep Archive}:
+  \begin{itemize}
+    \item Lowest cost storage
+    \item Retrieval time: 12-48 hours
+    \item Minimum 180-day storage
+    \item For compliance archives
+  \end{itemize}
+\end{enumerate}
+
+\subsubsection{S3 Features}
+\begin{itemize}
+  \item \textbf{Versioning}: Keep multiple versions of objects
+  \item \textbf{Lifecycle Policies}: Automatically transition or delete objects
+  \item \textbf{Encryption}: Server-side and client-side encryption
+  \item \textbf{Access Control}: Bucket policies, ACLs, IAM policies
+  \item \textbf{Static Website Hosting}: Host static websites
+  \item \textbf{Cross-Region Replication}: Replicate objects across Regions
+  \item \textbf{Transfer Acceleration}: Fast transfer using CloudFront edge locations
+\end{itemize}
+
+\subsection{Amazon EBS (Elastic Block Store)}
+
+\textbf{Block storage for EC2 instances}
+
+\begin{itemize}
+  \item Persistent block storage
+  \item Attached to single EC2 instance
+  \item Automatically replicated within Availability Zone
+  \item Snapshots stored in S3
+  \item Can detach and reattach to different instances
+\end{itemize}
+
+\subsubsection{Volume Types}
+\begin{itemize}
+  \item \textbf{General Purpose SSD (gp3, gp2)}: Balanced price/performance
+  \item \textbf{Provisioned IOPS SSD (io2, io1)}: High-performance, mission-critical
+  \item \textbf{Throughput Optimized HDD (st1)}: Low-cost, frequently accessed
+  \item \textbf{Cold HDD (sc1)}: Lowest cost, infrequently accessed
+\end{itemize}
+
+\subsection{Amazon EFS (Elastic File System)}
+
+\begin{itemize}
+  \item Managed NFS (Network File System)
+  \item Shared storage for multiple EC2 instances
+  \item Automatically scales
+  \item Pay for storage used
+  \item Regional service (spans multiple AZs)
+  \item Use cases: Content management, web serving, data sharing
+\end{itemize}
+
+\subsection{AWS Storage Gateway}
+
+\begin{itemize}
+  \item Hybrid cloud storage service
+  \item Connects on-premises to AWS storage
+  \item Three types:
+  \begin{itemize}
+    \item File Gateway: NFS/SMB access to S3
+    \item Volume Gateway: iSCSI block storage
+    \item Tape Gateway: Virtual tape library
+  \end{itemize}
+  \item For backup, disaster recovery, migration
+\end{itemize}
+
+\subsection{AWS Snow Family}
+
+\textbf{Physical devices for data migration}
+
+\begin{itemize}
+  \item \textbf{Snowcone}: 8 TB, smallest, portable
+  \item \textbf{Snowball Edge}:
+  \begin{itemize}
+    \item Storage Optimized: 80 TB
+    \item Compute Optimized: 42 TB + compute
+  \end{itemize}
+  \item \textbf{Snowmobile}: 100 PB, shipping container
+  \item Use cases: Large data migrations, edge computing, disaster recovery
+  \item Ships to you, load data, ship back to AWS
+\end{itemize}
+
+\begin{examtip}
+Choose storage based on use case: S3 for object storage, EBS for EC2 block storage, EFS for shared file system.
+\end{examtip}
+
+\section{Database Services}
+
+\subsection{Amazon RDS (Relational Database Service)}
+
+\textbf{Managed relational database}
+
+\begin{itemize}
+  \item Supported engines: MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, Amazon Aurora
+  \item Automated backups, patching, scaling
+  \item Multi-AZ deployment for high availability
+  \item Read replicas for read-heavy workloads
+  \item No access to underlying OS
+  \item Pay for instance type and storage
+\end{itemize}
+
+\subsubsection{Multi-AZ Deployments}
+\begin{itemize}
+  \item Synchronous replication to standby in different AZ
+  \item Automatic failover
+  \item High availability and disaster recovery
+  \item No performance benefit (failover only)
+\end{itemize}
+
+\subsubsection{Read Replicas}
+\begin{itemize}
+  \item Asynchronous replication
+  \item Scale read-heavy workloads
+  \item Can be in different Region
+  \item Can be promoted to primary
+  \item Up to 5 read replicas per primary
+\end{itemize}
+
+\subsection{Amazon Aurora}
+
+\begin{itemize}
+  \item AWS proprietary database
+  \item MySQL and PostgreSQL compatible
+  \item 5x faster than MySQL, 3x faster than PostgreSQL
+  \item Up to 15 read replicas
+  \item Automatic scaling storage (10 GB to 128 TB)
+  \item 6 copies across 3 AZs
+  \item More expensive than RDS but better performance
+\end{itemize}
+
+\subsection{Amazon DynamoDB}
+
+\textbf{NoSQL database service}
+
+\begin{itemize}
+  \item Fully managed, serverless
+  \item Key-value and document database
+  \item Single-digit millisecond latency
+  \item Automatic scaling
+  \item Global tables for multi-region replication
+  \item DynamoDB Accelerator (DAX): In-memory cache
+  \item Pay per request or provisioned capacity
+  \item Use cases: Mobile backends, gaming, IoT
+\end{itemize}
+
+\subsection{Amazon ElastiCache}
+
+\textbf{In-memory caching service}
+
+\begin{itemize}
+  \item Managed Redis or Memcached
+  \item Improve application performance
+  \item Reduce database load
+  \item Microsecond latency
+  \item Common use: Cache database queries, session stores
+\end{itemize}
+
+\subsection{Amazon Redshift}
+
+\textbf{Data warehouse service}
+
+\begin{itemize}
+  \item Petabyte-scale data warehouse
+  \item Columnar storage
+  \item Massively parallel processing
+  \item SQL-based queries
+  \item Integrate with BI tools
+  \item Use cases: Analytics, business intelligence
+\end{itemize}
+
+\subsection{Amazon Neptune}
+
+\begin{itemize}
+  \item Fully managed graph database
+  \item Supports Property Graph and RDF
+  \item Use cases: Social networks, recommendation engines, fraud detection
+\end{itemize}
+
+\subsection{Amazon DocumentDB}
+
+\begin{itemize}
+  \item MongoDB-compatible document database
+  \item Fully managed
+  \item Scale storage and compute independently
+  \item Use cases: Content management, catalogs
+\end{itemize}
+
+\begin{keypoint}
+Database selection: RDS for relational, DynamoDB for NoSQL key-value, Redshift for analytics, ElastiCache for caching.
+\end{keypoint}
+
+\section{Networking and Content Delivery}
+
+\subsection{Amazon VPC (Virtual Private Cloud)}
+
+\textbf{Isolated virtual network}
+
+\begin{itemize}
+  \item Your own private network in AWS
+  \item Control IP address range (CIDR blocks)
+  \item Create subnets in different Availability Zones
+  \item Configure route tables, network gateways
+  \item Isolated and secure
+\end{itemize}
+
+\subsubsection{Components}
+\begin{itemize}
+  \item \textbf{Subnets}: Segments of VPC IP address range
+  \begin{itemize}
+    \item Public subnet: Has route to Internet Gateway
+    \item Private subnet: No direct internet access
+  \end{itemize}
+
+  \item \textbf{Internet Gateway (IGW)}: Allows communication with internet
+
+  \item \textbf{NAT Gateway/Instance}: Allows private subnet instances to access internet
+
+  \item \textbf{Route Tables}: Determine traffic routing
+
+  \item \textbf{Security Groups}: Virtual firewall for instances (stateful)
+  \begin{itemize}
+    \item Instance level
+    \item Allow rules only
+    \item Stateful: Return traffic automatically allowed
+  \end{itemize}
+
+  \item \textbf{Network ACLs}: Subnet-level firewall (stateless)
+  \begin{itemize}
+    \item Subnet level
+    \item Allow and deny rules
+    \item Stateless: Must explicitly allow return traffic
+  \end{itemize}
+
+  \item \textbf{VPC Peering}: Connect two VPCs
+
+  \item \textbf{VPN Gateway}: Connect on-premises to VPC via VPN
+
+  \item \textbf{Direct Connect}: Dedicated network connection from on-premises
+\end{itemize}
+
+\subsection{Amazon CloudFront}
+
+\textbf{Content Delivery Network (CDN)}
+
+\begin{itemize}
+  \item Distribute content globally with low latency
+  \item 400+ Edge Locations worldwide
+  \item Cache content closer to users
+  \item Integrates with S3, EC2, ELB, Route 53
+  \item DDoS protection via AWS Shield
+  \item Use cases: Static/dynamic content, video streaming, API acceleration
+\end{itemize}
+
+\subsection{Amazon Route 53}
+
+\textbf{DNS web service}
+
+\begin{itemize}
+  \item Domain name registration
+  \item DNS routing
+  \item Health checking
+  \item Highly available and scalable
+  \item Routing policies:
+  \begin{itemize}
+    \item Simple: Single resource
+    \item Weighted: Distribute traffic across resources
+    \item Latency: Route to lowest latency
+    \item Failover: Active-passive failover
+    \item Geolocation: Route based on user location
+    \item Geoproximity: Route based on resource location
+  \end{itemize}
+\end{itemize}
+
+\subsection{Elastic Load Balancing (ELB)}
+
+\textbf{Distribute traffic across targets}
+
+\subsubsection{Types}
+\begin{itemize}
+  \item \textbf{Application Load Balancer (ALB)}:
+  \begin{itemize}
+    \item Layer 7 (HTTP/HTTPS)
+    \item Advanced routing (path, host-based)
+    \item Best for web applications
+  \end{itemize}
+
+  \item \textbf{Network Load Balancer (NLB)}:
+  \begin{itemize}
+    \item Layer 4 (TCP/UDP)
+    \item Extreme performance, low latency
+    \item Static IP addresses
+  \end{itemize}
+
+  \item \textbf{Gateway Load Balancer}:
+  \begin{itemize}
+    \item Layer 3 (IP)
+    \item For third-party virtual appliances
+  \end{itemize}
+
+  \item \textbf{Classic Load Balancer}:
+  \begin{itemize}
+    \item Previous generation
+    \item Layer 4 and 7
+    \item Being phased out
+  \end{itemize}
+\end{itemize}
+
+\subsection{AWS Direct Connect}
+
+\begin{itemize}
+  \item Dedicated private connection from on-premises to AWS
+  \item Bypass internet
+  \item Consistent network performance
+  \item Reduce bandwidth costs
+  \item Access public and private services
+  \item Takes weeks/months to provision
+\end{itemize}
+
+\subsection{AWS VPN}
+
+\begin{itemize}
+  \item Site-to-Site VPN: Connect on-premises to AWS VPC over internet
+  \item Client VPN: Connect individual users to AWS or on-premises
+  \item Encrypted connection
+  \item Quick to set up (minutes)
+  \item Lower cost than Direct Connect
+\end{itemize}
+
+\section{Management and Governance}
+
+\subsection{AWS CloudFormation}
+
+\begin{itemize}
+  \item Infrastructure as Code (IaC)
+  \item Define resources in templates (JSON or YAML)
+  \item Automate infrastructure provisioning
+  \item Version control infrastructure
+  \item Consistent deployments
+  \item No additional charge (pay for resources created)
+\end{itemize}
+
+\subsection{AWS CloudTrail}
+
+\begin{itemize}
+  \item Governance, compliance, auditing
+  \item Log all API calls in AWS account
+  \item Who did what, when, and where
+  \item Enabled by default (90 days)
+  \item Store logs in S3 for long-term retention
+  \item Integrate with CloudWatch Logs
+  \item Essential for security and compliance
+\end{itemize}
+
+\subsection{Amazon CloudWatch}
+
+\textbf{Monitoring and observability}
+
+\begin{itemize}
+  \item Collect and track metrics
+  \item Collect and monitor log files
+  \item Set alarms
+  \item Automatically react to changes
+  \item Components:
+  \begin{itemize}
+    \item CloudWatch Metrics: Numerical data points
+    \item CloudWatch Logs: Log collection and analysis
+    \item CloudWatch Alarms: Trigger actions based on metrics
+    \item CloudWatch Events/EventBridge: Event-driven automation
+  \end{itemize}
+  \item Built-in metrics for most AWS services
+  \item Custom metrics for applications
+\end{itemize}
+
+\subsection{AWS Systems Manager}
+
+\begin{itemize}
+  \item Operational hub for AWS resources
+  \item View operational data
+  \item Automate tasks
+  \item Patch management
+  \item Run commands on multiple instances
+  \item Session Manager: Secure shell access without SSH keys
+  \item Parameter Store: Centralized secret and configuration management
+\end{itemize}
+
+\subsection{AWS Trusted Advisor}
+
+\textbf{Best practice recommendations}
+
+\begin{itemize}
+  \item Real-time guidance to provision resources
+  \item Five categories:
+  \begin{enumerate}
+    \item Cost Optimization: Reduce costs
+    \item Performance: Improve performance
+    \item Security: Close security gaps
+    \item Fault Tolerance: Increase availability
+    \item Service Limits: Check service quotas
+  \end{enumerate}
+  \item Free checks: 7 core checks
+  \item Business/Enterprise Support: All checks + notifications
+  \item Dashboard with action items
+\end{itemize}
+
+\subsection{AWS Control Tower}
+
+\begin{itemize}
+  \item Set up and govern multi-account AWS environment
+  \item Automated setup of landing zone
+  \item Guardrails for governance
+  \item Account Factory for account creation
+  \item Built on AWS Organizations, CloudFormation, other services
+\end{itemize}
+
+\subsection{AWS Service Catalog}
+
+\begin{itemize}
+  \item Create and manage catalogs of approved IT services
+  \item Control which services users can deploy
+  \item Standardize deployments
+  \item Centralized management
+\end{itemize}
+
+\section{Additional Services}
+
+\subsection{Amazon SNS (Simple Notification Service)}
+
+\begin{itemize}
+  \item Pub/sub messaging service
+  \item Send notifications to multiple subscribers
+  \item Push notifications to mobile devices
+  \item Email, SMS, HTTP endpoints
+  \item Decoupled architecture
+  \item Topics and subscriptions
+\end{itemize}
+
+\subsection{Amazon SQS (Simple Queue Service)}
+
+\begin{itemize}
+  \item Fully managed message queue
+  \item Decouple application components
+  \item Standard queues: At-least-once delivery, best-effort ordering
+  \item FIFO queues: Exactly-once processing, strict ordering
+  \item Messages retained up to 14 days
+  \item Unlimited throughput
+\end{itemize}
+
+\subsection{AWS Step Functions}
+
+\begin{itemize}
+  \item Orchestrate workflows
+  \item Visual workflow designer
+  \item Coordinate multiple AWS services
+  \item Serverless workflow service
+  \item State machines for complex workflows
+\end{itemize}
+
+\subsection{Amazon EventBridge}
+
+\begin{itemize}
+  \item Serverless event bus
+  \item Connect applications using events
+  \item Route events between AWS services, SaaS applications
+  \item Previously called CloudWatch Events
+\end{itemize}
+
+\subsection{AWS Batch}
+
+\begin{itemize}
+  \item Fully managed batch processing
+  \item Run batch computing workloads
+  \item Automatically provisions compute resources
+  \item Dynamically scales based on volume
+  \item Use cases: Data processing, rendering
+\end{itemize}
+
+\subsection{Amazon Athena}
+
+\begin{itemize}
+  \item Interactive query service
+  \item Analyze data in S3 using SQL
+  \item Serverless
+  \item Pay per query
+  \item Use cases: Log analysis, business intelligence
+\end{itemize}
+
+\subsection{AWS Glue}
+
+\begin{itemize}
+  \item Fully managed ETL (Extract, Transform, Load) service
+  \item Prepare data for analytics
+  \item Serverless
+  \item Data catalog and metadata management
+\end{itemize}
+
+\subsection{Amazon QuickSight}
+
+\begin{itemize}
+  \item Business intelligence service
+  \item Create visualizations and dashboards
+  \item Machine learning insights
+  \item Serverless
+  \item Pay per session
+\end{itemize}
+
+\subsection{Amazon Kinesis}
+
+\begin{itemize}
+  \item Real-time data streaming
+  \item Collect, process, analyze streaming data
+  \item Services:
+  \begin{itemize}
+    \item Kinesis Data Streams: Capture and store data streams
+    \item Kinesis Data Firehose: Load data into AWS data stores
+    \item Kinesis Data Analytics: Analyze streams with SQL
+    \item Kinesis Video Streams: Process video streams
+  \end{itemize}
+\end{itemize}
+
+\subsection{Amazon SageMaker}
+
+\begin{itemize}
+  \item Build, train, deploy machine learning models
+  \item Fully managed ML service
+  \item Integrated Jupyter notebooks
+  \item Pre-built algorithms
+  \item One-click training and deployment
+\end{itemize}
+
+\subsection{Amazon Rekognition}
+
+\begin{itemize}
+  \item Image and video analysis
+  \item Facial analysis and recognition
+  \item Object and scene detection
+  \item Content moderation
+  \item Machine learning-powered
+\end{itemize}
+
+\subsection{Amazon Comprehend}
+
+\begin{itemize}
+  \item Natural language processing (NLP)
+  \item Extract insights from text
+  \item Sentiment analysis, entity recognition
+  \item Topic modeling
+\end{itemize}
+
+\subsection{Amazon Lex}
+
+\begin{itemize}
+  \item Build conversational interfaces (chatbots)
+  \item Same technology as Amazon Alexa
+  \item Automatic speech recognition (ASR)
+  \item Natural language understanding (NLU)
+\end{itemize}
+
+\subsection{AWS Migration Hub}
+
+\begin{itemize}
+  \item Track application migrations
+  \item Single location to monitor migrations
+  \item Integrate with migration tools
+  \item Visualize migration progress
+\end{itemize}
+
+\subsection{AWS Database Migration Service (DMS)}
+
+\begin{itemize}
+  \item Migrate databases to AWS
+  \item Source database remains operational
+  \item Supports homogeneous and heterogeneous migrations
+  \item Continuous data replication
+\end{itemize}
+
+\subsection{AWS Application Discovery Service}
+
+\begin{itemize}
+  \item Discover on-premises applications
+  \item Plan migrations
+  \item Collect server utilization and dependency data
+\end{itemize}
+
+\chapter{Domain 4: Billing, Pricing, and Support (12\%)}
+
+\section{AWS Pricing Fundamentals}
+
+\subsection{Core Principles}
+
+\begin{itemize}
+  \item \textbf{Pay-as-you-go}: Pay only for what you use
+  \item \textbf{Pay less when you reserve}: Reserved capacity discounts
+  \item \textbf{Pay less with volume-based discounts}: Use more, pay less per unit
+  \item \textbf{No upfront costs}: No capital expenditure
+  \item \textbf{No termination fees}: Stop anytime
+\end{itemize}
+
+\subsection{Free Tier}
+
+\textbf{Three types:}
+\begin{enumerate}
+  \item \textbf{Always Free}: Never expire
+  \begin{itemize}
+    \item DynamoDB: 25 GB storage
+    \item Lambda: 1 million requests/month
+    \item SNS: 1 million publishes
+  \end{itemize}
+
+  \item \textbf{12 Months Free}: Starting from account creation
+  \begin{itemize}
+    \item EC2: 750 hours/month of t2.micro or t3.micro
+    \item S3: 5 GB standard storage
+    \item RDS: 750 hours/month of db.t2.micro
+  \end{itemize}
+
+  \item \textbf{Trials}: Short-term free trials
+  \begin{itemize}
+    \item SageMaker: 2 months
+    \item Inspector: 90 days
+    \item Lightsail: 1 month
+  \end{itemize}
+\end{enumerate}
+
+\section{Pricing Models by Service Category}
+
+\subsection{Compute Pricing}
+
+\textbf{EC2:}
+\begin{itemize}
+  \item Pay for instance hours
+  \item Varies by instance type, Region
+  \item Additional charges: Data transfer, storage
+\end{itemize}
+
+\textbf{Lambda:}
+\begin{itemize}
+  \item Pay for requests and compute time
+  \item \$0.20 per 1 million requests
+  \item Compute time charged per GB-second
+  \item 1 million free requests/month (always free)
+\end{itemize}
+
+\subsection{Storage Pricing}
+
+\textbf{S3:}
+\begin{itemize}
+  \item Pay for storage used (per GB/month)
+  \item Request pricing (PUT, GET, etc.)
+  \item Data transfer out
+  \item Varies by storage class
+\end{itemize}
+
+\textbf{EBS:}
+\begin{itemize}
+  \item Pay for provisioned storage (per GB/month)
+  \item Snapshot storage (incremental)
+  \item Varies by volume type
+\end{itemize}
+
+\subsection{Database Pricing}
+
+\textbf{RDS:}
+\begin{itemize}
+  \item Instance hours
+  \item Storage (per GB/month)
+  \item Backup storage
+  \item Data transfer
+\end{itemize}
+
+\textbf{DynamoDB:}
+\begin{itemize}
+  \item On-Demand: Pay per request
+  \item Provisioned: Pay for read/write capacity units
+  \item Storage (per GB/month)
+\end{itemize}
+
+\subsection{Network Pricing}
+
+\begin{itemize}
+  \item Data transfer IN: Generally free
+  \item Data transfer OUT to internet: Charged (tiered pricing)
+  \item Data transfer between Regions: Charged
+  \item Data transfer within same Region: Free or low cost
+  \item CloudFront data transfer out: Lower than direct from services
+\end{itemize}
+
+\section{Cost Management Tools}
+
+\subsection{AWS Pricing Calculator}
+
+\begin{itemize}
+  \item Estimate monthly AWS costs
+  \item Configure service specifications
+  \item Create cost estimates for solutions
+  \item Share estimates with stakeholders
+  \item Free to use
+  \item No account required
+\end{itemize}
+
+\subsection{AWS Cost Explorer}
+
+\begin{itemize}
+  \item Visualize and analyze costs
+  \item View up to 12 months of historical data
+  \item Forecast future costs
+  \item Filter by service, Region, tag, etc.
+  \item Identify cost trends
+  \item Default reports and custom reports
+  \item Free, but API access costs extra
+\end{itemize}
+
+\subsection{AWS Budgets}
+
+\begin{itemize}
+  \item Set custom cost and usage budgets
+  \item Alert when exceeding thresholds
+  \item Types:
+  \begin{itemize}
+    \item Cost budgets
+    \item Usage budgets
+    \item Reservation budgets
+    \item Savings Plans budgets
+  \end{itemize}
+  \item Send notifications via SNS
+  \item First two budgets free, \$0.02/day per additional budget
+\end{itemize}
+
+\subsection{AWS Cost and Usage Report}
+
+\begin{itemize}
+  \item Most comprehensive cost data
+  \item Detailed breakdown of usage and costs
+  \item Delivered to S3 bucket
+  \item Integrate with Athena, Redshift, QuickSight
+  \item Hourly, daily, or monthly reports
+  \item Free (pay for S3 storage)
+\end{itemize}
+
+\subsection{AWS Cost Anomaly Detection}
+
+\begin{itemize}
+  \item Uses machine learning to detect unusual spending
+  \item Automatically identifies anomalies
+  \item Sends alerts
+  \item Root cause analysis
+  \item No additional cost
+\end{itemize}
+
+\section{Consolidated Billing and AWS Organizations}
+
+\subsection{Consolidated Billing}
+
+\begin{itemize}
+  \item One bill for all accounts in organization
+  \item Combine usage across accounts for volume discounts
+  \item Free feature of AWS Organizations
+  \item Track charges by account
+  \item No additional charge
+\end{itemize}
+
+\textbf{Benefits:}
+\begin{itemize}
+  \item Volume pricing discounts
+  \item Single payment method
+  \item Easy tracking
+  \item Free tier applies once per organization
+\end{itemize}
+
+\section{AWS Support Plans}
+
+\begin{longtable}{p{3cm}p{2.5cm}p{2.5cm}p{3cm}p{3cm}}
+\toprule
+\textbf{Feature} & \textbf{Basic} & \textbf{Developer} & \textbf{Business} & \textbf{Enterprise} \\
+\midrule
+\endhead
+
+\textbf{Cost} & Free & \$29/month or 3\% of monthly AWS usage & \$100/month or 10\% (3-10\% tiered) & \$15,000/month or 10\% (3-10\% tiered) \\
+\midrule
+
+\textbf{Use Case} & All customers & Testing and development & Production workloads & Mission-critical workloads \\
+\midrule
+
+\textbf{Technical Support} & None & Business hours via email & 24/7 via email, chat, phone & 24/7 via email, chat, phone \\
+\midrule
+
+\textbf{Response Time - General} & N/A & $<$ 24 hours & $<$ 24 hours & $<$ 24 hours \\
+\midrule
+
+\textbf{Response Time - System Impaired} & N/A & $<$ 12 hours & $<$ 12 hours & $<$ 12 hours \\
+\midrule
+
+\textbf{Response Time - Production Down} & N/A & N/A & $<$ 4 hours & $<$ 4 hours \\
+\midrule
+
+\textbf{Response Time - Business Critical} & N/A & N/A & $<$ 1 hour & $<$ 1 hour \\
+\midrule
+
+\textbf{Response Time - Mission Critical} & N/A & N/A & N/A & $<$ 15 minutes \\
+\midrule
+
+\textbf{Who Can Open Cases} & N/A & 1 primary contact & Unlimited contacts & Unlimited contacts \\
+\midrule
+
+\textbf{Trusted Advisor Checks} & 7 core checks & 7 core checks & All checks & All checks \\
+\midrule
+
+\textbf{Third-Party Software Support} & No & No & Yes & Yes \\
+\midrule
+
+\textbf{Architectural Guidance} & No & General & Contextual to use case & Consultative \\
+\midrule
+
+\textbf{Technical Account Manager (TAM)} & No & No & No & Yes \\
+\midrule
+
+\textbf{Proactive Programs} & No & No & No & Yes (Infrastructure Event Management, Well-Architected Reviews) \\
+\midrule
+
+\textbf{Concierge Support Team} & No & No & No & Yes \\
+\bottomrule
+\caption{AWS Support Plan Comparison}
+\end{longtable}
+
+\begin{important}
+Memorize the support plans, especially response times and which plan includes TAM (Enterprise only).
+\end{important}
+
+\subsection{Additional Support Resources}
+
+\subsubsection{AWS Personal Health Dashboard}
+
+\begin{itemize}
+  \item Personalized view of service health
+  \item Alerts for events impacting your resources
+  \item Proactive notifications
+  \item Detailed remediation guidance
+  \item Available to all customers
+\end{itemize}
+
+\subsubsection{AWS Health API}
+
+\begin{itemize}
+  \item Programmatic access to health information
+  \item Requires Business or Enterprise Support
+  \item Integrate with monitoring systems
+\end{itemize}
+
+\subsubsection{AWS Managed Services (AMS)}
+
+\begin{itemize}
+  \item AWS operates infrastructure on your behalf
+  \item 24/7 operations
+  \item Incident management
+  \item Patching, backup, monitoring
+  \item Separate service with additional cost
+\end{itemize}
+
+\subsubsection{AWS Professional Services}
+
+\begin{itemize}
+  \item Global team of experts
+  \item Help design, architect, build, migrate
+  \item Work alongside your team
+  \item Consulting services (additional cost)
+\end{itemize}
+
+\subsubsection{AWS Partner Network (APN)}
+
+\begin{itemize}
+  \item Global community of partners
+  \item Consulting Partners: Professional services
+  \item Technology Partners: Software solutions
+  \item AWS Marketplace: Software and services
+\end{itemize}
+
+\section{Cost Optimization Strategies}
+
+\subsection{Right Sizing}
+
+\begin{itemize}
+  \item Match instance types to workload requirements
+  \item Use CloudWatch metrics to identify underutilized resources
+  \item Use AWS Compute Optimizer recommendations
+  \item Downsize or change instance families
+\end{itemize}
+
+\subsection{Reserved Capacity}
+
+\begin{itemize}
+  \item Reserved Instances for EC2, RDS, ElastiCache, Redshift
+  \item Savings Plans for flexible commitment
+  \item Up to 75\% savings
+  \item Analyze usage patterns before purchasing
+\end{itemize}
+
+\subsection{Spot Instances}
+
+\begin{itemize}
+  \item Up to 90\% discount
+  \item For fault-tolerant, flexible workloads
+  \item Batch jobs, big data, containerized workloads
+\end{itemize}
+
+\subsection{Auto Scaling}
+
+\begin{itemize}
+  \item Scale resources based on demand
+  \item Avoid over-provisioning
+  \item Reduce costs during low-demand periods
+\end{itemize}
+
+\subsection{Storage Optimization}
+
+\begin{itemize}
+  \item Use appropriate S3 storage classes
+  \item Implement lifecycle policies
+  \item Delete unused snapshots and volumes
+  \item Use S3 Intelligent-Tiering for unknown patterns
+\end{itemize}
+
+\subsection{Data Transfer Optimization}
+
+\begin{itemize}
+  \item Use CloudFront to reduce data transfer costs
+  \item Keep data in same Region when possible
+  \item Use VPC endpoints for S3 and DynamoDB
+  \item Compress data before transfer
+\end{itemize}
+
+\chapter{Practice Questions and Exam Tips}
+
+\section{Sample Questions by Domain}
+
+\subsection{Domain 1: Cloud Concepts}
+
+\textbf{Question 1:} Which of the following are advantages of cloud computing? (Select TWO)
+\begin{itemize}
+  \item[A.] Trade capital expense for variable expense
+  \item[B.] Increase time to market
+  \item[C.] Benefit from massive economies of scale
+  \item[D.] Maintain infrastructure
+\end{itemize}
+
+\textbf{Answer:} A and C
+
+\vspace{0.5cm}
+
+\textbf{Question 2:} Which migration strategy involves moving applications to the cloud without making changes?
+\begin{itemize}
+  \item[A.] Repurchasing
+  \item[B.] Rehosting
+  \item[C.] Refactoring
+  \item[D.] Replatforming
+\end{itemize}
+
+\textbf{Answer:} B (Lift and Shift)
+
+\subsection{Domain 2: Security and Compliance}
+
+\textbf{Question 3:} According to the Shared Responsibility Model, which security aspect is AWS responsible for?
+\begin{itemize}
+  \item[A.] Security group configuration
+  \item[B.] Physical security of data centers
+  \item[C.] Customer data encryption
+  \item[D.] IAM user management
+\end{itemize}
+
+\textbf{Answer:} B
+
+\vspace{0.5cm}
+
+\textbf{Question 4:} Which service provides DDoS protection at no additional cost?
+\begin{itemize}
+  \item[A.] AWS WAF
+  \item[B.] AWS Shield Advanced
+  \item[C.] AWS Shield Standard
+  \item[D.] Amazon GuardDuty
+\end{itemize}
+
+\textbf{Answer:} C
+
+\subsection{Domain 3: Technology and Services}
+
+\textbf{Question 5:} Which compute service allows you to run code without provisioning servers?
+\begin{itemize}
+  \item[A.] Amazon EC2
+  \item[B.] AWS Lambda
+  \item[C.] Amazon ECS
+  \item[D.] AWS Elastic Beanstalk
+\end{itemize}
+
+\textbf{Answer:} B
+
+\vspace{0.5cm}
+
+\textbf{Question 6:} Which storage class is most cost-effective for infrequently accessed data that needs millisecond retrieval?
+\begin{itemize}
+  \item[A.] S3 Standard
+  \item[B.] S3 Glacier Instant Retrieval
+  \item[C.] S3 Standard-IA
+  \item[D.] S3 Glacier Deep Archive
+\end{itemize}
+
+\textbf{Answer:} C
+
+\subsection{Domain 4: Billing and Pricing}
+
+\textbf{Question 7:} Which AWS Support plan provides a Technical Account Manager?
+\begin{itemize}
+  \item[A.] Basic
+  \item[B.] Developer
+  \item[C.] Business
+  \item[D.] Enterprise
+\end{itemize}
+
+\textbf{Answer:} D
+
+\vspace{0.5cm}
+
+\textbf{Question 8:} Which service helps you create cost estimates for AWS solutions?
+\begin{itemize}
+  \item[A.] AWS Cost Explorer
+  \item[B.] AWS Pricing Calculator
+  \item[C.] AWS Budgets
+  \item[D.] AWS Cost and Usage Report
+\end{itemize}
+
+\textbf{Answer:} B
+
+\section{Test-Taking Strategies}
+
+\subsection{Before the Exam}
+
+\begin{enumerate}
+  \item \textbf{Review all exam objectives}: Ensure you've covered each domain
+  \item \textbf{Take practice exams}: Identify weak areas
+  \item \textbf{Get hands-on experience}: Create AWS account, experiment with services
+  \item \textbf{Review AWS documentation}: Especially FAQs for key services
+  \item \textbf{Get adequate rest}: Sleep well before exam day
+\end{enumerate}
+
+\subsection{During the Exam}
+
+\begin{enumerate}
+  \item \textbf{Read questions carefully}: Pay attention to keywords
+  \begin{itemize}
+    \item "MOST cost-effective"
+    \item "BEST"
+    \item "LEAST amount of effort"
+    \item "NOT" or "EXCEPT"
+  \end{itemize}
+
+  \item \textbf{Eliminate wrong answers}: Narrow down choices
+
+  \item \textbf{Watch for absolutes}: "Always," "never," "all," "none" are often wrong
+
+  \item \textbf{Flag difficult questions}: Return to them later
+
+  \item \textbf{Manage time}: Don't spend too long on one question
+
+  \item \textbf{Trust your preparation}: Your first instinct is often correct
+
+  \item \textbf{Use process of elimination}: Remove obviously incorrect answers
+
+  \item \textbf{Review flagged questions}: Use remaining time to review
+\end{enumerate}
+
+\subsection{Common Question Patterns}
+
+\begin{itemize}
+  \item \textbf{Scenario-based}: Describe situation, ask for best solution
+  \item \textbf{Select TWO/THREE}: Multiple correct answers
+  \item \textbf{Best practice}: What's the recommended approach?
+  \item \textbf{Cost optimization}: Which option is most cost-effective?
+  \item \textbf{Security}: Which option is most secure?
+  \item \textbf{High availability}: Which design ensures uptime?
+\end{itemize}
+
+\section{Common Pitfalls to Avoid}
+
+\begin{enumerate}
+  \item \textbf{Confusing service names}: EC2 vs. ECS vs. EKS; S3 vs. EBS vs. EFS
+  \item \textbf{Not understanding Shared Responsibility}: Know what AWS vs. customer manages
+  \item \textbf{Mixing up support plans}: Especially response times and TAM
+  \item \textbf{Forgetting storage classes}: S3 storage tiers and use cases
+  \item \textbf{Confusing pricing models}: On-Demand vs. Reserved vs. Spot
+  \item \textbf{Not knowing AWS global infrastructure}: Regions, AZs, Edge Locations
+  \item \textbf{Overlooking "EXCEPT" questions}: Read carefully
+  \item \textbf{Assuming real-world complexity}: Choose AWS-recommended simple solution
+\end{enumerate}
+
+\section{Key Concepts to Memorize}
+
+\begin{examtip}
+Focus on understanding concepts rather than memorization, but these facts appear frequently on the exam.
+\end{examtip}
+
+\subsection{Numbers to Remember}
+
+\begin{itemize}
+  \item S3 durability: 99.999999999\% (11 nines)
+  \item Minimum AZs per Region: 3
+  \item Edge Locations: 400+
+  \item Lambda max execution: 15 minutes
+  \item RDS read replicas: Up to 5
+  \item Support plan response times
+  \item Free tier: 12 months for EC2, S3, RDS
+\end{itemize}
+
+\subsection{Service Comparisons}
+
+\begin{itemize}
+  \item S3 vs. EBS vs. EFS
+  \item RDS vs. DynamoDB vs. Redshift
+  \item EC2 vs. Lambda vs. Elastic Beanstalk
+  \item CloudWatch vs. CloudTrail vs. Config
+  \item SNS vs. SQS
+  \item Security Groups vs. NACLs
+  \item ALB vs. NLB
+\end{itemize}
+
+% Include additional comprehensive chapters
+\input{chapter-service-comparisons}
+\input{chapter-exam-scenarios}
+\input{chapter-additional-services}
+
+\chapter{Study Plan and Resources}
+
+\section{Recommended Study Timeline}
+
+\subsection{4-Week Study Plan}
+
+\subsubsection{Week 1: Cloud Concepts and Foundations}
+\begin{itemize}
+  \item Study Domain 1: Cloud Concepts
+  \item Understand cloud computing fundamentals
+  \item Learn AWS Well-Architected Framework
+  \item Complete AWS Cloud Practitioner Essentials course
+  \item Practice: Create AWS account, explore console
+\end{itemize}
+
+\subsubsection{Week 2: Security and Compliance}
+\begin{itemize}
+  \item Study Domain 2: Security and Compliance
+  \item Master Shared Responsibility Model
+  \item Learn IAM thoroughly
+  \item Review security services
+  \item Practice: Set up IAM users, groups, roles, MFA
+\end{itemize}
+
+\subsubsection{Week 3: Technology and Services}
+\begin{itemize}
+  \item Study Domain 3: Cloud Technology and Services
+  \item Focus on core services: EC2, S3, RDS, VPC
+  \item Learn other services at high level
+  \item Practice: Launch EC2, create S3 bucket, set up VPC
+  \item Take mid-point practice exam
+\end{itemize}
+
+\subsubsection{Week 4: Billing and Review}
+\begin{itemize}
+  \item Study Domain 4: Billing, Pricing, and Support
+  \item Memorize support plans
+  \item Review all domains
+  \item Take multiple practice exams
+  \item Review weak areas
+  \item Final review day before exam
+\end{itemize}
+
+\subsection{2-Week Intensive Plan}
+
+For those with IT background or time constraints:
+
+\textbf{Week 1:}
+\begin{itemize}
+  \item Days 1-2: Cloud Concepts, Security
+  \item Days 3-5: Core services (compute, storage, database, networking)
+  \item Days 6-7: Remaining services, practice exam
+\end{itemize}
+
+\textbf{Week 2:}
+\begin{itemize}
+  \item Days 8-9: Billing, Support plans, cost optimization
+  \item Days 10-12: Practice exams, review weak areas
+  \item Days 13-14: Final review, rest before exam
+\end{itemize}
+
+\section{Official AWS Resources}
+
+\subsection{Free Resources}
+
+\begin{enumerate}
+  \item \textbf{AWS Cloud Practitioner Essentials}
+  \begin{itemize}
+    \item Free digital course on AWS Skill Builder
+    \item Covers all exam domains
+    \item Approximately 6 hours
+    \item \url{https://aws.amazon.com/training/digital/}
+  \end{itemize}
+
+  \item \textbf{AWS Exam Guide}
+  \begin{itemize}
+    \item Official exam content outline
+    \item Lists all topics tested
+    \item Download from AWS Training and Certification
+  \end{itemize}
+
+  \item \textbf{AWS Whitepapers}
+  \begin{itemize}
+    \item Overview of AWS
+    \item AWS Well-Architected Framework
+    \item AWS Pricing
+    \item Available at \url{https://aws.amazon.com/whitepapers/}
+  \end{itemize}
+
+  \item \textbf{AWS Documentation}
+  \begin{itemize}
+    \item Comprehensive service documentation
+    \item FAQs for each service
+    \item Best practices guides
+  \end{itemize}
+
+  \item \textbf{AWS Free Tier}
+  \begin{itemize}
+    \item Hands-on practice at no cost
+    \item 12 months free for many services
+    \item Always-free tier for others
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Paid Resources}
+
+\begin{enumerate}
+  \item \textbf{AWS Official Practice Exam}
+  \begin{itemize}
+    \item \$20 USD
+    \item 20 questions
+    \item Same format as real exam
+    \item Purchase through AWS Training
+  \end{itemize}
+
+  \item \textbf{AWS Classroom Training}
+  \begin{itemize}
+    \item Instructor-led courses
+    \item Virtual or in-person
+    \item Varies by location and provider
+  \end{itemize}
+\end{enumerate}
+
+\section{Third-Party Resources}
+
+\subsection{Online Courses}
+
+\begin{itemize}
+  \item \textbf{A Cloud Guru / Pluralsight}
+  \item \textbf{Udemy}: AWS Certified Cloud Practitioner courses
+  \item \textbf{Linux Academy / A Cloud Guru}
+  \item \textbf{Coursera}: AWS Cloud Practitioner specializations
+\end{itemize}
+
+\subsection{Practice Exams}
+
+\begin{itemize}
+  \item Tutorials Dojo practice exams
+  \item Whizlabs practice tests
+  \item ExamTopics (free community questions)
+\end{itemize}
+
+\subsection{Books}
+
+\begin{itemize}
+  \item AWS Certified Cloud Practitioner Study Guide (Sybex)
+  \item AWS Certified Cloud Practitioner Exam Guide
+\end{itemize}
+
+\subsection{YouTube Channels}
+
+\begin{itemize}
+  \item AWS Online Tech Talks
+  \item FreeCodeCamp AWS courses
+  \item Exam Pro
+\end{itemize}
+
+\section{Hands-On Practice}
+
+\begin{important}
+Hands-on experience is crucial for exam success. These labs will help you understand AWS services beyond theory and are likely to stay within Free Tier limits if done carefully.
+\end{important}
+
+\subsection{Prerequisites}
+
+\textbf{Create Your AWS Account:}
+\begin{enumerate}
+  \item Visit \url{https://aws.amazon.com}
+  \item Click "Create an AWS Account"
+  \item Provide email, password, and AWS account name
+  \item Enter contact information
+  \item Provide payment method (credit/debit card required)
+  \item Verify identity via phone
+  \item Select Support Plan (choose Basic - Free)
+  \item Wait for account activation (can take up to 24 hours)
+\end{enumerate}
+
+\begin{examtip}
+Set up billing alerts immediately to avoid unexpected charges. AWS Free Tier is generous, but mistakes can incur costs.
+\end{examtip}
+
+\subsection{Lab 1: Set Up Billing Alerts and Budget}
+
+\textbf{Duration:} 15 minutes
+
+\textbf{Objective:} Protect yourself from unexpected charges
+
+\textbf{Steps:}
+\begin{enumerate}
+  \item Sign in to AWS Management Console
+  \item Click your account name (top right) $\rightarrow$ "Account"
+  \item Scroll to "IAM User and Role Access to Billing Information"
+  \item Click "Edit" and enable "Activate IAM Access"
+  \item Navigate to CloudWatch service
+  \item Select your region (N. Virginia - us-east-1)
+  \item Go to "Alarms" $\rightarrow$ "Billing" $\rightarrow$ "Create alarm"
+  \item Click "Select metric" $\rightarrow$ "Billing" $\rightarrow$ "Total Estimated Charge"
+  \item Select USD and click "Select metric"
+  \item Set threshold: Greater than \$5 (or your preferred amount)
+  \item Click "Next"
+  \item Create new SNS topic: "Billing-Alerts"
+  \item Enter your email address
+  \item Click "Create topic"
+  \item Confirm subscription via email
+  \item Complete alarm creation
+  \item Navigate to AWS Budgets
+  \item Click "Create budget"
+  \item Select "Cost budget" $\rightarrow$ "Next"
+  \item Set budget amount: \$10/month
+  \item Configure alerts at 80\% and 100\%
+  \item Create budget
+\end{enumerate}
+
+\subsection{Lab 2: IAM Users, Groups, Roles, and MFA}
+
+\textbf{Duration:} 30 minutes
+
+\textbf{Objective:} Understand IAM security best practices
+
+\textbf{Steps:}
+
+\subsubsection{Secure Root Account}
+\begin{enumerate}
+  \item Navigate to IAM service in AWS Console
+  \item Click "Dashboard" - review security recommendations
+  \item Click "Add MFA" for root account
+  \item Select "Virtual MFA device"
+  \item Install Google Authenticator or Authy on your phone
+  \item Scan QR code with authenticator app
+  \item Enter two consecutive MFA codes
+  \item Click "Assign MFA"
+  \item Store root account credentials securely
+\end{enumerate}
+
+\subsubsection{Create IAM Admin User}
+\begin{enumerate}
+  \item In IAM, click "Users" $\rightarrow$ "Add users"
+  \item Username: "admin-user"
+  \item Select "Provide user access to AWS Management Console"
+  \item Choose "I want to create an IAM user"
+  \item Set custom password or autogenerate
+  \item Uncheck "Users must create a new password at next sign-in"
+  \item Click "Next"
+  \item Click "Attach policies directly"
+  \item Search and select "AdministratorAccess"
+  \item Click "Next" $\rightarrow$ "Create user"
+  \item Download credentials (save securely)
+  \item Copy console sign-in URL
+\end{enumerate}
+
+\subsubsection{Create IAM Groups}
+\begin{enumerate}
+  \item Click "User groups" $\rightarrow$ "Create group"
+  \item Group name: "Developers"
+  \item Attach policies:
+  \begin{itemize}
+    \item AmazonEC2ReadOnlyAccess
+    \item AmazonS3FullAccess
+  \end{itemize}
+  \item Click "Create group"
+  \item Create another group: "Administrators"
+  \item Attach policy: AdministratorAccess
+  \item Create group
+\end{enumerate}
+
+\subsubsection{Create Additional IAM Users}
+\begin{enumerate}
+  \item Create user "developer-1"
+  \item Enable console access
+  \item Set password
+  \item Click "Next"
+  \item Add user to "Developers" group
+  \item Create user
+  \item Create user "developer-2"
+  \item Repeat process, add to "Developers" group
+\end{enumerate}
+
+\subsubsection{Create IAM Role for EC2}
+\begin{enumerate}
+  \item Click "Roles" $\rightarrow$ "Create role"
+  \item Select "AWS service"
+  \item Use case: "EC2"
+  \item Click "Next"
+  \item Attach policy: "AmazonS3ReadOnlyAccess"
+  \item Click "Next"
+  \item Role name: "EC2-S3-ReadOnly-Role"
+  \item Description: "Allows EC2 instances to read from S3"
+  \item Click "Create role"
+\end{enumerate}
+
+\subsubsection{Test IAM Policies}
+\begin{enumerate}
+  \item Sign out from root account
+  \item Sign in as "developer-1"
+  \item Try to access S3 (should work)
+  \item Try to access IAM (should be denied)
+  \item Sign out
+\end{enumerate}
+
+\subsection{Lab 3: Launch and Configure EC2 Instance}
+
+\textbf{Duration:} 45 minutes
+
+\textbf{Objective:} Launch a web server on EC2
+
+\textbf{Steps:}
+
+\begin{enumerate}
+  \item Navigate to EC2 service
+  \item Select region (e.g., us-east-1)
+  \item Click "Launch Instance"
+  \item Name: "MyWebServer"
+  \item Select "Amazon Linux 2023 AMI" (Free tier eligible)
+  \item Instance type: "t2.micro" (Free tier eligible)
+  \item Create new key pair:
+  \begin{itemize}
+    \item Key pair name: "my-key-pair"
+    \item Type: RSA
+    \item Format: .pem (Linux/Mac) or .ppk (Windows/PuTTY)
+    \item Click "Create key pair"
+    \item Save file securely
+  \end{itemize}
+  \item Network settings:
+  \begin{itemize}
+    \item Create security group: "web-server-sg"
+    \item Allow SSH (port 22) from "My IP"
+    \item Allow HTTP (port 80) from "Anywhere" (0.0.0.0/0)
+  \end{itemize}
+  \item Configure storage: 8 GB gp3 (default, Free tier)
+  \item Expand "Advanced details"
+  \item Scroll to "User data" and paste:
+\begin{verbatim}
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Hello from AWS EC2</h1>" >
+  /var/www/html/index.html
+\end{verbatim}
+  \item Click "Launch instance"
+  \item Wait for instance state: "Running"
+  \item Select instance, copy "Public IPv4 address"
+  \item Open browser, navigate to http://[public-ip]
+  \item You should see "Hello from AWS EC2"
+\end{enumerate}
+
+\subsubsection{Connect to EC2 via SSH}
+\begin{enumerate}
+  \item Open terminal (Linux/Mac) or PuTTY (Windows)
+  \item Navigate to directory with key pair
+  \item Set permissions (Linux/Mac): \texttt{chmod 400 my-key-pair.pem}
+  \item Connect: \texttt{ssh -i my-key-pair.pem ec2-user@[public-ip]}
+  \item Accept fingerprint (type "yes")
+  \item You're now connected to your EC2 instance
+  \item Verify web server: \texttt{sudo systemctl status httpd}
+\end{enumerate}
+
+\subsubsection{Create AMI (Amazon Machine Image)}
+\begin{enumerate}
+  \item In EC2 Console, select your instance
+  \item Click "Actions" $\rightarrow$ "Image and templates" $\rightarrow$ "Create image"
+  \item Image name: "MyWebServer-AMI"
+  \item Image description: "Web server with Apache"
+  \item Click "Create image"
+  \item Go to "AMIs" in left menu
+  \item Wait for status: "Available"
+  \item You can now launch new instances from this AMI
+\end{enumerate}
+
+\subsubsection{Create Snapshot}
+\begin{enumerate}
+  \item Go to "Volumes" in EC2 left menu
+  \item Select volume attached to your instance
+  \item Click "Actions" $\rightarrow$ "Create snapshot"
+  \item Description: "WebServer backup"
+  \item Add tag: Key="Name", Value="WebServer-Snapshot"
+  \item Click "Create snapshot"
+  \item Go to "Snapshots" to view
+\end{enumerate}
+
+\subsubsection{Cleanup (Important!)}
+\begin{enumerate}
+  \item Terminate instance: Select instance $\rightarrow$ "Instance state" $\rightarrow$ "Terminate"
+  \item Delete snapshot: Select snapshot $\rightarrow$ "Actions" $\rightarrow$ "Delete"
+  \item Deregister AMI: Select AMI $\rightarrow$ "Actions" $\rightarrow$ "Deregister"
+  \item Delete associated snapshot created by AMI
+\end{enumerate}
+
+\subsection{Lab 4: Amazon S3 Storage and Website Hosting}
+
+\textbf{Duration:} 40 minutes
+
+\textbf{Objective:} Master S3 storage features
+
+\subsubsection{Create S3 Bucket}
+\begin{enumerate}
+  \item Navigate to S3 service
+  \item Click "Create bucket"
+  \item Bucket name: "my-website-[your-name]-[random-numbers]" (must be globally unique)
+  \item Region: Select your preferred region
+  \item Uncheck "Block all public access" (for website hosting)
+  \item Acknowledge warning
+  \item Enable "Bucket Versioning"
+  \item Add tag: Key="Project", Value="Learning"
+  \item Click "Create bucket"
+\end{enumerate}
+
+\subsubsection{Upload Objects}
+\begin{enumerate}
+  \item Click on your bucket name
+  \item Click "Upload"
+  \item Create a simple HTML file (index.html):
+\begin{verbatim}
+<!DOCTYPE html>
+<html>
+<head><title>My AWS Website</title></head>
+<body>
+  <h1>Welcome to My S3 Website</h1>
+  <p>This is hosted on Amazon S3</p>
+</body>
+</html>
+\end{verbatim}
+  \item Upload index.html
+  \item Create error.html:
+\begin{verbatim}
+<!DOCTYPE html>
+<html>
+<head><title>Error</title></head>
+<body><h1>404 - Page Not Found</h1></body>
+</html>
+\end{verbatim}
+  \item Upload error.html
+  \item Upload a test image or text file
+  \item Click "Upload"
+\end{enumerate}
+
+\subsubsection{Enable Static Website Hosting}
+\begin{enumerate}
+  \item In your bucket, go to "Properties" tab
+  \item Scroll to "Static website hosting"
+  \item Click "Edit"
+  \item Enable "Static website hosting"
+  \item Hosting type: "Host a static website"
+  \item Index document: index.html
+  \item Error document: error.html
+  \item Click "Save changes"
+  \item Copy the bucket website endpoint URL
+\end{enumerate}
+
+\subsubsection{Configure Bucket Policy}
+\begin{enumerate}
+  \item Go to "Permissions" tab
+  \item Scroll to "Bucket policy"
+  \item Click "Edit"
+  \item Paste the following policy (replace BUCKET-NAME):
+\begin{verbatim}
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::BUCKET-NAME/*"
+    }
+  ]
+}
+\end{verbatim}
+  \item Click "Save changes"
+  \item Open website endpoint URL in browser
+  \item Your website should be live!
+\end{enumerate}
+
+\subsubsection{Configure Versioning}
+\begin{enumerate}
+  \item Edit index.html locally, change content
+  \item Upload new version to S3 (same filename)
+  \item In bucket, select index.html
+  \item Click "Versions" tab
+  \item You'll see multiple versions
+  \item Click on older version to view/restore
+\end{enumerate}
+
+\subsubsection{Create Lifecycle Policy}
+\begin{enumerate}
+  \item Go to "Management" tab
+  \item Click "Create lifecycle rule"
+  \item Rule name: "Archive-Old-Files"
+  \item Choose rule scope: Apply to all objects
+  \item Lifecycle rule actions:
+  \begin{itemize}
+    \item Transition current versions: 30 days $\rightarrow$ S3 Standard-IA
+    \item Transition current versions: 90 days $\rightarrow$ S3 Glacier Flexible Retrieval
+    \item Expire current versions: 365 days
+  \end{itemize}
+  \item Click "Create rule"
+\end{enumerate}
+
+\subsubsection{Enable Server-Side Encryption}
+\begin{enumerate}
+  \item Go to "Properties" tab
+  \item Scroll to "Default encryption"
+  \item Click "Edit"
+  \item Select "Server-side encryption with Amazon S3 managed keys (SSE-S3)"
+  \item Enable "Bucket Key"
+  \item Click "Save changes"
+\end{enumerate}
+
+\subsubsection{Cleanup}
+\begin{enumerate}
+  \item Empty bucket: Click "Empty" button
+  \item Confirm by typing "permanently delete"
+  \item Delete bucket: Click "Delete"
+  \item Confirm by entering bucket name
+\end{enumerate}
+
+\subsection{Lab 5: VPC, Subnets, and Network Configuration}
+
+\textbf{Duration:} 60 minutes
+
+\textbf{Objective:} Build custom VPC with public and private subnets
+
+\subsubsection{Create VPC}
+\begin{enumerate}
+  \item Navigate to VPC service
+  \item Click "Create VPC"
+  \item Select "VPC and more" (creates VPC with subnets)
+  \item Name tag: "MyVPC"
+  \item IPv4 CIDR: 10.0.0.0/16
+  \item Number of AZs: 2
+  \item Number of public subnets: 2
+  \item Number of private subnets: 2
+  \item NAT gateways: None (to stay in free tier)
+  \item VPC endpoints: None
+  \item Click "Create VPC"
+  \item Wait for creation to complete
+\end{enumerate}
+
+\subsubsection{Review VPC Components}
+\begin{enumerate}
+  \item Go to "Your VPCs" - verify VPC created (10.0.0.0/16)
+  \item Go to "Subnets" - you should see:
+  \begin{itemize}
+    \item Public subnet 1: 10.0.0.0/20 (AZ a)
+    \item Public subnet 2: 10.0.16.0/20 (AZ b)
+    \item Private subnet 1: 10.0.128.0/20 (AZ a)
+    \item Private subnet 2: 10.0.144.0/20 (AZ b)
+  \end{itemize}
+  \item Go to "Internet Gateways" - verify IGW attached to VPC
+  \item Go to "Route Tables" - review routes:
+  \begin{itemize}
+    \item Public route table: has route to IGW (0.0.0.0/0 $\rightarrow$ igw-xxx)
+    \item Private route table: local routes only
+  \end{itemize}
+\end{enumerate}
+
+\subsubsection{Create Security Groups}
+\begin{enumerate}
+  \item Go to "Security Groups"
+  \item Click "Create security group"
+  \item Name: "WebServer-SG"
+  \item Description: "Allow HTTP and SSH"
+  \item VPC: Select your VPC
+  \item Inbound rules:
+  \begin{itemize}
+    \item Type: SSH, Source: My IP
+    \item Type: HTTP, Source: 0.0.0.0/0
+  \end{itemize}
+  \item Outbound rules: Leave default (all traffic allowed)
+  \item Click "Create security group"
+  \item Create another security group: "Database-SG"
+  \item Description: "Allow MySQL from WebServer"
+  \item Inbound rule:
+  \begin{itemize}
+    \item Type: MySQL/Aurora (port 3306)
+    \item Source: Custom, select "WebServer-SG"
+  \end{itemize}
+  \item Click "Create security group"
+\end{enumerate}
+
+\subsubsection{Launch EC2 in Custom VPC}
+\begin{enumerate}
+  \item Go to EC2 service
+  \item Launch instance
+  \item Name: "VPC-Test-Instance"
+  \item AMI: Amazon Linux 2023
+  \item Instance type: t2.micro
+  \item Network settings:
+  \begin{itemize}
+    \item VPC: Select MyVPC
+    \item Subnet: Select public subnet
+    \item Auto-assign public IP: Enable
+    \item Security group: Select WebServer-SG
+  \end{itemize}
+  \item Launch instance
+  \item Verify you can access instance via public IP
+\end{enumerate}
+
+\subsubsection{Create Network ACL}
+\begin{enumerate}
+  \item Go to "Network ACLs" in VPC
+  \item Click "Create network ACL"
+  \item Name: "Custom-NACL"
+  \item VPC: Select MyVPC
+  \item Click "Create"
+  \item Select your NACL
+  \item Go to "Inbound rules" tab
+  \item Click "Edit inbound rules"
+  \item Add rules:
+  \begin{itemize}
+    \item Rule 100: HTTP (80), Source: 0.0.0.0/0, Allow
+    \item Rule 110: SSH (22), Source: 0.0.0.0/0, Allow
+    \item Rule 120: Custom TCP (1024-65535), Source: 0.0.0.0/0, Allow
+    \item Rule *: All traffic, Deny (default)
+  \end{itemize}
+  \item Go to "Outbound rules" tab
+  \item Add similar rules for outbound
+  \item Associate with subnet if desired
+\end{enumerate}
+
+\subsubsection{Cleanup}
+\begin{enumerate}
+  \item Terminate EC2 instance
+  \item Delete custom security groups
+  \item Delete custom NACLs
+  \item Delete VPC (this will delete associated subnets, route tables, IGW)
+\end{enumerate}
+
+\subsection{Lab 6: Amazon RDS Database}
+
+\textbf{Duration:} 30 minutes
+
+\textbf{Objective:} Launch managed MySQL database
+
+\textbf{Steps:}
+\begin{enumerate}
+  \item Navigate to RDS service
+  \item Click "Create database"
+  \item Choose: "Standard create"
+  \item Engine: MySQL
+  \item Version: Latest (default)
+  \item Templates: "Free tier"
+  \item DB instance identifier: "mydatabase"
+  \item Master username: admin
+  \item Master password: Create secure password (save it!)
+  \item DB instance class: db.t3.micro or db.t4g.micro (Free tier)
+  \item Storage: 20 GB General Purpose SSD (gp3)
+  \item Uncheck "Enable storage autoscaling"
+  \item Connectivity:
+  \begin{itemize}
+    \item Don't connect to EC2 instance
+    \item VPC: Default VPC (or your custom VPC)
+    \item Public access: No (recommended)
+    \item VPC security group: Create new
+    \item New VPC security group name: "rds-mysql-sg"
+  \end{itemize}
+  \item Additional configuration:
+  \begin{itemize}
+    \item Initial database name: "mydb"
+    \item Disable automated backups (to stay free tier)
+    \item Disable encryption (optional, for simplicity)
+  \end{itemize}
+  \item Click "Create database"
+  \item Wait 5-10 minutes for creation
+  \item Once available, click on database name
+  \item Note the endpoint URL
+\end{enumerate}
+
+\subsubsection{Connect to RDS (requires EC2 in same VPC)}
+\begin{enumerate}
+  \item Launch EC2 instance in same VPC
+  \item SSH into EC2 instance
+  \item Install MySQL client:
+  \begin{verbatim}
+  sudo yum install -y mariadb105
+  \end{verbatim}
+  \item Modify RDS security group to allow port 3306 from EC2 security group
+  \item Connect to RDS:
+  \begin{verbatim}
+  mysql -h [rds-endpoint] -u admin -p
+  \end{verbatim}
+  \item Enter password
+  \item Run commands:
+  \begin{verbatim}
+  SHOW DATABASES;
+  USE mydb;
+  CREATE TABLE users (id INT, name VARCHAR(50));
+  INSERT INTO users VALUES (1, 'John');
+  SELECT * FROM users;
+  \end{verbatim}
+  \item Exit: \texttt{exit;}
+\end{enumerate}
+
+\subsubsection{Cleanup}
+\begin{enumerate}
+  \item Go to RDS console
+  \item Select your database
+  \item Click "Actions" $\rightarrow$ "Delete"
+  \item Uncheck "Create final snapshot"
+  \item Check "I acknowledge..."
+  \item Type "delete me"
+  \item Click "Delete"
+\end{enumerate}
+
+\subsection{Lab 7: CloudWatch Monitoring and Alarms}
+
+\textbf{Duration:} 25 minutes
+
+\textbf{Objective:} Monitor EC2 and create alarms
+
+\textbf{Steps:}
+\begin{enumerate}
+  \item Launch a t2.micro EC2 instance (if not already running)
+  \item Navigate to CloudWatch service
+  \item Click "All metrics"
+  \item Click "EC2" $\rightarrow$ "Per-Instance Metrics"
+  \item Search for your instance ID
+  \item Select "CPUUtilization" metric
+  \item View graph (will be low initially)
+  \item Click "Actions" $\rightarrow$ "Create alarm"
+  \item Set threshold: CPUUtilization $>$ 70\%
+  \item Click "Next"
+  \item Create new SNS topic: "EC2-Alerts"
+  \item Enter email address
+  \item Click "Create topic"
+  \item Confirm email subscription
+  \item Click "Next"
+  \item Alarm name: "High-CPU-Alert"
+  \item Description: "Alert when CPU exceeds 70\%"
+  \item Click "Next" $\rightarrow$ "Create alarm"
+\end{enumerate}
+
+\subsubsection{Test Alarm (Optional)}
+\begin{enumerate}
+  \item SSH into EC2 instance
+  \item Install stress tool:
+  \begin{verbatim}
+  sudo yum install -y stress
+  \end{verbatim}
+  \item Run CPU stress:
+  \begin{verbatim}
+  stress --cpu 2 --timeout 300
+  \end{verbatim}
+  \item Wait 5-10 minutes
+  \item Check CloudWatch alarm - should transition to "ALARM" state
+  \item You'll receive email notification
+\end{enumerate}
+
+\subsubsection{View CloudWatch Logs}
+\begin{enumerate}
+  \item In CloudWatch, go to "Logs" $\rightarrow$ "Log groups"
+  \item Click "Create log group"
+  \item Name: "/aws/my-application"
+  \item Click "Create"
+  \item Explore other log groups (if any exist from other services)
+\end{enumerate}
+
+\subsubsection{Cleanup}
+\begin{enumerate}
+  \item Delete CloudWatch alarm
+  \item Delete SNS topic
+  \item Delete log group
+  \item Terminate EC2 instance
+\end{enumerate}
+
+\subsection{Lab 8: AWS Cost Management Tools}
+
+\textbf{Duration:} 30 minutes
+
+\textbf{Objective:} Explore billing and cost tools
+
+\subsubsection{AWS Pricing Calculator}
+\begin{enumerate}
+  \item Visit \url{https://calculator.aws}
+  \item Click "Create estimate"
+  \item Search "EC2"
+  \item Click "Configure"
+  \item Region: Select your region
+  \item Quick estimate: 10 t3.medium instances
+  \item Pricing model: On-Demand
+  \item Click "Add to my estimate"
+  \item Search "S3"
+  \item Standard storage: 1000 GB
+  \item Add to estimate
+  \item Search "RDS"
+  \item Add MySQL database, db.t3.medium
+  \item Add to estimate
+  \item Review total estimated monthly cost
+  \item Compare different pricing models (Reserved, Savings Plans)
+  \item Export estimate
+  \item Share estimate (get shareable link)
+\end{enumerate}
+
+\subsubsection{AWS Cost Explorer}
+\begin{enumerate}
+  \item Go to Billing and Cost Management console
+  \item Click "Cost Explorer"
+  \item Click "Launch Cost Explorer" (if first time)
+  \item Wait for data to populate (takes 24 hours for new accounts)
+  \item View "Monthly costs by service"
+  \item Filter by service (EC2, S3, etc.)
+  \item Group by service, region, or tag
+  \item View forecast
+  \item Create custom report
+  \item Save report for future use
+\end{enumerate}
+
+\subsubsection{Review Bills}
+\begin{enumerate}
+  \item Go to "Bills" in Billing console
+  \item View current month charges
+  \item Expand services to see detailed breakdown
+  \item Check Free Tier usage
+  \item Download bill as CSV
+\end{enumerate}
+
+\subsubsection{AWS Budgets}
+\begin{enumerate}
+  \item Go to "Budgets" in Billing console
+  \item Review budget created in Lab 1
+  \item Create additional budget:
+  \begin{itemize}
+    \item Type: Usage budget
+    \item Service: EC2
+    \item Usage type: Running hours
+    \item Amount: 750 hours/month (Free tier limit)
+    \item Set alert at 80\%
+  \end{itemize}
+  \item Create budget
+\end{enumerate}
+
+\subsubsection{Trusted Advisor}
+\begin{enumerate}
+  \item Navigate to Trusted Advisor
+  \item Review 7 core checks (available on Basic support):
+  \begin{itemize}
+    \item S3 Bucket Permissions
+    \item Security Groups - Specific Ports Unrestricted
+    \item IAM Use
+    \item MFA on Root Account
+    \item EBS Public Snapshots
+    \item RDS Public Snapshots
+    \item Service Limits
+  \end{itemize}
+  \item Click on each check to view details
+  \item Take action on any recommendations
+  \item Refresh checks
+\end{enumerate}
+
+\subsection{Lab 9: Lambda Serverless Function}
+
+\textbf{Duration:} 25 minutes
+
+\textbf{Objective:} Create and test Lambda function
+
+\textbf{Steps:}
+\begin{enumerate}
+  \item Navigate to Lambda service
+  \item Click "Create function"
+  \item Choose "Author from scratch"
+  \item Function name: "HelloWorldFunction"
+  \item Runtime: Python 3.12
+  \item Architecture: x86\_64
+  \item Click "Create function"
+  \item In code editor, replace default code with:
+\begin{verbatim}
+import json
+
+def lambda_handler(event, context):
+    name = event.get('name', 'World')
+    return {
+        'statusCode': 200,
+        'body': json.dumps(f'Hello, {name}!')
+    }
+\end{verbatim}
+  \item Click "Deploy"
+  \item Click "Test"
+  \item Event name: "TestEvent"
+  \item Event JSON:
+\begin{verbatim}
+{
+  "name": "AWS Student"
+}
+\end{verbatim}
+  \item Click "Save"
+  \item Click "Test"
+  \item View execution results
+  \item Check "Execution result" shows: "Hello, AWS Student!"
+  \item View CloudWatch Logs (click "Monitor" $\rightarrow$ "View logs in CloudWatch")
+\end{enumerate}
+
+\subsubsection{Configure Lambda Trigger}
+\begin{enumerate}
+  \item In function overview, click "Add trigger"
+  \item Select "API Gateway"
+  \item Create new API
+  \item API type: HTTP API
+  \item Security: Open
+  \item Click "Add"
+  \item Copy API endpoint URL
+  \item Open in browser: [URL]?name=YourName
+  \item You should see: "Hello, YourName!"
+\end{enumerate}
+
+\subsubsection{Cleanup}
+\begin{enumerate}
+  \item Delete Lambda function
+  \item Delete API Gateway (if created)
+\end{enumerate}
+
+\subsection{Lab 10: CloudFormation Infrastructure as Code}
+
+\textbf{Duration:} 20 minutes
+
+\textbf{Objective:} Deploy infrastructure using template
+
+\textbf{Steps:}
+\begin{enumerate}
+  \item Navigate to CloudFormation service
+  \item Click "Create stack"
+  \item Choose "Template is ready"
+  \item Select "Upload a template file"
+  \item Create file \texttt{simple-stack.yaml}:
+\begin{verbatim}
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Simple S3 bucket stack
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'cf-bucket-${AWS::AccountId}'
+      VersioningConfiguration:
+        Status: Enabled
+Outputs:
+  BucketName:
+    Description: Name of S3 bucket
+    Value: !Ref MyS3Bucket
+\end{verbatim}
+  \item Upload file
+  \item Click "Next"
+  \item Stack name: "MyFirstStack"
+  \item Click "Next"
+  \item Add tags (optional)
+  \item Click "Next"
+  \item Review and click "Submit"
+  \item Watch stack creation progress
+  \item Go to "Outputs" tab to see bucket name
+  \item Verify bucket created in S3 console
+\end{enumerate}
+
+\subsubsection{Update Stack}
+\begin{enumerate}
+  \item Edit template to add public access block
+  \item Click "Update" on stack
+  \item Upload new template
+  \item Follow update process
+  \item Observe change set
+\end{enumerate}
+
+\subsubsection{Cleanup}
+\begin{enumerate}
+  \item Select stack
+  \item Click "Delete"
+  \item Confirm deletion
+  \item Wait for deletion to complete
+  \item Verify S3 bucket is deleted
+\end{enumerate}
+
+\subsection{Additional Practice Recommendations}
+
+\begin{enumerate}
+  \item \textbf{Explore AWS Free Tier Dashboard} - Monitor usage regularly
+  \item \textbf{Try DynamoDB} - Create table, add items, query
+  \item \textbf{Set up CloudTrail} - View API call history
+  \item \textbf{Configure AWS Config} - Track resource configurations
+  \item \textbf{Experiment with Auto Scaling} - Create launch template and auto scaling group
+  \item \textbf{Use AWS CLI} - Install and configure, run basic commands
+  \item \textbf{Explore different regions} - Note service availability differences
+  \item \textbf{Review service quotas} - Understand limits
+  \item \textbf{Practice stopping/starting resources} - Understand state management
+  \item \textbf{Document your learnings} - Take notes, create diagrams
+\end{enumerate}
+
+\begin{important}
+Always clean up resources after labs to avoid charges. Set billing alerts and check your billing dashboard daily during hands-on practice.
+\end{important}
+
+\section{Final Preparation Checklist}
+
+\subsection{One Week Before}
+
+\begin{itemize}
+  \item[$\square$] Complete all study materials
+  \item[$\square$] Take at least 3 practice exams
+  \item[$\square$] Score consistently above 80\%
+  \item[$\square$] Review all flagged topics
+  \item[$\square$] Revisit Shared Responsibility Model
+  \item[$\square$] Memorize support plans
+\end{itemize}
+
+\subsection{One Day Before}
+
+\begin{itemize}
+  \item[$\square$] Light review only
+  \item[$\square$] Don't study new material
+  \item[$\square$] Prepare exam center logistics or test computer
+  \item[$\square$] Get good sleep
+  \item[$\square$] Relax and stay confident
+\end{itemize}
+
+\subsection{Exam Day}
+
+\begin{itemize}
+  \item[$\square$] Arrive early (testing center) or test connection (online)
+  \item[$\square$] Bring two forms of ID (testing center)
+  \item[$\square$] Read questions carefully
+  \item[$\square$] Manage time effectively
+  \item[$\square$] Review answers before submitting
+\end{itemize}
+
+\section{After the Exam}
+
+\subsection{Immediate Next Steps}
+
+\begin{itemize}
+  \item Receive preliminary pass/fail immediately
+  \item Official score report within 5 business days
+  \item Digital badge available via Credly
+  \item Certificate downloadable from AWS Certification Account
+  \item Certification valid for 3 years
+\end{itemize}
+
+\subsection{Maintaining Certification}
+
+\begin{itemize}
+  \item Recertify before expiration
+  \item Stay updated with AWS changes
+  \item Pursue associate-level certifications
+  \item Join AWS certification community
+\end{itemize}
+
+\chapter{Quick Reference}
+
+\section{Service Cheat Sheet}
+
+\subsection{Compute}
+\begin{itemize}
+  \item \textbf{EC2}: Virtual servers
+  \item \textbf{Lambda}: Serverless functions
+  \item \textbf{Elastic Beanstalk}: PaaS for web apps
+  \item \textbf{Lightsail}: Simple VPS
+  \item \textbf{ECS/EKS}: Container orchestration
+  \item \textbf{Fargate}: Serverless containers
+\end{itemize}
+
+\subsection{Storage}
+\begin{itemize}
+  \item \textbf{S3}: Object storage
+  \item \textbf{EBS}: Block storage for EC2
+  \item \textbf{EFS}: Network file system
+  \item \textbf{Storage Gateway}: Hybrid cloud storage
+  \item \textbf{Snow Family}: Physical data migration
+\end{itemize}
+
+\subsection{Database}
+\begin{itemize}
+  \item \textbf{RDS}: Managed relational database
+  \item \textbf{Aurora}: High-performance MySQL/PostgreSQL
+  \item \textbf{DynamoDB}: NoSQL database
+  \item \textbf{ElastiCache}: In-memory cache
+  \item \textbf{Redshift}: Data warehouse
+\end{itemize}
+
+\subsection{Networking}
+\begin{itemize}
+  \item \textbf{VPC}: Virtual private network
+  \item \textbf{CloudFront}: CDN
+  \item \textbf{Route 53}: DNS
+  \item \textbf{ELB}: Load balancing
+  \item \textbf{Direct Connect}: Dedicated network connection
+\end{itemize}
+
+\subsection{Security}
+\begin{itemize}
+  \item \textbf{IAM}: Identity and access management
+  \item \textbf{Organizations}: Multi-account management
+  \item \textbf{KMS}: Key management
+  \item \textbf{Shield}: DDoS protection
+  \item \textbf{WAF}: Web application firewall
+  \item \textbf{GuardDuty}: Threat detection
+  \item \textbf{Macie}: Data privacy
+\end{itemize}
+
+\subsection{Management}
+\begin{itemize}
+  \item \textbf{CloudWatch}: Monitoring
+  \item \textbf{CloudTrail}: API logging
+  \item \textbf{Config}: Resource configuration tracking
+  \item \textbf{CloudFormation}: Infrastructure as Code
+  \item \textbf{Trusted Advisor}: Best practices
+  \item \textbf{Systems Manager}: Operations hub
+\end{itemize}
+
+\section{Acronym Guide}
+
+\begin{itemize}
+  \item \textbf{AZ}: Availability Zone
+  \item \textbf{IAM}: Identity and Access Management
+  \item \textbf{VPC}: Virtual Private Cloud
+  \item \textbf{EC2}: Elastic Compute Cloud
+  \item \textbf{S3}: Simple Storage Service
+  \item \textbf{RDS}: Relational Database Service
+  \item \textbf{EBS}: Elastic Block Store
+  \item \textbf{EFS}: Elastic File System
+  \item \textbf{ELB}: Elastic Load Balancing
+  \item \textbf{ALB}: Application Load Balancer
+  \item \textbf{NLB}: Network Load Balancer
+  \item \textbf{CDN}: Content Delivery Network
+  \item \textbf{DNS}: Domain Name System
+  \item \textbf{NAT}: Network Address Translation
+  \item \textbf{ACL}: Access Control List
+  \item \textbf{CIDR}: Classless Inter-Domain Routing
+  \item \textbf{SLA}: Service Level Agreement
+  \item \textbf{RPO}: Recovery Point Objective
+  \item \textbf{RTO}: Recovery Time Objective
+  \item \textbf{HA}: High Availability
+  \item \textbf{DR}: Disaster Recovery
+\end{itemize}
+
+\section{Exam Day Reminders}
+
+\begin{examtip}
+\begin{itemize}
+  \item 90 minutes, 65 questions
+  \item Passing score: 700/1000
+  \item Flag difficult questions for review
+  \item Eliminate obviously wrong answers
+  \item Trust your preparation
+  \item Stay calm and focused
+\end{itemize}
+\end{examtip}
+
+\vspace{1cm}
+
+\begin{center}
+\Large\textbf{Good luck on your AWS Cloud Practitioner exam!}
+\end{center}
+
+\end{document}

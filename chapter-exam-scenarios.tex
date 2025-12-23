@@ -1,0 +1,621 @@
+\chapter{Common Exam Scenarios and Real-World Solutions}
+
+\section{Scenario-Based Learning}
+
+\subsection{Scenario 1: Cost Optimization for Predictable Workloads}
+
+\textbf{Situation}: A company runs a web application on EC2 instances that experiences predictable traffic Monday-Friday 9 AM-5 PM EST. Traffic is minimal on weekends and nights.
+
+\textbf{Current Setup}:
+\begin{itemize}
+  \item 10 m5.large instances running 24/7
+  \item On-Demand pricing
+  \item Monthly cost: \$1,200
+\end{itemize}
+
+\textbf{Question}: What's the MOST cost-effective solution?
+
+\textbf{Analysis}:
+\begin{itemize}
+  \item Predictable schedule = opportunity for optimization
+  \item Not running 24/7 = On-Demand might be wasteful
+  \item Regular business hours = scheduled scaling
+  \item Baseline capacity needed = Reserved Instances candidate
+\end{itemize}
+
+\textbf{Recommended Solution}:
+\begin{enumerate}
+  \item Purchase \textbf{3-year Standard Reserved Instances} for 2-3 instances (baseline capacity)
+  \begin{itemize}
+    \item Savings: Up to 75\% on these instances
+  \end{itemize}
+
+  \item Configure \textbf{EC2 Auto Scaling with scheduled actions}:
+  \begin{itemize}
+    \item Scale up Monday-Friday 8:30 AM EST (before traffic starts)
+    \item Scale down at 5:30 PM EST (after traffic ends)
+    \item Minimum capacity on weekends: 2-3 instances
+  \end{itemize}
+
+  \item Use \textbf{On-Demand for peak periods} during business hours
+
+  \item Store session data in \textbf{ElastiCache or DynamoDB} (not on instances)
+\end{enumerate}
+
+\textbf{Expected Savings}: 40-60\% reduction in monthly costs
+
+\subsection{Scenario 2: Designing for High Availability}
+
+\textbf{Situation}: An e-commerce company's application must remain available even if an entire Availability Zone fails. The application currently runs on a single EC2 instance with a MySQL database.
+
+\textbf{Question}: How should you architect this for high availability?
+
+\textbf{Current Problems}:
+\begin{itemize}
+  \item Single point of failure (one EC2 instance)
+  \item Database not redundant
+  \item No automatic failover
+  \item Session data tied to instance
+\end{itemize}
+
+\textbf{Recommended Solution}:
+
+\begin{enumerate}
+  \item \textbf{Multi-AZ Application Tier}:
+  \begin{itemize}
+    \item Deploy \textbf{Application Load Balancer} spanning multiple AZs
+    \item Create \textbf{Auto Scaling group} with minimum 2 instances across different AZs
+    \item Set desired capacity based on traffic patterns
+    \item Configure health checks on ALB and Auto Scaling
+  \end{itemize}
+
+  \item \textbf{Multi-AZ Database}:
+  \begin{itemize}
+    \item Migrate MySQL to \textbf{Amazon RDS Multi-AZ}
+    \item Automatic failover to standby in different AZ
+    \item Synchronous replication
+    \item Minimal downtime during failover
+  \end{itemize}
+
+  \item \textbf{Stateless Application Design}:
+  \begin{itemize}
+    \item Store session data in \textbf{ElastiCache} (Redis with Multi-AZ)
+    \item Or use \textbf{DynamoDB} for session storage
+    \item Enable sticky sessions on ALB if needed (but prefer stateless)
+  \end{itemize}
+
+  \item \textbf{Static Assets}:
+  \begin{itemize}
+    \item Store in \textbf{S3} (automatically multi-AZ)
+    \item Use \textbf{CloudFront} for global distribution
+  \end{itemize}
+
+  \item \textbf{Monitoring}:
+  \begin{itemize}
+    \item Set up \textbf{CloudWatch alarms} for health checks
+    \item Configure \textbf{SNS notifications} for failures
+  \end{itemize}
+\end{enumerate}
+
+\textbf{Architecture Benefits}:
+\begin{itemize}
+  \item Survives AZ failure
+  \item Automatic scaling for traffic spikes
+  \item Automatic failover for database
+  \item No single point of failure
+\end{itemize}
+
+\subsection{Scenario 3: Large Data Migration}
+
+\textbf{Situation}: A healthcare company needs to migrate 80 TB of medical imaging data from on-premises storage to S3. Compliance requires data to be encrypted and migration completed within 2 weeks.
+
+\textbf{Constraints}:
+\begin{itemize}
+  \item Internet connection: 100 Mbps
+  \item Upload via internet would take: ~74 days
+  \item Deadline: 2 weeks
+  \item Data must be encrypted
+  \item HIPAA compliance required
+\end{itemize}
+
+\textbf{Question}: What's the best migration approach?
+
+\textbf{Analysis}:
+\begin{itemize}
+  \item Data volume too large for internet upload
+  \item Time constraint eliminates internet-based solutions
+  \item Security and compliance requirements
+  \item Need physical device for transfer
+\end{itemize}
+
+\textbf{Recommended Solution}:
+
+\begin{enumerate}
+  \item Use \textbf{AWS Snowball Edge Storage Optimized}:
+  \begin{itemize}
+    \item 80 TB usable capacity per device
+    \item Order 1-2 devices (for redundancy)
+    \item 256-bit encryption built-in
+    \item HIPAA compliant
+  \end{itemize}
+
+  \item \textbf{Migration Process}:
+  \begin{enumerate}
+    \item Order Snowball device via AWS Console
+    \item AWS ships device (2-3 days)
+    \item Connect to network, unlock with credentials
+    \item Copy data using Snowball client (2-4 days for 80 TB)
+    \item Ship device back to AWS (2-3 days)
+    \item AWS uploads to S3 (1-2 days)
+  \end{enumerate}
+
+  \item \textbf{S3 Configuration}:
+  \begin{itemize}
+    \item Enable \textbf{S3 server-side encryption (SSE-S3 or SSE-KMS)}
+    \item Enable \textbf{versioning} for data protection
+    \item Configure \textbf{lifecycle policies} to transition older data to Glacier
+    \item Enable \textbf{S3 Object Lock} for compliance (WORM)
+  \end{itemize}
+
+  \item \textbf{Compliance}:
+  \begin{itemize}
+    \item Use \textbf{AWS Artifact} to access HIPAA BAA
+    \item Sign Business Associate Addendum (BAA)
+    \item Enable \textbf{CloudTrail} for audit logging
+    \item Use \textbf{AWS Config} for compliance monitoring
+  \end{itemize}
+\end{enumerate}
+
+\textbf{Timeline}: 7-12 days (meets 2-week deadline)
+
+\textbf{Alternative for >100 PB}: Use \textbf{AWS Snowmobile}
+
+\subsection{Scenario 4: Serverless Application Architecture}
+
+\textbf{Situation}: A startup wants to build a mobile app backend with REST API. They have limited DevOps resources and want to minimize operational overhead while paying only for actual usage.
+
+\textbf{Requirements}:
+\begin{itemize}
+  \item REST API for mobile app
+  \item User authentication
+  \item Data storage
+  \item Image storage
+  \item Scalable to millions of users
+  \item Minimal operational management
+  \item Pay-per-use pricing
+\end{itemize}
+
+\textbf{Question}: What AWS services should they use?
+
+\textbf{Recommended Serverless Architecture}:
+
+\begin{enumerate}
+  \item \textbf{API Layer}:
+  \begin{itemize}
+    \item \textbf{Amazon API Gateway}: Create and manage REST API
+    \item Features: Request throttling, API keys, caching, CORS
+    \item Pay per million API calls
+  \end{itemize}
+
+  \item \textbf{Compute Layer}:
+  \begin{itemize}
+    \item \textbf{AWS Lambda}: Run business logic without servers
+    \item Languages: Node.js, Python, Java, Go, etc.
+    \item Auto-scaling built-in
+    \item Pay only for execution time
+  \end{itemize}
+
+  \item \textbf{Authentication}:
+  \begin{itemize}
+    \item \textbf{Amazon Cognito}: User sign-up, sign-in, access control
+    \item User pools for authentication
+    \item Identity pools for AWS resource access
+    \item Social identity providers (Facebook, Google)
+    \item Free tier: 50,000 MAUs
+  \end{itemize}
+
+  \item \textbf{Data Storage}:
+  \begin{itemize}
+    \item \textbf{Amazon DynamoDB}: NoSQL database
+    \item Single-digit millisecond latency
+    \item Automatic scaling
+    \item On-demand or provisioned capacity
+    \item Always-free tier: 25 GB storage
+  \end{itemize}
+
+  \item \textbf{Image Storage}:
+  \begin{itemize}
+    \item \textbf{Amazon S3}: Store user-uploaded images
+    \item Lifecycle policies to move old images to Glacier
+    \item CloudFront for fast image delivery
+  \end{itemize}
+
+  \item \textbf{Optional Enhancements}:
+  \begin{itemize}
+    \item \textbf{Amazon CloudFront}: CDN for API and static assets
+    \item \textbf{AWS AppSync}: GraphQL API (alternative to API Gateway + Lambda)
+    \item \textbf{Amazon SES}: Send transactional emails
+    \item \textbf{Amazon SNS}: Push notifications to mobile devices
+  \end{itemize}
+\end{enumerate}
+
+\textbf{Benefits}:
+\begin{itemize}
+  \item Zero server management
+  \item Automatic scaling from 0 to millions of users
+  \item Pay only for actual usage
+  \item High availability built-in
+  \item Focus on application code, not infrastructure
+  \item Fast deployment and iteration
+\end{itemize}
+
+\textbf{Cost Example}:
+\begin{itemize}
+  \item 1 million API requests: ~\$3.50
+  \item Lambda executions: ~\$0.20
+  \item DynamoDB: ~\$1.25
+  \item S3 storage (100 GB): ~\$2.30
+  \item Total: ~\$7.25/month for 1M requests
+\end{itemize}
+
+\subsection{Scenario 5: Compliance and Governance}
+
+\textbf{Situation}: A financial services company with 50 AWS accounts needs to ensure no S3 buckets are publicly accessible across the organization. They also need to track all changes and demonstrate compliance.
+
+\textbf{Requirements}:
+\begin{itemize}
+  \item Enforce no public S3 buckets
+  \item Apply to all accounts
+  \item Monitor compliance continuously
+  \item Audit all changes
+  \item Automated remediation preferred
+\end{itemize}
+
+\textbf{Question}: How can they enforce and monitor this policy?
+
+\textbf{Recommended Solution}:
+
+\begin{enumerate}
+  \item \textbf{AWS Organizations Setup}:
+  \begin{itemize}
+    \item Group accounts using \textbf{Organizational Units (OUs)}
+    \item Example structure: Production OU, Development OU, Test OU
+  \end{itemize}
+
+  \item \textbf{Service Control Policies (SCPs)}:
+  \begin{itemize}
+    \item Create SCP denying \texttt{s3:PutBucketPublicAccessBlock} with value False
+    \item Deny \texttt{s3:PutBucketPolicy} if it allows public access
+    \item Apply to root or specific OUs
+    \item SCPs define maximum permissions (even admins can't override)
+  \end{itemize}
+
+  \item \textbf{S3 Block Public Access}:
+  \begin{itemize}
+    \item Enable \textbf{S3 Block Public Access} at organization level
+    \item Applies to all accounts in organization
+    \item Prevents accidental public exposure
+  \end{itemize}
+
+  \item \textbf{Continuous Monitoring}:
+  \begin{itemize}
+    \item Enable \textbf{AWS Config} across all accounts
+    \item Deploy \textbf{s3-bucket-public-read-prohibited} rule
+    \item Deploy \textbf{s3-bucket-public-write-prohibited} rule
+    \item Automatic compliance reporting
+  \end{itemize}
+
+  \item \textbf{Automated Remediation}:
+  \begin{itemize}
+    \item Configure \textbf{AWS Config auto-remediation}
+    \item Use AWS Systems Manager Automation documents
+    \item Automatically disable public access when detected
+  \end{itemize}
+
+  \item \textbf{Audit and Logging}:
+  \begin{itemize}
+    \item Enable \textbf{CloudTrail} in all accounts
+    \item Centralize logs in dedicated security account
+    \item Track all S3 API calls
+    \item Set up \textbf{CloudWatch alarms} for policy violations
+  \end{itemize}
+
+  \item \textbf{Centralized Security}:
+  \begin{itemize}
+    \item Use \textbf{AWS Security Hub} for centralized security view
+    \item Aggregates findings from Config, GuardDuty, Inspector
+    \item Compliance dashboards for standards (PCI DSS, CIS)
+  \end{itemize}
+\end{enumerate}
+
+\textbf{Additional Recommendations}:
+\begin{itemize}
+  \item Regular compliance reports using \textbf{AWS Artifact}
+  \item Periodic access reviews
+  \item Employee training on security best practices
+  \item Implement least privilege IAM policies
+\end{itemize}
+
+\subsection{Scenario 6: Disaster Recovery Strategy}
+
+\textbf{Situation}: An e-commerce company needs disaster recovery for their application. Their business requires:
+\begin{itemize}
+  \item RPO (Recovery Point Objective): 1 hour
+  \item RTO (Recovery Time Objective): 4 hours
+  \item Currently running in us-east-1
+\end{itemize}
+
+\textbf{Question}: What DR strategy should they implement?
+
+\textbf{DR Strategy Options}:
+
+\begin{enumerate}
+  \item \textbf{Backup and Restore} (Lowest cost, highest RTO)
+  \begin{itemize}
+    \item RPO: Hours to days
+    \item RTO: Hours to days
+    \item Good for: Non-critical workloads
+    \item Not suitable for this scenario
+  \end{itemize}
+
+  \item \textbf{Pilot Light} (Recommended for this scenario)
+  \begin{itemize}
+    \item RPO: Minutes to hours
+    \item RTO: Hours
+    \item Keep minimal version running in DR region
+    \item Scale up during disaster
+  \end{itemize}
+
+  \item \textbf{Warm Standby}
+  \begin{itemize}
+    \item RPO: Seconds to minutes
+    \item RTO: Minutes
+    \item Reduced version always running
+    \item Higher cost than Pilot Light
+  \end{itemize}
+
+  \item \textbf{Multi-Site Active/Active}
+  \begin{itemize}
+    \item RPO: Near zero
+    \item RTO: Near zero
+    \item Highest cost
+    \item Overkill for 4-hour RTO requirement
+  \end{itemize}
+\end{enumerate}
+
+\textbf{Recommended Pilot Light Implementation}:
+
+\begin{enumerate}
+  \item \textbf{Data Replication}:
+  \begin{itemize}
+    \item Use \textbf{RDS cross-region read replicas}
+    \item Replicate from us-east-1 to us-west-2
+    \item Meets 1-hour RPO requirement
+  \end{itemize}
+
+  \item \textbf{Application AMIs}:
+  \begin{itemize}
+    \item Regularly copy AMIs to DR region
+    \item Keep AMIs up-to-date
+    \item Automate with Lambda
+  \end{itemize}
+
+  \item \textbf{Infrastructure as Code}:
+  \begin{itemize}
+    \item Use \textbf{CloudFormation templates}
+    \item Pre-create VPC, subnets, security groups in DR region
+    \item Keep Auto Scaling groups in DR region with 0 capacity
+  \end{itemize}
+
+  \item \textbf{DNS Failover}:
+  \begin{itemize}
+    \item Use \textbf{Route 53 health checks}
+    \item Configure failover routing policy
+    \item Automatic DNS failover to DR region
+  \end{itemize}
+
+  \item \textbf{Testing}:
+  \begin{itemize}
+    \item Quarterly DR drills
+    \item Document runbooks
+    \item Measure actual RTO/RPO
+  \end{itemize}
+\end{enumerate}
+
+\textbf{Failover Process}:
+\begin{enumerate}
+  \item Detect primary region failure (Route 53 health check)
+  \item Promote RDS read replica to master
+  \item Update CloudFormation stack to scale up Auto Scaling
+  \item Route 53 automatically redirects traffic
+  \item Total time: ~2-3 hours (meets 4-hour RTO)
+\end{enumerate}
+
+\subsection{Scenario 7: Hybrid Cloud Connectivity}
+
+\textbf{Situation}: A manufacturing company wants to extend their on-premises data center to AWS while maintaining consistent network performance for their ERP system.
+
+\textbf{Requirements}:
+\begin{itemize}
+  \item Consistent network latency
+  \item Private connection (no internet)
+  \item Bandwidth: 1 Gbps
+  \item Access to multiple VPCs
+\end{itemize}
+
+\textbf{Connection Options Analysis}:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{3cm}|p{4cm}|p{4cm}|p{3cm}|}
+\hline
+\textbf{Solution} & \textbf{Pros} & \textbf{Cons} & \textbf{Best For} \\
+\hline
+
+Site-to-Site VPN & Quick setup (hours), low cost, encrypted & Variable latency, internet-based, limited bandwidth & Dev/test, temporary \\
+\hline
+
+AWS Direct Connect & Consistent performance, high bandwidth, private & Expensive, takes weeks, not encrypted by default & Production, high bandwidth \\
+\hline
+
+Direct Connect + VPN & Best of both worlds & Most expensive, complex & Regulated industries \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Recommended Solution: AWS Direct Connect}
+
+\begin{enumerate}
+  \item \textbf{Direct Connect Setup}:
+  \begin{itemize}
+    \item Order 1 Gbps Direct Connect port
+    \item Work with AWS Direct Connect Partner
+    \item Provision takes 2-4 weeks
+    \item Set up cross-connect at colocation facility
+  \end{itemize}
+
+  \item \textbf{Multiple VPC Access}:
+  \begin{itemize}
+    \item Use \textbf{Direct Connect Gateway}
+    \item Connect to multiple VPCs across regions
+    \item Single Direct Connect connection
+    \item Simplifies connectivity
+  \end{itemize}
+
+  \item \textbf{High Availability}:
+  \begin{itemize}
+    \item Order second Direct Connect connection (different location)
+    \item Configure BGP for automatic failover
+    \item Or use VPN as backup connection
+  \end{itemize}
+
+  \item \textbf{Security}:
+  \begin{itemize}
+    \item Layer VPN over Direct Connect for encryption
+    \item Or use \textbf{MACsec} encryption
+    \item Private VIF for VPC access
+    \item Public VIF for public AWS services
+  \end{itemize}
+\end{enumerate}
+
+\section{Common Troubleshooting Scenarios}
+
+\subsection{Cannot Connect to EC2 Instance}
+
+\textbf{Symptoms}: SSH or RDP connection times out or refused
+
+\textbf{Troubleshooting Steps}:
+
+\begin{enumerate}
+  \item \textbf{Verify Instance Status}:
+  \begin{itemize}
+    \item Check instance state is "running"
+    \item Check status checks are passing
+    \item View system log for boot errors
+  \end{itemize}
+
+  \item \textbf{Check Security Group}:
+  \begin{itemize}
+    \item Ensure inbound rule allows SSH (22) or RDP (3389)
+    \item Verify source IP is allowed (0.0.0.0/0 or your IP)
+    \item Check if security group changed recently
+  \end{itemize}
+
+  \item \textbf{Check Network ACL}:
+  \begin{itemize}
+    \item Ensure NACL allows inbound traffic on port
+    \item Ensure NACL allows ephemeral outbound ports (1024-65535)
+    \item NACLs are stateless!
+  \end{itemize}
+
+  \item \textbf{Verify Network Configuration}:
+  \begin{itemize}
+    \item Instance has public IP (if connecting from internet)
+    \item Instance in public subnet (has IGW route)
+    \item Or using bastion host for private subnet
+  \end{itemize}
+
+  \item \textbf{Check Key Pair}:
+  \begin{itemize}
+    \item Using correct .pem/.ppk file
+    \item File permissions correct (chmod 400 for .pem)
+    \item Key pair matches instance
+  \end{itemize}
+
+  \item \textbf{Check Route Table}:
+  \begin{itemize}
+    \item Subnet has route to IGW (0.0.0.0/0 → igw-xxx)
+    \item Or route to NAT Gateway for private subnet
+  \end{itemize}
+\end{enumerate}
+
+\subsection{S3 Access Denied Errors}
+
+\textbf{Common Causes and Solutions}:
+
+\begin{enumerate}
+  \item \textbf{IAM Permissions}:
+  \begin{itemize}
+    \item Verify IAM policy grants s3:GetObject, s3:PutObject
+    \item Check for explicit Deny statements
+    \item Verify resource ARN in policy matches bucket
+  \end{itemize}
+
+  \item \textbf{Bucket Policy}:
+  \begin{itemize}
+    \item Check bucket policy doesn't deny access
+    \item Verify Principal in policy
+    \item Check for IP-based restrictions
+  \end{itemize}
+
+  \item \textbf{Block Public Access}:
+  \begin{itemize}
+    \item If public access needed, disable Block Public Access
+    \item Check both bucket-level and account-level settings
+  \end{itemize}
+
+  \item \textbf{Encryption}:
+  \begin{itemize}
+    \item If using SSE-KMS, verify KMS key policy
+    \item Ensure user has kms:Decrypt permission
+  \end{itemize}
+
+  \item \textbf{Cross-Account Access}:
+  \begin{itemize}
+    \item Bucket policy must allow cross-account access
+    \item Assume role with correct permissions
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Lambda Function Issues}
+
+\textbf{Issue 1: Function Timing Out}
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Increase timeout (default 3 sec, max 15 min)
+  \item Optimize code performance
+  \item Check VPC configuration (can add latency)
+  \item Increase memory (also increases CPU)
+  \item Investigate cold start delays
+\end{itemize}
+
+\textbf{Issue 2: Insufficient Permissions}
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Check Lambda execution role has required permissions
+  \item Review CloudWatch Logs for permission errors
+  \item Add necessary IAM policies to execution role
+  \item For VPC: Ensure role has VPC execution permissions
+\end{itemize}
+
+\textbf{Issue 3: Throttling}
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Request concurrency limit increase
+  \item Implement exponential backoff in calling application
+  \item Use SQS to buffer requests
+  \item Consider reserved concurrency for critical functions
+\end{itemize}
