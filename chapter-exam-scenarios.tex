@@ -1,8 +1,43 @@
-\chapter{Common Exam Scenarios and Real-World Solutions}
+\chapter{Chapter 9: Common Exam Scenarios and Real-World Solutions}
 
-\section{Scenario-Based Learning}
 
-\subsection{Scenario 1: Cost Optimization for Predictable Workloads}
+
+
+\subsection{Table of Contents}
+
+\begin{itemize}
+  \item \href{\#scenario-based-learning}{Scenario-Based Learning}
+  \item \href{\#scenario-1-cost-optimization-for-predictable-workloads}{Scenario 1: Cost Optimization for Predictable Workloads}
+  \item \href{\#scenario-2-designing-for-high-availability}{Scenario 2: Designing for High Availability}
+  \item \href{\#scenario-3-large-data-migration}{Scenario 3: Large Data Migration}
+  \item \href{\#scenario-4-serverless-application-architecture}{Scenario 4: Serverless Application Architecture}
+  \item \href{\#scenario-5-compliance-and-governance}{Scenario 5: Compliance and Governance}
+  \item \href{\#scenario-6-disaster-recovery-strategy}{Scenario 6: Disaster Recovery Strategy}
+  \item \href{\#scenario-7-hybrid-cloud-connectivity}{Scenario 7: Hybrid Cloud Connectivity}
+  \item \href{\#scenario-8-multi-region-architecture-for-global-application}{Scenario 8: Multi-Region Architecture for Global Application}
+  \item \href{\#scenario-9-security-incident-response-and-prevention}{Scenario 9: Security Incident Response and Prevention}
+  \item \href{\#scenario-10-modernizing-legacy-monolith-application}{Scenario 10: Modernizing Legacy Monolith Application}
+  \item \href{\#scenario-11-big-data-analytics-platform}{Scenario 11: Big Data Analytics Platform}
+  \item \href{\#scenario-12-devops-cicd-pipeline-implementation}{Scenario 12: DevOps CI/CD Pipeline Implementation}
+  \item \href{\#common-troubleshooting-scenarios}{Common Troubleshooting Scenarios}
+  \item \href{\#cannot-connect-to-ec2-instance}{Cannot Connect to EC2 Instance}
+  \item \href{\#s3-access-denied-errors}{S3 Access Denied Errors}
+  \item \href{\#lambda-function-issues}{Lambda Function Issues}
+  \item \href{\#rds-connection-problems}{RDS Connection Problems}
+  \item \href{\#cloudformation-stack-failures}{CloudFormation Stack Failures}
+  \item \href{\#auto-scaling-not-working}{Auto Scaling Not Working}
+  \item \href{\#high-aws-bill-unexpectedly}{High AWS Bill Unexpectedly}
+  \item \href{\#api-gateway-502504-errors}{API Gateway 502/504 Errors}
+\end{itemize}
+
+
+---
+
+\subsection{Scenario-Based Learning}
+
+
+\subsubsection{Scenario 1: Cost Optimization for Predictable Workloads}
+
 
 \textbf{Situation}: A company runs a web application on EC2 instances that experiences predictable traffic Monday-Friday 9 AM-5 PM EST. Traffic is minimal on weekends and nights.
 
@@ -12,6 +47,7 @@
   \item On-Demand pricing
   \item Monthly cost: \$1,200
 \end{itemize}
+
 
 \textbf{Question}: What's the MOST cost-effective solution?
 
@@ -23,28 +59,41 @@
   \item Baseline capacity needed = Reserved Instances candidate
 \end{itemize}
 
+
 \textbf{Recommended Solution}:
+
 \begin{enumerate}
-  \item Purchase \textbf{3-year Standard Reserved Instances} for 2-3 instances (baseline capacity)
-  \begin{itemize}
-    \item Savings: Up to 75\% on these instances
-  \end{itemize}
-
-  \item Configure \textbf{EC2 Auto Scaling with scheduled actions}:
-  \begin{itemize}
-    \item Scale up Monday-Friday 8:30 AM EST (before traffic starts)
-    \item Scale down at 5:30 PM EST (after traffic ends)
-    \item Minimum capacity on weekends: 2-3 instances
-  \end{itemize}
-
-  \item Use \textbf{On-Demand for peak periods} during business hours
-
-  \item Store session data in \textbf{ElastiCache or DynamoDB} (not on instances)
+  \item \textbf{Purchase 3-year Standard Reserved Instances for 2-3 instances (baseline capacity)}
 \end{enumerate}
+
+\begin{itemize}
+  \item Savings: Up to 75\% on these instances
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Configure EC2 Auto Scaling with scheduled actions}:
+\end{enumerate}
+
+\begin{itemize}
+  \item Scale up Monday-Friday 8:30 AM EST (before traffic starts)
+  \item Scale down at 5:30 PM EST (after traffic ends)
+  \item Minimum capacity on weekends: 2-3 instances
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Use On-Demand for peak periods during business hours}
+  \item \textbf{Store session data in ElastiCache or DynamoDB (not on instances)}
+\end{enumerate}
+
 
 \textbf{Expected Savings}: 40-60\% reduction in monthly costs
 
-\subsection{Scenario 2: Designing for High Availability}
+---
+
+\subsubsection{Scenario 2: Designing for High Availability}
+
 
 \textbf{Situation}: An e-commerce company's application must remain available even if an entire Availability Zone fails. The application currently runs on a single EC2 instance with a MySQL database.
 
@@ -58,44 +107,53 @@
   \item Session data tied to instance
 \end{itemize}
 
+
 \textbf{Recommended Solution}:
 
-\begin{enumerate}
-  \item \textbf{Multi-AZ Application Tier}:
-  \begin{itemize}
-    \item Deploy \textbf{Application Load Balancer} spanning multiple AZs
-    \item Create \textbf{Auto Scaling group} with minimum 2 instances across different AZs
-    \item Set desired capacity based on traffic patterns
-    \item Configure health checks on ALB and Auto Scaling
-  \end{itemize}
+\paragraph{1. Multi-AZ Application Tier}
 
-  \item \textbf{Multi-AZ Database}:
-  \begin{itemize}
-    \item Migrate MySQL to \textbf{Amazon RDS Multi-AZ}
-    \item Automatic failover to standby in different AZ
-    \item Synchronous replication
-    \item Minimal downtime during failover
-  \end{itemize}
+\begin{itemize}
+  \item Deploy \textbf{Application Load Balancer} spanning multiple AZs
+  \item Create \textbf{Auto Scaling group} with minimum 2 instances across different AZs
+  \item Set desired capacity based on traffic patterns
+  \item Configure health checks on ALB and Auto Scaling
+\end{itemize}
 
-  \item \textbf{Stateless Application Design}:
-  \begin{itemize}
-    \item Store session data in \textbf{ElastiCache} (Redis with Multi-AZ)
-    \item Or use \textbf{DynamoDB} for session storage
-    \item Enable sticky sessions on ALB if needed (but prefer stateless)
-  \end{itemize}
 
-  \item \textbf{Static Assets}:
-  \begin{itemize}
-    \item Store in \textbf{S3} (automatically multi-AZ)
-    \item Use \textbf{CloudFront} for global distribution
-  \end{itemize}
+\paragraph{2. Multi-AZ Database}
 
-  \item \textbf{Monitoring}:
-  \begin{itemize}
-    \item Set up \textbf{CloudWatch alarms} for health checks
-    \item Configure \textbf{SNS notifications} for failures
-  \end{itemize}
-\end{enumerate}
+\begin{itemize}
+  \item Migrate MySQL to \textbf{Amazon RDS Multi-AZ}
+  \item Automatic failover to standby in different AZ
+  \item Synchronous replication
+  \item Minimal downtime during failover
+\end{itemize}
+
+
+\paragraph{3. Stateless Application Design}
+
+\begin{itemize}
+  \item Store session data in \textbf{ElastiCache} (Redis with Multi-AZ)
+  \item Or use \textbf{DynamoDB} for session storage
+  \item Enable sticky sessions on ALB if needed (but prefer stateless)
+\end{itemize}
+
+
+\paragraph{4. Static Assets}
+
+\begin{itemize}
+  \item Store in \textbf{S3} (automatically multi-AZ)
+  \item Use \textbf{CloudFront} for global distribution
+\end{itemize}
+
+
+\paragraph{5. Monitoring}
+
+\begin{itemize}
+  \item Set up \textbf{CloudWatch alarms} for health checks
+  \item Configure \textbf{SNS notifications} for failures
+\end{itemize}
+
 
 \textbf{Architecture Benefits}:
 \begin{itemize}
@@ -105,18 +163,23 @@
   \item No single point of failure
 \end{itemize}
 
-\subsection{Scenario 3: Large Data Migration}
+
+---
+
+\subsubsection{Scenario 3: Large Data Migration}
+
 
 \textbf{Situation}: A healthcare company needs to migrate 80 TB of medical imaging data from on-premises storage to S3. Compliance requires data to be encrypted and migration completed within 2 weeks.
 
 \textbf{Constraints}:
 \begin{itemize}
   \item Internet connection: 100 Mbps
-  \item Upload via internet would take: ~74 days
+  \item Upload via internet would take: \textasciitilde{}74 days
   \item Deadline: 2 weeks
   \item Data must be encrypted
   \item HIPAA compliance required
 \end{itemize}
+
 
 \textbf{Question}: What's the best migration approach?
 
@@ -128,49 +191,63 @@
   \item Need physical device for transfer
 \end{itemize}
 
+
 \textbf{Recommended Solution}:
 
+\paragraph{1. Use AWS Snowball Edge Storage Optimized}
+
+\begin{itemize}
+  \item 80 TB usable capacity per device
+  \item Order 1-2 devices (for redundancy)
+  \item 256-bit encryption built-in
+  \item HIPAA compliant
+\end{itemize}
+
+
+\paragraph{2. Migration Process}
+
+
 \begin{enumerate}
-  \item Use \textbf{AWS Snowball Edge Storage Optimized}:
-  \begin{itemize}
-    \item 80 TB usable capacity per device
-    \item Order 1-2 devices (for redundancy)
-    \item 256-bit encryption built-in
-    \item HIPAA compliant
-  \end{itemize}
-
-  \item \textbf{Migration Process}:
-  \begin{enumerate}
-    \item Order Snowball device via AWS Console
-    \item AWS ships device (2-3 days)
-    \item Connect to network, unlock with credentials
-    \item Copy data using Snowball client (2-4 days for 80 TB)
-    \item Ship device back to AWS (2-3 days)
-    \item AWS uploads to S3 (1-2 days)
-  \end{enumerate}
-
-  \item \textbf{S3 Configuration}:
-  \begin{itemize}
-    \item Enable \textbf{S3 server-side encryption (SSE-S3 or SSE-KMS)}
-    \item Enable \textbf{versioning} for data protection
-    \item Configure \textbf{lifecycle policies} to transition older data to Glacier
-    \item Enable \textbf{S3 Object Lock} for compliance (WORM)
-  \end{itemize}
-
-  \item \textbf{Compliance}:
-  \begin{itemize}
-    \item Use \textbf{AWS Artifact} to access HIPAA BAA
-    \item Sign Business Associate Addendum (BAA)
-    \item Enable \textbf{CloudTrail} for audit logging
-    \item Use \textbf{AWS Config} for compliance monitoring
-  \end{itemize}
+  \item Order Snowball device via AWS Console
+  \item AWS ships device (2-3 days)
+  \item Connect to network, unlock with credentials
+  \item Copy data using Snowball client (2-4 days for 80 TB)
+  \item Ship device back to AWS (2-3 days)
+  \item AWS uploads to S3 (1-2 days)
 \end{enumerate}
+
+
+\paragraph{3. S3 Configuration}
+
+\begin{itemize}
+  \item Enable \textbf{S3 server-side encryption (SSE-S3 or SSE-KMS)}
+  \item Enable \textbf{versioning} for data protection
+  \item Configure \textbf{lifecycle policies} to transition older data to Glacier
+  \item Enable \textbf{S3 Object Lock} for compliance (WORM)
+\end{itemize}
+
+
+\paragraph{4. Compliance}
+
+\begin{itemize}
+  \item Use \textbf{AWS Artifact} to access HIPAA BAA
+  \item Sign Business Associate Addendum (BAA)
+  \item Enable \textbf{CloudTrail} for audit logging
+  \item Use \textbf{AWS Config} for compliance monitoring
+\end{itemize}
+
 
 \textbf{Timeline}: 7-12 days (meets 2-week deadline)
 
-\textbf{Alternative for >100 PB}: Use \textbf{AWS Snowmobile}
+\begin{keypoint}
+\textbf{Tip}: For data volumes >100 PB, use \textbf{AWS Snowmobile}
+\end{keypoint}
 
-\subsection{Scenario 4: Serverless Application Architecture}
+
+---
+
+\subsubsection{Scenario 4: Serverless Application Architecture}
+
 
 \textbf{Situation}: A startup wants to build a mobile app backend with REST API. They have limited DevOps resources and want to minimize operational overhead while paying only for actual usage.
 
@@ -185,59 +262,70 @@
   \item Pay-per-use pricing
 \end{itemize}
 
+
 \textbf{Question}: What AWS services should they use?
 
 \textbf{Recommended Serverless Architecture}:
 
-\begin{enumerate}
-  \item \textbf{API Layer}:
-  \begin{itemize}
-    \item \textbf{Amazon API Gateway}: Create and manage REST API
-    \item Features: Request throttling, API keys, caching, CORS
-    \item Pay per million API calls
-  \end{itemize}
+\paragraph{1. API Layer}
 
-  \item \textbf{Compute Layer}:
-  \begin{itemize}
-    \item \textbf{AWS Lambda}: Run business logic without servers
-    \item Languages: Node.js, Python, Java, Go, etc.
-    \item Auto-scaling built-in
-    \item Pay only for execution time
-  \end{itemize}
+\begin{itemize}
+  \item \textbf{Amazon API Gateway}: Create and manage REST API
+  \item Features: Request throttling, API keys, caching, CORS
+  \item Pay per million API calls
+\end{itemize}
 
-  \item \textbf{Authentication}:
-  \begin{itemize}
-    \item \textbf{Amazon Cognito}: User sign-up, sign-in, access control
-    \item User pools for authentication
-    \item Identity pools for AWS resource access
-    \item Social identity providers (Facebook, Google)
-    \item Free tier: 50,000 MAUs
-  \end{itemize}
 
-  \item \textbf{Data Storage}:
-  \begin{itemize}
-    \item \textbf{Amazon DynamoDB}: NoSQL database
-    \item Single-digit millisecond latency
-    \item Automatic scaling
-    \item On-demand or provisioned capacity
-    \item Always-free tier: 25 GB storage
-  \end{itemize}
+\paragraph{2. Compute Layer}
 
-  \item \textbf{Image Storage}:
-  \begin{itemize}
-    \item \textbf{Amazon S3}: Store user-uploaded images
-    \item Lifecycle policies to move old images to Glacier
-    \item CloudFront for fast image delivery
-  \end{itemize}
+\begin{itemize}
+  \item \textbf{AWS Lambda}: Run business logic without servers
+  \item Languages: Node.js, Python, Java, Go, etc.
+  \item Auto-scaling built-in
+  \item Pay only for execution time
+\end{itemize}
 
-  \item \textbf{Optional Enhancements}:
-  \begin{itemize}
-    \item \textbf{Amazon CloudFront}: CDN for API and static assets
-    \item \textbf{AWS AppSync}: GraphQL API (alternative to API Gateway + Lambda)
-    \item \textbf{Amazon SES}: Send transactional emails
-    \item \textbf{Amazon SNS}: Push notifications to mobile devices
-  \end{itemize}
-\end{enumerate}
+
+\paragraph{3. Authentication}
+
+\begin{itemize}
+  \item \textbf{Amazon Cognito}: User sign-up, sign-in, access control
+  \item User pools for authentication
+  \item Identity pools for AWS resource access
+  \item Social identity providers (Facebook, Google)
+  \item Free tier: 50,000 MAUs
+\end{itemize}
+
+
+\paragraph{4. Data Storage}
+
+\begin{itemize}
+  \item \textbf{Amazon DynamoDB}: NoSQL database
+  \item Single-digit millisecond latency
+  \item Automatic scaling
+  \item On-demand or provisioned capacity
+  \item Always-free tier: 25 GB storage
+\end{itemize}
+
+
+\paragraph{5. Image Storage}
+
+\begin{itemize}
+  \item \textbf{Amazon S3}: Store user-uploaded images
+  \item Lifecycle policies to move old images to Glacier
+  \item CloudFront for fast image delivery
+\end{itemize}
+
+
+\paragraph{6. Optional Enhancements}
+
+\begin{itemize}
+  \item \textbf{Amazon CloudFront}: CDN for API and static assets
+  \item \textbf{AWS AppSync}: GraphQL API (alternative to API Gateway + Lambda)
+  \item \textbf{Amazon SES}: Send transactional emails
+  \item \textbf{Amazon SNS}: Push notifications to mobile devices
+\end{itemize}
+
 
 \textbf{Benefits}:
 \begin{itemize}
@@ -249,16 +337,21 @@
   \item Fast deployment and iteration
 \end{itemize}
 
+
 \textbf{Cost Example}:
 \begin{itemize}
-  \item 1 million API requests: ~\$3.50
-  \item Lambda executions: ~\$0.20
-  \item DynamoDB: ~\$1.25
-  \item S3 storage (100 GB): ~\$2.30
-  \item Total: ~\$7.25/month for 1M requests
+  \item 1 million API requests: \textasciitilde{}\$3.50
+  \item Lambda executions: \textasciitilde{}\$0.20
+  \item DynamoDB: \textasciitilde{}\$1.25
+  \item S3 storage (100 GB): \textasciitilde{}\$2.30
+  \item \textbf{Total: \textasciitilde{}\$7.25/month for 1M requests}
 \end{itemize}
 
-\subsection{Scenario 5: Compliance and Governance}
+
+---
+
+\subsubsection{Scenario 5: Compliance and Governance}
+
 
 \textbf{Situation}: A financial services company with 50 AWS accounts needs to ensure no S3 buckets are publicly accessible across the organization. They also need to track all changes and demonstrate compliance.
 
@@ -271,62 +364,75 @@
   \item Automated remediation preferred
 \end{itemize}
 
+
 \textbf{Question}: How can they enforce and monitor this policy?
 
 \textbf{Recommended Solution}:
 
-\begin{enumerate}
-  \item \textbf{AWS Organizations Setup}:
-  \begin{itemize}
-    \item Group accounts using \textbf{Organizational Units (OUs)}
-    \item Example structure: Production OU, Development OU, Test OU
-  \end{itemize}
+\paragraph{1. AWS Organizations Setup}
 
-  \item \textbf{Service Control Policies (SCPs)}:
-  \begin{itemize}
-    \item Create SCP denying \texttt{s3:PutBucketPublicAccessBlock} with value False
-    \item Deny \texttt{s3:PutBucketPolicy} if it allows public access
-    \item Apply to root or specific OUs
-    \item SCPs define maximum permissions (even admins can't override)
-  \end{itemize}
+\begin{itemize}
+  \item Group accounts using \textbf{Organizational Units (OUs)}
+  \item Example structure: Production OU, Development OU, Test OU
+\end{itemize}
 
-  \item \textbf{S3 Block Public Access}:
-  \begin{itemize}
-    \item Enable \textbf{S3 Block Public Access} at organization level
-    \item Applies to all accounts in organization
-    \item Prevents accidental public exposure
-  \end{itemize}
 
-  \item \textbf{Continuous Monitoring}:
-  \begin{itemize}
-    \item Enable \textbf{AWS Config} across all accounts
-    \item Deploy \textbf{s3-bucket-public-read-prohibited} rule
-    \item Deploy \textbf{s3-bucket-public-write-prohibited} rule
-    \item Automatic compliance reporting
-  \end{itemize}
+\paragraph{2. Service Control Policies (SCPs)}
 
-  \item \textbf{Automated Remediation}:
-  \begin{itemize}
-    \item Configure \textbf{AWS Config auto-remediation}
-    \item Use AWS Systems Manager Automation documents
-    \item Automatically disable public access when detected
-  \end{itemize}
+\begin{itemize}
+  \item Create SCP denying \texttt{s3:PutBucketPublicAccessBlock} with value False
+  \item Deny \texttt{s3:PutBucketPolicy} if it allows public access
+  \item Apply to root or specific OUs
+  \item SCPs define maximum permissions (even admins can't override)
+\end{itemize}
 
-  \item \textbf{Audit and Logging}:
-  \begin{itemize}
-    \item Enable \textbf{CloudTrail} in all accounts
-    \item Centralize logs in dedicated security account
-    \item Track all S3 API calls
-    \item Set up \textbf{CloudWatch alarms} for policy violations
-  \end{itemize}
 
-  \item \textbf{Centralized Security}:
-  \begin{itemize}
-    \item Use \textbf{AWS Security Hub} for centralized security view
-    \item Aggregates findings from Config, GuardDuty, Inspector
-    \item Compliance dashboards for standards (PCI DSS, CIS)
-  \end{itemize}
-\end{enumerate}
+\paragraph{3. S3 Block Public Access}
+
+\begin{itemize}
+  \item Enable \textbf{S3 Block Public Access} at organization level
+  \item Applies to all accounts in organization
+  \item Prevents accidental public exposure
+\end{itemize}
+
+
+\paragraph{4. Continuous Monitoring}
+
+\begin{itemize}
+  \item Enable \textbf{AWS Config} across all accounts
+  \item Deploy \textbf{s3-bucket-public-read-prohibited} rule
+  \item Deploy \textbf{s3-bucket-public-write-prohibited} rule
+  \item Automatic compliance reporting
+\end{itemize}
+
+
+\paragraph{5. Automated Remediation}
+
+\begin{itemize}
+  \item Configure \textbf{AWS Config auto-remediation}
+  \item Use AWS Systems Manager Automation documents
+  \item Automatically disable public access when detected
+\end{itemize}
+
+
+\paragraph{6. Audit and Logging}
+
+\begin{itemize}
+  \item Enable \textbf{CloudTrail} in all accounts
+  \item Centralize logs in dedicated security account
+  \item Track all S3 API calls
+  \item Set up \textbf{CloudWatch alarms} for policy violations
+\end{itemize}
+
+
+\paragraph{7. Centralized Security}
+
+\begin{itemize}
+  \item Use \textbf{AWS Security Hub} for centralized security view
+  \item Aggregates findings from Config, GuardDuty, Inspector
+  \item Compliance dashboards for standards (PCI DSS, CIS)
+\end{itemize}
+
 
 \textbf{Additional Recommendations}:
 \begin{itemize}
@@ -336,7 +442,11 @@
   \item Implement least privilege IAM policies
 \end{itemize}
 
-\subsection{Scenario 6: Disaster Recovery Strategy}
+
+---
+
+\subsubsection{Scenario 6: Disaster Recovery Strategy}
+
 
 \textbf{Situation}: An e-commerce company needs disaster recovery for their application. Their business requires:
 \begin{itemize}
@@ -345,93 +455,89 @@
   \item Currently running in us-east-1
 \end{itemize}
 
+
 \textbf{Question}: What DR strategy should they implement?
 
 \textbf{DR Strategy Options}:
 
-\begin{enumerate}
-  \item \textbf{Backup and Restore} (Lowest cost, highest RTO)
-  \begin{itemize}
-    \item RPO: Hours to days
-    \item RTO: Hours to days
-    \item Good for: Non-critical workloads
-    \item Not suitable for this scenario
-  \end{itemize}
+\begin{longtable}{lllll}
+\toprule
+\textbf{Strategy} & \textbf{RPO} & \textbf{RTO} & \textbf{Cost} & \textbf{Best For} \\
+\midrule
+\textbf{Backup and Restore} & Hours to days & Hours to days & Lowest & Non-critical workloads \\
+\textbf{Pilot Light} ⭐ & Minutes to hours & Hours & Low-Medium & This scenario \\
+\textbf{Warm Standby} & Seconds to minutes & Minutes & Medium-High & Critical applications \\
+\textbf{Multi-Site Active/Active} & Near zero & Near zero & Highest & Mission-critical systems \\
+\bottomrule
+\end{longtable}
 
-  \item \textbf{Pilot Light} (Recommended for this scenario)
-  \begin{itemize}
-    \item RPO: Minutes to hours
-    \item RTO: Hours
-    \item Keep minimal version running in DR region
-    \item Scale up during disaster
-  \end{itemize}
+\begin{keypoint}
+\textbf{Recommendation}: \textbf{Pilot Light} is the optimal strategy for this scenario, meeting the 1-hour RPO and 4-hour RTO requirements at a reasonable cost.
+\end{keypoint}
 
-  \item \textbf{Warm Standby}
-  \begin{itemize}
-    \item RPO: Seconds to minutes
-    \item RTO: Minutes
-    \item Reduced version always running
-    \item Higher cost than Pilot Light
-  \end{itemize}
-
-  \item \textbf{Multi-Site Active/Active}
-  \begin{itemize}
-    \item RPO: Near zero
-    \item RTO: Near zero
-    \item Highest cost
-    \item Overkill for 4-hour RTO requirement
-  \end{itemize}
-\end{enumerate}
 
 \textbf{Recommended Pilot Light Implementation}:
 
-\begin{enumerate}
-  \item \textbf{Data Replication}:
-  \begin{itemize}
-    \item Use \textbf{RDS cross-region read replicas}
-    \item Replicate from us-east-1 to us-west-2
-    \item Meets 1-hour RPO requirement
-  \end{itemize}
+\paragraph{1. Data Replication}
 
-  \item \textbf{Application AMIs}:
-  \begin{itemize}
-    \item Regularly copy AMIs to DR region
-    \item Keep AMIs up-to-date
-    \item Automate with Lambda
-  \end{itemize}
+\begin{itemize}
+  \item Use \textbf{RDS cross-region read replicas}
+  \item Replicate from us-east-1 to us-west-2
+  \item Meets 1-hour RPO requirement
+\end{itemize}
 
-  \item \textbf{Infrastructure as Code}:
-  \begin{itemize}
-    \item Use \textbf{CloudFormation templates}
-    \item Pre-create VPC, subnets, security groups in DR region
-    \item Keep Auto Scaling groups in DR region with 0 capacity
-  \end{itemize}
 
-  \item \textbf{DNS Failover}:
-  \begin{itemize}
-    \item Use \textbf{Route 53 health checks}
-    \item Configure failover routing policy
-    \item Automatic DNS failover to DR region
-  \end{itemize}
+\paragraph{2. Application AMIs}
 
-  \item \textbf{Testing}:
-  \begin{itemize}
-    \item Quarterly DR drills
-    \item Document runbooks
-    \item Measure actual RTO/RPO
-  \end{itemize}
-\end{enumerate}
+\begin{itemize}
+  \item Regularly copy AMIs to DR region
+  \item Keep AMIs up-to-date
+  \item Automate with Lambda
+\end{itemize}
+
+
+\paragraph{3. Infrastructure as Code}
+
+\begin{itemize}
+  \item Use \textbf{CloudFormation templates}
+  \item Pre-create VPC, subnets, security groups in DR region
+  \item Keep Auto Scaling groups in DR region with 0 capacity
+\end{itemize}
+
+
+\paragraph{4. DNS Failover}
+
+\begin{itemize}
+  \item Use \textbf{Route 53 health checks}
+  \item Configure failover routing policy
+  \item Automatic DNS failover to DR region
+\end{itemize}
+
+
+\paragraph{5. Testing}
+
+\begin{itemize}
+  \item Quarterly DR drills
+  \item Document runbooks
+  \item Measure actual RTO/RPO
+\end{itemize}
+
 
 \textbf{Failover Process}:
+
 \begin{enumerate}
   \item Detect primary region failure (Route 53 health check)
   \item Promote RDS read replica to master
   \item Update CloudFormation stack to scale up Auto Scaling
   \item Route 53 automatically redirects traffic
-  \item Total time: ~2-3 hours (meets 4-hour RTO)
+  \item \textbf{Total time: \textasciitilde{}2-3 hours (meets 4-hour RTO)}
 \end{enumerate}
 
-\subsection{Scenario 7: Hybrid Cloud Connectivity}
+
+---
+
+\subsubsection{Scenario 7: Hybrid Cloud Connectivity}
+
 
 \textbf{Situation}: A manufacturing company wants to extend their on-premises data center to AWS while maintaining consistent network performance for their ERP system.
 
@@ -443,153 +549,3076 @@
   \item Access to multiple VPCs
 \end{itemize}
 
+
 \textbf{Connection Options Analysis}:
 
-\begin{table}[h]
-\centering
-\begin{tabular}{|p{3cm}|p{4cm}|p{4cm}|p{3cm}|}
-\hline
+\begin{longtable}{llll}
+\toprule
 \textbf{Solution} & \textbf{Pros} & \textbf{Cons} & \textbf{Best For} \\
-\hline
-
-Site-to-Site VPN & Quick setup (hours), low cost, encrypted & Variable latency, internet-based, limited bandwidth & Dev/test, temporary \\
-\hline
-
-AWS Direct Connect & Consistent performance, high bandwidth, private & Expensive, takes weeks, not encrypted by default & Production, high bandwidth \\
-\hline
-
-Direct Connect + VPN & Best of both worlds & Most expensive, complex & Regulated industries \\
-\hline
-\end{tabular}
-\end{table}
+\midrule
+\textbf{Site-to-Site VPN} & Quick setup (hours), low cost, encrypted & Variable latency, internet-based, limited bandwidth & Dev/test, temporary connections \\
+\textbf{AWS Direct Connect} ⭐ & Consistent performance, high bandwidth, private & Expensive, takes weeks, not encrypted by default & Production, high bandwidth needs \\
+\textbf{Direct Connect + VPN} & Best of both worlds & Most expensive, complex & Regulated industries requiring encryption \\
+\bottomrule
+\end{longtable}
 
 \textbf{Recommended Solution: AWS Direct Connect}
 
+\paragraph{1. Direct Connect Setup}
+
+\begin{itemize}
+  \item Order 1 Gbps Direct Connect port
+  \item Work with AWS Direct Connect Partner
+  \item Provision takes 2-4 weeks
+  \item Set up cross-connect at colocation facility
+\end{itemize}
+
+
+\paragraph{2. Multiple VPC Access}
+
+\begin{itemize}
+  \item Use \textbf{Direct Connect Gateway}
+  \item Connect to multiple VPCs across regions
+  \item Single Direct Connect connection
+  \item Simplifies connectivity
+\end{itemize}
+
+
+\paragraph{3. High Availability}
+
+\begin{itemize}
+  \item Order second Direct Connect connection (different location)
+  \item Configure BGP for automatic failover
+  \item Or use VPN as backup connection
+\end{itemize}
+
+
+\paragraph{4. Security}
+
+\begin{itemize}
+  \item Layer VPN over Direct Connect for encryption
+  \item Or use \textbf{MACsec} encryption
+  \item Private VIF for VPC access
+  \item Public VIF for public AWS services
+\end{itemize}
+
+
+---
+
+\subsubsection{Scenario 8: Multi-Region Architecture for Global Application}
+
+
+\textbf{Situation}: A social media company is launching a new photo-sharing application that needs to serve users across North America, Europe, and Asia. They expect rapid growth and need to provide low-latency access to content while maintaining data consistency.
+
+\textbf{Current State}:
+\begin{itemize}
+  \item Single-region deployment in us-east-1
+  \item 200ms+ latency for users in Asia and Europe
+  \item Customer complaints about slow image loading
+  \item Growing user base: 100K users → 5M expected in 6 months
+\end{itemize}
+
+
+\textbf{Requirements}:
+
+\textbf{Functional Requirements}:
+\begin{itemize}
+  \item Users can upload/view photos from any region
+  \item Social features: likes, comments, follows
+  \item User profile and settings
+  \item Search functionality
+  \item Mobile and web access
+\end{itemize}
+
+
+\textbf{Non-Functional Requirements}:
+\begin{itemize}
+  \item Latency: <100ms for content delivery
+  \item Availability: 99.95\%
+  \item Data residency compliance (GDPR for EU)
+  \item RPO: 1 hour, RTO: 2 hours
+  \item Support 10M concurrent users
+  \item Cost-effective scaling
+\end{itemize}
+
+
+\textbf{Question}: How should they architect a multi-region solution?
+
+\textbf{Recommended Architecture}:
+
+\paragraph{1. Global Content Delivery}
+
+
+\textbf{Amazon CloudFront}:
+\begin{itemize}
+  \item Deploy CloudFront distributions with edge locations worldwide
+  \item Cache static assets (images, CSS, JavaScript)
+  \item Regional edge caches for large files
+  \item Configure custom origins pointing to regional endpoints
+  \item Enable HTTP/2 and compression
+\end{itemize}
+
+
+\textbf{Amazon S3}:
+\begin{itemize}
+  \item Create S3 buckets in each primary region (us-east-1, eu-west-1, ap-southeast-1)
+  \item Enable S3 Transfer Acceleration for faster uploads
+  \item Use S3 Intelligent-Tiering for automatic cost optimization
+  \item Implement lifecycle policies for old content
+\end{itemize}
+
+
+\textbf{Cross-Region Replication}:
+\begin{itemize}
+  \item Enable S3 Cross-Region Replication for disaster recovery
+  \item Replicate photos bidirectionally between regions
+  \item Use replication time control for predictable replication
+  \item Replicate only active content (photos <30 days)
+\end{itemize}
+
+
+\paragraph{2. Database Architecture}
+
+
+\textbf{Amazon DynamoDB Global Tables}:
+\begin{itemize}
+  \item Deploy Global Tables across 3 regions
+  \item Tables: Users, Posts, Likes, Comments, Follows
+  \item Multi-master replication (writes to any region)
+  \item Typical replication latency: <1 second
+  \item Automatic conflict resolution (last writer wins)
+  \item Use on-demand capacity for unpredictable traffic
+\end{itemize}
+
+
+\textbf{Alternative: Amazon Aurora Global Database}:
+\begin{itemize}
+  \item If complex queries needed
+  \item Primary region: us-east-1
+  \item Read replicas in eu-west-1 and ap-southeast-1
+  \item Lag: <1 second
+  \item Failover: <1 minute
+  \item Better for relational data and complex joins
+\end{itemize}
+
+
+\textbf{Data Residency Compliance}:
+\begin{itemize}
+  \item Create separate DynamoDB tables for EU users
+  \item Store EU user data only in eu-west-1
+  \item Use IAM policies to enforce data boundaries
+  \item Document data flow for GDPR compliance
+\end{itemize}
+
+
+\paragraph{3. API and Application Layer}
+
+
+\textbf{Amazon API Gateway}:
+\begin{itemize}
+  \item Deploy regional API Gateway endpoints
+  \item Edge-optimized for CloudFront integration
+  \item Custom domain names per region
+  \item Request throttling and caching
+\end{itemize}
+
+
+\textbf{AWS Lambda or ECS Fargate}:
+\begin{itemize}
+  \item Lambda for event-driven, sporadic workloads
+  \item ECS Fargate for containerized applications
+  \item Deploy in multiple AZs per region
+  \item Auto Scaling based on request volume
+\end{itemize}
+
+
+\paragraph{4. Routing and Traffic Management}
+
+
+\textbf{Amazon Route 53}:
+\begin{itemize}
+  \item Create geolocation routing policy
+  \item North America → us-east-1
+  \item Europe → eu-west-1
+  \item Asia → ap-southeast-1
+  \item Configure health checks for failover
+  \item Latency-based routing for optimal performance
+\end{itemize}
+
+
+\textbf{Implementation}:
+\begin{verbatim}
+User in Germany
+→ Route 53 (geolocation: Europe)
+→ CloudFront (Frankfurt edge)
+→ API Gateway (eu-west-1)
+→ Lambda/ECS (eu-west-1)
+→ DynamoDB Global Table (eu-west-1)
+→ S3 (eu-west-1) via CloudFront
+\end{verbatim}
+
+\paragraph{5. Search Functionality}
+
+
+\textbf{Amazon OpenSearch Service}:
+\begin{itemize}
+  \item Deploy domain in each region
+  \item Index user data and posts
+  \item Cross-region snapshot for backup
+  \item Or use Amazon CloudSearch
+\end{itemize}
+
+
+\textbf{Alternative: Amazon Kendra}:
+\begin{itemize}
+  \item For intelligent search with ML
+  \item Natural language queries
+\end{itemize}
+
+
+\paragraph{6. Monitoring and Operations}
+
+
+\textbf{Amazon CloudWatch}:
+\begin{itemize}
+  \item Cross-region dashboards
+  \item Unified logging with CloudWatch Logs Insights
+  \item Alarms for latency, errors, costs
+  \item Custom metrics for business KPIs
+\end{itemize}
+
+
+\textbf{AWS X-Ray}:
+\begin{itemize}
+  \item Distributed tracing across regions
+  \item Identify bottlenecks
+  \item Service map visualization
+\end{itemize}
+
+
+\textbf{Step-by-Step Implementation}:
+
+\textbf{Phase 1: Foundation (Weeks 1-2)}
 \begin{enumerate}
-  \item \textbf{Direct Connect Setup}:
-  \begin{itemize}
-    \item Order 1 Gbps Direct Connect port
-    \item Work with AWS Direct Connect Partner
-    \item Provision takes 2-4 weeks
-    \item Set up cross-connect at colocation facility
-  \end{itemize}
-
-  \item \textbf{Multiple VPC Access}:
-  \begin{itemize}
-    \item Use \textbf{Direct Connect Gateway}
-    \item Connect to multiple VPCs across regions
-    \item Single Direct Connect connection
-    \item Simplifies connectivity
-  \end{itemize}
-
-  \item \textbf{High Availability}:
-  \begin{itemize}
-    \item Order second Direct Connect connection (different location)
-    \item Configure BGP for automatic failover
-    \item Or use VPN as backup connection
-  \end{itemize}
-
-  \item \textbf{Security}:
-  \begin{itemize}
-    \item Layer VPN over Direct Connect for encryption
-    \item Or use \textbf{MACsec} encryption
-    \item Private VIF for VPC access
-    \item Public VIF for public AWS services
-  \end{itemize}
+  \item Set up AWS Organizations and multi-account structure
+  \item Create VPCs in target regions
+  \item Deploy CloudFormation templates for infrastructure
+  \item Set up centralized logging and monitoring
+  \item Configure IAM roles and policies
 \end{enumerate}
 
-\section{Common Troubleshooting Scenarios}
 
-\subsection{Cannot Connect to EC2 Instance}
+\textbf{Phase 2: Data Layer (Weeks 3-4)}
+\begin{enumerate}
+  \item Create DynamoDB Global Tables
+  \item Set up S3 buckets with replication
+  \item Configure Aurora Global Database (if chosen)
+  \item Test data replication and consistency
+  \item Implement backup strategies
+\end{enumerate}
+
+
+\textbf{Phase 3: Application Deployment (Weeks 5-6)}
+\begin{enumerate}
+  \item Deploy API Gateway in all regions
+  \item Deploy Lambda functions or ECS services
+  \item Configure Auto Scaling policies
+  \item Implement caching strategies
+  \item Set up CloudFront distributions
+\end{enumerate}
+
+
+\textbf{Phase 4: Routing and DNS (Week 7)}
+\begin{enumerate}
+  \item Configure Route 53 geolocation routing
+  \item Set up health checks and failover
+  \item Test routing from different regions
+  \item Configure SSL/TLS certificates
+\end{enumerate}
+
+
+\textbf{Phase 5: Testing and Optimization (Week 8)}
+\begin{enumerate}
+  \item Load testing from multiple regions
+  \item Latency measurements
+  \item Failover testing
+  \item Cost optimization
+  \item Security hardening
+\end{enumerate}
+
+
+\textbf{Cost Breakdown (Monthly Estimate for 5M users)}:
+
+\begin{longtable}{lll}
+\toprule
+\textbf{Service} & \textbf{Configuration} & \textbf{Monthly Cost} \\
+\midrule
+CloudFront & 10 TB data transfer, 100M requests & \$850 \\
+S3 & 50 TB storage, Transfer Acceleration & \$1,250 \\
+DynamoDB Global Tables & 1 billion requests, 500 GB & \$1,800 \\
+Lambda & 500M requests, 1GB memory & \$900 \\
+API Gateway & 500M requests & \$1,750 \\
+Route 53 & Hosted zones, health checks & \$100 \\
+CloudWatch & Logs, metrics, alarms & \$250 \\
+Data Transfer & Cross-region replication & \$450 \\
+\textbf{Total} & \textbf{\textasciitilde{}\$7,350/month} &  \\
+\bottomrule
+\end{longtable}
+
+\textbf{Cost Optimization Strategies}:
+\begin{enumerate}
+  \item Use S3 Intelligent-Tiering for automatic storage class transitions
+  \item Enable CloudFront compression to reduce data transfer
+  \item Implement DynamoDB on-demand pricing for variable workloads
+  \item Use reserved capacity for predictable base load
+  \item Set up AWS Budgets alerts
+  \item Archive old content to S3 Glacier
+\end{enumerate}
+
+
+\textbf{Benefits}:
+\begin{itemize}
+  \item \textbf{Performance}: <100ms latency worldwide
+  \item \textbf{Availability}: 99.99\% with multi-region failover
+  \item \textbf{Scalability}: Seamlessly handles traffic spikes
+  \item \textbf{Data Sovereignty}: GDPR compliance with regional data storage
+  \item \textbf{User Experience}: Fast content delivery regardless of location
+  \item \textbf{Business Continuity}: Automatic failover between regions
+\end{itemize}
+
+
+\textbf{Trade-offs}:
+\begin{itemize}
+  \item \textbf{Complexity}: Managing multi-region infrastructure
+  \item \textbf{Cost}: Higher than single-region deployment (3-4x)
+  \item \textbf{Data Consistency}: Eventual consistency with Global Tables
+  \item \textbf{Development}: More complex testing and deployment
+  \item \textbf{Operational Overhead}: Multi-region monitoring and troubleshooting
+\end{itemize}
+
+
+\textbf{Alternative Approaches}:
+
+\textbf{Option 1: Hybrid Approach}
+\begin{itemize}
+  \item Primary region with CloudFront for content delivery
+  \item Lower cost but higher latency for writes
+  \item Best for read-heavy applications
+\end{itemize}
+
+
+\textbf{Option 2: Active-Passive Multi-Region}
+\begin{itemize}
+  \item Active region handles all traffic
+  \item Passive region for disaster recovery only
+  \item Lower cost, simpler but longer failover time
+\end{itemize}
+
+
+\textbf{Option 3: Regional Isolation}
+\begin{itemize}
+  \item Completely separate deployments per region
+  \item No data replication between regions
+  \item Best for data residency requirements
+\end{itemize}
+
+
+\textbf{Common Pitfalls to Avoid}:
+\begin{enumerate}
+  \item \textbf{Not testing failover}: Regularly practice region failover
+  \item \textbf{Ignoring data transfer costs}: Can be 30-40\% of total costs
+  \item \textbf{Synchronous replication assumptions}: DynamoDB Global Tables are eventually consistent
+  \item \textbf{Over-engineering}: Start with 2 regions, expand as needed
+  \item \textbf{Neglecting monitoring}: Set up comprehensive CloudWatch dashboards early
+  \item \textbf{Hardcoded endpoints}: Use service discovery or configuration
+  \item \textbf{Ignoring data residency laws}: Consult legal team for compliance
+  \item \textbf{Not considering latency for writes}: Global Tables have \textasciitilde{}1s replication lag
+\end{enumerate}
+
+
+---
+
+\subsubsection{Scenario 9: Security Incident Response and Prevention}
+
+
+\textbf{Situation}: A healthcare technology company experienced a security incident where an S3 bucket containing patient data was briefly exposed publicly. The CISO has mandated a comprehensive security overhaul to prevent future incidents and improve detection and response capabilities.
+
+\textbf{Current State}:
+\begin{itemize}
+  \item 25 AWS accounts with inconsistent security practices
+  \item No centralized security monitoring
+  \item Manual security reviews
+  \item Limited visibility into configuration changes
+  \item Reactive security approach
+\end{itemize}
+
+
+\textbf{Incident Impact}:
+\begin{itemize}
+  \item 10,000 patient records potentially exposed
+  \item 4 hours until detection
+  \item HIPAA violation investigation
+  \item Reputation damage
+  \item Potential fines up to \$1.5M
+\end{itemize}
+
+
+\textbf{Requirements}:
+
+\textbf{Functional Requirements}:
+\begin{itemize}
+  \item Detect security threats in real-time
+  \item Prevent unauthorized access
+  \item Automated incident response
+  \item Continuous compliance monitoring
+  \item Audit trail for all actions
+  \item Encryption at rest and in transit
+\end{itemize}
+
+
+\textbf{Non-Functional Requirements}:
+\begin{itemize}
+  \item Detection time: <5 minutes
+  \item Automated response: <1 minute
+  \item 100\% configuration compliance
+  \item 7-year log retention
+  \item SOC 2, HIPAA compliance
+  \item Zero trust architecture
+\end{itemize}
+
+
+\textbf{Question}: How should they implement comprehensive security controls?
+
+\textbf{Recommended Security Architecture}:
+
+\paragraph{1. Detective Controls - Threat Detection}
+
+
+\textbf{Amazon GuardDuty}:
+\begin{itemize}
+  \item Enable in all accounts and regions
+  \item Monitors VPC Flow Logs, CloudTrail, DNS logs
+  \item ML-based anomaly detection
+  \item Detects:
+  \item Compromised EC2 instances (cryptocurrency mining)
+  \item Reconnaissance activity
+  \item Unauthorized access attempts
+  \item Data exfiltration
+  \item Malicious IP communications
+\end{itemize}
+
+
+\textbf{AWS Security Hub}:
+\begin{itemize}
+  \item Centralized security dashboard
+  \item Aggregates findings from:
+  \item GuardDuty
+  \item Amazon Inspector
+  \item Amazon Macie
+  \item IAM Access Analyzer
+  \item AWS Config
+  \item Third-party tools
+  \item Compliance checks against:
+  \item CIS AWS Foundations Benchmark
+  \item PCI DSS
+  \item HIPAA
+  \item AWS Foundational Security Best Practices
+\end{itemize}
+
+
+\textbf{Amazon Macie}:
+\begin{itemize}
+  \item Automated sensitive data discovery
+  \item Scans S3 buckets for PII, PHI
+  \item Machine learning classification
+  \item Identifies:
+  \item Credit card numbers
+  \item Social Security numbers
+  \item Patient health records
+  \item API keys and secrets
+\end{itemize}
+
+
+\textbf{AWS CloudTrail}:
+\begin{itemize}
+  \item Enable in all regions
+  \item Record all API calls
+  \item Multi-region trail
+  \item Log file integrity validation
+  \item Centralized logging to dedicated security account
+  \item S3 bucket with MFA Delete enabled
+  \item Lifecycle policy: 7-year retention
+\end{itemize}
+
+
+\paragraph{2. Preventive Controls - Access Management}
+
+
+\textbf{AWS Organizations with SCPs}:
+\begin{itemize}
+  \item Organizational hierarchy:
+  \item Root
+  \item Security OU
+  \item Production OU
+  \item Development OU
+  \item Sandbox OU
+\end{itemize}
+
+
+\textbf{Service Control Policies}:
+\begin{lstlisting}[language=json]
+// Prevent disabling security services
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Deny",
+      "Action": [
+        "guardduty:DeleteDetector",
+        "securityhub:DisableSecurityHub",
+        "cloudtrail:StopLogging",
+        "cloudtrail:DeleteTrail",
+        "config:DeleteConfigRule",
+        "config:StopConfigurationRecorder"
+      ],
+      "Resource": "*"
+    \}
+  ]
+\}
+
+// Enforce encryption
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Deny",
+      "Action": "s3:PutObject",
+      "Resource": "*",
+      "Condition": \{
+        "StringNotEquals": \{
+          "s3:x-amz-server-side-encryption": [
+            "AES256",
+            "aws:kms"
+          ]
+        \}
+      \}
+    \}
+  ]
+\}
+
+// Prevent public S3 access
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Deny",
+      "Action": [
+        "s3:PutAccountPublicAccessBlock"
+      ],
+      "Resource": "*",
+      "Condition": \{
+        "StringNotEquals": \{
+          "s3:PublicAccessBlock": "true"
+        \}
+      \}
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\textbf{IAM Access Analyzer}:
+\begin{itemize}
+  \item Continuously monitors IAM policies
+  \item Identifies resources shared with external entities
+  \item Validates policies against best practices
+  \item Generates policy recommendations
+\end{itemize}
+
+
+\textbf{AWS IAM Identity Center (SSO)}:
+\begin{itemize}
+  \item Centralized user access management
+  \item Multi-factor authentication mandatory
+  \item Integration with corporate identity provider (Okta, Azure AD)
+  \item Time-bound elevated access
+  \item Attribute-based access control
+\end{itemize}
+
+
+\paragraph{3. Continuous Compliance Monitoring}
+
+
+\textbf{AWS Config}:
+\begin{itemize}
+  \item Enable in all regions and accounts
+  \item Configuration recording for all resources
+  \item Compliance rules:
+  \item \texttt{s3-bucket-public-read-prohibited}
+  \item \texttt{s3-bucket-public-write-prohibited}
+  \item \texttt{s3-bucket-server-side-encryption-enabled}
+  \item \texttt{rds-encryption-enabled}
+  \item \texttt{ec2-encrypted-volumes}
+  \item \texttt{cloudtrail-enabled}
+  \item \texttt{multi-region-cloudtrail-enabled}
+  \item \texttt{root-account-mfa-enabled}
+  \item \texttt{iam-password-policy}
+  \item \texttt{vpc-flow-logs-enabled}
+\end{itemize}
+
+
+\textbf{AWS Config Aggregator}:
+\begin{itemize}
+  \item Centralized compliance view across all accounts
+  \item Deployed in security account
+  \item Cross-account access via IAM roles
+\end{itemize}
+
+
+\paragraph{4. Automated Incident Response}
+
+
+\textbf{AWS Lambda for Auto-Remediation}:
+
+\textbf{Scenario: S3 Bucket Made Public}
+\begin{lstlisting}[language=python]
+\# Lambda function triggered by Config rule violation
+import boto3
+
+def lambda\_handler(event, context):
+    s3 = boto3.client('s3')
+    config = boto3.client('config')
+
+    \# Extract bucket name from Config event
+    bucket\_name = event['configRuleEvaluations'][0]['resourceId']
+
+    \# Block all public access
+    s3.put\_public\_access\_block(
+        Bucket=bucket\_name,
+        PublicAccessBlockConfiguration=\{
+            'BlockPublicAcls': True,
+            'IgnorePublicAcls': True,
+            'BlockPublicPolicy': True,
+            'RestrictPublicBuckets': True
+        \}
+    )
+
+    \# Send SNS notification
+    sns = boto3.client('sns')
+    sns.publish(
+        TopicArn='arn:aws:sns:us-east-1:123456789012:SecurityAlerts',
+        Subject='SECURITY: Public S3 Bucket Auto-Remediated',
+        Message=f'Bucket \{bucket\_name\} was made public and has been automatically secured.'
+    )
+
+    return \{
+        'statusCode': 200,
+        'body': f'Remediated public access for \{bucket\_name\}'
+    \}
+\end{lstlisting}
+
+\textbf{Amazon EventBridge Rules}:
+\begin{itemize}
+  \item Trigger Lambda on GuardDuty findings
+  \item Automated responses:
+  \item Isolate compromised EC2 instances (change security group)
+  \item Revoke IAM user credentials
+  \item Snapshot EBS volumes for forensics
+  \item Block malicious IPs in NACLs
+\end{itemize}
+
+
+\textbf{AWS Systems Manager Incident Manager}:
+\begin{itemize}
+  \item Automated incident response plans
+  \item Escalation policies
+  \item On-call schedules
+  \item Post-incident analysis
+\end{itemize}
+
+
+\paragraph{5. Data Protection}
+
+
+\textbf{Encryption at Rest}:
+\begin{itemize}
+  \item S3: Default encryption with KMS
+  \item EBS: Encrypted volumes mandatory
+  \item RDS: Encryption enabled for all databases
+  \item DynamoDB: Encryption enabled
+  \item EFS: Encryption enabled
+\end{itemize}
+
+
+\textbf{AWS Key Management Service (KMS)}:
+\begin{itemize}
+  \item Customer-managed keys (CMKs)
+  \item Automatic key rotation
+  \item Key policies restricting access
+  \item CloudTrail logging of key usage
+  \item Separate keys per environment
+\end{itemize}
+
+
+\textbf{Encryption in Transit}:
+\begin{itemize}
+  \item TLS 1.2+ for all communication
+  \item AWS Certificate Manager for SSL/TLS
+  \item VPC endpoints for private communication
+  \item PrivateLink for service access
+\end{itemize}
+
+
+\textbf{AWS Secrets Manager}:
+\begin{itemize}
+  \item Rotate database credentials automatically
+  \item Store API keys and secrets
+  \item Integration with RDS, Redshift, DocumentDB
+  \item Audit secret access via CloudTrail
+\end{itemize}
+
+
+\paragraph{6. Network Security}
+
+
+\textbf{VPC Security}:
+\begin{itemize}
+  \item Private subnets for application and database tiers
+  \item Public subnets only for load balancers
+  \item VPC Flow Logs enabled (all VPCs)
+  \item Network ACLs for subnet-level filtering
+\end{itemize}
+
+
+\textbf{AWS Network Firewall}:
+\begin{itemize}
+  \item Stateful firewall at VPC level
+  \item Intrusion prevention system (IPS)
+  \item Block malicious domains
+  \item Custom rule groups
+\end{itemize}
+
+
+\textbf{AWS WAF (Web Application Firewall)}:
+\begin{itemize}
+  \item Protect web applications from common exploits
+  \item Managed rules:
+  \item OWASP Top 10
+  \item Known bad inputs
+  \item SQL injection
+  \item Cross-site scripting (XSS)
+  \item Rate limiting
+  \item Geo-blocking
+\end{itemize}
+
+
+\textbf{Step-by-Step Implementation}:
+
+\textbf{Phase 1: Foundation (Week 1)}
+\begin{enumerate}
+  \item Enable CloudTrail in all accounts
+  \item Create security account
+  \item Set up centralized logging S3 bucket
+  \item Enable GuardDuty in all accounts/regions
+  \item Document current security posture
+\end{enumerate}
+
+
+\textbf{Phase 2: Detection and Monitoring (Week 2)}
+\begin{enumerate}
+  \item Enable Security Hub
+  \item Enable Macie for S3 scanning
+  \item Deploy Config with compliance rules
+  \item Set up Config Aggregator
+  \item Create CloudWatch dashboards
+\end{enumerate}
+
+
+\textbf{Phase 3: Preventive Controls (Week 3)}
+\begin{enumerate}
+  \item Implement SCPs in AWS Organizations
+  \item Enable S3 Block Public Access organization-wide
+  \item Deploy IAM Access Analyzer
+  \item Enforce MFA for all users
+  \item Implement IAM Identity Center
+\end{enumerate}
+
+
+\textbf{Phase 4: Automated Response (Week 4)}
+\begin{enumerate}
+  \item Create Lambda remediation functions
+  \item Set up EventBridge rules
+  \item Configure SNS topics for alerts
+  \item Deploy Systems Manager Incident Manager
+  \item Test automated responses
+\end{enumerate}
+
+
+\textbf{Phase 5: Data Protection (Week 5)}
+\begin{enumerate}
+  \item Enable default encryption on S3
+  \item Encrypt all EBS volumes
+  \item Deploy KMS CMKs with rotation
+  \item Migrate secrets to Secrets Manager
+  \item Implement AWS Backup
+\end{enumerate}
+
+
+\textbf{Phase 6: Testing and Validation (Week 6)}
+\begin{enumerate}
+  \item Conduct security drills
+  \item Penetration testing
+  \item Red team exercises
+  \item Update incident response playbooks
+  \item Train security team
+\end{enumerate}
+
+
+\textbf{Cost Breakdown (Monthly for 25 accounts)}:
+
+\begin{longtable}{lll}
+\toprule
+\textbf{Service} & \textbf{Configuration} & \textbf{Monthly Cost} \\
+\midrule
+GuardDuty & 25 accounts, 500GB VPC Flow Logs & \$650 \\
+Security Hub & 25 accounts, 10K compliance checks & \$200 \\
+Macie & 1TB S3 data scanned & \$300 \\
+CloudTrail & Multi-region, 1M events & \$50 \\
+Config & 25 accounts, 500 rules & \$800 \\
+AWS WAF & 5 web ACLs, 100M requests & \$150 \\
+KMS & 100 CMKs & \$100 \\
+Lambda & Auto-remediation functions & \$50 \\
+S3 & Log storage (1TB) & \$25 \\
+\textbf{Total} & \textbf{\textasciitilde{}\$2,325/month} &  \\
+\bottomrule
+\end{longtable}
+
+\textbf{Benefits}:
+\begin{itemize}
+  \item \textbf{Rapid Detection}: Security threats detected in <5 minutes
+  \item \textbf{Automated Response}: Incidents remediated in <1 minute
+  \item \textbf{Compliance}: Continuous monitoring against standards
+  \item \textbf{Visibility}: Centralized view of security posture
+  \item \textbf{Prevention}: Proactive controls prevent incidents
+  \item \textbf{Audit Trail}: Complete history for compliance
+  \item \textbf{Cost of Prevention}: \$2,325/month vs. potential \$1.5M fine
+\end{itemize}
+
+
+\textbf{Trade-offs}:
+\begin{itemize}
+  \item \textbf{Initial Complexity}: Setting up centralized security takes time
+  \item \textbf{False Positives}: GuardDuty may flag legitimate activity
+  \item \textbf{Operational Changes}: Teams must adapt to new security controls
+  \item \textbf{Cost}: Ongoing security spend vs. risk mitigation
+\end{itemize}
+
+
+\textbf{Alternative Approaches}:
+
+\textbf{Option 1: Third-Party SIEM}
+\begin{itemize}
+  \item Splunk, Sumo Logic, or Datadog
+  \item More advanced analytics
+  \item Higher cost
+  \item Additional maintenance
+\end{itemize}
+
+
+\textbf{Option 2: Manual Response}
+\begin{itemize}
+  \item Lower cost
+  \item Slower response times
+  \item Not recommended for compliance
+\end{itemize}
+
+
+\textbf{Common Pitfalls to Avoid}:
+\begin{enumerate}
+  \item \textbf{Security Hub alert fatigue}: Start with critical findings only
+  \item \textbf{Not testing auto-remediation}: Test in dev first
+  \item \textbf{Overly restrictive SCPs}: Can block legitimate operations
+  \item \textbf{Ignoring GuardDuty findings}: Review and act on all findings
+  \item \textbf{No incident response plan}: Document procedures before incidents
+  \item \textbf{Single region deployment}: Enable security services in all regions
+  \item \textbf{No security training}: Educate developers on secure practices
+  \item \textbf{Forgetting about insider threats}: Monitor privileged user activity
+\end{enumerate}
+
+
+---
+
+\subsubsection{Scenario 10: Modernizing Legacy Monolith Application}
+
+
+\textbf{Situation}: An insurance company runs a 15-year-old .NET Framework application on on-premises servers. The application handles policy management, claims processing, and customer portal. They want to migrate to AWS and modernize the architecture to improve scalability, reduce costs, and accelerate feature development.
+
+\textbf{Current State}:
+\begin{itemize}
+  \item Monolithic .NET Framework 4.8 application
+  \item SQL Server 2014 database (2TB)
+  \item Windows Server 2012 R2
+  \item 10 application servers behind hardware load balancer
+  \item Peak load: 5,000 concurrent users
+  \item Deployment: Manual, monthly releases, 4-hour downtime
+  \item No automated testing
+  \item Average response time: 2-3 seconds
+  \item Annual infrastructure cost: \$500K
+\end{itemize}
+
+
+\textbf{Current Challenges}:
+\begin{itemize}
+  \item Slow development cycles
+  \item Difficult to scale individual components
+  \item High infrastructure costs
+  \item Frequent production issues
+  \item Aging technology stack
+  \item Recruitment challenges (old tech)
+\end{itemize}
+
+
+\textbf{Requirements}:
+
+\textbf{Functional Requirements}:
+\begin{itemize}
+  \item Migrate all functionality to AWS
+  \item Maintain feature parity during migration
+  \item Support existing integrations (SOAP, REST APIs)
+  \item Preserve data integrity
+  \item Windows authentication integration
+\end{itemize}
+
+
+\textbf{Non-Functional Requirements}:
+\begin{itemize}
+  \item Zero downtime during migration
+  \item Response time: <1 second
+  \item 99.9\% availability
+  \item Support 10,000 concurrent users
+  \item Reduce infrastructure costs by 40\%
+  \item Weekly deployments with zero downtime
+  \item Automated testing and rollback
+\end{itemize}
+
+
+\textbf{Question}: How should they approach migration and modernization?
+
+\textbf{Recommended Migration Strategy: Strangler Fig Pattern}
+
+\paragraph{Phase 1: Lift and Shift (Foundation)}
+
+
+\textbf{Step 1: Database Migration}
+
+\textbf{AWS Database Migration Service (DMS)}:
+\begin{itemize}
+  \item Migrate SQL Server to Amazon RDS for SQL Server
+  \item Minimal downtime using continuous replication
+  \item Or migrate to RDS with Aurora PostgreSQL-Compatible (if licensing costs are high)
+\end{itemize}
+
+
+\textbf{Database Configuration}:
+\begin{itemize}
+  \item RDS SQL Server Enterprise Edition
+  \item Multi-AZ deployment for high availability
+  \item db.r5.4xlarge (16 vCPU, 128 GB RAM)
+  \item 3TB storage with Provisioned IOPS (10,000 IOPS)
+  \item Automated backups (7-day retention)
+  \item Automated patching in maintenance window
+\end{itemize}
+
+
+\textbf{Migration Process}:
+\begin{enumerate}
+  \item Set up DMS replication instance
+  \item Create source endpoint (on-premises SQL Server)
+  \item Create target endpoint (RDS)
+  \item Create migration task with full load + CDC
+  \item Monitor replication lag
+  \item Perform cutover during low-traffic period
+\end{enumerate}
+
+
+\textbf{Step 2: Application Migration with App2Container}
+
+\textbf{AWS App2Container}:
+\begin{itemize}
+  \item Analyzes .NET Framework applications
+  \item Creates container image
+  \item Generates ECS task definitions
+  \item Creates CloudFormation templates
+  \item Minimal code changes required
+\end{itemize}
+
+
+\textbf{Process}:
+\begin{enumerate}
+  \item Install App2Container on application server
+  \item Run inventory: \texttt{app2container inventory}
+  \item Analyze application: \texttt{app2container analyze --application-id <id>}
+  \item Customize deployment (app2container-config.json)
+  \item Generate artifacts: \texttt{app2container containerize}
+  \item Push to Amazon ECR
+\end{enumerate}
+
+
+\textbf{Step 3: Container Orchestration}
+
+\textbf{Amazon ECS on Fargate}:
+\begin{itemize}
+  \item Serverless compute for containers
+  \item No EC2 instances to manage
+  \item Automatic scaling
+  \item Integrated with Application Load Balancer
+\end{itemize}
+
+
+\textbf{ECS Configuration}:
+\begin{itemize}
+  \item Task definition:
+  \item 4 vCPU, 8 GB memory per task
+  \item Windows Server 2019 Core container
+  \item Environment variables for configuration
+  \item Secrets from AWS Secrets Manager
+  \item Service:
+  \item Desired count: 10 tasks
+  \item Auto Scaling: 10-50 tasks based on CPU
+  \item Spread across 3 AZs
+  \item Health check grace period: 60 seconds
+\end{itemize}
+
+
+\paragraph{Phase 2: Modernization (Incremental)}
+
+
+\textbf{Strangler Fig Pattern Implementation}:
+\begin{enumerate}
+  \item Identify bounded contexts in monolith
+  \item Extract one service at a time
+  \item Route traffic to new service
+  \item Gradually replace monolith components
+\end{enumerate}
+
+
+\textbf{Priority Services to Extract}:
+
+\textbf{1. Authentication Service}
+\begin{itemize}
+  \item High reuse across features
+  \item Extract first for shared use
+  \item Technology: ASP.NET Core Web API
+  \item Database: Amazon Aurora PostgreSQL
+  \item Deployment: ECS Fargate
+\end{itemize}
+
+
+\textbf{2. Claims Processing Service}
+\begin{itemize}
+  \item CPU-intensive
+  \item Independent scaling needs
+  \item Benefits from queue-based processing
+  \item Technology: ASP.NET Core + AWS Lambda
+  \item Queue: Amazon SQS
+  \item Database: DynamoDB for claims status
+\end{itemize}
+
+
+\textbf{3. Document Storage Service}
+\begin{itemize}
+  \item Large file uploads (claim documents, policy PDFs)
+  \item Extract to reduce monolith load
+  \item Technology: ASP.NET Core API
+  \item Storage: Amazon S3
+  \item OCR: Amazon Textract
+\end{itemize}
+
+
+\textbf{4. Notification Service}
+\begin{itemize}
+  \item Email, SMS notifications
+  \item High volume, sporadic
+  \item Technology: AWS Lambda
+  \item Email: Amazon SES
+  \item SMS: Amazon SNS
+  \item Queue: Amazon SQS
+\end{itemize}
+
+
+\textbf{5. Reporting Service}
+\begin{itemize}
+  \item Resource-intensive queries
+  \item Extract to dedicated read replica
+  \item Technology: ASP.NET Core + Lambda
+  \item Database: RDS read replica
+  \item Caching: Amazon ElastiCache
+\end{itemize}
+
+
+\textbf{Architecture Evolution}:
+
+\begin{verbatim}
+Initial (Month 0-3):
+Monolith (ECS) → RDS SQL Server
+
+Phase 1 (Month 3-6):
+ALB → Authentication Service (ECS)
+    ↓
+    → Monolith (ECS) → RDS SQL Server
+
+Phase 2 (Month 6-9):
+ALB → Authentication Service (ECS)
+    → Claims Service (ECS + Lambda + SQS)
+    → Monolith (ECS) → RDS SQL Server
+
+Phase 3 (Month 9-12):
+ALB → Authentication Service (ECS)
+    → Claims Service (ECS + Lambda + SQS)
+    → Document Service (ECS + S3 + Textract)
+    → Notification Service (Lambda + SQS + SES/SNS)
+    → Reporting Service (Lambda + ElastiCache)
+    → Monolith (ECS) → RDS SQL Server (reduced functionality)
+\end{verbatim}
+
+\paragraph{Phase 3: Supporting Infrastructure}
+
+
+\textbf{Caching Layer}:
+
+\textbf{Amazon ElastiCache for Redis}:
+\begin{itemize}
+  \item Cache frequently accessed data
+  \item Session storage
+  \item Reduce database load by 60\%
+  \item Configuration:
+  \item cache.r5.large (2 nodes)
+  \item Multi-AZ with automatic failover
+  \item Encryption in transit and at rest
+\end{itemize}
+
+
+\textbf{Application Load Balancer}:
+\begin{itemize}
+  \item Path-based routing
+  \item Example routes:
+  \item \texttt{/api/auth/*} → Authentication Service
+  \item \texttt{/api/claims/*} → Claims Service
+  \item \texttt{/api/documents/*} → Document Service
+  \item \texttt{/*} → Monolith (default)
+  \item Sticky sessions for monolith compatibility
+  \item SSL/TLS termination
+  \item WAF integration
+\end{itemize}
+
+
+\textbf{API Gateway}:
+\begin{itemize}
+  \item For external partners accessing APIs
+  \item Rate limiting and quotas
+  \item API key management
+  \item Request/response transformation
+  \item CloudWatch logging
+\end{itemize}
+
+
+\textbf{Observability}:
+
+\textbf{AWS X-Ray}:
+\begin{itemize}
+  \item Distributed tracing
+  \item Identify performance bottlenecks
+  \item Service map visualization
+  \item Request flow analysis
+\end{itemize}
+
+
+\textbf{Amazon CloudWatch}:
+\begin{itemize}
+  \item Centralized logging
+  \item Custom metrics (business KPIs)
+  \item Dashboards for each service
+  \item Alarms for errors and latency
+\end{itemize}
+
+
+\textbf{AWS CloudTrail}:
+\begin{itemize}
+  \item Audit trail for all API calls
+  \item Compliance and security
+\end{itemize}
+
+
+\paragraph{Phase 4: CI/CD Pipeline}
+
+
+\textbf{AWS CodePipeline}:
+\begin{verbatim}
+Source (CodeCommit)
+  ↓
+Build (CodeBuild)
+  - Compile .NET Core
+  - Run unit tests
+  - Build Docker image
+  - Push to ECR
+  ↓
+Test (CodeBuild)
+  - Integration tests
+  - Security scanning (Snyk, Aqua)
+  ↓
+Deploy to Dev (CodeDeploy + ECS)
+  - Blue/green deployment
+  - Smoke tests
+  ↓
+Manual Approval
+  ↓
+Deploy to Prod (CodeDeploy + ECS)
+  - Blue/green deployment
+  - Gradual traffic shifting (10\% → 50\% → 100\%)
+  - Automatic rollback on errors
+\end{verbatim}
+
+\textbf{AWS CodeBuild buildspec.yml}:
+\begin{lstlisting}[language=yaml]
+version: 0.2
+phases:
+  pre\_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region \$AWS\_DEFAULT\_REGION | docker login --username AWS --password-stdin \$AWS\_ACCOUNT\_ID.dkr.ecr.\$AWS\_DEFAULT\_REGION.amazonaws.com
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t \$IMAGE\_REPO\_NAME:\$IMAGE\_TAG .
+      - docker tag \$IMAGE\_REPO\_NAME:\$IMAGE\_TAG \$AWS\_ACCOUNT\_ID.dkr.ecr.\$AWS\_DEFAULT\_REGION.amazonaws.com/\$IMAGE\_REPO\_NAME:\$IMAGE\_TAG
+  post\_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push \$AWS\_ACCOUNT\_ID.dkr.ecr.\$AWS\_DEFAULT\_REGION.amazonaws.com/\$IMAGE\_REPO\_NAME:\$IMAGE\_TAG
+      - echo Writing image definitions file...
+      - printf '[\{"name":"app-container","imageUri":"\%s"\}]' \$AWS\_ACCOUNT\_ID.dkr.ecr.\$AWS\_DEFAULT\_REGION.amazonaws.com/\$IMAGE\_REPO\_NAME:\$IMAGE\_TAG > imagedefinitions.json
+artifacts:
+  files: imagedefinitions.json
+\end{lstlisting}
+
+\textbf{Step-by-Step Implementation}:
+
+\textbf{Phase 1: Preparation (Months 1-2)}
+\begin{enumerate}
+  \item Assess application architecture
+  \item Identify dependencies and integrations
+  \item Set up AWS accounts and networking
+  \item Create migration plan
+  \item Train team on AWS services
+\end{enumerate}
+
+
+\textbf{Phase 2: Database Migration (Month 3)}
+\begin{enumerate}
+  \item Set up RDS instance
+  \item Test DMS replication
+  \item Migrate database with CDC
+  \item Verify data integrity
+  \item Update connection strings
+\end{enumerate}
+
+
+\textbf{Phase 3: Containerize Monolith (Month 4)}
+\begin{enumerate}
+  \item Use App2Container
+  \item Test containerized application
+  \item Deploy to ECS Fargate
+  \item Parallel run with on-premises
+  \item Gradual traffic shift (20\% → 50\% → 100\%)
+\end{enumerate}
+
+
+\textbf{Phase 4: Extract Services (Months 5-12)}
+\begin{enumerate}
+  \item Extract authentication service (Month 5)
+  \item Extract claims service (Month 6-7)
+  \item Extract document service (Month 8-9)
+  \item Extract notification service (Month 10)
+  \item Extract reporting service (Month 11)
+  \item Decommission monolith components (Month 12)
+\end{enumerate}
+
+
+\textbf{Phase 5: Optimization (Ongoing)}
+\begin{enumerate}
+  \item Implement caching strategies
+  \item Optimize database queries
+  \item Right-size compute resources
+  \item Implement auto-scaling
+  \item Cost optimization
+\end{enumerate}
+
+
+\textbf{Cost Breakdown Comparison}:
+
+\textbf{On-Premises (Annual)}:
+\begin{itemize}
+  \item Hardware amortization: \$200K
+  \item Maintenance and support: \$150K
+  \item Datacenter costs: \$100K
+  \item Personnel (4 FTEs): \$400K (partially allocated)
+  \item \textbf{Total: \$500K/year}
+\end{itemize}
+
+
+\textbf{AWS Modernized Architecture (Annual)}:
+\begin{longtable}{llll}
+\toprule
+\textbf{Service} & \textbf{Configuration} & \textbf{Monthly} & \textbf{Annual} \\
+\midrule
+ECS Fargate & 30 tasks average, Windows & \$3,600 & \$43,200 \\
+RDS SQL Server & Multi-AZ, db.r5.4xlarge & \$5,500 & \$66,000 \\
+Application Load Balancer & 2 ALBs & \$150 & \$1,800 \\
+ElastiCache & Redis, 2 nodes & \$250 & \$3,000 \\
+S3 & 10 TB storage, requests & \$300 & \$3,600 \\
+Lambda & 10M requests & \$200 & \$2,400 \\
+CloudWatch & Logs, metrics & \$400 & \$4,800 \\
+Data Transfer & Outbound & \$500 & \$6,000 \\
+\textbf{Total} & \textbf{\textasciitilde{}\$10,900/month} & \textbf{\textasciitilde{}\$131K/year} &  \\
+\bottomrule
+\end{longtable}
+
+\textbf{Additional Costs}:
+\begin{itemize}
+  \item Migration tools and professional services: \$50K (one-time)
+  \item Training: \$20K (one-time)
+\end{itemize}
+
+
+\textbf{Total Year 1}: \$200K
+\textbf{Total Year 2+}: \$131K/year
+
+\textbf{Savings}:
+\begin{itemize}
+  \item Year 1: \$300K (60\% reduction)
+  \item Year 2+: \$369K (74\% reduction)
+\end{itemize}
+
+
+\textbf{Benefits}:
+\begin{itemize}
+  \item \textbf{Cost Reduction}: 74\% infrastructure cost savings
+  \item \textbf{Scalability}: Auto-scaling handles 2x traffic without manual intervention
+  \item \textbf{Performance}: Response time reduced from 3s to <1s
+  \item \textbf{Deployment Speed}: Monthly → weekly deployments
+  \item \textbf{Availability}: 99.5\% → 99.9\%
+  \item \textbf{Innovation}: Development team focuses on features, not infrastructure
+  \item \textbf{Recruitment}: Modern tech stack attracts talent
+  \item \textbf{Disaster Recovery}: Built-in with multi-AZ deployment
+\end{itemize}
+
+
+\textbf{Trade-offs}:
+\begin{itemize}
+  \item \textbf{Migration Time}: 12-month project
+  \item \textbf{Learning Curve}: Team must learn AWS, containers, microservices
+  \item \textbf{Complexity}: Distributed systems more complex than monolith
+  \item \textbf{Operational Changes}: New monitoring and deployment processes
+  \item \textbf{Initial Investment}: Time and resources for migration
+\end{itemize}
+
+
+\textbf{Alternative Approaches}:
+
+\textbf{Option 1: Full Rewrite}
+\begin{itemize}
+  \item Rebuild application from scratch
+  \item Pros: Latest technology, clean architecture
+  \item Cons: High risk, 2-3 years, expensive
+  \item Recommendation: Avoid unless absolutely necessary
+\end{itemize}
+
+
+\textbf{Option 2: Lift and Shift Only}
+\begin{itemize}
+  \item Migrate to EC2 without containerization
+  \item Pros: Fastest migration (3 months)
+  \item Cons: Limited benefits, still managing VMs
+  \item Recommendation: Only if time-constrained
+\end{itemize}
+
+
+\textbf{Option 3: Serverless-First}
+\begin{itemize}
+  \item Convert to Lambda + API Gateway + DynamoDB
+  \item Pros: Maximum scalability, lowest operational overhead
+  \item Cons: Requires significant rewrite, cold starts
+  \item Recommendation: For new features, not existing monolith
+\end{itemize}
+
+
+\textbf{Common Pitfalls to Avoid}:
+\begin{enumerate}
+  \item \textbf{Big Bang Migration}: Incremental migration reduces risk
+  \item \textbf{Ignoring Data Migration Complexity}: DMS testing is critical
+  \item \textbf{Not Modernizing Architecture}: Lift-and-shift alone provides limited benefits
+  \item \textbf{Underestimating Team Training}: Budget time for learning
+  \item \textbf{No Rollback Plan}: Always have a way to revert
+  \item \textbf{Skipping Load Testing}: Test at 2x expected peak load
+  \item \textbf{Not Involving Business Stakeholders}: Get buy-in early
+  \item \textbf{Ignoring Observability}: Implement monitoring from day one
+\end{enumerate}
+
+
+---
+
+\subsubsection{Scenario 11: Big Data Analytics Platform}
+
+
+\textbf{Situation}: A retail company collects massive amounts of data from online transactions, mobile app usage, IoT sensors in stores, and social media. They want to build a comprehensive analytics platform to gain real-time insights into customer behavior, optimize inventory, and improve marketing effectiveness.
+
+\textbf{Current State}:
+\begin{itemize}
+  \item Multiple data sources generating 5 TB/day
+  \item Data scattered across different systems
+  \item Manual reporting (takes 2-3 days)
+  \item No real-time analytics
+  \item Limited data science capabilities
+  \item Expensive third-party analytics tools (\$500K/year)
+\end{itemize}
+
+
+\textbf{Data Sources}:
+\begin{itemize}
+  \item Web/mobile clickstream: 2 billion events/day
+  \item Transaction logs: 10 million transactions/day
+  \item IoT sensors (foot traffic, temperature): 50 million readings/day
+  \item Social media mentions: APIs and web scraping
+  \item CRM data: Customer profiles and interactions
+  \item Inventory systems: Stock levels and shipments
+\end{itemize}
+
+
+\textbf{Requirements}:
+
+\textbf{Functional Requirements}:
+\begin{itemize}
+  \item Ingest data from multiple sources
+  \item Real-time dashboards for operations
+  \item Batch processing for daily/weekly reports
+  \item Ad-hoc SQL queries for analysts
+  \item Machine learning for recommendations
+  \item Data retention: Hot (90 days), Warm (1 year), Cold (7 years)
+\end{itemize}
+
+
+\textbf{Non-Functional Requirements}:
+\begin{itemize}
+  \item Real-time latency: <1 minute
+  \item Query performance: <5 seconds for interactive queries
+  \item Scalability: Handle 10x data growth
+  \item Cost-effective at scale
+  \item Data governance and security
+  \item Self-service analytics for business users
+\end{itemize}
+
+
+\textbf{Question}: How should they architect a big data analytics platform?
+
+\textbf{Recommended Architecture}:
+
+\paragraph{1. Data Ingestion Layer}
+
+
+\textbf{Real-Time Streaming Data}:
+
+\textbf{Amazon Kinesis Data Streams}:
+\begin{itemize}
+  \item For clickstream, IoT sensors
+  \item Shards: 50 (1 MB/s per shard = 50 MB/s total)
+  \item Retention: 7 days for replay capability
+  \item Producers: Web/mobile apps, IoT devices via Kinesis Agent
+\end{itemize}
+
+
+\textbf{Amazon Kinesis Data Firehose}:
+\begin{itemize}
+  \item Deliver streams to S3, Redshift, OpenSearch
+  \item Automatic batching and compression
+  \item Transform data with Lambda
+  \item Buffer size: 5 MB or 60 seconds
+\end{itemize}
+
+
+\textbf{Batch Data Ingestion}:
+
+\textbf{AWS Glue ETL Jobs}:
+\begin{itemize}
+  \item Extract from source databases
+  \item Transform and clean data
+  \item Load to S3 data lake
+  \item Schedule: Nightly for transaction logs, CRM data
+\end{itemize}
+
+
+\textbf{AWS Database Migration Service (DMS)}:
+\begin{itemize}
+  \item Continuous replication from transactional databases
+  \item Change Data Capture (CDC)
+  \item Minimal impact on source systems
+\end{itemize}
+
+
+\textbf{API-Based Ingestion}:
+
+\textbf{AWS Lambda}:
+\begin{itemize}
+  \item Fetch data from social media APIs
+  \item Parse and normalize
+  \item Write to Kinesis or S3
+  \item Schedule with EventBridge (hourly)
+\end{itemize}
+
+
+\paragraph{2. Storage Layer - Data Lake}
+
+
+\textbf{Amazon S3}:
+\begin{itemize}
+  \item Central data lake repository
+  \item Organized by:
+  \item Data source
+  \item Date partitioning (year/month/day)
+  \item File format (Parquet, ORC for analytics)
+\end{itemize}
+
+
+\textbf{S3 Bucket Structure}:
+\begin{verbatim}
+s3://retail-datalake-raw/
+  ├── clickstream/year=2025/month=01/day=15/
+  ├── transactions/year=2025/month=01/day=15/
+  ├── iot-sensors/year=2025/month=01/day=15/
+  └── social-media/year=2025/month=01/day=15/
+
+s3://retail-datalake-processed/
+  ├── customer-360/
+  ├── sales-analytics/
+  └── inventory-metrics/
+
+s3://retail-datalake-curated/
+  ├── marketing-reports/
+  └── executive-dashboards/
+\end{verbatim}
+
+\textbf{S3 Storage Classes}:
+\begin{itemize}
+  \item Standard: Last 90 days (hot data)
+  \item Standard-IA: 91 days - 1 year (warm data)
+  \item Glacier Flexible Retrieval: 1-7 years (cold data)
+  \item Lifecycle policies for automatic transitions
+\end{itemize}
+
+
+\textbf{S3 Features}:
+\begin{itemize}
+  \item Versioning enabled for data protection
+  \item Server-side encryption (SSE-S3 or SSE-KMS)
+  \item S3 Object Lock for compliance
+  \item S3 Access Points for different teams
+  \item S3 Inventory for data catalog
+\end{itemize}
+
+
+\paragraph{3. Data Processing Layer}
+
+
+\textbf{Real-Time Processing}:
+
+\textbf{Amazon Kinesis Data Analytics}:
+\begin{itemize}
+  \item SQL queries on streaming data
+  \item Tumbling/sliding windows
+  \item Real-time aggregations
+  \item Anomaly detection
+  \item Output to Lambda, Kinesis, S3
+\end{itemize}
+
+
+\textbf{AWS Lambda}:
+\begin{itemize}
+  \item Process individual events
+  \item Enrich with reference data (DynamoDB)
+  \item Real-time alerts via SNS
+  \item Trigger downstream workflows
+\end{itemize}
+
+
+\textbf{Batch Processing}:
+
+\textbf{AWS Glue}:
+\begin{itemize}
+  \item Serverless Spark-based ETL
+  \item Discovers schema automatically
+  \item Glue Data Catalog (metadata repository)
+  \item Glue Studio for visual ETL
+  \item Glue DataBrew for data preparation
+\end{itemize}
+
+
+\textbf{Amazon EMR (Elastic MapReduce)}:
+\begin{itemize}
+  \item For complex Spark, Hadoop jobs
+  \item EMR on EKS for containerized workloads
+  \item Spot Instances for cost savings (70\% reduction)
+  \item Cluster configuration:
+  \item Master: m5.xlarge (1 instance)
+  \item Core: r5.2xlarge (5 instances, On-Demand)
+  \item Task: r5.2xlarge (20 instances, Spot)
+\end{itemize}
+
+
+\textbf{Typical Glue ETL Job}:
+\begin{lstlisting}[language=python]
+import sys
+from awsglue.transforms import *
+from awsglue.utils import getResolvedOptions
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+
+args = getResolvedOptions(sys.argv, ['JOB\_NAME'])
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark\_session
+job = Job(glueContext)
+job.init(args['JOB\_NAME'], args)
+
+\# Read from Data Catalog
+datasource0 = glueContext.create\_dynamic\_frame.from\_catalog(
+    database = "retail\_raw",
+    table\_name = "clickstream"
+)
+
+\# Transform
+applymapping1 = ApplyMapping.apply(
+    frame = datasource0,
+    mappings = [
+        ("user\_id", "string", "customer\_id", "string"),
+        ("event\_timestamp", "long", "event\_time", "timestamp"),
+        ("page\_url", "string", "page\_url", "string"),
+        ("session\_id", "string", "session\_id", "string")
+    ]
+)
+
+\# Filter out invalid records
+filtered = Filter.apply(
+    frame = applymapping1,
+    f = lambda x: x["customer\_id"] is not None
+)
+
+\# Write to S3 in Parquet format
+glueContext.write\_dynamic\_frame.from\_options(
+    frame = filtered,
+    connection\_type = "s3",
+    connection\_options = \{
+        "path": "s3://retail-datalake-processed/customer-sessions/",
+        "partitionKeys": ["year", "month", "day"]
+    \},
+    format = "parquet"
+)
+
+job.commit()
+\end{lstlisting}
+
+\paragraph{4. Data Catalog and Governance}
+
+
+\textbf{AWS Glue Data Catalog}:
+\begin{itemize}
+  \item Centralized metadata repository
+  \item Schema registry
+  \item Integration with Athena, Redshift, EMR
+  \item Glue Crawlers for automatic schema discovery
+\end{itemize}
+
+
+\textbf{AWS Lake Formation}:
+\begin{itemize}
+  \item Fine-grained access control
+  \item Column-level security
+  \item Row-level security
+  \item Data filtering
+  \item Audit logging
+  \item Governed tables for ACID transactions
+\end{itemize}
+
+
+\textbf{Access Control Example}:
+\begin{verbatim}
+Data Lake Administrator:
+  - Full access to all tables
+
+Marketing Team:
+  - Read access to: customer\_360, campaign\_analytics
+  - Column filtering: Hide PII (SSN, credit card)
+
+Data Science Team:
+  - Read access to: all tables
+  - Write access to: ml\_models bucket
+
+Finance Team:
+  - Read access to: sales\_analytics, inventory\_metrics
+  - Row filtering: Only their region's data
+\end{verbatim}
+
+\paragraph{5. Analytics and Querying}
+
+
+\textbf{Amazon Athena}:
+\begin{itemize}
+  \item Interactive SQL queries on S3 data
+  \item Serverless (no infrastructure)
+  \item Pay per query (\$5 per TB scanned)
+  \item Integration with QuickSight
+  \item Workgroups for cost control
+  \item Query result caching
+\end{itemize}
+
+
+\textbf{Optimization Techniques}:
+\begin{itemize}
+  \item Partition data by date
+  \item Use columnar formats (Parquet, ORC)
+  \item Compress data (Snappy, ZSTD)
+  \item Limit columns in SELECT
+  \item Use approximate functions (approx\_distinct vs COUNT DISTINCT)
+\end{itemize}
+
+
+\textbf{Query Performance Comparison}:
+\begin{itemize}
+  \item CSV, uncompressed: \$5/TB, 45 seconds
+  \item Parquet, Snappy: \$0.50/TB, 5 seconds
+  \item \textbf{90\% cost reduction, 9x faster}
+\end{itemize}
+
+
+\textbf{Amazon Redshift}:
+\begin{itemize}
+  \item Data warehouse for complex queries
+  \item Massively parallel processing
+  \item Configuration:
+  \item Node type: ra3.4xlarge
+  \item Nodes: 5 (640 GB RAM, 128 TB storage)
+  \item Redshift Spectrum for S3 queries
+  \item Concurrency Scaling for peak loads
+  \item Materialized views for aggregations
+\end{itemize}
+
+
+\textbf{Use Cases}:
+\begin{itemize}
+  \item Athena: Ad-hoc queries, exploration, infrequent queries
+  \item Redshift: Regular reports, complex joins, consistent performance
+\end{itemize}
+
+
+\paragraph{6. Business Intelligence and Visualization}
+
+
+\textbf{Amazon QuickSight}:
+\begin{itemize}
+  \item Serverless BI service
+  \item Connect to Athena, Redshift, S3
+  \item SPICE (in-memory engine) for fast visuals
+  \item ML-powered insights
+  \item Embedded analytics for applications
+  \item Pricing: \$5/author/month, \$0.30/reader/session
+\end{itemize}
+
+
+\textbf{Dashboards}:
+\begin{enumerate}
+  \item \textbf{Executive Dashboard}:
+\end{enumerate}
+
+\begin{itemize}
+  \item Daily sales trends
+  \item Revenue by region
+  \item Top products
+  \item Customer acquisition cost
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Operations Dashboard}:
+\end{enumerate}
+
+\begin{itemize}
+  \item Real-time store foot traffic
+  \item Inventory levels
+  \item Stockout alerts
+  \item Supply chain metrics
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Marketing Dashboard}:
+\end{enumerate}
+
+\begin{itemize}
+  \item Campaign performance
+  \item Customer segmentation
+  \item Conversion funnels
+  \item Social media sentiment
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Data Science Dashboard}:
+\end{enumerate}
+
+\begin{itemize}
+  \item Model performance metrics
+  \item A/B test results
+  \item Recommendation effectiveness
+\end{itemize}
+
+
+\paragraph{7. Machine Learning Pipeline}
+
+
+\textbf{Amazon SageMaker}:
+\begin{itemize}
+  \item Train recommendation models
+  \item Fraud detection
+  \item Demand forecasting
+  \item Customer churn prediction
+\end{itemize}
+
+
+\textbf{ML Workflow}:
+\begin{enumerate}
+  \item \textbf{Data Preparation}: Glue DataBrew or SageMaker Data Wrangler
+  \item \textbf{Feature Engineering}: SageMaker Processing Jobs
+  \item \textbf{Model Training}: SageMaker Training Jobs (Spot Instances)
+  \item \textbf{Model Evaluation}: SageMaker Experiments
+  \item \textbf{Model Registry}: SageMaker Model Registry
+  \item \textbf{Deployment}: SageMaker Endpoints (real-time or batch)
+  \item \textbf{Monitoring}: SageMaker Model Monitor
+\end{enumerate}
+
+
+\textbf{Amazon Personalize}:
+\begin{itemize}
+  \item Pre-built recommendation engine
+  \item No ML expertise required
+  \item Real-time and batch recommendations
+  \item Use cases:
+  \item Product recommendations
+  \item Personalized rankings
+  \item Similar items
+\end{itemize}
+
+
+\paragraph{8. Orchestration and Workflow}
+
+
+\textbf{AWS Step Functions}:
+\begin{itemize}
+  \item Coordinate multi-step data pipelines
+  \item Visual workflow designer
+  \item Error handling and retry logic
+  \item Integration with Lambda, Glue, EMR, SageMaker
+\end{itemize}
+
+
+\textbf{Example Daily Pipeline}:
+\begin{verbatim}
+1. Ingest data (Lambda, Glue)
+   ↓
+2. Data quality checks (Lambda)
+   ↓
+3. ETL processing (Glue or EMR)
+   ↓
+4. Load to Redshift (Glue)
+   ↓
+5. Refresh materialized views (Redshift)
+   ↓
+6. Update ML models (SageMaker)
+   ↓
+7. Refresh QuickSight datasets
+   ↓
+8. Send completion notification (SNS)
+\end{verbatim}
+
+\textbf{Amazon Managed Workflows for Apache Airflow (MWAA)}:
+\begin{itemize}
+  \item Alternative to Step Functions
+  \item For complex DAGs (Directed Acyclic Graphs)
+  \item Python-based workflow definitions
+  \item Better for data engineering teams familiar with Airflow
+\end{itemize}
+
+
+\paragraph{9. Monitoring and Optimization}
+
+
+\textbf{Amazon CloudWatch}:
+\begin{itemize}
+  \item Glue job metrics
+  \item EMR cluster utilization
+  \item Kinesis stream metrics
+  \item Athena query performance
+  \item Custom business metrics
+\end{itemize}
+
+
+\textbf{AWS Cost Explorer}:
+\begin{itemize}
+  \item Analyze spending by service
+  \item Identify optimization opportunities
+  \item Reserved Instance recommendations
+\end{itemize}
+
+
+\textbf{AWS Trusted Advisor}:
+\begin{itemize}
+  \item Cost optimization checks
+  \item Security best practices
+\end{itemize}
+
+
+\textbf{Step-by-Step Implementation}:
+
+\textbf{Phase 1: Foundation (Months 1-2)}
+\begin{enumerate}
+  \item Set up AWS accounts and networking
+  \item Create S3 data lake structure
+  \item Deploy AWS Glue Data Catalog
+  \item Set up Lake Formation permissions
+  \item Implement data governance policies
+\end{enumerate}
+
+
+\textbf{Phase 2: Ingestion (Month 3)}
+\begin{enumerate}
+  \item Deploy Kinesis streams for real-time data
+  \item Set up Glue ETL jobs for batch data
+  \item Implement Lambda for API ingestion
+  \item Test data flow end-to-end
+  \item Monitor data quality
+\end{enumerate}
+
+
+\textbf{Phase 3: Processing (Months 4-5)}
+\begin{enumerate}
+  \item Build Glue ETL pipelines
+  \item Deploy EMR clusters for complex processing
+  \item Implement data quality checks
+  \item Set up Step Functions orchestration
+  \item Optimize job performance
+\end{enumerate}
+
+
+\textbf{Phase 4: Analytics (Month 6)}
+\begin{enumerate}
+  \item Create Athena tables
+  \item Deploy Redshift cluster
+  \item Build initial dashboards in QuickSight
+  \item Train business users on self-service
+  \item Gather feedback and iterate
+\end{enumerate}
+
+
+\textbf{Phase 5: ML (Months 7-8)}
+\begin{enumerate}
+  \item Set up SageMaker environment
+  \item Build recommendation model
+  \item Deploy fraud detection
+  \item Implement demand forecasting
+  \item Monitor model performance
+\end{enumerate}
+
+
+\textbf{Phase 6: Optimization (Ongoing)}
+\begin{enumerate}
+  \item Right-size resources
+  \item Implement caching strategies
+  \item Optimize data formats
+  \item Use Spot Instances
+  \item Continuous cost monitoring
+\end{enumerate}
+
+
+\textbf{Cost Breakdown (Monthly)}:
+
+\begin{longtable}{lll}
+\toprule
+\textbf{Service} & \textbf{Configuration} & \textbf{Monthly Cost} \\
+\midrule
+Kinesis Data Streams & 50 shards, 5TB ingestion & \$1,200 \\
+Kinesis Firehose & 5TB delivery & \$125 \\
+S3 Storage & 100TB (tiered) & \$2,000 \\
+AWS Glue & 200 DPU-hours ETL & \$880 \\
+Amazon EMR & 25 nodes, 8 hrs/day, 70\% Spot & \$2,400 \\
+Redshift & 5 ra3.4xlarge nodes & \$12,000 \\
+Athena & 10TB scanned/month & \$50 \\
+QuickSight & 50 authors, 500 readers & \$400 \\
+SageMaker & Training + endpoints & \$1,500 \\
+Lambda & 50M invocations & \$100 \\
+Data Transfer & Outbound & \$500 \\
+CloudWatch & Logs and metrics & \$300 \\
+\textbf{Total} & \textbf{\textasciitilde{}\$21,455/month} &  \\
+\bottomrule
+\end{longtable}
+
+\textbf{Cost Optimization Strategies}:
+\begin{enumerate}
+  \item Use Spot Instances for EMR (70\% savings)
+  \item Convert data to Parquet (90\% storage reduction)
+  \item Partition data effectively (80\% query cost reduction)
+  \item Use S3 Intelligent-Tiering
+  \item Right-size Redshift with pause/resume
+  \item Use Athena for infrequent queries vs. Redshift
+  \item Implement S3 lifecycle policies
+\end{enumerate}
+
+
+\textbf{Optimized Cost}: \textasciitilde{}\$14,000/month (35\% reduction)
+
+\textbf{Benefits}:
+\begin{itemize}
+  \item \textbf{Real-Time Insights}: <1 minute latency for operational decisions
+  \item \textbf{Cost Savings}: \$500K/year (third-party tools) → \$168K/year (50\% savings)
+  \item \textbf{Scalability}: Handle 10x data growth without architectural changes
+  \item \textbf{Self-Service}: Business users run their own queries
+  \item \textbf{Data-Driven Decisions}: ML-powered recommendations increase revenue 15\%
+  \item \textbf{Time to Insight}: 2-3 days → <1 hour for reports
+  \item \textbf{Compliance}: Fine-grained access control and audit trails
+\end{itemize}
+
+
+\textbf{Trade-offs}:
+\begin{itemize}
+  \item \textbf{Complexity}: Distributed systems require skilled team
+  \item \textbf{Learning Curve}: Training required for Spark, SQL, ML
+  \item \textbf{Initial Cost}: Higher upfront investment
+  \item \textbf{Data Quality}: Garbage in, garbage out - need robust quality checks
+\end{itemize}
+
+
+\textbf{Alternative Approaches}:
+
+\textbf{Option 1: Redshift-Centric}
+\begin{itemize}
+  \item Load all data into Redshift
+  \item Simpler architecture
+  \item Higher cost for storage
+  \item Best for: Smaller datasets (<10TB)
+\end{itemize}
+
+
+\textbf{Option 2: EMR-Centric}
+\begin{itemize}
+  \item Use EMR for all processing
+  \item More control and flexibility
+  \item More operational overhead
+  \item Best for: Teams with Hadoop/Spark expertise
+\end{itemize}
+
+
+\textbf{Option 3: Third-Party (Snowflake, Databricks)}
+\begin{itemize}
+  \item Managed services
+  \item Excellent performance
+  \item Higher cost
+  \item Less control
+  \item Best for: Teams wanting minimal operational burden
+\end{itemize}
+
+
+\textbf{Common Pitfalls to Avoid}:
+\begin{enumerate}
+  \item \textbf{Not Partitioning Data}: Results in slow queries and high costs
+  \item \textbf{Ignoring Data Formats}: CSV vs. Parquet makes 10x difference
+  \item \textbf{Over-Provisioning}: Start small, scale as needed
+  \item \textbf{No Data Governance}: Implement access controls from day one
+  \item \textbf{Ignoring Data Quality}: Build validation into pipelines
+  \item \textbf{Not Using Spot Instances}: 70\% cost savings for EMR
+  \item \textbf{Storing Everything in Redshift}: Use S3 data lake + Redshift Spectrum
+  \item \textbf{No Monitoring}: Implement CloudWatch alarms and dashboards early
+\end{enumerate}
+
+
+---
+
+\subsubsection{Scenario 12: DevOps CI/CD Pipeline Implementation}
+
+
+\textbf{Situation}: A SaaS company with 20 developers is struggling with manual deployment processes. Code is deployed to production once a month, with frequent rollbacks due to bugs. Deployments take 4-6 hours and require manual steps. The team wants to implement modern DevOps practices with automated CI/CD pipelines.
+
+\textbf{Current State}:
+\begin{itemize}
+  \item Manual deployments via SSH and scripts
+  \item No automated testing
+  \item Deployment frequency: Monthly
+  \item Deployment duration: 4-6 hours
+  \item Rollback rate: 30\%
+  \item Production incidents: 2-3 per month
+  \item Developer frustration: High
+  \item Time to market: 4-6 weeks for features
+\end{itemize}
+
+
+\textbf{Current Process}:
+\begin{enumerate}
+  \item Developers commit to shared Git branch
+  \item Manual code review (informal)
+  \item QA team tests for 1 week
+  \item Operations team deploys on weekends
+  \item Frequent production issues on Monday
+\end{enumerate}
+
+
+\textbf{Problems}:
+\begin{itemize}
+  \item Long feedback loops
+  \item Manual error-prone deployments
+  \item No deployment consistency
+  \item Difficult rollbacks
+  \item Fear of deploying
+  \item Bottleneck at operations team
+\end{itemize}
+
+
+\textbf{Requirements}:
+
+\textbf{Functional Requirements}:
+\begin{itemize}
+  \item Automated build and test on every commit
+  \item Automated deployment to dev/staging/prod
+  \item Code quality checks (linting, security scanning)
+  \item Automated rollback capability
+  \item Infrastructure as Code
+  \item Secrets management
+  \item Multi-environment support
+\end{itemize}
+
+
+\textbf{Non-Functional Requirements}:
+\begin{itemize}
+  \item Deployment frequency: Multiple times per day
+  \item Deployment duration: <15 minutes
+  \item Automated rollback: <5 minutes
+  \item Rollback rate: <5\%
+  \item Zero-downtime deployments
+  \item Audit trail for compliance
+  \item Cost-effective
+\end{itemize}
+
+
+\textbf{Question}: How should they implement a modern CI/CD pipeline?
+
+\textbf{Recommended CI/CD Architecture}:
+
+\paragraph{1. Source Control and Branching Strategy}
+
+
+\textbf{AWS CodeCommit}:
+\begin{itemize}
+  \item Git-based source control
+  \item Integration with AWS services
+  \item Encryption at rest and in transit
+  \item IAM-based access control
+  \item Supports Git LFS for large files
+  \item Pull request workflows
+\end{itemize}
+
+
+\textbf{Alternative}: GitHub, GitLab, Bitbucket
+\begin{itemize}
+  \item If already using these platforms
+  \item CodePipeline integrates with all
+\end{itemize}
+
+
+\textbf{Branching Strategy (Trunk-Based Development)}:
+\begin{verbatim}
+main (production)
+  ├── feature/user-auth (short-lived)
+  ├── feature/payment-integration (short-lived)
+  └── hotfix/critical-bug (short-lived)
+\end{verbatim}
+
+\textbf{Trunk-Based Guidelines}:
+\begin{itemize}
+  \item Small, frequent commits to main
+  \item Feature flags for incomplete features
+  \item Short-lived feature branches (<2 days)
+  \item Pull requests with automated checks
+  \item Merge only if tests pass
+\end{itemize}
+
+
+\paragraph{2. Continuous Integration Pipeline}
+
+
+\textbf{AWS CodeBuild}:
+\begin{itemize}
+  \item Fully managed build service
+  \item Docker-based build environments
+  \item Pay per build minute
+  \item Scales automatically
+  \item Integration with security scanning tools
+\end{itemize}
+
+
+\textbf{Build Specification (buildspec.yml)}:
+\begin{lstlisting}[language=yaml]
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+      docker: 20
+    commands:
+      - echo Installing dependencies...
+      - npm install
+
+  pre\_build:
+    commands:
+      - echo Running pre-build checks...
+      - npm run lint
+      - npm run security-check
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region \$AWS\_DEFAULT\_REGION | docker login --username AWS --password-stdin \$AWS\_ACCOUNT\_ID.dkr.ecr.\$AWS\_DEFAULT\_REGION.amazonaws.com
+
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Running unit tests...
+      - npm test -- --coverage
+      - echo Building application...
+      - npm run build
+      - echo Building Docker image...
+      - docker build -t \$IMAGE\_REPO\_NAME:\$CODEBUILD\_RESOLVED\_SOURCE\_VERSION .
+      - docker tag \$IMAGE\_REPO\_NAME:\$CODEBUILD\_RESOLVED\_SOURCE\_VERSION \$AWS\_ACCOUNT\_ID.dkr.ecr.\$AWS\_DEFAULT\_REGION.amazonaws.com/\$IMAGE\_REPO\_NAME:\$CODEBUILD\_RESOLVED\_SOURCE\_VERSION
+      - docker tag \$IMAGE\_REPO\_NAME:\$CODEBUILD\_RESOLVED\_SOURCE\_VERSION \$AWS\_ACCOUNT\_ID.dkr.ecr.\$AWS\_DEFAULT\_REGION.amazonaws.com/\$IMAGE\_REPO\_NAME:latest
+
+  post\_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing Docker image...
+      - docker push \$AWS\_ACCOUNT\_ID.dkr.ecr.\$AWS\_DEFAULT\_REGION.amazonaws.com/\$IMAGE\_REPO\_NAME:\$CODEBUILD\_RESOLVED\_SOURCE\_VERSION
+      - docker push \$AWS\_ACCOUNT\_ID.dkr.ecr.\$AWS\_DEFAULT\_REGION.amazonaws.com/\$IMAGE\_REPO\_NAME:latest
+      - echo Generating build artifacts...
+      - printf '[\{"name":"app-container","imageUri":"\%s"\}]' \$AWS\_ACCOUNT\_ID.dkr.ecr.\$AWS\_DEFAULT\_REGION.amazonaws.com/\$IMAGE\_REPO\_NAME:\$CODEBUILD\_RESOLVED\_SOURCE\_VERSION > imagedefinitions.json
+
+artifacts:
+  files:
+    - imagedefinitions.json
+    - appspec.yml
+    - taskdef.json
+    - '**/*'
+  discard-paths: no
+
+reports:
+  test-results:
+    files:
+      - 'test-results/**/*'
+    file-format: 'JUNITXML'
+  coverage-report:
+    files:
+      - 'coverage/clover.xml'
+    file-format: 'CLOVERXML'
+
+cache:
+  paths:
+    - '/root/.npm/**/*'
+    - 'node\_modules/**/*'
+\end{lstlisting}
+
+\textbf{Automated Checks in CI}:
+\begin{enumerate}
+  \item \textbf{Unit Tests}: Jest, Mocha, pytest
+  \item \textbf{Code Coverage}: Minimum 80\% threshold
+  \item \textbf{Linting}: ESLint, Prettier, Black
+  \item \textbf{Security Scanning}:
+\end{enumerate}
+
+\begin{itemize}
+  \item Snyk for dependency vulnerabilities
+  \item OWASP Dependency-Check
+  \item SonarQube for code quality
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Container Scanning}: Amazon ECR image scanning
+  \item \textbf{Infrastructure Validation}: cfn-lint, terraform validate
+\end{enumerate}
+
+
+\paragraph{3. Continuous Deployment Pipeline}
+
+
+\textbf{AWS CodePipeline}:
+\begin{itemize}
+  \item Orchestrates CI/CD workflow
+  \item Visual pipeline editor
+  \item Integration with third-party tools
+  \item Parallel and sequential stages
+  \item Approval gates
+  \item Automated rollback
+\end{itemize}
+
+
+\textbf{Pipeline Stages}:
+
+\begin{verbatim}
+┌─────────────────────────────────────────────────────────────────┐
+│                           SOURCE STAGE                          │
+│  - CodeCommit/GitHub trigger on push to main                    │
+│  - Fetch source code                                            │
+└────────────────────┬────────────────────────────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                           BUILD STAGE                           │
+│  - CodeBuild compiles, tests, builds Docker image              │
+│  - Push to ECR                                                  │
+│  - Generate artifacts                                           │
+└────────────────────┬────────────────────────────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                       TEST STAGE (Dev)                          │
+│  - Deploy to Dev environment (ECS/EKS)                          │
+│  - CodeBuild: Integration tests                                │
+│  - CodeBuild: API tests (Postman/Newman)                        │
+│  - CodeBuild: Performance tests (k6, JMeter)                    │
+└────────────────────┬────────────────────────────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                     DEPLOY STAGE (Staging)                      │
+│  - CodeDeploy to Staging environment                            │
+│  - Blue/green deployment                                        │
+│  - Smoke tests                                                  │
+└────────────────────┬────────────────────────────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                      MANUAL APPROVAL                            │
+│  - SNS notification to approvers                                │
+│  - Review test results                                          │
+│  - Approve or reject production deployment                      │
+└────────────────────┬────────────────────────────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                  DEPLOY STAGE (Production)                      │
+│  - CodeDeploy to Production                                     │
+│  - Blue/green deployment                                        │
+│  - Traffic shifting: 10\% → 50\% → 100\%                          │
+│  - Automatic rollback on CloudWatch alarms                      │
+└─────────────────────────────────────────────────────────────────┘
+\end{verbatim}
+
+\paragraph{4. Deployment Strategy}
+
+
+\textbf{AWS CodeDeploy}:
+\begin{itemize}
+  \item Automated deployments
+  \item Multiple deployment types:
+  \item In-place
+  \item Blue/green
+  \item Canary
+  \item Linear
+  \item Automatic rollback
+  \item Integration with ECS, Lambda, EC2, on-premises
+\end{itemize}
+
+
+\textbf{Blue/Green Deployment (ECS)}:
+
+\textbf{AppSpec File (appspec.yml)}:
+\begin{lstlisting}[language=yaml]
+version: 0.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: <TASK\_DEFINITION>
+        LoadBalancerInfo:
+          ContainerName: "app-container"
+          ContainerPort: 8080
+        PlatformVersion: "LATEST"
+        NetworkConfiguration:
+          AwsvpcConfiguration:
+            Subnets:
+              - subnet-12345678
+              - subnet-87654321
+            SecurityGroups:
+              - sg-12345678
+            AssignPublicIp: "DISABLED"
+
+Hooks:
+  - BeforeInstall: "LambdaFunctionToValidateBeforeInstall"
+  - AfterInstall: "LambdaFunctionToValidateAfterInstall"
+  - AfterAllowTestTraffic: "LambdaFunctionToRunIntegrationTests"
+  - BeforeAllowTraffic: "LambdaFunctionToWarmUpCache"
+  - AfterAllowTraffic: "LambdaFunctionToValidateProduction"
+\end{lstlisting}
+
+\textbf{Traffic Shifting Strategy}:
+\begin{itemize}
+  \item \textbf{Canary}: 10\% of traffic for 5 minutes, then 100\%
+  \item \textbf{Linear}: Increase by 10\% every 5 minutes
+  \item \textbf{All-at-once}: Immediate switch (not recommended for prod)
+\end{itemize}
+
+
+\textbf{Automatic Rollback Triggers}:
+\begin{itemize}
+  \item CloudWatch Alarm: Error rate >5\%
+  \item CloudWatch Alarm: Response time >2 seconds
+  \item CloudWatch Alarm: CPU utilization >80\%
+  \item Deployment failure
+\end{itemize}
+
+
+\paragraph{5. Infrastructure as Code}
+
+
+\textbf{AWS CloudFormation}:
+\begin{itemize}
+  \item Define infrastructure in YAML/JSON
+  \item Version control infrastructure
+  \item Stack updates with rollback
+  \item Drift detection
+\end{itemize}
+
+
+\textbf{Alternative: AWS CDK (Cloud Development Kit)}:
+\begin{itemize}
+  \item Define infrastructure in programming languages
+  \item Python, TypeScript, Java, C\#
+  \item Higher level abstractions
+  \item Synthesizes to CloudFormation
+\end{itemize}
+
+
+\textbf{Example CDK Stack (TypeScript)}:
+\begin{lstlisting}[language=typescript]
+import * as cdk from 'aws-cdk-lib';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import * as ecs from 'aws-cdk-lib/aws-ecs';
+import * as ecsPatterns from 'aws-cdk-lib/aws-ecs-patterns';
+import * as codedeploy from 'aws-cdk-lib/aws-codedeploy';
+
+export class AppInfraStack extends cdk.Stack \{
+  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) \{
+    super(scope, id, props);
+
+    // VPC
+    const vpc = new ec2.Vpc(this, 'AppVPC', \{
+      maxAzs: 3,
+      natGateways: 2
+    \});
+
+    // ECS Cluster
+    const cluster = new ecs.Cluster(this, 'AppCluster', \{
+      vpc: vpc,
+      containerInsights: true
+    \});
+
+    // Fargate Service with ALB
+    const fargateService = new ecsPatterns.ApplicationLoadBalancedFargateService(
+      this,
+      'AppService',
+      \{
+        cluster: cluster,
+        cpu: 512,
+        desiredCount: 3,
+        taskImageOptions: \{
+          image: ecs.ContainerImage.fromRegistry('amazon/amazon-ecs-sample'),
+          containerPort: 8080,
+          environment: \{
+            ENVIRONMENT: 'production'
+          \}
+        \},
+        memoryLimitMiB: 1024,
+        publicLoadBalancer: true,
+        deploymentController: \{
+          type: ecs.DeploymentControllerType.CODE\_DEPLOY
+        \}
+      \}
+    );
+
+    // Auto Scaling
+    const scaling = fargateService.service.autoScaleTaskCount(\{
+      minCapacity: 3,
+      maxCapacity: 20
+    \});
+
+    scaling.scaleOnCpuUtilization('CpuScaling', \{
+      targetUtilizationPercent: 70
+    \});
+
+    scaling.scaleOnMemoryUtilization('MemoryScaling', \{
+      targetUtilizationPercent: 80
+    \});
+
+    // CodeDeploy Deployment Group
+    const deploymentGroup = new codedeploy.EcsDeploymentGroup(
+      this,
+      'AppDeploymentGroup',
+      \{
+        service: fargateService.service,
+        blueGreenDeploymentConfig: \{
+          blueTargetGroup: fargateService.targetGroup,
+          greenTargetGroup: fargateService.targetGroup,
+          listener: fargateService.listener,
+          terminationWaitTime: cdk.Duration.minutes(5)
+        \},
+        deploymentConfig: codedeploy.EcsDeploymentConfig.CANARY\_10PERCENT\_5MINUTES,
+        autoRollback: \{
+          failedDeployment: true,
+          stoppedDeployment: true,
+          deploymentInAlarm: true
+        \},
+        alarms: [
+          new cloudwatch.Alarm(this, 'ErrorAlarm', \{
+            metric: fargateService.targetGroup.metrics.httpCodeTarget(
+              elb.HttpCodeTarget.TARGET\_5XX\_COUNT
+            ),
+            threshold: 10,
+            evaluationPeriods: 2
+          \})
+        ]
+      \}
+    );
+  \}
+\}
+\end{lstlisting}
+
+\paragraph{6. Secrets Management}
+
+
+\textbf{AWS Secrets Manager}:
+\begin{itemize}
+  \item Store database credentials, API keys
+  \item Automatic rotation
+  \item Encryption with KMS
+  \item Fine-grained access control
+  \item Integration with RDS, Redshift
+\end{itemize}
+
+
+\textbf{Alternative: AWS Systems Manager Parameter Store}:
+\begin{itemize}
+  \item Free for standard parameters
+  \item Hierarchical storage
+  \item No automatic rotation
+  \item Good for configuration values
+\end{itemize}
+
+
+\textbf{Example Usage in ECS Task}:
+\begin{lstlisting}[language=json]
+\{
+  "containerDefinitions": [
+    \{
+      "name": "app-container",
+      "secrets": [
+        \{
+          "name": "DB\_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:123456789012:secret:prod/db/password-AbCdEf"
+        \},
+        \{
+          "name": "API\_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:123456789012:secret:prod/api/key-XyZaBc"
+        \}
+      ]
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\paragraph{7. Monitoring and Observability}
+
+
+\textbf{Amazon CloudWatch}:
+\begin{itemize}
+  \item Unified logging from all environments
+  \item Custom metrics
+  \item Dashboards for pipeline health
+  \item Alarms for deployment failures
+\end{itemize}
+
+
+\textbf{AWS X-Ray}:
+\begin{itemize}
+  \item Distributed tracing
+  \item Identify performance bottlenecks
+  \item Request flow visualization
+\end{itemize}
+
+
+\textbf{Key Metrics to Monitor}:
+\begin{itemize}
+  \item \textbf{Deployment Frequency}: Deploys per day
+  \item \textbf{Lead Time}: Commit to production time
+  \item \textbf{Mean Time to Recovery (MTTR)}: Time to fix production issue
+  \item \textbf{Change Failure Rate}: \% of deployments causing failure
+  \item \textbf{Build Duration}: Time for build pipeline
+  \item \textbf{Test Coverage}: \% of code covered by tests
+\end{itemize}
+
+
+\textbf{CloudWatch Dashboard}:
+\begin{lstlisting}[language=json]
+\{
+  "widgets": [
+    \{
+      "type": "metric",
+      "properties": \{
+        "metrics": [
+          [ "AWS/CodePipeline", "PipelineExecutionSuccess", \{ "stat": "Sum" \} ],
+          [ ".", "PipelineExecutionFailure", \{ "stat": "Sum" \} ]
+        ],
+        "period": 300,
+        "stat": "Sum",
+        "region": "us-east-1",
+        "title": "Pipeline Executions"
+      \}
+    \},
+    \{
+      "type": "metric",
+      "properties": \{
+        "metrics": [
+          [ "AWS/ECS", "CPUUtilization", \{ "stat": "Average" \} ],
+          [ ".", "MemoryUtilization", \{ "stat": "Average" \} ]
+        ],
+        "period": 300,
+        "stat": "Average",
+        "region": "us-east-1",
+        "title": "ECS Resource Utilization"
+      \}
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\paragraph{8. Multi-Environment Strategy}
+
+
+\textbf{Account Structure}:
+\begin{itemize}
+  \item Dev Account: Frequent deployments, lower-cost resources
+  \item Staging Account: Production-like environment
+  \item Production Account: Strict change control
+\end{itemize}
+
+
+\textbf{Environment-Specific Configuration}:
+\begin{verbatim}
+config/
+  ├── dev.json
+  ├── staging.json
+  └── production.json
+\end{verbatim}
+
+\textbf{Parameter Store Hierarchy}:
+\begin{verbatim}
+/app/dev/database/host
+/app/dev/database/port
+/app/staging/database/host
+/app/staging/database/port
+/app/production/database/host
+/app/production/database/port
+\end{verbatim}
+
+\paragraph{9. Testing Strategy}
+
+
+\textbf{Test Pyramid}:
+\begin{verbatim}
+         ┌─────────────┐
+         │  E2E Tests  │  ← Fewer, slower, expensive
+         │   (Cypress) │
+         └─────────────┘
+       ┌─────────────────┐
+       │Integration Tests│
+       │  (API, Database)│
+       └─────────────────┘
+    ┌──────────────────────┐
+    │     Unit Tests       │  ← Many, fast, cheap
+    │ (Jest, pytest, JUnit)│
+    └──────────────────────┘
+\end{verbatim}
+
+\textbf{Test Types}:
+\begin{enumerate}
+  \item \textbf{Unit Tests}: 80\% of tests, <100ms each
+  \item \textbf{Integration Tests}: 15\% of tests, <5s each
+  \item \textbf{E2E Tests}: 5\% of tests, <30s each
+\end{enumerate}
+
+
+\textbf{CodeBuild Test Stage}:
+\begin{lstlisting}[language=yaml]
+phases:
+  build:
+    commands:
+      - echo Running unit tests...
+      - npm test -- --coverage --maxWorkers=4
+      - echo Running integration tests...
+      - npm run test:integration
+      - echo Running E2E tests...
+      - npm run test:e2e
+
+  post\_build:
+    commands:
+      - echo Checking test coverage threshold...
+      - npm run coverage:check -- --lines 80 --functions 80 --branches 75
+\end{lstlisting}
+
+\paragraph{10. Rollback Strategy}
+
+
+\textbf{Automatic Rollback}:
+\begin{itemize}
+  \item CloudWatch alarms trigger rollback
+  \item CodeDeploy automatically reverts to previous version
+  \item <5 minutes to rollback
+\end{itemize}
+
+
+\textbf{Manual Rollback}:
+\begin{lstlisting}[language=bash]
+\# Rollback to previous deployment
+aws deploy stop-deployment \textbackslash\{\}
+  --deployment-id d-1234567890 \textbackslash\{\}
+  --auto-rollback-enabled
+
+\# Or redeploy previous version
+aws ecs update-service \textbackslash\{\}
+  --cluster my-cluster \textbackslash\{\}
+  --service my-service \textbackslash\{\}
+  --task-definition my-task:42  \# Previous version
+\end{lstlisting}
+
+\textbf{Feature Flags}:
+\begin{itemize}
+  \item Use AWS AppConfig or Launch Darkly
+  \item Toggle features without redeployment
+  \item Gradual rollout to users
+  \item Quick disable if issues arise
+\end{itemize}
+
+
+\textbf{Step-by-Step Implementation}:
+
+\textbf{Phase 1: Source Control (Week 1)}
+\begin{enumerate}
+  \item Migrate code to CodeCommit/GitHub
+  \item Define branching strategy
+  \item Set up pull request workflows
+  \item Configure branch protection rules
+  \item Train team on Git best practices
+\end{enumerate}
+
+
+\textbf{Phase 2: CI Pipeline (Week 2)}
+\begin{enumerate}
+  \item Create buildspec.yml
+  \item Set up CodeBuild project
+  \item Integrate linting and testing
+  \item Add security scanning
+  \item Configure build notifications
+\end{enumerate}
+
+
+\textbf{Phase 3: Containerization (Week 3)}
+\begin{enumerate}
+  \item Create Dockerfile
+  \item Set up Amazon ECR
+  \item Build container images in pipeline
+  \item Test locally with Docker Compose
+  \item Document container configuration
+\end{enumerate}
+
+
+\textbf{Phase 4: Infrastructure as Code (Week 4)}
+\begin{enumerate}
+  \item Define infrastructure in CloudFormation/CDK
+  \item Create VPC, subnets, security groups
+  \item Deploy ECS cluster and services
+  \item Set up Application Load Balancer
+  \item Test infrastructure provisioning
+\end{enumerate}
+
+
+\textbf{Phase 5: CD Pipeline (Week 5)}
+\begin{enumerate}
+  \item Create CodePipeline
+  \item Add deployment stages (Dev, Staging, Prod)
+  \item Configure CodeDeploy
+  \item Set up approval gates
+  \item Test end-to-end deployment
+\end{enumerate}
+
+
+\textbf{Phase 6: Monitoring (Week 6)}
+\begin{enumerate}
+  \item Set up CloudWatch dashboards
+  \item Configure alarms
+  \item Integrate X-Ray tracing
+  \item Set up log aggregation
+  \item Define KPIs and metrics
+\end{enumerate}
+
+
+\textbf{Phase 7: Testing and Optimization (Weeks 7-8)}
+\begin{enumerate}
+  \item Test failure scenarios
+  \item Practice rollback procedures
+  \item Optimize build times
+  \item Tune auto-scaling parameters
+  \item Document runbooks
+\end{enumerate}
+
+
+\textbf{Cost Breakdown (Monthly)}:
+
+\begin{longtable}{lll}
+\toprule
+\textbf{Service} & \textbf{Configuration} & \textbf{Monthly Cost} \\
+\midrule
+CodeCommit & 5 active users, 10 GB & \$2 \\
+CodeBuild & 500 build minutes (general1.small) & \$25 \\
+CodePipeline & 10 pipelines, 200 executions & \$10 \\
+CodeDeploy & Free for ECS, Lambda & \$0 \\
+ECR & 50 GB storage & \$5 \\
+ECS Fargate & 6 tasks (0.5 vCPU, 1 GB) & \$140 \\
+ALB & 2 load balancers & \$40 \\
+S3 & Artifact storage & \$5 \\
+CloudWatch & Logs, metrics, dashboards & \$50 \\
+Secrets Manager & 20 secrets & \$8 \\
+\textbf{Total} & \textbf{\textasciitilde{}\$285/month} &  \\
+\bottomrule
+\end{longtable}
+
+\textbf{Benefits}:
+\begin{itemize}
+  \item \textbf{Deployment Frequency}: Monthly → Multiple times per day
+  \item \textbf{Deployment Duration}: 4-6 hours → <15 minutes
+  \item \textbf{Rollback Time}: Hours → <5 minutes
+  \item \textbf{Rollback Rate}: 30\% → <5\%
+  \item \textbf{Developer Productivity}: +40\% (less time on deployments)
+  \item \textbf{Mean Time to Recovery}: 4 hours → <30 minutes
+  \item \textbf{Production Incidents}: 2-3/month → <1/month
+  \item \textbf{Time to Market}: 4-6 weeks → 1-2 weeks
+  \item \textbf{Developer Satisfaction}: Significantly improved
+\end{itemize}
+
+
+\textbf{Trade-offs}:
+\begin{itemize}
+  \item \textbf{Initial Setup}: 6-8 weeks for full implementation
+  \item \textbf{Learning Curve}: Team must learn new tools and practices
+  \item \textbf{Cultural Change}: Shift from manual to automated processes
+  \item \textbf{Responsibility Shift}: Developers more involved in operations
+\end{itemize}
+
+
+\textbf{Alternative Approaches}:
+
+\textbf{Option 1: Jenkins on EC2}
+\begin{itemize}
+  \item Open-source CI/CD
+  \item More plugins and flexibility
+  \item Requires server management
+  \item Higher operational overhead
+  \item Best for: Teams with existing Jenkins expertise
+\end{itemize}
+
+
+\textbf{Option 2: GitHub Actions}
+\begin{itemize}
+  \item Native GitHub integration
+  \item Easy to set up
+  \item Limited AWS integration compared to CodePipeline
+  \item Best for: GitHub-centric workflows
+\end{itemize}
+
+
+\textbf{Option 3: GitLab CI/CD}
+\begin{itemize}
+  \item All-in-one DevOps platform
+  \item Built-in container registry
+  \item Requires separate hosting
+  \item Best for: Teams wanting single platform
+\end{itemize}
+
+
+\textbf{Option 4: Third-Party (CircleCI, Travis CI)}
+\begin{itemize}
+  \item Easy to set up
+  \item Great developer experience
+  \item Additional cost
+  \item Limited control
+  \item Best for: Startups wanting quick setup
+\end{itemize}
+
+
+\textbf{Common Pitfalls to Avoid}:
+\begin{enumerate}
+  \item \textbf{No Rollback Testing}: Practice rollbacks regularly
+  \item \textbf{Skipping Integration Tests}: Catch issues before production
+  \item \textbf{Manual Steps in Pipeline}: Automate everything
+  \item \textbf{Ignoring Build Times}: Optimize for <10 minute builds
+  \item \textbf{No Monitoring}: Implement comprehensive monitoring early
+  \item \textbf{Over-Engineering}: Start simple, add complexity as needed
+  \item \textbf{Ignoring Security}: Scan for vulnerabilities in pipeline
+  \item \textbf{No Documentation}: Document architecture and runbooks
+  \item \textbf{Forgetting Notifications}: Alert team on pipeline failures
+  \item \textbf{Not Measuring}: Track DORA metrics (deployment frequency, lead time, MTTR, change failure rate)
+\end{enumerate}
+
+
+---
+
+\subsection{Common Troubleshooting Scenarios}
+
+
+\subsubsection{Cannot Connect to EC2 Instance}
+
 
 \textbf{Symptoms}: SSH or RDP connection times out or refused
 
 \textbf{Troubleshooting Steps}:
 
-\begin{enumerate}
-  \item \textbf{Verify Instance Status}:
-  \begin{itemize}
-    \item Check instance state is "running"
-    \item Check status checks are passing
-    \item View system log for boot errors
-  \end{itemize}
+\paragraph{1. Verify Instance Status}
 
-  \item \textbf{Check Security Group}:
-  \begin{itemize}
-    \item Ensure inbound rule allows SSH (22) or RDP (3389)
-    \item Verify source IP is allowed (0.0.0.0/0 or your IP)
-    \item Check if security group changed recently
-  \end{itemize}
+\begin{itemize}
+  \item Check instance state is "running"
+  \item Check status checks are passing
+  \item View system log for boot errors
+\end{itemize}
 
-  \item \textbf{Check Network ACL}:
-  \begin{itemize}
-    \item Ensure NACL allows inbound traffic on port
-    \item Ensure NACL allows ephemeral outbound ports (1024-65535)
-    \item NACLs are stateless!
-  \end{itemize}
 
-  \item \textbf{Verify Network Configuration}:
-  \begin{itemize}
-    \item Instance has public IP (if connecting from internet)
-    \item Instance in public subnet (has IGW route)
-    \item Or using bastion host for private subnet
-  \end{itemize}
+\paragraph{2. Check Security Group}
 
-  \item \textbf{Check Key Pair}:
-  \begin{itemize}
-    \item Using correct .pem/.ppk file
-    \item File permissions correct (chmod 400 for .pem)
-    \item Key pair matches instance
-  \end{itemize}
+\begin{itemize}
+  \item Ensure inbound rule allows SSH (22) or RDP (3389)
+  \item Verify source IP is allowed (0.0.0.0/0 or your IP)
+  \item Check if security group changed recently
+\end{itemize}
 
-  \item \textbf{Check Route Table}:
-  \begin{itemize}
-    \item Subnet has route to IGW (0.0.0.0/0 → igw-xxx)
-    \item Or route to NAT Gateway for private subnet
-  \end{itemize}
-\end{enumerate}
 
-\subsection{S3 Access Denied Errors}
+\paragraph{3. Check Network ACL}
+
+\begin{itemize}
+  \item Ensure NACL allows inbound traffic on port
+  \item Ensure NACL allows ephemeral outbound ports (1024-65535)
+  \item \textbf{Important}: NACLs are stateless!
+\end{itemize}
+
+
+\paragraph{4. Verify Network Configuration}
+
+\begin{itemize}
+  \item Instance has public IP (if connecting from internet)
+  \item Instance in public subnet (has IGW route)
+  \item Or using bastion host for private subnet
+\end{itemize}
+
+
+\paragraph{5. Check Key Pair}
+
+\begin{itemize}
+  \item Using correct .pem/.ppk file
+  \item File permissions correct (\texttt{chmod 400} for .pem)
+  \item Key pair matches instance
+\end{itemize}
+
+
+\paragraph{6. Check Route Table}
+
+\begin{itemize}
+  \item Subnet has route to IGW (0.0.0.0/0 → igw-xxx)
+  \item Or route to NAT Gateway for private subnet
+\end{itemize}
+
+
+\begin{keypoint}
+\textbf{Tip}: Use EC2 Instance Connect or Systems Manager Session Manager as alternatives to SSH/RDP when troubleshooting connectivity issues.
+\end{keypoint}
+
+
+---
+
+\subsubsection{S3 Access Denied Errors}
+
 
 \textbf{Common Causes and Solutions}:
 
-\begin{enumerate}
-  \item \textbf{IAM Permissions}:
-  \begin{itemize}
-    \item Verify IAM policy grants s3:GetObject, s3:PutObject
-    \item Check for explicit Deny statements
-    \item Verify resource ARN in policy matches bucket
-  \end{itemize}
+\paragraph{1. IAM Permissions}
 
-  \item \textbf{Bucket Policy}:
-  \begin{itemize}
-    \item Check bucket policy doesn't deny access
-    \item Verify Principal in policy
-    \item Check for IP-based restrictions
-  \end{itemize}
+\begin{itemize}
+  \item Verify IAM policy grants \texttt{s3:GetObject}, \texttt{s3:PutObject}
+  \item Check for explicit Deny statements
+  \item Verify resource ARN in policy matches bucket
+\end{itemize}
 
-  \item \textbf{Block Public Access}:
-  \begin{itemize}
-    \item If public access needed, disable Block Public Access
-    \item Check both bucket-level and account-level settings
-  \end{itemize}
 
-  \item \textbf{Encryption}:
-  \begin{itemize}
-    \item If using SSE-KMS, verify KMS key policy
-    \item Ensure user has kms:Decrypt permission
-  \end{itemize}
+\paragraph{2. Bucket Policy}
 
-  \item \textbf{Cross-Account Access}:
-  \begin{itemize}
-    \item Bucket policy must allow cross-account access
-    \item Assume role with correct permissions
-  \end{itemize}
-\end{enumerate}
+\begin{itemize}
+  \item Check bucket policy doesn't deny access
+  \item Verify Principal in policy
+  \item Check for IP-based restrictions
+\end{itemize}
 
-\subsection{Lambda Function Issues}
 
-\textbf{Issue 1: Function Timing Out}
+\paragraph{3. Block Public Access}
+
+\begin{itemize}
+  \item If public access needed, disable Block Public Access
+  \item Check both bucket-level and account-level settings
+\end{itemize}
+
+
+\paragraph{4. Encryption}
+
+\begin{itemize}
+  \item If using SSE-KMS, verify KMS key policy
+  \item Ensure user has \texttt{kms:Decrypt} permission
+\end{itemize}
+
+
+\paragraph{5. Cross-Account Access}
+
+\begin{itemize}
+  \item Bucket policy must allow cross-account access
+  \item Assume role with correct permissions
+\end{itemize}
+
+
+\begin{keypoint}
+\textbf{Debugging Tip}: Use AWS CloudTrail to review the API call and see the exact reason for access denial. Look for the \texttt{errorCode} and \texttt{errorMessage} fields in the CloudTrail logs.
+\end{keypoint}
+
+
+---
+
+\subsubsection{Lambda Function Issues}
+
+
+\paragraph{Issue 1: Function Timing Out}
+
 
 \textbf{Solutions}:
 \begin{itemize}
@@ -600,7 +3629,14 @@ Direct Connect + VPN & Best of both worlds & Most expensive, complex & Regulated
   \item Investigate cold start delays
 \end{itemize}
 
-\textbf{Issue 2: Insufficient Permissions}
+
+\begin{keypoint}
+\textbf{Best Practice}: Set the timeout to slightly higher than your expected execution time, but not unnecessarily high to avoid long-running failed executions.
+\end{keypoint}
+
+
+\paragraph{Issue 2: Insufficient Permissions}
+
 
 \textbf{Solutions}:
 \begin{itemize}
@@ -610,7 +3646,27 @@ Direct Connect + VPN & Best of both worlds & Most expensive, complex & Regulated
   \item For VPC: Ensure role has VPC execution permissions
 \end{itemize}
 
-\textbf{Issue 3: Throttling}
+
+\textbf{Common Required Permissions}:
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\paragraph{Issue 3: Throttling}
+
 
 \textbf{Solutions}:
 \begin{itemize}
@@ -619,3 +3675,1169 @@ Direct Connect + VPN & Best of both worlds & Most expensive, complex & Regulated
   \item Use SQS to buffer requests
   \item Consider reserved concurrency for critical functions
 \end{itemize}
+
+
+\textbf{Understanding Throttling}:
+\begin{itemize}
+  \item \textbf{Account-level limit}: 1,000 concurrent executions per region (default)
+  \item \textbf{Function-level limit}: Can be set with reserved concurrency
+  \item \textbf{Unreserved pool}: Shared across all functions without reserved concurrency
+\end{itemize}
+
+
+\begin{keypoint}
+\textbf{Tip}: Monitor the \texttt{ConcurrentExecutions} and \texttt{Throttles} metrics in CloudWatch to identify throttling issues early.
+\end{keypoint}
+
+
+---
+
+\subsubsection{RDS Connection Problems}
+
+
+\textbf{Symptoms}: Cannot connect to RDS database from application
+
+\textbf{Troubleshooting Steps}:
+
+\paragraph{1. Verify Endpoint and Port}
+
+\begin{itemize}
+  \item Check endpoint hostname is correct
+  \item Default ports: MySQL (3306), PostgreSQL (5432), SQL Server (1433)
+  \item Verify database is available (not stopped or in maintenance)
+\end{itemize}
+
+
+\paragraph{2. Security Group Configuration}
+
+\begin{itemize}
+  \item Inbound rule must allow traffic on database port
+  \item Source should be application security group or IP range
+  \item Example: MySQL on 3306 from application SG
+\end{itemize}
+
+
+\paragraph{3. Network Accessibility}
+
+\begin{itemize}
+  \item \textbf{Public Accessibility}: Set to Yes if connecting from internet
+  \item \textbf{Private Subnet}: Application must be in same VPC or have connectivity
+  \item \textbf{VPC Peering/VPN}: Required for cross-VPC or on-premises access
+\end{itemize}
+
+
+\paragraph{4. Database Credentials}
+
+\begin{itemize}
+  \item Verify username and password
+  \item Check if password has special characters needing escaping
+  \item Master user vs. database-specific users
+  \item For Aurora, use cluster endpoint for writes, reader endpoint for reads
+\end{itemize}
+
+
+\paragraph{5. Network ACLs}
+
+\begin{itemize}
+  \item Check subnet NACL allows traffic on database port
+  \item Both inbound and outbound rules needed (stateless)
+\end{itemize}
+
+
+\paragraph{6. SSL/TLS Requirements}
+
+\begin{itemize}
+  \item Some databases require SSL connections
+  \item Download RDS certificate bundle
+  \item Configure application to use SSL
+\end{itemize}
+
+
+\paragraph{7. Connection Limits}
+
+\begin{itemize}
+  \item RDS has maximum connections based on instance class
+  \item MySQL: \texttt{{DBInstanceClassMemory/12582880}}
+  \item Check CloudWatch \texttt{DatabaseConnections} metric
+  \item If maxed out, scale up instance or optimize connection pooling
+\end{itemize}
+
+
+\textbf{Testing Connection}:
+\begin{lstlisting}[language=bash]
+\# From EC2 instance in same VPC
+\# MySQL
+mysql -h mydb.abc123.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
+
+\# PostgreSQL
+psql -h mydb.abc123.us-east-1.rds.amazonaws.com -p 5432 -U admin -d mydb
+
+\# Test connectivity
+telnet mydb.abc123.us-east-1.rds.amazonaws.com 3306
+\end{lstlisting}
+
+\textbf{Common Solutions}:
+\begin{itemize}
+  \item Add application security group to RDS security group inbound rules
+  \item Enable public accessibility (for testing only, not production)
+  \item Check VPC routing and internet gateway configuration
+  \item Verify database is in same VPC as application
+  \item Use AWS Systems Manager Session Manager to connect to EC2, then test RDS connection
+\end{itemize}
+
+
+---
+
+\subsubsection{CloudFormation Stack Failures}
+
+
+\textbf{Symptoms}: CloudFormation stack creation or update fails, rolls back
+
+\textbf{Common Failure Reasons}:
+
+\paragraph{1. Insufficient IAM Permissions}
+
+\textbf{Error}: \texttt{User is not authorized to perform: [action]}
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item User/role needs permissions for all resources being created
+  \item CloudFormation also needs permissions via service role
+  \item Add required permissions to IAM policy
+  \item Use CloudFormation service role with necessary permissions
+\end{itemize}
+
+
+\textbf{Example IAM Policy}:
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Allow",
+      "Action": [
+        "cloudformation:*",
+        "ec2:*",
+        "iam:*",
+        "s3:*"
+      ],
+      "Resource": "*"
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\paragraph{2. Resource Limits Exceeded}
+
+\textbf{Error}: \texttt{LimitExceeded} or \texttt{ResourceLimitExceeded}
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Check service quotas (VPCs, Elastic IPs, EC2 instances)
+  \item Request limit increase via Service Quotas console
+  \item Use existing resources instead of creating new ones
+  \item Deploy to different region with available capacity
+\end{itemize}
+
+
+\paragraph{3. Parameter Validation Errors}
+
+\textbf{Error}: \texttt{Parameters: [parameter] must match pattern [regex]}
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Verify parameter values match constraints
+  \item Check AllowedValues, MinLength, MaxLength
+  \item Ensure CIDR blocks don't overlap
+  \item Validate AMI IDs exist in target region
+\end{itemize}
+
+
+\paragraph{4. Resource Already Exists}
+
+\textbf{Error}: \texttt{Resource already exists}
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Delete existing resource or import it
+  \item Use different resource names/logical IDs
+  \item Check for resources from previous failed stacks
+  \item Use DeletionPolicy: Retain to keep resources on stack deletion
+\end{itemize}
+
+
+\paragraph{5. Circular Dependencies}
+
+\textbf{Error}: \texttt{Circular dependency between resources}
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Review DependsOn attributes
+  \item Remove unnecessary dependencies
+  \item Restructure template to break circular references
+  \item Use nested stacks to separate dependent resources
+\end{itemize}
+
+
+\paragraph{6. Insufficient Capacity}
+
+\textbf{Error}: \texttt{Insufficient capacity} for EC2 instances
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Try different availability zone
+  \item Use different instance type
+  \item Try multiple instance types with launch templates
+  \item Deploy across multiple AZs
+\end{itemize}
+
+
+\paragraph{7. Timeout Issues}
+
+\textbf{Error}: Resource creation timed out
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Increase CreationPolicy timeout
+  \item Check resource is actually being created (CloudWatch Logs)
+  \item For ASG, verify instances can reach metadata service
+  \item Use cfn-signal from instance user data
+\end{itemize}
+
+
+\textbf{Troubleshooting Tools}:
+
+\textbf{CloudFormation Events}:
+\begin{itemize}
+  \item View stack events for detailed error messages
+  \item Identify which resource failed
+  \item Check status reason for failure cause
+\end{itemize}
+
+
+\textbf{Change Sets}:
+\begin{itemize}
+  \item Preview changes before executing
+  \item Identify resources that will be replaced
+  \item Validate template before stack update
+\end{itemize}
+
+
+\textbf{Stack Drift Detection}:
+\begin{itemize}
+  \item Detect if resources were manually modified
+  \item Compare actual configuration vs. template
+  \item Resolve drift before updating stack
+\end{itemize}
+
+
+\textbf{Template Validation}:
+\begin{lstlisting}[language=bash]
+\# Validate template syntax
+aws cloudformation validate-template --template-body file://template.yaml
+
+\# Use cfn-lint for advanced validation
+pip install cfn-lint
+cfn-lint template.yaml
+\end{lstlisting}
+
+\textbf{Best Practices}:
+\begin{enumerate}
+  \item Always validate templates before deployment
+  \item Use change sets for stack updates
+  \item Implement rollback triggers with CloudWatch alarms
+  \item Set appropriate timeouts for resource creation
+  \item Use DeletionPolicy: Retain for critical resources
+  \item Test templates in dev environment first
+  \item Use nested stacks for complex infrastructure
+  \item Enable termination protection for production stacks
+\end{enumerate}
+
+
+---
+
+\subsubsection{Auto Scaling Not Working}
+
+
+\textbf{Symptoms}: Auto Scaling Group not launching or terminating instances as expected
+
+\textbf{Troubleshooting Steps}:
+
+\paragraph{1. Verify Scaling Policies}
+
+
+\textbf{Check Policy Configuration}:
+\begin{itemize}
+  \item Target tracking vs. step scaling vs. simple scaling
+  \item Metric being monitored (CPU, memory, custom)
+  \item Target value or step adjustments
+  \item Cooldown periods preventing rapid scaling
+\end{itemize}
+
+
+\textbf{Example Issue}:
+\begin{itemize}
+  \item Target: 70\% CPU utilization
+  \item Current: 85\% CPU
+  \item But no scale-out occurring
+\end{itemize}
+
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Check if in cooldown period (default 300 seconds)
+  \item Verify CloudWatch alarm state is ALARM
+  \item Check alarm has datapoints exceeding threshold
+  \item Ensure policy is enabled
+\end{itemize}
+
+
+\paragraph{2. Check Auto Scaling Group Configuration}
+
+
+\textbf{Capacity Limits}:
+\begin{itemize}
+  \item Minimum capacity: Can't scale below this
+  \item Maximum capacity: Can't scale above this
+  \item Desired capacity: Current target
+\end{itemize}
+
+
+\textbf{Common Issue}: Max capacity reached
+\begin{verbatim}
+Current: 10 instances
+Max capacity: 10
+Result: Cannot scale out, even if CPU is high
+\end{verbatim}
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Increase max capacity
+  \item Review if capacity limits are appropriate
+  \item Check service quotas for EC2 instances
+\end{itemize}
+
+
+\paragraph{3. Launch Template/Configuration Issues}
+
+
+\textbf{Invalid AMI}:
+\begin{itemize}
+  \item AMI deleted or not available in region
+  \item AMI shared from another account no longer accessible
+\end{itemize}
+
+
+\textbf{Insufficient IAM Permissions}:
+\begin{itemize}
+  \item Instance profile missing required permissions
+  \item Cannot access S3, Parameter Store, Secrets Manager
+\end{itemize}
+
+
+\textbf{Invalid User Data}:
+\begin{itemize}
+  \item Syntax errors in user data script
+  \item Script fails causing instance initialization to fail
+\end{itemize}
+
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Check AMI exists: \texttt{aws ec2 describe-images --image-ids ami-xxx}
+  \item Review CloudWatch Logs for user data script output
+  \item Test launch template manually by launching instance
+  \item Verify security groups and key pairs are valid
+\end{itemize}
+
+
+\paragraph{4. Availability Zone Issues}
+
+
+\textbf{No Capacity}:
+\begin{itemize}
+  \item EC2 capacity not available in specified AZs
+  \item Only some AZs have capacity
+\end{itemize}
+
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Distribute across multiple AZs
+  \item Use multiple instance types (mixed instances policy)
+  \item Enable capacity rebalancing
+\end{itemize}
+
+
+\paragraph{5. Health Check Failures}
+
+
+\textbf{Instances Terminating Immediately}:
+\begin{itemize}
+  \item Health check type: EC2 vs. ELB
+  \item Health check grace period too short
+  \item Instances failing health checks
+\end{itemize}
+
+
+\textbf{Symptoms}:
+\begin{itemize}
+  \item Instances launch, then terminate repeatedly
+  \item CloudWatch shows instances unhealthy
+\end{itemize}
+
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Increase health check grace period (300-600 seconds)
+  \item Fix application issues causing health check failures
+  \item Verify ELB target group health check settings
+  \item Check security groups allow health check traffic
+\end{itemize}
+
+
+\paragraph{6. Service Quotas}
+
+
+\textbf{EC2 Instance Limits}:
+\begin{itemize}
+  \item On-Demand vCPU limits
+  \item Spot Instance limits
+  \item Per-region limits
+\end{itemize}
+
+
+\textbf{Check Current Usage}:
+\begin{lstlisting}[language=bash]
+\# Check service quotas
+aws service-quotas get-service-quota \textbackslash\{\}
+  --service-code ec2 \textbackslash\{\}
+  --quota-code L-1216C47A  \# Running On-Demand Standard instances
+\end{lstlisting}
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Request quota increase
+  \item Use different instance types
+  \item Deploy to different region
+\end{itemize}
+
+
+\paragraph{7. Scaling Suspended}
+
+
+\textbf{Check Suspended Processes}:
+\begin{itemize}
+  \item ReplaceUnhealthy
+  \item Launch
+  \item Terminate
+  \item AddToLoadBalancer
+\end{itemize}
+
+
+\textbf{Resume Processes}:
+\begin{lstlisting}[language=bash]
+aws autoscaling resume-processes \textbackslash\{\}
+  --auto-scaling-group-name my-asg
+\end{lstlisting}
+
+\paragraph{8. CloudWatch Alarm Issues}
+
+
+\textbf{Alarm Not Triggering}:
+\begin{itemize}
+  \item Insufficient data
+  \item Metric not published
+  \item Threshold not exceeded for required evaluation periods
+  \item Alarm in INSUFFICIENT\_DATA state
+\end{itemize}
+
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Check CloudWatch metrics are being published
+  \item Verify alarm configuration (threshold, periods)
+  \item Review alarm history
+  \item Test with lower threshold temporarily
+\end{itemize}
+
+
+\textbf{Debugging Commands}:
+\begin{lstlisting}[language=bash]
+\# Describe Auto Scaling Group
+aws autoscaling describe-auto-scaling-groups \textbackslash\{\}
+  --auto-scaling-group-names my-asg
+
+\# View scaling activities
+aws autoscaling describe-scaling-activities \textbackslash\{\}
+  --auto-scaling-group-name my-asg \textbackslash\{\}
+  --max-records 20
+
+\# Check scaling policies
+aws autoscaling describe-policies \textbackslash\{\}
+  --auto-scaling-group-name my-asg
+
+\# View CloudWatch alarms
+aws cloudwatch describe-alarms \textbackslash\{\}
+  --alarm-names my-cpu-alarm
+\end{lstlisting}
+
+\textbf{Common Solutions}:
+\begin{enumerate}
+  \item Ensure min/max/desired capacity are appropriate
+  \item Verify CloudWatch alarms are in ALARM state
+  \item Check for suspended processes
+  \item Increase health check grace period
+  \item Fix launch template issues (AMI, security groups, user data)
+  \item Distribute across multiple AZs for availability
+  \item Use multiple instance types to improve capacity availability
+  \item Monitor with CloudWatch and set up alerting
+\end{enumerate}
+
+
+---
+
+\subsubsection{High AWS Bill Unexpectedly}
+
+
+\textbf{Symptoms}: AWS bill significantly higher than expected or usual
+
+\textbf{Common Cost Culprits}:
+
+\paragraph{1. Untagged or Orphaned Resources}
+
+
+\textbf{EC2 Instances Running}:
+\begin{itemize}
+  \item Instances left running after testing
+  \item Auto Scaling not scaling down
+  \item Spot requests creating instances
+\end{itemize}
+
+
+\textbf{Check}:
+\begin{lstlisting}[language=bash]
+\# List all running instances
+aws ec2 describe-instances \textbackslash\{\}
+  --filters "Name=instance-state-name,Values=running" \textbackslash\{\}
+  --query 'Reservations[].Instances[].[InstanceId,InstanceType,Tags[?Key==`Name`].Value|[0]]'
+\end{lstlisting}
+
+\textbf{EBS Volumes}:
+\begin{itemize}
+  \item Volumes detached from terminated instances
+  \item Snapshots accumulating over time
+  \item Volumes larger than needed
+\end{itemize}
+
+
+\textbf{Check}:
+\begin{lstlisting}[language=bash]
+\# Find unattached volumes
+aws ec2 describe-volumes \textbackslash\{\}
+  --filters "Name=status,Values=available" \textbackslash\{\}
+  --query 'Volumes[].[VolumeId,Size,CreateTime]'
+\end{lstlisting}
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Terminate unused EC2 instances
+  \item Delete unattached EBS volumes
+  \item Set up lifecycle policies for snapshots
+  \item Use AWS Resource Groups Tag Editor to find untagged resources
+\end{itemize}
+
+
+\paragraph{2. Data Transfer Costs}
+
+
+\textbf{Cross-Region Transfer}:
+\begin{itemize}
+  \item Data transfer between regions (\$0.02/GB)
+  \item Not using same-region resources
+\end{itemize}
+
+
+\textbf{Internet Data Transfer}:
+\begin{itemize}
+  \item Data transfer out to internet (\$0.09/GB for first 10TB)
+  \item Large file downloads
+  \item Streaming video/audio
+\end{itemize}
+
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Keep resources in same region
+  \item Use CloudFront for content delivery (cheaper egress)
+  \item Compress data before transfer
+  \item Use VPC endpoints to avoid NAT Gateway data processing charges
+  \item Review CloudFront, S3, and EC2 data transfer in Cost Explorer
+\end{itemize}
+
+
+\paragraph{3. NAT Gateway Costs}
+
+
+\textbf{High Data Processing}:
+\begin{itemize}
+  \item NAT Gateway charges for data processed (\$0.045/GB)
+  \item Instances in private subnets accessing internet frequently
+\end{itemize}
+
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Use VPC endpoints for AWS services (S3, DynamoDB)
+  \item Consolidate NAT Gateways (one per AZ sufficient)
+  \item Review what traffic is going through NAT Gateway
+  \item Consider switching to NAT instances for high-volume use cases
+\end{itemize}
+
+
+\paragraph{4. CloudWatch Logs}
+
+
+\textbf{Large Log Ingestion}:
+\begin{itemize}
+  \item Application logging too verbosely
+  \item Retention period too long
+  \item Many log groups
+\end{itemize}
+
+
+\textbf{Check Costs}:
+\begin{itemize}
+  \item Ingestion: \$0.50/GB
+  \item Storage: \$0.03/GB/month
+  \item Insights queries: \$0.005/GB scanned
+\end{itemize}
+
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Reduce log verbosity
+  \item Set retention policies (7-30 days typical)
+  \item Export old logs to S3 (cheaper storage)
+  \item Use sampling for high-volume logs
+  \item Delete unnecessary log groups
+\end{itemize}
+
+
+\paragraph{5. Elastic Load Balancers}
+
+
+\textbf{Idle Load Balancers}:
+\begin{itemize}
+  \item Load balancer running with no traffic
+  \item Using multiple load balancers when one suffices
+\end{itemize}
+
+
+\textbf{Costs}:
+\begin{itemize}
+  \item ALB/NLB: \textasciitilde{}\$0.0225/hour (\textasciitilde{}\$16/month) + data processing
+  \item Classic LB: \textasciitilde{}\$0.025/hour (\textasciitilde{}\$18/month)
+\end{itemize}
+
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Delete unused load balancers
+  \item Consolidate applications behind fewer load balancers
+  \item Use path-based routing on ALB
+\end{itemize}
+
+
+\paragraph{6. RDS Instances}
+
+
+\textbf{Over-Provisioned}:
+\begin{itemize}
+  \item Database instance too large
+  \item Multi-AZ when not needed for dev/test
+  \item Not using Reserved Instances
+\end{itemize}
+
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Right-size instance based on CloudWatch metrics
+  \item Use Single-AZ for non-production
+  \item Stop RDS instances when not in use (dev/test)
+  \item Purchase Reserved Instances for production (save up to 72\%)
+\end{itemize}
+
+
+\paragraph{7. S3 Storage Costs}
+
+
+\textbf{Incorrect Storage Class}:
+\begin{itemize}
+  \item Using Standard for infrequently accessed data
+  \item Not using Intelligent-Tiering
+\end{itemize}
+
+
+\textbf{Many Small Objects}:
+\begin{itemize}
+  \item S3 charges per request
+  \item Millions of tiny files more expensive
+\end{itemize}
+
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Use lifecycle policies to transition to cheaper storage classes
+  \item Enable S3 Intelligent-Tiering for unknown access patterns
+  \item Consolidate small objects
+  \item Delete incomplete multipart uploads
+  \item Use S3 Storage Lens for insights
+\end{itemize}
+
+
+\paragraph{8. Lambda Costs}
+
+
+\textbf{High Invocations}:
+\begin{itemize}
+  \item Infinite loop or recursive calls
+  \item Too frequent CloudWatch Events triggers
+  \item Over-allocated memory
+\end{itemize}
+
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Review CloudWatch Logs for errors causing retries
+  \item Optimize function execution time
+  \item Right-size memory allocation
+  \item Use reserved concurrency to limit costs
+  \item Implement exponential backoff for retries
+\end{itemize}
+
+
+\textbf{Cost Analysis Tools}:
+
+\textbf{AWS Cost Explorer}:
+\begin{itemize}
+  \item View costs by service, region, tag
+  \item Identify trends and anomalies
+  \item Filter by time period
+\end{itemize}
+
+
+\textbf{AWS Budgets}:
+\begin{itemize}
+  \item Set budget alerts
+  \item Get notified when exceeding threshold
+  \item Forecast spending
+\end{itemize}
+
+
+\textbf{AWS Cost Anomaly Detection}:
+\begin{itemize}
+  \item ML-based anomaly detection
+  \item Automatic alerts for unusual spending
+  \item Root cause analysis
+\end{itemize}
+
+
+\textbf{AWS Trusted Advisor}:
+\begin{itemize}
+  \item Cost optimization recommendations
+  \item Identify idle resources
+  \item Right-sizing suggestions (with Business/Enterprise support)
+\end{itemize}
+
+
+\textbf{Tag-Based Cost Allocation}:
+\begin{itemize}
+  \item Tag resources by: Project, Environment, Owner
+  \item Enable tag-based cost allocation reports
+  \item Identify costs by business unit
+\end{itemize}
+
+
+\textbf{Investigation Steps}:
+
+\begin{enumerate}
+  \item \textbf{Open Cost Explorer}:
+\end{enumerate}
+
+\begin{itemize}
+  \item Group by service
+  \item Identify top cost services
+  \item Compare to previous month
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Check for Anomalies}:
+\end{enumerate}
+
+\begin{itemize}
+  \item Look for sudden spikes
+  \item Identify specific days/hours
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Review Top Services}:
+\end{enumerate}
+
+\begin{itemize}
+  \item EC2: Running instances, EBS volumes
+  \item S3: Storage, requests, data transfer
+  \item Data Transfer: Cross-region, internet egress
+  \item RDS: Running databases
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Tag Analysis}:
+\end{enumerate}
+
+\begin{itemize}
+  \item Identify untagged resources
+  \item Track costs by project/team
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Enable Detailed Billing}:
+\end{enumerate}
+
+\begin{itemize}
+  \item Resource-level granularity
+  \item Understand what's driving costs
+\end{itemize}
+
+
+\textbf{Prevention}:
+\begin{enumerate}
+  \item Set up AWS Budgets with email alerts
+  \item Tag all resources appropriately
+  \item Set up Cost Anomaly Detection
+  \item Review Cost Explorer monthly
+  \item Implement least-privilege IAM policies (prevent accidental expensive resource creation)
+  \item Use CloudFormation with budget constraints
+  \item Enable AWS Cost Optimization Hub
+  \item Regular cost review meetings with stakeholders
+\end{enumerate}
+
+
+---
+
+\subsubsection{API Gateway 502/504 Errors}
+
+
+\textbf{Symptoms}: API Gateway returns 502 Bad Gateway or 504 Gateway Timeout
+
+\textbf{Error Types}:
+
+\paragraph{1. 502 Bad Gateway}
+
+
+\textbf{Causes}:
+\begin{itemize}
+  \item Backend endpoint (Lambda, HTTP) returning invalid response
+  \item Lambda function error/exception
+  \item Malformed response from integration
+  \item Certificate validation failure (for HTTP integration)
+\end{itemize}
+
+
+\textbf{Solutions}:
+
+\textbf{Lambda Integration}:
+\begin{itemize}
+  \item Check CloudWatch Logs for Lambda errors
+  \item Ensure Lambda returns proper response format:
+\end{itemize}
+
+\begin{lstlisting}[language=json]
+\{
+  "statusCode": 200,
+  "headers": \{
+    "Content-Type": "application/json"
+  \},
+  "body": "\{\textbackslash\{\}"message\textbackslash\{\}":\textbackslash\{\}"Success\textbackslash\{\}"\}"
+\}
+\end{lstlisting}
+\begin{itemize}
+  \item Verify Lambda execution role has required permissions
+  \item Check if Lambda is in VPC and can reach required resources
+\end{itemize}
+
+
+\textbf{HTTP Integration}:
+\begin{itemize}
+  \item Verify backend endpoint is accessible
+  \item Check SSL certificate is valid
+  \item Test endpoint directly from EC2 in same VPC
+  \item Verify security groups allow API Gateway to reach backend
+  \item Check if using correct HTTP method
+\end{itemize}
+
+
+\textbf{VPC Link Issues}:
+\begin{itemize}
+  \item Network Load Balancer health checks failing
+  \item Security groups blocking traffic
+  \item Target group has no healthy targets
+\end{itemize}
+
+
+\paragraph{2. 504 Gateway Timeout}
+
+
+\textbf{Causes}:
+\begin{itemize}
+  \item Backend taking longer than API Gateway timeout (29 seconds maximum)
+  \item Lambda function timeout
+  \item HTTP endpoint not responding
+  \item Network connectivity issues
+\end{itemize}
+
+
+\textbf{Solutions}:
+
+\textbf{Lambda Timeout}:
+\begin{itemize}
+  \item Check Lambda timeout setting (max 15 minutes, but API Gateway limit is 29 seconds)
+  \item Set Lambda timeout to <29 seconds for synchronous invocations
+  \item For long-running tasks, use asynchronous invocation or Step Functions
+  \item Optimize Lambda performance
+\end{itemize}
+
+
+\textbf{HTTP Endpoint Timeout}:
+\begin{itemize}
+  \item Reduce backend processing time
+  \item Implement caching at backend
+  \item Use asynchronous processing for long operations
+  \item Return immediate response, process in background
+\end{itemize}
+
+
+\textbf{VPC Configuration}:
+\begin{itemize}
+  \item If Lambda in VPC, check it can reach endpoints (NAT Gateway for internet)
+  \item Verify DNS resolution working
+  \item Check VPC Flow Logs for dropped packets
+\end{itemize}
+
+
+\paragraph{3. Integration Response Issues}
+
+
+\textbf{Invalid Response Transformation}:
+\begin{itemize}
+  \item VTL (Velocity Template Language) mapping error
+  \item Headers not properly formatted
+  \item Response body invalid JSON
+\end{itemize}
+
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Test mapping templates in API Gateway console
+  \item Verify response structure matches defined model
+  \item Check for syntax errors in VTL templates
+  \item Enable CloudWatch logging for API Gateway
+\end{itemize}
+
+
+\paragraph{4. Resource Policy or Authorization}
+
+
+\textbf{403 Forbidden disguised as 502}:
+\begin{itemize}
+  \item Resource policy denying request
+  \item Lambda authorizer denying access but not returning proper response
+\end{itemize}
+
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Review resource policy
+  \item Check Lambda authorizer CloudWatch Logs
+  \item Ensure authorizer returns proper policy document
+\end{itemize}
+
+
+\paragraph{5. Throttling}
+
+
+\textbf{TooManyRequestsException}:
+\begin{itemize}
+  \item Account-level throttle (10,000 RPS default)
+  \item Burst limit exceeded (5,000 default)
+  \item Stage-level or method-level throttles
+\end{itemize}
+
+
+\textbf{Solutions}:
+\begin{itemize}
+  \item Implement client-side retry with exponential backoff
+  \item Request limit increase
+  \item Use usage plans to control access
+  \item Implement caching to reduce backend calls
+\end{itemize}
+
+
+\textbf{Debugging Steps}:
+
+\textbf{1. Enable CloudWatch Logs}:
+\begin{lstlisting}[language=bash]
+\# Enable execution logging
+aws apigateway update-stage \textbackslash\{\}
+  --rest-api-id abc123 \textbackslash\{\}
+  --stage-name prod \textbackslash\{\}
+  --patch-operations \textbackslash\{\}
+    op=replace,path=/*/logging/loglevel,value=INFO \textbackslash\{\}
+    op=replace,path=/*/logging/dataTrace,value=true
+\end{lstlisting}
+
+\textbf{2. Check CloudWatch Metrics}:
+\begin{itemize}
+  \item 4XXError: Client errors
+  \item 5XXError: Server errors
+  \item IntegrationLatency: Backend response time
+  \item Latency: Total request latency
+  \item Count: Number of requests
+\end{itemize}
+
+
+\textbf{3. Test Endpoint}:
+\begin{lstlisting}[language=bash]
+\# Test API directly
+curl -X POST https://api-id.execute-api.region.amazonaws.com/stage/path \textbackslash\{\}
+  -H "Content-Type: application/json" \textbackslash\{\}
+  -d '\{"key":"value"\}' \textbackslash\{\}
+  -v
+
+\# Check for specific error codes
+\# 502: Bad Gateway (integration error)
+\# 504: Gateway Timeout (backend timeout)
+\end{lstlisting}
+
+\textbf{4. Review Lambda Logs} (if Lambda integration):
+\begin{lstlisting}[language=bash]
+\# Get latest log stream
+aws logs describe-log-streams \textbackslash\{\}
+  --log-group-name /aws/lambda/my-function \textbackslash\{\}
+  --order-by LastEventTime \textbackslash\{\}
+  --descending \textbackslash\{\}
+  --max-items 1
+
+\# View logs
+aws logs tail /aws/lambda/my-function --follow
+\end{lstlisting}
+
+\textbf{5. Test Lambda Directly}:
+\begin{lstlisting}[language=bash]
+\# Invoke Lambda with test event
+aws lambda invoke \textbackslash\{\}
+  --function-name my-function \textbackslash\{\}
+  --payload '\{"key":"value"\}' \textbackslash\{\}
+  response.json
+\end{lstlisting}
+
+\textbf{Common Solutions}:
+
+\begin{enumerate}
+  \item \textbf{Lambda Response Format}:
+\end{enumerate}
+
+\begin{itemize}
+  \item Use proxy integration for simple cases
+  \item Ensure statusCode, headers, body are properly formatted
+  \item Stringify JSON body
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Timeout Configuration}:
+\end{enumerate}
+
+\begin{itemize}
+  \item Lambda timeout: <29 seconds
+  \item Use async invocation for long-running tasks
+  \item Implement caching
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{VPC Configuration}:
+\end{enumerate}
+
+\begin{itemize}
+  \item Add NAT Gateway for internet access
+  \item Use VPC endpoints for AWS services
+  \item Verify security groups
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Error Handling}:
+\end{enumerate}
+
+\begin{itemize}
+  \item Implement try-catch in Lambda
+  \item Return proper error responses
+  \item Log errors to CloudWatch
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Monitoring}:
+\end{enumerate}
+
+\begin{itemize}
+  \item Set up CloudWatch alarms for 5XX errors
+  \item Enable X-Ray tracing for detailed analysis
+  \item Regular review of CloudWatch Logs
+\end{itemize}
+
+
+\textbf{Best Practices}:
+\begin{enumerate}
+  \item Always enable CloudWatch Logs (at least for errors)
+  \item Implement proper error handling in backend
+  \item Set appropriate timeouts (Lambda < 29 seconds)
+  \item Use X-Ray for distributed tracing
+  \item Test API thoroughly before production
+  \item Monitor latency and error rates
+  \item Implement caching to reduce backend load
+  \item Use usage plans to control access and prevent abuse
+\end{enumerate}
+
+
+---
+
+\subsection{Key Takeaways}
+
+
+\begin{enumerate}
+  \item \textbf{Cost Optimization}: Combine Reserved Instances, Spot Instances, and On-Demand based on workload patterns
+  \item \textbf{High Availability}: Always design across multiple Availability Zones
+  \item \textbf{Data Migration}: Use AWS physical devices (Snowball/Snowmobile) for large datasets
+  \item \textbf{Serverless}: Ideal for unpredictable workloads and minimal operational overhead
+  \item \textbf{Compliance}: Use AWS Organizations, SCPs, and AWS Config for governance at scale
+  \item \textbf{Disaster Recovery}: Choose DR strategy based on RPO/RTO requirements and budget
+  \item \textbf{Hybrid Connectivity}: Direct Connect for production, VPN for dev/test
+  \item \textbf{Multi-Region}: Use Global Tables, CloudFront, and Route 53 for low-latency global access
+  \item \textbf{Security}: Implement defense in depth with GuardDuty, Security Hub, Config, and automated remediation
+  \item \textbf{Modernization}: Use strangler fig pattern for incremental migration from monoliths
+  \item \textbf{Big Data}: Build data lakes with S3, process with Glue/EMR, analyze with Athena/Redshift
+  \item \textbf{CI/CD}: Automate deployments with CodePipeline, implement blue/green deployments, enable fast rollbacks
+  \item \textbf{Troubleshooting}: Follow systematic approaches for connectivity, security, and performance issues
+  \item \textbf{Cost Management}: Use Cost Explorer, Budgets, and tagging to track and optimize spending
+\end{enumerate}
+
+
+---
+
+\href{08-exam-preparation.md}{← Previous: Exam Preparation} | \href{10-additional-resources.md}{Next: Additional Resources →}

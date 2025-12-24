@@ -1,0 +1,4740 @@
+\chapter{Domain 2: Security and Compliance}
+
+
+
+
+\subsection{AWS Shared Responsibility Model}
+
+
+\begin{examtip}
+This is one of the most critical concepts for the exam. Understand what AWS manages versus what the customer manages.
+\end{examtip}
+
+
+The Shared Responsibility Model divides security responsibilities between AWS and the customer. Think of it as "Security OF the Cloud" (AWS) vs "Security IN the Cloud" (Customer).
+
+\subsubsection{AWS Responsibility: Security OF the Cloud}
+
+
+AWS is responsible for protecting the infrastructure that runs all services:
+
+\begin{itemize}
+  \item \textbf{Physical security of data centers}
+  \item Building access controls
+  \item Security personnel
+  \item Environmental safeguards
+  \item \textbf{Hardware and networking components}
+  \item Physical servers
+  \item Storage devices
+  \item Network equipment
+  \item \textbf{Compute, storage, database, and networking infrastructure}
+  \item Hypervisor layer
+  \item Managed service infrastructure
+  \item \textbf{AWS global infrastructure}
+  \item Regions
+  \item Availability Zones
+  \item Edge Locations
+  \item \textbf{Managed services}
+  \item RDS, DynamoDB, Lambda, etc.
+  \item AWS handles OS patching and maintenance for these services
+\end{itemize}
+
+
+\subsubsection{Customer Responsibility: Security IN the Cloud}
+
+
+Customers are responsible for:
+
+\begin{itemize}
+  \item \textbf{Customer data}
+  \item All data you store in AWS
+  \item Classification and protection
+  \item \textbf{Platform, applications, Identity and Access Management (IAM)}
+  \item Application code
+  \item IAM users, groups, roles, and policies
+  \item \textbf{Operating system, network, and firewall configuration}
+  \item OS patches and updates (for EC2)
+  \item Security group rules
+  \item Network ACLs
+  \item \textbf{Client-side data encryption and data integrity authentication}
+  \item Encrypting data before upload
+  \item Data validation
+  \item \textbf{Server-side encryption (file system and/or data)}
+  \item Encryption at rest
+  \item Key management choices
+  \item \textbf{Network traffic protection}
+  \item Encryption in transit (HTTPS, TLS)
+  \item Network security
+  \item \textbf{Security group configuration}
+  \item Firewall rules
+  \item Access controls
+  \item \textbf{User access management}
+  \item Creating and managing users
+  \item Password policies
+  \item MFA enforcement
+\end{itemize}
+
+
+\subsubsection{Shared Controls}
+
+
+Both AWS and customers have responsibilities for:
+
+\begin{longtable}{lll}
+\toprule
+\textbf{Control} & \textbf{AWS Responsibility} & \textbf{Customer Responsibility} \\
+\midrule
+\textbf{Patch Management} & Patches infrastructure components & Patches guest OS and applications \\
+\textbf{Configuration Management} & Configures infrastructure devices & Configures databases and applications \\
+\textbf{Awareness and Training} & Trains AWS employees & Trains their own staff \\
+\bottomrule
+\end{longtable}
+
+\begin{examtip}
+For any security question, ask: "Who is responsible?" AWS handles the infrastructure; you handle what you put in the cloud.
+\end{examtip}
+
+
+---
+
+\subsection{AWS Identity and Access Management (IAM)}
+
+
+IAM enables you to securely control access to AWS services and resources. It's a \textbf{global service} (not region-specific) and is \textbf{free} to use.
+
+\subsubsection{Core Components}
+
+
+\paragraph{Users}
+
+
+\begin{itemize}
+  \item \textbf{Individual people or services}
+  \item Permanent named operators
+  \item Can have long-term credentials:
+  \item Password (for console access)
+  \item Access keys (for programmatic access)
+  \item Should represent a physical person or application
+  \item By default, new users have NO permissions
+\end{itemize}
+
+
+\paragraph{Groups}
+
+
+\begin{itemize}
+  \item \textbf{Collection of users}
+  \item Simplifies permission management
+  \item Key characteristics:
+  \item Groups cannot be nested
+  \item Users can belong to multiple groups
+  \item Apply policies to groups for easier management
+  \item No default groups
+\end{itemize}
+
+
+\paragraph{Roles}
+
+
+\begin{itemize}
+  \item \textbf{Temporary credentials} for users, applications, or services
+  \item No username/password or access keys
+  \item Can be assumed by anyone who needs it
+  \item \textbf{Best practice} for EC2 instances accessing AWS services
+  \item Can be used for cross-account access
+  \item Temporary security credentials are automatically rotated
+\end{itemize}
+
+
+\paragraph{Policies}
+
+
+\begin{itemize}
+  \item \textbf{JSON documents} defining permissions
+  \item Attached to users, groups, or roles
+  \item Define what actions are allowed or denied on which resources
+  \item Follow \textbf{principle of least privilege}
+  \item Two main types:
+  \item \textbf{AWS Managed Policies:} Created and maintained by AWS
+  \item \textbf{Customer Managed Policies:} Created and maintained by you
+\end{itemize}
+
+
+\textbf{Example Policy Structure:}
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::my-bucket/*"
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\subsubsection{Detailed IAM Policy Examples}
+
+
+Understanding IAM policies is critical for the exam. Here are common policy scenarios you should know.
+
+\paragraph{Example 1: S3 Read-Only Access to Specific Bucket}
+
+
+This policy grants read-only access to objects in a specific S3 bucket.
+
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Sid": "S3ReadOnlyAccess",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectVersion",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::company-reports/*",
+        "arn:aws:s3:::company-reports"
+      ]
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\textbf{Key Points:}
+\begin{itemize}
+  \item \texttt{Sid}: Statement ID (optional, for documentation)
+  \item \texttt{Effect}: Can be "Allow" or "Deny"
+  \item \texttt{Action}: What operations are permitted
+  \item \texttt{Resource}: Which AWS resources the policy applies to
+\end{itemize}
+
+
+\paragraph{Example 2: EC2 Instance Management with Conditions}
+
+
+This policy allows starting and stopping EC2 instances only during business hours.
+
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Allow",
+      "Action": [
+        "ec2:StartInstances",
+        "ec2:StopInstances",
+        "ec2:DescribeInstances"
+      ],
+      "Resource": "*",
+      "Condition": \{
+        "DateGreaterThan": \{
+          "aws:CurrentTime": "2024-01-01T08:00:00Z"
+        \},
+        "DateLessThan": \{
+          "aws:CurrentTime": "2024-12-31T18:00:00Z"
+        \},
+        "IpAddress": \{
+          "aws:SourceIp": [
+            "203.0.113.0/24",
+            "198.51.100.0/24"
+          ]
+        \}
+      \}
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\textbf{Condition Elements:}
+\begin{itemize}
+  \item Time-based restrictions
+  \item IP address restrictions
+  \item MFA requirements
+  \item Source VPC restrictions
+\end{itemize}
+
+
+\paragraph{Example 3: Deny Policy for Sensitive Actions}
+
+
+This policy explicitly denies deletion of production resources (deny always overrides allow).
+
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Deny",
+      "Action": [
+        "rds:DeleteDBInstance",
+        "ec2:TerminateInstances",
+        "s3:DeleteBucket"
+      ],
+      "Resource": "*",
+      "Condition": \{
+        "StringEquals": \{
+          "aws:ResourceTag/Environment": "Production"
+        \}
+      \}
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\textbf{Important:} Explicit Deny always wins over Allow in IAM policy evaluation.
+
+\paragraph{Example 4: MFA-Required Policy}
+
+
+This policy requires MFA for sensitive operations.
+
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Allow",
+      "Action": [
+        "ec2:TerminateInstances",
+        "rds:DeleteDBInstance"
+      ],
+      "Resource": "*",
+      "Condition": \{
+        "BoolIfExists": \{
+          "aws:MultiFactorAuthPresent": "true"
+        \}
+      \}
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\paragraph{Example 5: Cross-Account Access Policy}
+
+
+This policy allows assuming a role from another AWS account.
+
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Allow",
+      "Principal": \{
+        "AWS": "arn:aws:iam::123456789012:root"
+      \},
+      "Action": "sts:AssumeRole",
+      "Condition": \{
+        "StringEquals": \{
+          "sts:ExternalId": "UniqueExternalId123"
+        \}
+      \}
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\textbf{Use Case:} Allow users from Account A to access resources in Account B.
+
+\paragraph{Example 6: Full Administrator Access}
+
+
+This policy grants full access to all AWS services (use with extreme caution).
+
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Allow",
+      "Action": "*",
+      "Resource": "*"
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\textbf{Warning:} Only assign to trusted administrators. This is equivalent to root access.
+
+\paragraph{Example 7: Read-Only Access Across All Services}
+
+
+This policy provides read-only access for auditing purposes.
+
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Allow",
+      "Action": [
+        "ec2:Describe*",
+        "s3:Get*",
+        "s3:List*",
+        "rds:Describe*",
+        "cloudwatch:Get*",
+        "cloudwatch:List*",
+        "cloudtrail:LookupEvents"
+      ],
+      "Resource": "*"
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\paragraph{Example 8: S3 Bucket Policy for Public Read Access}
+
+
+This is a resource-based policy attached to an S3 bucket.
+
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::my-public-website/*"
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\textbf{Use Case:} Hosting a static website or public content.
+
+\paragraph{Example 9: Service Control Policy (SCP)}
+
+
+This SCP prevents anyone in an OU from leaving the organization.
+
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Deny",
+      "Action": [
+        "organizations:LeaveOrganization"
+      ],
+      "Resource": "*"
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\textbf{Important:} SCPs affect all users and roles, including the account root user.
+
+\paragraph{Example 10: Tag-Based Access Control}
+
+
+This policy allows actions only on resources with specific tags.
+
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Allow",
+      "Action": [
+        "ec2:StartInstances",
+        "ec2:StopInstances"
+      ],
+      "Resource": "arn:aws:ec2:*:*:instance/*",
+      "Condition": \{
+        "StringEquals": \{
+          "aws:ResourceTag/Owner": "\$\{aws:username\}",
+          "aws:ResourceTag/Department": "Engineering"
+        \}
+      \}
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\textbf{Use Case:} Users can only manage their own resources in their department.
+
+\subsubsection{IAM Best Practices}
+
+
+\begin{enumerate}
+  \item \textbf{Root account protection}
+\end{enumerate}
+
+\begin{itemize}
+  \item Use only for initial setup, then lock it away
+  \item Enable MFA on root account
+  \item Do not create access keys for root
+  \item Create individual IAM users instead
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Principle of Least Privilege}
+\end{enumerate}
+
+\begin{itemize}
+  \item Grant only the permissions required to perform a task
+  \item Start with minimum permissions and add as needed
+  \item Regularly review and remove unnecessary permissions
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Use Groups for permission management}
+\end{enumerate}
+
+\begin{itemize}
+  \item Assign permissions to groups, not individual users
+  \item Add users to appropriate groups
+  \item Easier to manage and audit
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Enable MFA (Multi-Factor Authentication)}
+\end{enumerate}
+
+\begin{itemize}
+  \item Especially for privileged users
+  \item Required for root account
+  \item Add extra layer of security
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Use Roles for applications}
+\end{enumerate}
+
+\begin{itemize}
+  \item For applications running on EC2
+  \item Better than embedding credentials
+  \item Automatic credential rotation
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Rotate Credentials regularly}
+\end{enumerate}
+
+\begin{itemize}
+  \item Change passwords periodically
+  \item Rotate access keys
+  \item Set password expiration policies
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Remove Unnecessary Credentials}
+\end{enumerate}
+
+\begin{itemize}
+  \item Delete unused users
+  \item Remove unused roles
+  \item Deactivate old access keys
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Use Policy Conditions for extra security}
+\end{enumerate}
+
+\begin{itemize}
+  \item IP address restrictions
+  \item Time-based access
+  \item MFA requirements
+  \item Source VPC restrictions
+\end{itemize}
+
+
+---
+
+\subsection{Security Best Practices - Deep Dive}
+
+
+Comprehensive security best practices you must know for the exam and real-world AWS usage.
+
+\subsubsection{1. Identity and Access Management Security}
+
+
+\paragraph{Implement Least Privilege Access}
+
+
+\textbf{What it means:} Grant only the permissions necessary to perform required tasks, nothing more.
+
+\textbf{How to implement:}
+\begin{itemize}
+  \item Start with zero permissions and add what's needed
+  \item Use AWS managed policies as a starting point, then customize
+  \item Regularly review and audit permissions
+  \item Use IAM Access Analyzer to identify unused permissions
+  \item Remove permissions that haven't been used in 90+ days
+\end{itemize}
+
+
+\textbf{Example Scenario:} A developer needs to read application logs from S3. Give them \texttt{s3:GetObject} on the specific bucket, not full S3 access or administrator rights.
+
+\textbf{Exam Tip:} Questions will test whether you can identify overly permissive policies.
+
+\paragraph{Implement Strong Password Policies}
+
+
+\textbf{Requirements:}
+\begin{itemize}
+  \item Minimum length: 14+ characters (AWS allows 8-128)
+  \item Require uppercase, lowercase, numbers, and symbols
+  \item Prevent password reuse (remember at least 24 previous passwords)
+  \item Enforce password expiration (60-90 days recommended)
+  \item Prevent users from changing their password too frequently
+\end{itemize}
+
+
+\textbf{AWS Password Policy Settings:}
+\begin{verbatim}
+- Minimum password length: 14 characters
+- Require at least one uppercase letter: Yes
+- Require at least one lowercase letter: Yes
+- Require at least one number: Yes
+- Require at least one non-alphanumeric character: Yes
+- Allow users to change their own password: Yes
+- Enable password expiration: Yes (90 days)
+- Password expiration requires administrator reset: No
+- Number of passwords to remember: 24
+\end{verbatim}
+
+\paragraph{Credential Management Best Practices}
+
+
+\textbf{Never do this:}
+\begin{itemize}
+  \item Hard-code credentials in application code
+  \item Store credentials in version control (Git)
+  \item Share credentials between users or applications
+  \item Email or message credentials
+  \item Use long-term credentials when temporary ones are available
+\end{itemize}
+
+
+\textbf{Always do this:}
+\begin{itemize}
+  \item Use IAM roles for EC2 instances and Lambda functions
+  \item Use AWS Secrets Manager or Systems Manager Parameter Store for secrets
+  \item Rotate credentials regularly (access keys every 90 days)
+  \item Use temporary credentials via AWS STS
+  \item Delete unused credentials immediately
+\end{itemize}
+
+
+\paragraph{Enable AWS CloudTrail in All Regions}
+
+
+\textbf{Why it's critical:}
+\begin{itemize}
+  \item Provides audit trail of all API calls
+  \item Helps with compliance requirements
+  \item Enables security analysis and troubleshooting
+  \item Detects unauthorized access attempts
+  \item Required for incident response
+\end{itemize}
+
+
+\textbf{Configuration:}
+\begin{itemize}
+  \item Enable in all regions (even ones you don't use)
+  \item Enable log file validation for integrity
+  \item Store logs in a separate, secured S3 bucket
+  \item Enable S3 bucket versioning for log storage
+  \item Restrict access to CloudTrail logs
+  \item Set up CloudWatch Logs integration for real-time monitoring
+\end{itemize}
+
+
+\subsubsection{2. Network Security Best Practices}
+
+
+\paragraph{Use Security Groups Properly}
+
+
+\textbf{Key Principles:}
+\begin{itemize}
+  \item Security groups are stateful (return traffic automatically allowed)
+  \item Default deny: Allow only what's needed
+  \item Use descriptive names and tags
+  \item Reference other security groups instead of IP addresses when possible
+  \item Separate security groups by tier (web, application, database)
+\end{itemize}
+
+
+\textbf{Common Patterns:}
+
+\textbf{Web Tier Security Group:}
+\begin{verbatim}
+Inbound:
+- Port 80 (HTTP) from 0.0.0.0/0
+- Port 443 (HTTPS) from 0.0.0.0/0
+- Port 22 (SSH) from Bastion-SG only
+
+Outbound:
+- All traffic (default)
+\end{verbatim}
+
+\textbf{Application Tier Security Group:}
+\begin{verbatim}
+Inbound:
+- Port 8080 from Web-Tier-SG
+- Port 22 from Bastion-SG only
+
+Outbound:
+- Port 3306 to Database-SG
+- Port 443 to 0.0.0.0/0 (for API calls)
+\end{verbatim}
+
+\textbf{Database Tier Security Group:}
+\begin{verbatim}
+Inbound:
+- Port 3306 (MySQL) from App-Tier-SG only
+- Port 22 from Bastion-SG only
+
+Outbound:
+- None (most restrictive)
+\end{verbatim}
+
+\paragraph{Network ACL (NACL) Best Practices}
+
+
+\textbf{Differences from Security Groups:}
+\begin{itemize}
+  \item Stateless (must allow return traffic explicitly)
+  \item Applies at subnet level
+  \item Rules are processed in numerical order
+  \item Can have explicit DENY rules
+\end{itemize}
+
+
+\textbf{When to use NACLs:}
+\begin{itemize}
+  \item Block specific IP addresses (security groups can't deny)
+  \item Add an additional layer of defense
+  \item Comply with regulatory requirements for network segmentation
+\end{itemize}
+
+
+\textbf{Best Practice:}
+\begin{itemize}
+  \item Use security groups as primary defense
+  \item Use NACLs for additional subnet-level protection
+  \item Leave room between rule numbers (100, 200, 300) for insertions
+  \item Document all custom NACL rules
+\end{itemize}
+
+
+\paragraph{Implement VPC Flow Logs}
+
+
+\textbf{What they capture:}
+\begin{itemize}
+  \item Accepted and rejected traffic
+  \item Source and destination IP addresses
+  \item Ports and protocols
+  \item Packet and byte counts
+\end{itemize}
+
+
+\textbf{Use cases:}
+\begin{itemize}
+  \item Troubleshoot connectivity issues
+  \item Monitor traffic patterns
+  \item Detect anomalous behavior
+  \item Meet compliance requirements
+  \item Security forensics
+\end{itemize}
+
+
+\textbf{Configuration:}
+\begin{itemize}
+  \item Enable at VPC, subnet, or ENI level
+  \item Publish to CloudWatch Logs or S3
+  \item Use for analysis with Amazon Athena
+  \item Integrate with security tools
+\end{itemize}
+
+
+\subsubsection{3. Data Protection Best Practices}
+
+
+\paragraph{Encrypt Data at Rest}
+
+
+\textbf{Services with encryption:}
+\begin{itemize}
+  \item S3: SSE-S3, SSE-KMS, SSE-C
+  \item EBS: Encrypted volumes
+  \item RDS: Encrypted databases
+  \item DynamoDB: Encryption at rest
+  \item Redshift: Encrypted clusters
+\end{itemize}
+
+
+\textbf{Best practices:}
+\begin{itemize}
+  \item Enable encryption by default for all new resources
+  \item Use AWS KMS for key management
+  \item Implement automatic key rotation
+  \item Separate keys for different data classifications
+  \item Grant minimal permissions to decrypt
+\end{itemize}
+
+
+\paragraph{Encrypt Data in Transit}
+
+
+\textbf{How to implement:}
+\begin{itemize}
+  \item Use HTTPS/TLS for all web traffic
+  \item Use SSL/TLS for database connections
+  \item Use VPN or Direct Connect for hybrid connectivity
+  \item Enable encryption for all data transfers
+  \item Use AWS Certificate Manager for SSL/TLS certificates
+\end{itemize}
+
+
+\textbf{Services that enforce encryption in transit:}
+\begin{itemize}
+  \item CloudFront (can require HTTPS)
+  \item API Gateway (HTTPS only)
+  \item Application Load Balancer (SSL/TLS termination)
+  \item S3 Transfer Acceleration (HTTPS)
+\end{itemize}
+
+
+\paragraph{Implement Backup and Recovery}
+
+
+\textbf{Best practices:}
+\begin{itemize}
+  \item Enable automated backups for databases
+  \item Use AWS Backup for centralized backup management
+  \item Store backups in different region for disaster recovery
+  \item Test restore procedures regularly
+  \item Implement versioning for S3 objects
+  \item Use lifecycle policies to manage backup retention
+\end{itemize}
+
+
+\subsubsection{4. Monitoring and Logging Best Practices}
+
+
+\paragraph{Implement Comprehensive Logging}
+
+
+\textbf{Essential logs to enable:}
+\begin{itemize}
+  \item CloudTrail: API activity
+  \item VPC Flow Logs: Network traffic
+  \item S3 Server Access Logs: S3 bucket access
+  \item ELB Access Logs: Load balancer requests
+  \item CloudFront Access Logs: CDN requests
+  \item RDS Logs: Database queries and errors
+\end{itemize}
+
+
+\textbf{Log management:}
+\begin{itemize}
+  \item Centralize logs in a dedicated account
+  \item Enable log file integrity validation
+  \item Implement log retention policies
+  \item Protect logs from deletion or modification
+  \item Use CloudWatch Logs Insights for analysis
+\end{itemize}
+
+
+\paragraph{Set Up Security Alerts}
+
+
+\textbf{Critical alerts to configure:}
+\begin{itemize}
+  \item Root account usage
+  \item IAM policy changes
+  \item Security group changes
+  \item Network ACL changes
+  \item Failed login attempts (multiple)
+  \item Unauthorized API calls
+  \item Changes to CloudTrail configuration
+  \item S3 bucket policy changes
+  \item Encryption key deletions
+\end{itemize}
+
+
+\textbf{Alerting mechanisms:}
+\begin{itemize}
+  \item CloudWatch Alarms
+  \item SNS notifications
+  \item EventBridge rules
+  \item GuardDuty findings
+  \item Security Hub alerts
+\end{itemize}
+
+
+\subsubsection{5. Compliance and Governance Best Practices}
+
+
+\paragraph{Implement Automated Compliance Checking}
+
+
+\textbf{Tools to use:}
+\begin{itemize}
+  \item AWS Config Rules for continuous compliance
+  \item AWS Security Hub for centralized security view
+  \item AWS Systems Manager for patch compliance
+  \item Trusted Advisor for best practice checks
+\end{itemize}
+
+
+\textbf{Common compliance rules:}
+\begin{itemize}
+  \item Ensure S3 buckets are not publicly accessible
+  \item Ensure encryption is enabled on all volumes
+  \item Ensure MFA is enabled for root account
+  \item Ensure CloudTrail is enabled in all regions
+  \item Ensure unused IAM credentials are removed
+\end{itemize}
+
+
+\paragraph{Tag Everything for Governance}
+
+
+\textbf{Essential tags:}
+\begin{itemize}
+  \item Environment (Production, Staging, Dev)
+  \item Owner (team or individual)
+  \item Cost Center (for billing)
+  \item Project (application or project name)
+  \item Compliance (required compliance programs)
+  \item Data Classification (Public, Internal, Confidential)
+\end{itemize}
+
+
+\textbf{Benefits:}
+\begin{itemize}
+  \item Cost allocation and tracking
+  \item Automated policy enforcement
+  \item Resource organization
+  \item Compliance reporting
+  \item Lifecycle management
+\end{itemize}
+
+
+\subsubsection{6. Incident Response Best Practices}
+
+
+\paragraph{Prepare for Security Incidents}
+
+
+\textbf{Have a plan:}
+\begin{itemize}
+  \item Document incident response procedures
+  \item Define roles and responsibilities
+  \item Maintain contact lists
+  \item Establish communication channels
+  \item Practice with simulation exercises
+\end{itemize}
+
+
+\textbf{AWS tools for incident response:}
+\begin{itemize}
+  \item CloudWatch for monitoring and alerts
+  \item CloudTrail for forensic analysis
+  \item VPC Flow Logs for network analysis
+  \item AWS Systems Manager for automated remediation
+  \item EC2 snapshot for forensic investigation
+\end{itemize}
+
+
+\textbf{Isolation procedures:}
+\begin{itemize}
+  \item Change security group to deny all traffic
+  \item Snapshot affected resources before investigation
+  \item Isolate in separate VPC or subnet
+  \item Preserve logs and evidence
+  \item Follow chain of custody procedures
+\end{itemize}
+
+
+\subsubsection{7. Application Security Best Practices}
+
+
+\paragraph{Implement Defense in Depth}
+
+
+\textbf{Multiple layers of security:}
+\begin{enumerate}
+  \item Edge security: CloudFront, AWS WAF, Shield
+  \item Network security: VPC, Security Groups, NACLs
+  \item Application security: IAM roles, encryption
+  \item Data security: Encryption at rest, access controls
+  \item Monitoring: CloudTrail, GuardDuty, CloudWatch
+\end{enumerate}
+
+
+\textbf{Benefits:}
+\begin{itemize}
+  \item No single point of failure
+  \item Multiple chances to detect and stop attacks
+  \item Reduces blast radius of breaches
+  \item Compliance requirement for many frameworks
+\end{itemize}
+
+
+\paragraph{Secure API Endpoints}
+
+
+\textbf{API Gateway security:}
+\begin{itemize}
+  \item Use API keys for identification
+  \item Implement throttling and rate limiting
+  \item Enable AWS WAF for protection
+  \item Use Lambda authorizers for custom authentication
+  \item Implement request validation
+  \item Enable CloudWatch Logs for monitoring
+\end{itemize}
+
+
+\textbf{Best practices:}
+\begin{itemize}
+  \item Use HTTPS only
+  \item Implement proper authentication and authorization
+  \item Validate all inputs
+  \item Use least privilege for Lambda execution roles
+  \item Enable CORS correctly (don't use *)
+  \item Implement API versioning
+\end{itemize}
+
+
+\subsubsection{8. Third-Party Security Best Practices}
+
+
+\paragraph{Manage Third-Party Access Securely}
+
+
+\textbf{Use external IDs for cross-account access:}
+\begin{itemize}
+  \item Prevents confused deputy problem
+  \item Unique identifier per customer
+  \item Include in AssumeRole policy condition
+\end{itemize}
+
+
+\textbf{Best practices:}
+\begin{itemize}
+  \item Use IAM roles instead of sharing credentials
+  \item Implement least privilege access
+  \item Require MFA for sensitive operations
+  \item Monitor third-party access with CloudTrail
+  \item Regularly audit and review access
+  \item Remove access when no longer needed
+\end{itemize}
+
+
+\paragraph{Secure Container and Serverless Workloads}
+
+
+\textbf{Container security:}
+\begin{itemize}
+  \item Scan images for vulnerabilities (Amazon ECR scanning)
+  \item Use minimal base images
+  \item Don't run containers as root
+  \item Implement least privilege for task roles
+  \item Use secrets management for credentials
+  \item Enable CloudTrail logging for ECR
+\end{itemize}
+
+
+\textbf{Lambda security:}
+\begin{itemize}
+  \item Use separate execution roles per function
+  \item Store secrets in Secrets Manager or Parameter Store
+  \item Enable VPC access only when needed
+  \item Implement function-level encryption
+  \item Use environment variables for configuration
+  \item Monitor with CloudWatch and X-Ray
+\end{itemize}
+
+
+\subsubsection{Multi-Factor Authentication (MFA)}
+
+
+MFA adds an extra layer of protection beyond username and password.
+
+\textbf{Authentication Factors:}
+\begin{itemize}
+  \item \textbf{Something you know:} Password
+  \item \textbf{Something you have:} MFA device
+\end{itemize}
+
+
+\textbf{MFA Device Options:}
+
+\begin{longtable}{lll}
+\toprule
+\textbf{Type} & \textbf{Description} & \textbf{Use Case} \\
+\midrule
+\textbf{Virtual MFA Device} & Mobile app (Google Authenticator, Authy) & Most common, convenient \\
+\textbf{Hardware MFA Device} & Physical token (YubiKey) & High security environments \\
+\textbf{SMS Text Message} & Code sent via SMS & Not recommended for root account \\
+\bottomrule
+\end{longtable}
+
+\begin{keypoint}
+\textbf{Best Practice:} Always enable MFA on the root account and for all users with console access, especially those with administrative privileges.
+\end{keypoint}
+
+
+---
+
+\subsection{Data Encryption Best Practices}
+
+
+\subsubsection{Encryption at Rest}
+
+
+Encryption at rest protects data stored on disk from unauthorized access.
+
+\paragraph{Amazon S3 Encryption Options}
+
+
+\textbf{Server-Side Encryption with S3-Managed Keys (SSE-S3):}
+\begin{itemize}
+  \item AWS manages encryption keys
+  \item AES-256 encryption
+  \item Enabled with one click
+  \item No additional cost
+  \item Each object encrypted with unique key
+  \item Best for: Simple encryption requirements
+\end{itemize}
+
+
+\textbf{Server-Side Encryption with KMS (SSE-KMS):}
+\begin{itemize}
+  \item AWS KMS manages encryption keys
+  \item You control key policies and rotation
+  \item Audit trail via CloudTrail
+  \item Additional cost per request
+  \item Envelope encryption for large files
+  \item Best for: Compliance requirements, audit needs
+\end{itemize}
+
+
+\textbf{Server-Side Encryption with Customer-Provided Keys (SSE-C):}
+\begin{itemize}
+  \item You manage encryption keys outside AWS
+  \item AWS performs encryption but doesn't store keys
+  \item You must provide key with each request
+  \item Best for: When you must control keys outside AWS
+\end{itemize}
+
+
+\textbf{Client-Side Encryption:}
+\begin{itemize}
+  \item Encrypt data before uploading to S3
+  \item You manage entire encryption process
+  \item AWS stores encrypted data
+  \item Best for: Maximum control over encryption
+\end{itemize}
+
+
+\textbf{Configuration Example:}
+\begin{lstlisting}[language=json]
+\{
+  "Rules": [
+    \{
+      "ApplyServerSideEncryptionByDefault": \{
+        "SSEAlgorithm": "aws:kms",
+        "KMSMasterKeyID": "arn:aws:kms:region:account:key/key-id"
+      \},
+      "BucketKeyEnabled": true
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\paragraph{EBS Encryption}
+
+
+\textbf{Features:}
+\begin{itemize}
+  \item Encrypts data at rest inside volume
+  \item Encrypts data in transit between instance and volume
+  \item Encrypts all snapshots created from volume
+  \item Uses AWS KMS for key management
+  \item Minimal performance impact
+  \item Can't encrypt root volume of existing instance (must create AMI)
+\end{itemize}
+
+
+\textbf{How to enable:}
+\begin{itemize}
+  \item Enable during volume creation
+  \item Enable account-level encryption by default
+  \item Copy unencrypted snapshot and enable encryption
+  \item Create encrypted AMI from unencrypted instance
+\end{itemize}
+
+
+\paragraph{RDS Encryption}
+
+
+\textbf{What gets encrypted:}
+\begin{itemize}
+  \item Database storage
+  \item Automated backups
+  \item Read replicas
+  \item Snapshots
+  \item Logs
+\end{itemize}
+
+
+\textbf{Important notes:}
+\begin{itemize}
+  \item Must enable at database creation time
+  \item Cannot encrypt existing unencrypted database
+  \item Workaround: Create snapshot, copy with encryption, restore
+  \item Same key used for instance and snapshots in same region
+  \item Cross-region snapshots use different key
+\end{itemize}
+
+
+\paragraph{DynamoDB Encryption}
+
+
+\textbf{Features:}
+\begin{itemize}
+  \item Encryption at rest enabled by default
+  \item Uses AWS owned keys (default, no cost)
+  \item Can use AWS managed key (aws/dynamodb)
+  \item Can use customer managed KMS key
+  \item Encrypts tables, indexes, streams, backups
+\end{itemize}
+
+
+\textbf{Encryption types:}
+\begin{itemize}
+  \item AWS owned CMK: Default, no cost, no CloudTrail logs
+  \item AWS managed CMK: Free, CloudTrail logs available
+  \item Customer managed CMK: You control, costs apply, full audit trail
+\end{itemize}
+
+
+\subsubsection{Encryption in Transit}
+
+
+Encryption in transit protects data moving between systems.
+
+\paragraph{TLS/SSL Best Practices}
+
+
+\textbf{Use TLS 1.2 or higher:}
+\begin{itemize}
+  \item TLS 1.0 and 1.1 are deprecated
+  \item Configure minimum TLS version
+  \item Use strong cipher suites
+  \item Regularly update SSL/TLS certificates
+\end{itemize}
+
+
+\textbf{AWS Certificate Manager (ACM):}
+\begin{itemize}
+  \item Free SSL/TLS certificates
+  \item Automatic renewal
+  \item Integration with CloudFront, ALB, API Gateway
+  \item Easy deployment
+  \item No certificate management overhead
+\end{itemize}
+
+
+\textbf{Use cases:}
+\begin{itemize}
+  \item HTTPS for websites (CloudFront, ALB)
+  \item Secure API endpoints (API Gateway)
+  \item Database connections (RDS with SSL)
+  \item Email encryption (SES)
+\end{itemize}
+
+
+\paragraph{VPN Encryption}
+
+
+\textbf{AWS Site-to-Site VPN:}
+\begin{itemize}
+  \item IPsec VPN connection
+  \item Encrypted tunnel over internet
+  \item Uses Internet Key Exchange (IKE)
+  \item Supports multiple encryption algorithms
+  \item Dead Peer Detection for availability
+\end{itemize}
+
+
+\textbf{AWS Client VPN:}
+\begin{itemize}
+  \item Managed client-based VPN
+  \item OpenVPN-based
+  \item TLS encryption
+  \item Integration with Active Directory
+  \item Multi-factor authentication support
+\end{itemize}
+
+
+\paragraph{Direct Connect Encryption}
+
+
+\textbf{MACsec for Direct Connect:}
+\begin{itemize}
+  \item Layer 2 encryption
+  \item Point-to-point encryption
+  \item 10 Gbps and 100 Gbps connections
+  \item Minimal latency impact
+\end{itemize}
+
+
+\textbf{VPN over Direct Connect:}
+\begin{itemize}
+  \item IPsec VPN over DX connection
+  \item End-to-end encryption
+  \item Combines DX reliability with VPN security
+  \item Industry-standard encryption
+\end{itemize}
+
+
+\subsubsection{Key Management with AWS KMS}
+
+
+\paragraph{KMS Key Types}
+
+
+\textbf{Symmetric Keys (default):}
+\begin{itemize}
+  \item Same key for encryption and decryption
+  \item 256-bit keys
+  \item Never leaves KMS unencrypted
+  \item Used for most AWS services
+  \item Envelope encryption for large data
+\end{itemize}
+
+
+\textbf{Asymmetric Keys:}
+\begin{itemize}
+  \item Public and private key pair
+  \item RSA or Elliptic Curve keys
+  \item Public key can be downloaded
+  \item Private key never leaves KMS
+  \item Used for signing and verification
+\end{itemize}
+
+
+\paragraph{Customer Master Keys (CMKs)}
+
+
+\textbf{AWS Managed CMK:}
+\begin{itemize}
+  \item Created and managed by AWS
+  \item Used by AWS services
+  \item Automatic rotation every year
+  \item Cannot delete
+  \item No cost for the key (only usage)
+  \item Key alias: aws/service-name
+\end{itemize}
+
+
+\textbf{Customer Managed CMK:}
+\begin{itemize}
+  \item You create and manage
+  \item Full control over key policies
+  \item Optional automatic rotation (annual)
+  \item Can enable/disable
+  \item Can delete (with 7-30 day waiting period)
+  \item Cost: \$1/month plus usage
+\end{itemize}
+
+
+\textbf{AWS Owned CMK:}
+\begin{itemize}
+  \item AWS owns and manages
+  \item Used across multiple accounts
+  \item No visibility or control
+  \item No cost
+  \item No CloudTrail logs
+\end{itemize}
+
+
+\paragraph{KMS Key Policies}
+
+
+\textbf{Default key policy:}
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Sid": "Enable IAM policies",
+      "Effect": "Allow",
+      "Principal": \{
+        "AWS": "arn:aws:iam::123456789012:root"
+      \},
+      "Action": "kms:*",
+      "Resource": "*"
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\textbf{Custom key policy with specific permissions:}
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Sid": "Allow encryption",
+      "Effect": "Allow",
+      "Principal": \{
+        "AWS": "arn:aws:iam::123456789012:role/EncryptionRole"
+      \},
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:GenerateDataKey"
+      ],
+      "Resource": "*"
+    \},
+    \{
+      "Sid": "Allow key management",
+      "Effect": "Allow",
+      "Principal": \{
+        "AWS": "arn:aws:iam::123456789012:user/KeyAdmin"
+      \},
+      "Action": [
+        "kms:Create*",
+        "kms:Describe*",
+        "kms:Enable*",
+        "kms:List*",
+        "kms:Put*",
+        "kms:Update*",
+        "kms:Revoke*",
+        "kms:Disable*",
+        "kms:Get*",
+        "kms:Delete*",
+        "kms:ScheduleKeyDeletion",
+        "kms:CancelKeyDeletion"
+      ],
+      "Resource": "*"
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\paragraph{Key Rotation Best Practices}
+
+
+\textbf{Automatic rotation:}
+\begin{itemize}
+  \item Enable for customer managed keys
+  \item Rotates every 365 days
+  \item Old key versions retained for decryption
+  \item Transparent to applications
+  \item No need to re-encrypt data
+\end{itemize}
+
+
+\textbf{Manual rotation:}
+\begin{itemize}
+  \item Create new CMK
+  \item Update applications to use new key
+  \item Re-encrypt data with new key
+  \item Maintain old key for decrypting old data
+  \item More control but more complex
+\end{itemize}
+
+
+---
+
+\subsection{Network Security Deep Dive}
+
+
+\subsubsection{VPC Security Architecture}
+
+
+\paragraph{Multi-Tier Architecture Example}
+
+
+\textbf{Public Subnet (DMZ):}
+\begin{itemize}
+  \item Internet Gateway attached
+  \item Public IP addresses
+  \item Bastion hosts / Jump boxes
+  \item NAT Gateways
+  \item Load balancers
+  \item Route to Internet Gateway
+\end{itemize}
+
+
+\textbf{Private Subnet (Application Tier):}
+\begin{itemize}
+  \item No direct internet access
+  \item EC2 instances for applications
+  \item Auto Scaling groups
+  \item Route to NAT Gateway for outbound
+  \item Access via load balancer only
+\end{itemize}
+
+
+\textbf{Private Subnet (Database Tier):}
+\begin{itemize}
+  \item Most restrictive security
+  \item RDS, DynamoDB endpoints
+  \item No internet access (inbound or outbound)
+  \item Access from application tier only
+  \item Multi-AZ for high availability
+\end{itemize}
+
+
+\paragraph{Network Segmentation Best Practices}
+
+
+\textbf{Subnet Strategy:}
+\begin{itemize}
+  \item Separate subnets by tier (web, app, data)
+  \item Separate subnets by environment (prod, staging, dev)
+  \item Separate subnets by compliance requirements
+  \item Use at least 2 AZs for high availability
+  \item Plan IP address ranges carefully
+\end{itemize}
+
+
+\textbf{Example CIDR allocation:}
+\begin{verbatim}
+VPC: 10.0.0.0/16
+
+Availability Zone A:
+- Public Subnet:  10.0.1.0/24
+- Private Subnet: 10.0.2.0/24
+- Data Subnet:    10.0.3.0/24
+
+Availability Zone B:
+- Public Subnet:  10.0.11.0/24
+- Private Subnet: 10.0.12.0/24
+- Data Subnet:    10.0.13.0/24
+\end{verbatim}
+
+\paragraph{VPC Endpoints for Security}
+
+
+\textbf{Interface Endpoints (PrivateLink):}
+\begin{itemize}
+  \item Private IP addresses in your VPC
+  \item Elastic Network Interface (ENI)
+  \item Supports many AWS services
+  \item No internet gateway needed
+  \item Charged per hour + data processed
+\end{itemize}
+
+
+\textbf{Gateway Endpoints:}
+\begin{itemize}
+  \item Route table entry
+  \item Free of charge
+  \item Supports S3 and DynamoDB
+  \item No ENI required
+  \item Scalable
+\end{itemize}
+
+
+\textbf{Benefits:}
+\begin{itemize}
+  \item Keep traffic within AWS network
+  \item No internet exposure
+  \item Better performance
+  \item Lower data transfer costs
+  \item Enhanced security
+\end{itemize}
+
+
+\textbf{Example use case:}
+\begin{verbatim}
+S3 Gateway Endpoint:
+- Application accesses S3 privately
+- No internet gateway required
+- No NAT gateway charges
+- Traffic stays on AWS network
+\end{verbatim}
+
+\paragraph{Network Access Control}
+
+
+\textbf{Security Group Best Practices:}
+
+\textbf{Layered security groups:}
+\begin{verbatim}
+ALB Security Group:
+- Inbound: 80, 443 from 0.0.0.0/0
+- Outbound: 8080 to App-SG
+
+App Security Group:
+- Inbound: 8080 from ALB-SG
+- Outbound: 3306 to DB-SG, 443 to 0.0.0.0/0
+
+DB Security Group:
+- Inbound: 3306 from App-SG
+- Outbound: None
+\end{verbatim}
+
+\textbf{NACL Configuration Example:}
+
+\textbf{Public Subnet NACL:}
+\begin{verbatim}
+Inbound Rules:
+100 - HTTP (80) - 0.0.0.0/0 - ALLOW
+110 - HTTPS (443) - 0.0.0.0/0 - ALLOW
+120 - SSH (22) - YOUR\_IP/32 - ALLOW
+130 - Ephemeral (1024-65535) - 0.0.0.0/0 - ALLOW
+* - ALL - 0.0.0.0/0 - DENY
+
+Outbound Rules:
+100 - HTTP (80) - 0.0.0.0/0 - ALLOW
+110 - HTTPS (443) - 0.0.0.0/0 - ALLOW
+120 - Ephemeral (1024-65535) - 0.0.0.0/0 - ALLOW
+* - ALL - 0.0.0.0/0 - DENY
+\end{verbatim}
+
+\textbf{Private Subnet NACL:}
+\begin{verbatim}
+Inbound Rules:
+100 - Custom (8080) - 10.0.1.0/24 - ALLOW
+110 - SSH (22) - 10.0.1.0/24 - ALLOW
+120 - Ephemeral (1024-65535) - 0.0.0.0/0 - ALLOW
+* - ALL - 0.0.0.0/0 - DENY
+
+Outbound Rules:
+100 - HTTPS (443) - 0.0.0.0/0 - ALLOW
+110 - MySQL (3306) - 10.0.3.0/24 - ALLOW
+120 - Ephemeral (1024-65535) - 10.0.1.0/24 - ALLOW
+* - ALL - 0.0.0.0/0 - DENY
+\end{verbatim}
+
+\paragraph{AWS PrivateLink}
+
+
+\textbf{What it is:}
+\begin{itemize}
+  \item Private connectivity to services
+  \item No internet gateway, NAT, VPN
+  \item Traffic stays on AWS network
+  \item Powered by interface VPC endpoints
+\end{itemize}
+
+
+\textbf{Use cases:}
+\begin{itemize}
+  \item Access SaaS applications privately
+  \item Share services across VPCs
+  \item Hybrid cloud connectivity
+  \item Compliance requirements
+\end{itemize}
+
+
+\textbf{Architecture:}
+\begin{verbatim}
+Service Provider VPC (Your Service)
+    ↓
+Network Load Balancer
+    ↓
+VPC Endpoint Service
+    ↓
+Interface Endpoint (Consumer VPC)
+    ↓
+Consumer Application
+\end{verbatim}
+
+\paragraph{VPN and Direct Connect Security}
+
+
+\textbf{Site-to-Site VPN Security:}
+\begin{itemize}
+  \item IPsec encryption
+  \item Pre-shared keys or certificates
+  \item Perfect Forward Secrecy (PFS)
+  \item Dead Peer Detection
+  \item IKEv2 support
+\end{itemize}
+
+
+\textbf{VPN Configuration Best Practices:}
+\begin{itemize}
+  \item Use strong encryption (AES-256)
+  \item Enable Perfect Forward Secrecy
+  \item Configure health checks
+  \item Use BGP for dynamic routing
+  \item Monitor tunnel status
+\end{itemize}
+
+
+\textbf{Direct Connect Security:}
+\begin{itemize}
+  \item Dedicated network connection
+  \item Not encrypted by default
+  \item Options for encryption:
+  \item MACsec (Layer 2)
+  \item VPN over DX (Layer 3)
+  \item Application-level encryption
+  \item Physical security at co-location
+  \item Redundancy with multiple connections
+\end{itemize}
+
+
+---
+
+\subsection{Identity Federation and SSO}
+
+
+\subsubsection{AWS IAM Identity Center (formerly AWS SSO)}
+
+
+\textbf{What it provides:}
+\begin{itemize}
+  \item Single sign-on to multiple AWS accounts
+  \item Single sign-on to business applications
+  \item Centralized user management
+  \item Multi-factor authentication
+  \item Integration with external identity providers
+\end{itemize}
+
+
+\textbf{Key Features:}
+\begin{itemize}
+  \item One set of credentials for all accounts
+  \item Temporary credentials for AWS access
+  \item Built-in MFA support
+  \item Integration with AWS Organizations
+  \item Permission sets for access control
+\end{itemize}
+
+
+\textbf{Setup Process:}
+
+\begin{enumerate}
+  \item Enable IAM Identity Center
+  \item Connect identity source (built-in directory or external)
+  \item Create permission sets
+  \item Assign users to AWS accounts
+  \item Users access via SSO portal
+\end{enumerate}
+
+
+\textbf{Permission Set Example:}
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Allow",
+      "Action": [
+        "ec2:Describe*",
+        "s3:List*",
+        "cloudwatch:Get*"
+      ],
+      "Resource": "*"
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\subsubsection{Federation with SAML 2.0}
+
+
+\textbf{SAML Federation Architecture:}
+\begin{verbatim}
+User → Identity Provider (IdP) → AWS STS → Temporary Credentials → AWS Resources
+\end{verbatim}
+
+\textbf{Identity Providers:}
+\begin{itemize}
+  \item Microsoft Active Directory Federation Services (ADFS)
+  \item Okta
+  \item Azure AD
+  \item Google Workspace
+  \item Auth0
+  \item OneLogin
+\end{itemize}
+
+
+\textbf{How it works:}
+\begin{enumerate}
+  \item User authenticates with corporate IdP
+  \item IdP returns SAML assertion
+  \item User presents SAML assertion to AWS STS
+  \item STS returns temporary security credentials
+  \item User accesses AWS resources
+\end{enumerate}
+
+
+\textbf{Trust Relationship Policy:}
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Allow",
+      "Principal": \{
+        "Federated": "arn:aws:iam::123456789012:saml-provider/MyIdP"
+      \},
+      "Action": "sts:AssumeRoleWithSAML",
+      "Condition": \{
+        "StringEquals": \{
+          "SAML:aud": "https://signin.aws.amazon.com/saml"
+        \}
+      \}
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\subsubsection{Web Identity Federation}
+
+
+\textbf{For mobile and web applications:}
+\begin{itemize}
+  \item Users authenticate with Web IdP (Google, Facebook, Amazon)
+  \item Application receives ID token
+  \item Token exchanged for AWS credentials via STS
+  \item Used with Amazon Cognito
+\end{itemize}
+
+
+\textbf{Amazon Cognito:}
+\begin{itemize}
+  \item User pools for authentication
+  \item Identity pools for AWS credentials
+  \item Support for social identity providers
+  \item Support for SAML providers
+  \item Custom authentication flows
+\end{itemize}
+
+
+\textbf{Cognito Architecture:}
+\begin{verbatim}
+Mobile App → Cognito User Pool → Cognito Identity Pool → AWS STS → Temporary Credentials
+\end{verbatim}
+
+\textbf{Benefits:}
+\begin{itemize}
+  \item No AWS credentials in application
+  \item Fine-grained access control
+  \item Scales automatically
+  \item Built-in security features
+\end{itemize}
+
+
+\subsubsection{Active Directory Integration}
+
+
+\textbf{AWS Directory Service Options:}
+
+\textbf{AWS Managed Microsoft AD:}
+\begin{itemize}
+  \item Full Microsoft AD in AWS cloud
+  \item Multi-AZ deployment
+  \item Patch and monitoring by AWS
+  \item Trust relationships with on-premises AD
+  \item Best for: Lift-and-shift scenarios
+\end{itemize}
+
+
+\textbf{AD Connector:}
+\begin{itemize}
+  \item Proxy to on-premises AD
+  \item No caching, always redirects to AD
+  \item Users authenticate against on-premises AD
+  \item No data stored in AWS
+  \item Best for: Using existing on-premises AD
+\end{itemize}
+
+
+\textbf{Simple AD:}
+\begin{itemize}
+  \item Standalone directory powered by Samba 4
+  \item Basic AD features
+  \item Small and large sizes
+  \item Cannot join to on-premises AD
+  \item Best for: Simple LDAP needs
+\end{itemize}
+
+
+\subsubsection{Cross-Account Access Strategies}
+
+
+\textbf{Method 1: IAM Roles (Recommended):}
+\begin{verbatim}
+Account A (Trusting) creates role
+Account B (Trusted) assumes role
+No credentials to manage
+Temporary credentials only
+\end{verbatim}
+
+\textbf{Trust Policy Example:}
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Allow",
+      "Principal": \{
+        "AWS": "arn:aws:iam::111122223333:root"
+      \},
+      "Action": "sts:AssumeRole",
+      "Condition": \{
+        "StringEquals": \{
+          "sts:ExternalId": "UniqueSecretString"
+        \}
+      \}
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\textbf{Method 2: Resource-based Policies:}
+\begin{itemize}
+  \item S3 bucket policies
+  \item SNS topic policies
+  \item SQS queue policies
+  \item Lambda function policies
+\end{itemize}
+
+
+\textbf{Best Practices:}
+\begin{itemize}
+  \item Always use IAM roles over shared credentials
+  \item Use external IDs for third-party access
+  \item Implement MFA for sensitive cross-account access
+  \item Monitor with CloudTrail
+  \item Use least privilege permissions
+\end{itemize}
+
+
+---
+
+\subsection{Security Incident Response Procedures}
+
+
+\subsubsection{Incident Response Framework}
+
+
+\paragraph{1. Preparation Phase}
+
+
+\textbf{Before an incident occurs:}
+
+\textbf{Document procedures:}
+\begin{itemize}
+  \item Create incident response plan
+  \item Define severity levels
+  \item Establish communication protocols
+  \item Document escalation paths
+  \item Identify team members and roles
+\end{itemize}
+
+
+\textbf{Setup tools and access:}
+\begin{itemize}
+  \item Configure CloudTrail in all regions
+  \item Enable VPC Flow Logs
+  \item Setup GuardDuty
+  \item Configure Security Hub
+  \item Prepare forensics tools
+\end{itemize}
+
+
+\textbf{Establish baselines:}
+\begin{itemize}
+  \item Normal traffic patterns
+  \item Typical API usage
+  \item Standard configurations
+  \item Regular user behavior
+\end{itemize}
+
+
+\textbf{Training:}
+\begin{itemize}
+  \item Regular tabletop exercises
+  \item Simulate attack scenarios
+  \item Test response procedures
+  \item Update runbooks
+\end{itemize}
+
+
+\paragraph{2. Detection and Analysis}
+
+
+\textbf{Detection methods:}
+\begin{itemize}
+  \item GuardDuty findings
+  \item CloudWatch alarms
+  \item Security Hub alerts
+  \item Config rule violations
+  \item Unusual CloudTrail activity
+  \item VPC Flow Log anomalies
+\end{itemize}
+
+
+\textbf{Initial analysis:}
+\begin{itemize}
+  \item Confirm the incident is real (not false positive)
+  \item Determine scope and severity
+  \item Identify affected resources
+  \item Document timeline
+  \item Collect evidence
+\end{itemize}
+
+
+\textbf{Severity Classification:}
+
+\textbf{Critical (P1):}
+\begin{itemize}
+  \item Data breach confirmed
+  \item Production systems compromised
+  \item Ongoing active attack
+  \item Wide-scale service disruption
+  \item Response time: Immediate
+\end{itemize}
+
+
+\textbf{High (P2):}
+\begin{itemize}
+  \item Suspected data access
+  \item System compromise detected
+  \item Compliance violation
+  \item Response time: 1 hour
+\end{itemize}
+
+
+\textbf{Medium (P3):}
+\begin{itemize}
+  \item Policy violations
+  \item Suspicious activity detected
+  \item Non-production compromise
+  \item Response time: 4 hours
+\end{itemize}
+
+
+\textbf{Low (P4):}
+\begin{itemize}
+  \item Security alerts to investigate
+  \item Anomalous but benign activity
+  \item Response time: 24 hours
+\end{itemize}
+
+
+\paragraph{3. Containment Strategies}
+
+
+\textbf{Short-term containment:}
+
+\textbf{Isolate compromised instances:}
+\begin{lstlisting}[language=bash]
+\# Change security group to deny all traffic
+aws ec2 modify-instance-attribute \textbackslash\{\}
+  --instance-id i-1234567890abcdef0 \textbackslash\{\}
+  --groups sg-isolation-group
+\end{lstlisting}
+
+\textbf{Revoke compromised credentials:}
+\begin{lstlisting}[language=bash]
+\# Deactivate access key
+aws iam update-access-key \textbackslash\{\}
+  --access-key-id AKIAIOSFODNN7EXAMPLE \textbackslash\{\}
+  --status Inactive \textbackslash\{\}
+  --user-name CompromisedUser
+\end{lstlisting}
+
+\textbf{Block malicious IP addresses:}
+\begin{lstlisting}[language=bash]
+\# Add NACL deny rule
+aws ec2 create-network-acl-entry \textbackslash\{\}
+  --network-acl-id acl-12345678 \textbackslash\{\}
+  --ingress \textbackslash\{\}
+  --rule-number 50 \textbackslash\{\}
+  --protocol -1 \textbackslash\{\}
+  --port-range From=0,To=65535 \textbackslash\{\}
+  --cidr-block 198.51.100.5/32 \textbackslash\{\}
+  --rule-action deny
+\end{lstlisting}
+
+\textbf{Snapshot for forensics:}
+\begin{lstlisting}[language=bash]
+\# Create snapshot of compromised instance
+aws ec2 create-snapshot \textbackslash\{\}
+  --volume-id vol-1234567890abcdef0 \textbackslash\{\}
+  --description "Forensic snapshot - Incident 2024-001"
+\end{lstlisting}
+
+\textbf{Long-term containment:}
+\begin{itemize}
+  \item Patch vulnerabilities
+  \item Change all passwords
+  \item Rotate all access keys
+  \item Update security group rules
+  \item Apply least privilege policies
+  \item Enable additional monitoring
+\end{itemize}
+
+
+\paragraph{4. Eradication}
+
+
+\textbf{Remove the threat:}
+\begin{itemize}
+  \item Delete malware
+  \item Close backdoors
+  \item Remove unauthorized access
+  \item Patch vulnerabilities
+  \item Update configurations
+\end{itemize}
+
+
+\textbf{Rebuild compromised systems:}
+\begin{itemize}
+  \item Launch from known-good AMIs
+  \item Apply all security patches
+  \item Harden configurations
+  \item Implement additional controls
+\end{itemize}
+
+
+\textbf{Verify clean state:}
+\begin{itemize}
+  \item Scan for malware
+  \item Review configurations
+  \item Check for persistence mechanisms
+  \item Validate logs show no malicious activity
+\end{itemize}
+
+
+\paragraph{5. Recovery}
+
+
+\textbf{Restore operations:}
+\begin{itemize}
+  \item Restore from clean backups
+  \item Gradually bring systems online
+  \item Monitor closely for reinfection
+  \item Validate functionality
+\end{itemize}
+
+
+\textbf{Enhanced monitoring:}
+\begin{itemize}
+  \item Increased logging verbosity
+  \item More frequent reviews
+  \item Additional alerting
+  \item Closer scrutiny of anomalies
+\end{itemize}
+
+
+\textbf{Communication:}
+\begin{itemize}
+  \item Update stakeholders
+  \item Provide status reports
+  \item Document changes made
+  \item Coordinate with teams
+\end{itemize}
+
+
+\paragraph{6. Post-Incident Activity}
+
+
+\textbf{Lessons learned meeting:}
+\begin{itemize}
+  \item What happened?
+  \item What was done?
+  \item What worked well?
+  \item What needs improvement?
+  \item How to prevent recurrence?
+\end{itemize}
+
+
+\textbf{Update documentation:}
+\begin{itemize}
+  \item Incident report
+  \item Timeline of events
+  \item Actions taken
+  \item Evidence collected
+  \item Lessons learned
+\end{itemize}
+
+
+\textbf{Improve defenses:}
+\begin{itemize}
+  \item Implement preventive controls
+  \item Update detection mechanisms
+  \item Enhance response procedures
+  \item Additional training
+  \item Technology improvements
+\end{itemize}
+
+
+\subsubsection{AWS Tools for Incident Response}
+
+
+\textbf{Amazon GuardDuty:}
+\begin{itemize}
+  \item Automated threat detection
+  \item ML-powered analysis
+  \item Continuous monitoring
+  \item Integration with EventBridge for automated response
+\end{itemize}
+
+
+\textbf{AWS CloudTrail:}
+\begin{itemize}
+  \item Complete audit log of API calls
+  \item Who did what and when
+  \item Source IP addresses
+  \item Request parameters
+  \item Essential for forensics
+\end{itemize}
+
+
+\textbf{VPC Flow Logs:}
+\begin{itemize}
+  \item Network traffic analysis
+  \item Source and destination IPs
+  \item Identify scanning attempts
+  \item Detect data exfiltration
+\end{itemize}
+
+
+\textbf{AWS Config:}
+\begin{itemize}
+  \item Configuration history
+  \item Compliance checking
+  \item Resource relationships
+  \item Change tracking
+\end{itemize}
+
+
+\textbf{Amazon Detective:}
+\begin{itemize}
+  \item Analyze and investigate security findings
+  \item Visualize relationships
+  \item Identify root cause
+  \item Integrated with GuardDuty
+\end{itemize}
+
+
+\textbf{AWS Systems Manager:}
+\begin{itemize}
+  \item Automated remediation
+  \item Patch management
+  \item Run commands across fleet
+  \item Session Manager for secure access
+\end{itemize}
+
+
+\subsubsection{Automated Response Examples}
+
+
+\textbf{Lambda function for isolation:}
+\begin{lstlisting}[language=python]
+import boto3
+
+def lambda\_handler(event, context):
+    ec2 = boto3.client('ec2')
+
+    \# Extract instance ID from GuardDuty finding
+    instance\_id = event['detail']['resource']['instanceDetails']['instanceId']
+
+    \# Change to isolation security group
+    ec2.modify\_instance\_attribute(
+        InstanceId=instance\_id,
+        Groups=['sg-isolation']
+    )
+
+    \# Create forensic snapshot
+    instance\_details = ec2.describe\_instances(InstanceIds=[instance\_id])
+    volume\_id = instance\_details['Reservations'][0]['Instances'][0]['BlockDeviceMappings'][0]['Ebs']['VolumeId']
+
+    ec2.create\_snapshot(
+        VolumeId=volume\_id,
+        Description=f'Forensic snapshot for \{instance\_id\}'
+    )
+
+    \# Tag instance as compromised
+    ec2.create\_tags(
+        Resources=[instance\_id],
+        Tags=[\{'Key': 'SecurityStatus', 'Value': 'Isolated'\}]
+    )
+
+    return \{'statusCode': 200, 'body': f'Instance \{instance\_id\} isolated'\}
+\end{lstlisting}
+
+\textbf{EventBridge rule for GuardDuty findings:}
+\begin{lstlisting}[language=json]
+\{
+  "source": ["aws.guardduty"],
+  "detail-type": ["GuardDuty Finding"],
+  "detail": \{
+    "severity": [7, 8, 9]
+  \}
+\}
+\end{lstlisting}
+
+\subsubsection{Communication Plan}
+
+
+\textbf{Notification hierarchy:}
+\begin{enumerate}
+  \item Security team (immediate)
+  \item System administrators (immediate for high severity)
+  \item Management (within 1 hour for critical incidents)
+  \item Legal/compliance (for data breaches)
+  \item Customers (if required by regulations)
+\end{enumerate}
+
+
+\textbf{Communication channels:}
+\begin{itemize}
+  \item PagerDuty / Opsgenie for alerting
+  \item Slack / Teams for coordination
+  \item Email for formal notifications
+  \item Status page for customer communication
+\end{itemize}
+
+
+---
+
+\subsection{Security Services}
+
+
+\subsubsection{AWS Organizations - Detailed}
+
+
+Centrally manage and govern multiple AWS accounts.
+
+\textbf{Key Features:}
+
+\begin{itemize}
+  \item \textbf{Centrally manage multiple AWS accounts}
+  \item Single pane of glass for all accounts
+  \item Organizational hierarchy
+  \item Up to 4 levels of nesting for OUs
+  \item \textbf{Consolidated billing across all accounts}
+  \item One bill for entire organization
+  \item Volume discounts apply across all accounts
+  \item Easier cost tracking and allocation
+  \item Shared volume pricing tiers
+  \item \textbf{Hierarchical grouping of accounts (Organizational Units)}
+  \item Organize by department, environment, project
+  \item Apply policies at different levels
+  \item Inherit policies from parent OUs
+  \item \textbf{Service Control Policies (SCPs) for governance}
+  \item Control maximum available permissions
+  \item Even limits account root user
+  \item Acts as a permission boundary
+  \item \textbf{Automate account creation}
+  \item Programmatic account provisioning
+  \item Standardized setup
+  \item Integration with AWS Control Tower
+  \item \textbf{Centralize security and compliance}
+  \item Enforce policies across organization
+  \item Consistent security posture
+  \item Delegated administration for AWS services
+\end{itemize}
+
+
+\textbf{Consolidated Billing Benefits:}
+\begin{itemize}
+  \item One bill for all accounts
+  \item Volume pricing discounts (S3, EC2, etc.)
+  \item Reserved Instance sharing across accounts
+  \item Savings Plans sharing
+  \item Free tier applies once per organization
+  \item Combined usage for tiered pricing
+\end{itemize}
+
+
+\textbf{Service Control Policies (SCPs):}
+\begin{itemize}
+  \item Control maximum available permissions
+  \item Do not grant permissions (only limit them)
+  \item Affect all users and roles in accounts
+  \item Do not affect service-linked roles
+  \item Must enable before use
+  \item Evaluation logic: explicit deny always wins
+\end{itemize}
+
+
+\textbf{Use Case Examples:}
+
+\textbf{Example 1: Multi-Environment Organization}
+\begin{verbatim}
+Root
+├── Production OU
+│   ├── Prod-App-Account
+│   └── Prod-Data-Account
+├── Development OU
+│   ├── Dev-Account
+│   └── Test-Account
+└── Sandbox OU
+    └── Sandbox-Account
+\end{verbatim}
+
+\textbf{SCP for Production OU (prevents accidental deletions):}
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Deny",
+      "Action": [
+        "ec2:TerminateInstances",
+        "rds:DeleteDBInstance",
+        "s3:DeleteBucket"
+      ],
+      "Resource": "*",
+      "Condition": \{
+        "StringNotEquals": \{
+          "aws:PrincipalArn": "arn:aws:iam::*:role/AdminRole"
+        \}
+      \}
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\textbf{Example 2: Restricting Regions}
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Deny",
+      "Action": "*",
+      "Resource": "*",
+      "Condition": \{
+        "StringNotEquals": \{
+          "aws:RequestedRegion": [
+            "us-east-1",
+            "us-west-2",
+            "eu-west-1"
+          ]
+        \}
+      \}
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\subsubsection{AWS Key Management Service (KMS) - Detailed}
+
+
+Create and control cryptographic keys used to encrypt your data.
+
+\textbf{Key Features:}
+
+\begin{itemize}
+  \item \textbf{Create and manage cryptographic keys}
+  \item Symmetric and asymmetric keys
+  \item Hardware Security Modules (HSMs) backed
+  \item FIPS 140-2 validated
+  \item \textbf{Control use of keys across AWS services}
+  \item Centralized key management
+  \item Integration with CloudTrail
+  \item Key policies for fine-grained control
+  \item \textbf{Integrated with most AWS services}
+  \item S3, EBS, RDS, DynamoDB, and more
+  \item Transparent encryption
+  \item Over 100 AWS services integrated
+  \item \textbf{Customer Master Keys (CMKs)}
+  \item \textbf{AWS Managed CMKs:} Created and managed by AWS, free
+  \item \textbf{Customer Managed CMKs:} You create and manage, \$1/month
+  \item \textbf{AWS Owned CMKs:} Used by AWS services, no visibility
+  \item \textbf{Automatic key rotation available}
+  \item Annual rotation for customer managed keys (optional)
+  \item Automatic for AWS managed keys (mandatory)
+  \item Old key material retained for decryption
+  \item \textbf{Audit key usage via CloudTrail}
+  \item Who used which key
+  \item When and for what purpose
+  \item Complete audit trail
+\end{itemize}
+
+
+\textbf{Use Case Examples:}
+
+\textbf{Use Case 1: Encrypt S3 Bucket with Customer Managed Key}
+\begin{verbatim}
+Scenario: Healthcare company storing patient records
+Requirement: Control encryption keys, audit access, rotate annually
+Solution: Create customer managed KMS key with strict key policy
+
+Benefits:
+- Full control over key lifecycle
+- Audit trail in CloudTrail
+- Can disable key if needed
+- Automatic rotation
+\end{verbatim}
+
+\textbf{Use Case 2: Cross-Account Data Sharing}
+\begin{verbatim}
+Scenario: Share encrypted data between AWS accounts
+Setup:
+1. Create KMS key in Account A
+2. Update key policy to allow Account B
+3. Share encrypted S3 objects
+4. Account B can decrypt with permission
+
+Key Policy Addition:
+\{
+  "Effect": "Allow",
+  "Principal": \{
+    "AWS": "arn:aws:iam::222222222222:root"
+  \},
+  "Action": [
+    "kms:Decrypt",
+    "kms:DescribeKey"
+  ],
+  "Resource": "*"
+\}
+\end{verbatim}
+
+\textbf{Use Case 3: Envelope Encryption}
+\begin{verbatim}
+Large file encryption process:
+1. KMS generates data encryption key (DEK)
+2. DEK encrypts the actual data
+3. KMS encrypts the DEK with CMK
+4. Store encrypted data + encrypted DEK
+5. To decrypt: KMS decrypts DEK, DEK decrypts data
+
+Benefits:
+- Better performance for large files
+- Reduced KMS API calls
+- Data doesn't pass through KMS
+\end{verbatim}
+
+\textbf{Pricing:}
+\begin{itemize}
+  \item Customer managed CMK: \$1/month per key
+  \item API requests: \$0.03 per 10,000 requests
+  \item Free tier: 20,000 requests/month
+  \item AWS managed CMKs: No charge for the key
+\end{itemize}
+
+
+\subsubsection{AWS Shield}
+
+
+DDoS (Distributed Denial of Service) protection service.
+
+\paragraph{AWS Shield Standard}
+
+
+\begin{itemize}
+  \item \textbf{Automatic protection} for all AWS customers
+  \item \textbf{No additional cost}
+  \item Protects against \textbf{common Layer 3/4 attacks}
+  \item SYN/ACK floods
+  \item Reflection attacks
+  \item UDP floods
+  \item Always-on detection
+  \item Automatic inline mitigations
+\end{itemize}
+
+
+\paragraph{AWS Shield Advanced}
+
+
+\begin{itemize}
+  \item \textbf{\$3,000/month} per organization
+  \item \textbf{Enhanced protection} for:
+  \item Amazon EC2
+  \item Elastic Load Balancing (ELB)
+  \item Amazon CloudFront
+  \item Amazon Route 53
+  \item AWS Global Accelerator
+  \item \textbf{24/7 access to DDoS Response Team (DRT)}
+  \item Expert support during attacks
+  \item Attack diagnostics
+  \item \textbf{Cost protection}
+  \item Protection against usage spikes during attacks
+  \item Cost reimbursement for scaled resources
+  \item \textbf{Real-time attack notifications}
+  \item CloudWatch metrics
+  \item Health-based detection
+\end{itemize}
+
+
+\subsubsection{Amazon GuardDuty - Detailed}
+
+
+Intelligent threat detection service using machine learning.
+
+\textbf{Key Features:}
+
+\begin{itemize}
+  \item \textbf{Intelligent threat detection service}
+  \item Continuous monitoring (24/7)
+  \item ML-powered analysis
+  \item Threat intelligence feeds
+  \item \textbf{Uses machine learning}
+  \item Anomaly detection
+  \item Known threat patterns
+  \item Behavioral analysis
+  \item \textbf{Monitors multiple data sources}
+  \item VPC Flow Logs (network traffic)
+  \item CloudTrail event logs (API activity)
+  \item DNS logs (DNS queries)
+  \item Kubernetes audit logs (EKS protection)
+  \item S3 data events (S3 Protection)
+  \item RDS login activity (RDS Protection)
+  \item EBS volume snapshots (Malware Protection)
+  \item \textbf{Identifies unauthorized or malicious activity}
+  \item Compromised instances
+  \item Reconnaissance attempts
+  \item Account compromise
+  \item Cryptocurrency mining
+  \item Data exfiltration attempts
+  \item \textbf{No software to deploy}
+  \item Fully managed service
+  \item Enable with a few clicks
+  \item No impact on performance
+  \item \textbf{30-day free trial}
+  \item \textbf{Integrates with EventBridge}
+  \item Automated responses to findings
+  \item Lambda function triggers
+  \item SNS notifications
+\end{itemize}
+
+
+\textbf{Common Threat Findings:}
+
+\begin{longtable}{lll}
+\toprule
+\textbf{Finding Type} & \textbf{Description} & \textbf{Example} \\
+\midrule
+\textbf{Backdoor:EC2/...} & Backdoor on EC2 instance & C\&C server communication \\
+\textbf{Behavior:EC2/...} & Unusual instance behavior & Traffic to unusual port \\
+\textbf{CryptoCurrency:EC2/...} & Cryptocurrency mining & Bitcoin mining detected \\
+\textbf{Trojan:EC2/...} & Trojan detected & DNS query to known bad domain \\
+\textbf{UnauthorizedAccess:EC2/...} & Unauthorized access attempt & SSH brute force attack \\
+\textbf{Recon:IAMUser/...} & Reconnaissance by IAM user & Listing resources unusually \\
+\textbf{Stealth:IAMUser/...} & Stealth techniques & CloudTrail logging disabled \\
+\textbf{CredentialAccess:IAMUser/...} & Credential access attempts & Password policies weakened \\
+\bottomrule
+\end{longtable}
+
+\textbf{Use Case Examples:}
+
+\textbf{Use Case 1: Detecting Compromised Instance}
+\begin{verbatim}
+Scenario: EC2 instance starts communicating with known C\&C server
+GuardDuty Detection:
+- Finding: Backdoor:EC2/C\&CActivity.B
+- Severity: High
+- Details: Instance communicating with command and control server
+
+Automated Response:
+1. EventBridge rule triggers Lambda
+2. Lambda isolates instance (change security group)
+3. Lambda creates snapshot for forensics
+4. SNS notification to security team
+5. Ticket created in ticketing system
+\end{verbatim}
+
+\textbf{Use Case 2: Unusual API Call Pattern}
+\begin{verbatim}
+Scenario: IAM user making unusual API calls
+GuardDuty Detection:
+- Finding: Recon:IAMUser/NetworkPermissions
+- Severity: Medium
+- Details: User listing network resources unusually
+
+Response:
+1. Alert security team
+2. Review CloudTrail logs
+3. Interview user about activity
+4. If compromised: rotate credentials
+\end{verbatim}
+
+\textbf{Use Case 3: Cryptocurrency Mining}
+\begin{verbatim}
+Scenario: EC2 instance performing DNS queries to mining pools
+GuardDuty Detection:
+- Finding: CryptoCurrency:EC2/BitcoinTool.B
+- Severity: High
+- Details: DNS queries to Bitcoin mining pools
+
+Response:
+1. Immediately isolate instance
+2. Snapshot for investigation
+3. Terminate compromised instance
+4. Launch replacement from clean AMI
+5. Investigate how compromise occurred
+\end{verbatim}
+
+\textbf{Pricing:}
+\begin{itemize}
+  \item Based on volume of data analyzed
+  \item CloudTrail events: \$4.00 per million events
+  \item VPC Flow Logs: \$1.00 per GB
+  \item DNS logs: \$0.40 per million events
+  \item First 30 days free
+  \item No upfront commitment
+\end{itemize}
+
+
+\subsubsection{Amazon Inspector}
+
+
+Automated security assessment service for applications.
+
+\textbf{Key Features:}
+
+\begin{itemize}
+  \item \textbf{Automated security assessment service}
+  \item Continuous scanning
+  \item Scheduled assessments
+  \item \textbf{Assesses applications for vulnerabilities}
+  \item CVE vulnerabilities
+  \item Network exposure
+  \item \textbf{Checks for:}
+  \item Exposure to external threats
+  \item Vulnerabilities in applications
+  \item Deviations from best practices
+  \item \textbf{Generates detailed security findings}
+  \item Severity ratings
+  \item Remediation recommendations
+  \item \textbf{Prioritized list of security findings}
+  \item Risk-based prioritization
+  \item Context-aware scoring
+  \item \textbf{Supports:}
+  \item EC2 instances
+  \item Container images (ECR)
+  \item Lambda functions
+\end{itemize}
+
+
+\textbf{Assessment Types:}
+\begin{itemize}
+  \item Network assessments
+  \item Host assessments
+  \item Package vulnerability scanning
+\end{itemize}
+
+
+\subsubsection{AWS WAF (Web Application Firewall)}
+
+
+Protects web applications from common web exploits.
+
+\textbf{Key Features:}
+
+\begin{itemize}
+  \item \textbf{Protects web applications} from common exploits
+  \item \textbf{Deployed on:}
+  \item Amazon CloudFront
+  \item Application Load Balancer (ALB)
+  \item Amazon API Gateway
+  \item AWS AppSync
+  \item \textbf{Create custom rules} to block attack patterns
+  \item Define conditions
+  \item Action on matches (Allow, Block, Count)
+  \item \textbf{Protection against:}
+  \item SQL injection
+  \item Cross-site scripting (XSS)
+  \item Size constraints violations
+  \item Geo-blocking
+  \item \textbf{IP-based filtering}
+  \item IP sets (allow/deny lists)
+  \item IP rate limiting
+  \item \textbf{Geo-blocking capabilities}
+  \item Block traffic from specific countries
+  \item \textbf{Rate-based rules}
+  \item Prevent DDoS
+  \item Limit requests per IP
+\end{itemize}
+
+
+\textbf{Web ACL (Access Control List):}
+\begin{itemize}
+  \item Collection of rules
+  \item Applies to CloudFront distribution or ALB
+  \item Rules evaluated in order
+\end{itemize}
+
+
+\subsubsection{Amazon Macie}
+
+
+Data security and privacy service using machine learning.
+
+\textbf{Key Features:}
+
+\begin{itemize}
+  \item \textbf{Data security and privacy service}
+  \item Sensitive data discovery
+  \item Data protection
+  \item \textbf{Uses machine learning}
+  \item Intelligent pattern matching
+  \item Anomaly detection
+  \item \textbf{Discovers and protects sensitive data}
+  \item Personally Identifiable Information (PII)
+  \item Financial data
+  \item Credentials
+  \item \textbf{Identifies PII}
+  \item Names, addresses
+  \item Credit card numbers
+  \item Social Security numbers
+  \item Passport numbers
+  \item \textbf{Monitors S3 buckets}
+  \item Data inventory
+  \item Security findings
+  \item Bucket policies
+  \item \textbf{Provides dashboards and alerts}
+  \item Security findings
+  \item Data classification
+  \item \textbf{Helps meet compliance requirements}
+  \item GDPR
+  \item HIPAA
+  \item PCI DSS
+\end{itemize}
+
+
+\textbf{Use Cases:}
+\begin{itemize}
+  \item Discover sensitive data in S3
+  \item Monitor for suspicious access patterns
+  \item Compliance auditing
+  \item Data classification
+\end{itemize}
+
+
+\subsubsection{AWS Artifact}
+
+
+Self-service portal for on-demand access to AWS compliance reports.
+
+\textbf{Key Features:}
+
+\begin{itemize}
+  \item \textbf{On-demand access} to AWS compliance reports
+  \item \textbf{Self-service portal} for audit artifacts
+  \item \textbf{Download AWS security and compliance documents}
+  \item Instant access
+  \item No waiting for support
+  \item \textbf{Examples of available reports:}
+  \item ISO certifications (27001, 27017, 27018)
+  \item SOC reports (SOC 1, 2, 3)
+  \item PCI DSS reports
+  \item FedRAMP documentation
+  \item \textbf{No cost}
+  \item Free to use
+  \item Available to all AWS customers
+  \item \textbf{Support compliance and regulatory requirements}
+  \item Audit evidence
+  \item Third-party attestations
+\end{itemize}
+
+
+\textbf{Two Main Sections:}
+\begin{enumerate}
+  \item \textbf{Artifact Reports:} Compliance reports and certifications
+  \item \textbf{Artifact Agreements:} Review and accept agreements (BAA, GDPR DPA)
+\end{enumerate}
+
+
+---
+
+\subsection{Compliance}
+
+
+\subsubsection{AWS Compliance Programs}
+
+
+AWS complies with numerous industry-specific compliance programs and regulations:
+
+\begin{longtable}{lll}
+\toprule
+\textbf{Program} & \textbf{Description} & \textbf{Industry} \\
+\midrule
+\textbf{HIPAA} & Health Insurance Portability and Accountability Act & Healthcare \\
+\textbf{PCI DSS} & Payment Card Industry Data Security Standard & Payment Processing \\
+\textbf{SOC 1, 2, 3} & Service Organization Controls & Various \\
+\textbf{ISO 27001} & Information Security Management & Various \\
+\textbf{FedRAMP} & Federal Risk and Authorization Management Program & US Government \\
+\textbf{GDPR} & General Data Protection Regulation & EU Data Privacy \\
+\bottomrule
+\end{longtable}
+
+\paragraph{HIPAA (Health Insurance Portability and Accountability Act)}
+
+
+\begin{itemize}
+  \item \textbf{Healthcare industry} compliance
+  \item Protects \textbf{Protected Health Information (PHI)}
+  \item Requires \textbf{Business Associate Agreement (BAA)} with AWS
+  \item HIPAA-eligible services include:
+  \item S3, EC2, RDS, DynamoDB
+  \item And many others (check AWS documentation)
+\end{itemize}
+
+
+\paragraph{PCI DSS (Payment Card Industry Data Security Standard)}
+
+
+\begin{itemize}
+  \item \textbf{Payment card processing} compliance
+  \item Protects \textbf{cardholder data}
+  \item Multiple compliance levels
+  \item AWS infrastructure is PCI DSS compliant
+  \item Customer applications may need separate certification
+\end{itemize}
+
+
+\paragraph{SOC (Service Organization Controls)}
+
+
+\begin{itemize}
+  \item \textbf{SOC 1:} Financial reporting controls
+  \item \textbf{SOC 2:} Security, availability, confidentiality controls
+  \item Type I: Design of controls
+  \item Type II: Operating effectiveness
+  \item \textbf{SOC 3:} General use report (public)
+\end{itemize}
+
+
+\paragraph{ISO 27001}
+
+
+\begin{itemize}
+  \item \textbf{International standard} for information security
+  \item Information Security Management System (ISMS)
+  \item Risk management framework
+  \item Demonstrates security commitment
+\end{itemize}
+
+
+\paragraph{FedRAMP (Federal Risk and Authorization Management Program)}
+
+
+\begin{itemize}
+  \item \textbf{US Government} cloud compliance
+  \item Standardized approach to security assessment
+  \item Authorization levels:
+  \item Low Impact
+  \item Moderate Impact
+  \item High Impact
+\end{itemize}
+
+
+\paragraph{GDPR (General Data Protection Regulation)}
+
+
+\begin{itemize}
+  \item \textbf{EU data privacy} regulation
+  \item Applies to processing of EU residents' data
+  \item Key requirements:
+  \item Data protection by design
+  \item Right to erasure
+  \item Data portability
+  \item Breach notification
+  \item AWS provides GDPR-compliant services and features
+\end{itemize}
+
+
+\begin{examtip}
+You don't need to memorize all compliance programs in detail, but know what they stand for and which industries they apply to.
+\end{examtip}
+
+
+---
+
+\subsection{Compliance Programs - Deep Dive}
+
+
+\subsubsection{HIPAA Compliance Details}
+
+
+\textbf{What is HIPAA?}
+\begin{itemize}
+  \item US legislation protecting patient medical records and PHI
+  \item Enacted in 1996
+  \item Applies to covered entities and business associates
+  \item Requires safeguards for PHI confidentiality, integrity, availability
+\end{itemize}
+
+
+\textbf{AWS and HIPAA:}
+\begin{itemize}
+  \item AWS infrastructure is HIPAA-compliant
+  \item Must sign Business Associate Agreement (BAA) with AWS
+  \item BAA is free, request through AWS Artifact
+  \item Only HIPAA-eligible services can store PHI
+\end{itemize}
+
+
+\textbf{HIPAA-Eligible Services (common ones):}
+\begin{itemize}
+  \item Compute: EC2, Lambda, Elastic Beanstalk
+  \item Storage: S3, EBS, EFS, Glacier
+  \item Database: RDS, DynamoDB, Redshift
+  \item Networking: VPC, Direct Connect, Route 53
+  \item Analytics: EMR, Kinesis, Athena
+\end{itemize}
+
+
+\textbf{Customer Responsibilities:}
+\begin{itemize}
+  \item Execute BAA before processing PHI
+  \item Use only HIPAA-eligible services for PHI
+  \item Implement proper access controls
+  \item Encrypt PHI at rest and in transit
+  \item Maintain audit logs
+  \item Implement breach notification procedures
+  \item Regular risk assessments
+\end{itemize}
+
+
+\textbf{Technical Safeguards Required:}
+\begin{itemize}
+  \item Access controls (IAM, MFA)
+  \item Audit controls (CloudTrail, Config)
+  \item Integrity controls (checksums, versioning)
+  \item Transmission security (TLS, VPN)
+  \item Encryption (KMS, SSL/TLS)
+\end{itemize}
+
+
+\subsubsection{PCI DSS Compliance Details}
+
+
+\textbf{What is PCI DSS?}
+\begin{itemize}
+  \item Payment Card Industry Data Security Standard
+  \item Protects cardholder data
+  \item Applies to merchants and service providers
+  \item 12 requirements across 6 control objectives
+\end{itemize}
+
+
+\textbf{Six Control Objectives:}
+\begin{enumerate}
+  \item Build and maintain secure network
+  \item Protect cardholder data
+  \item Maintain vulnerability management program
+  \item Implement strong access control measures
+  \item Regularly monitor and test networks
+  \item Maintain information security policy
+\end{enumerate}
+
+
+\textbf{AWS PCI DSS Compliance:}
+\begin{itemize}
+  \item AWS infrastructure: PCI DSS Level 1 compliant
+  \item Highest level of compliance
+  \item Applies to compute, storage, network services
+  \item Customer applications may need separate validation
+\end{itemize}
+
+
+\textbf{Compliance Levels:}
+\begin{itemize}
+  \item \textbf{Level 1:} 6+ million transactions/year
+  \item \textbf{Level 2:} 1-6 million transactions/year
+  \item \textbf{Level 3:} 20,000-1 million e-commerce transactions/year
+  \item \textbf{Level 4:} <20,000 e-commerce transactions/year
+\end{itemize}
+
+
+\textbf{AWS Services for PCI DSS:}
+\begin{itemize}
+  \item Cardholder Data Environment (CDE) can run on EC2
+  \item Segment CDE in separate VPC or subnet
+  \item Use encryption for data at rest (KMS)
+  \item Use TLS for data in transit
+  \item Implement logging (CloudTrail, VPC Flow Logs)
+  \item Use AWS WAF for application protection
+\end{itemize}
+
+
+\textbf{Key Requirements:}
+\begin{itemize}
+  \item Network segmentation (VPC, security groups)
+  \item Access controls (IAM, MFA)
+  \item Encryption (KMS, TLS)
+  \item Logging and monitoring (CloudTrail, CloudWatch)
+  \item Vulnerability management (Inspector)
+  \item Penetration testing (with AWS permission)
+\end{itemize}
+
+
+\subsubsection{SOC Reports Details}
+
+
+\textbf{SOC 1 (SSAE 18):}
+\begin{itemize}
+  \item Focus: Financial reporting controls
+  \item Audience: Financial auditors
+  \item Content: Controls relevant to financial statements
+  \item AWS provides: SOC 1 Type II report
+\end{itemize}
+
+
+\textbf{SOC 2 (AT-C 105):}
+\begin{itemize}
+  \item Focus: Security, availability, processing integrity, confidentiality, privacy
+  \item Audience: Management, regulators, stakeholders
+  \item Two types:
+  \item \textbf{Type I:} Design of controls at specific point in time
+  \item \textbf{Type II:} Operating effectiveness over period (usually 6-12 months)
+  \item AWS provides: SOC 2 Type II report
+\end{itemize}
+
+
+\textbf{SOC 3:}
+\begin{itemize}
+  \item Simplified version of SOC 2
+  \item General use report
+  \item Publicly available
+  \item Does not include detailed testing results
+  \item Good for marketing and general assurance
+\end{itemize}
+
+
+\textbf{Five Trust Service Principles:}
+\begin{enumerate}
+  \item \textbf{Security:} Protection against unauthorized access
+  \item \textbf{Availability:} System accessibility as agreed
+  \item \textbf{Processing Integrity:} Complete, valid, accurate processing
+  \item \textbf{Confidentiality:} Confidential information protection
+  \item \textbf{Privacy:} Personal information protection per commitments
+\end{enumerate}
+
+
+\textbf{How to Access:}
+\begin{itemize}
+  \item AWS Artifact for SOC 1, 2, 3 reports
+  \item No cost
+  \item Requires AWS account
+  \item NDA acceptance required
+\end{itemize}
+
+
+\subsubsection{ISO 27001 Details}
+
+
+\textbf{What is ISO 27001?}
+\begin{itemize}
+  \item International standard for ISMS
+  \item Published by ISO/IEC
+  \item Specifies requirements for establishing, implementing, maintaining ISMS
+  \item Risk-based approach
+\end{itemize}
+
+
+\textbf{Key Components:}
+\begin{itemize}
+  \item 14 control domains
+  \item 114 controls
+  \item Continuous improvement cycle (Plan-Do-Check-Act)
+\end{itemize}
+
+
+\textbf{14 Control Domains:}
+\begin{enumerate}
+  \item Information security policies
+  \item Organization of information security
+  \item Human resource security
+  \item Asset management
+  \item Access control
+  \item Cryptography
+  \item Physical and environmental security
+  \item Operations security
+  \item Communications security
+  \item System acquisition, development, maintenance
+  \item Supplier relationships
+  \item Incident management
+  \item Business continuity
+  \item Compliance
+\end{enumerate}
+
+
+\textbf{AWS ISO Certifications:}
+\begin{itemize}
+  \item ISO 27001 (Information Security Management)
+  \item ISO 27017 (Cloud Security)
+  \item ISO 27018 (Cloud Privacy)
+  \item ISO 27701 (Privacy Information Management)
+  \item ISO 9001 (Quality Management)
+  \item ISO 22301 (Business Continuity)
+\end{itemize}
+
+
+\textbf{Access Reports:}
+\begin{itemize}
+  \item Download from AWS Artifact
+  \item Available to all AWS customers
+  \item Updated annually
+\end{itemize}
+
+
+\subsubsection{FedRAMP Details}
+
+
+\textbf{What is FedRAMP?}
+\begin{itemize}
+  \item Federal Risk and Authorization Management Program
+  \item US Government cloud security standard
+  \item Standardizes security assessment and authorization
+  \item Mandatory for federal agencies
+\end{itemize}
+
+
+\textbf{Authorization Levels:}
+
+\textbf{Low Impact:}
+\begin{itemize}
+  \item Data loss: Limited impact
+  \item Examples: Static websites, public information
+  \item Controls: 125 security controls
+\end{itemize}
+
+
+\textbf{Moderate Impact:}
+\begin{itemize}
+  \item Data loss: Serious impact
+  \item Examples: Most federal applications
+  \item Controls: 325 security controls
+  \item Most common baseline
+\end{itemize}
+
+
+\textbf{High Impact:}
+\begin{itemize}
+  \item Data loss: Severe/catastrophic impact
+  \item Examples: National security systems
+  \item Controls: 421 security controls
+  \item Highest security requirements
+\end{itemize}
+
+
+\textbf{AWS FedRAMP Compliance:}
+\begin{itemize}
+  \item FedRAMP Authorized at High impact level
+  \item Covers AWS GovCloud (US) regions
+  \item Covers select services in commercial regions
+  \item Continuous monitoring required
+\end{itemize}
+
+
+\textbf{FedRAMP Authorization Process:}
+\begin{enumerate}
+  \item Preparation (package development)
+  \item Assessment by 3PAO (Third Party Assessment Organization)
+  \item Authorization by JAB or Agency
+  \item Continuous monitoring
+\end{enumerate}
+
+
+\textbf{AWS Services FedRAMP Authorized:}
+\begin{itemize}
+  \item 100+ services authorized
+  \item Check FedRAMP Marketplace for current list
+  \item New services regularly added
+\end{itemize}
+
+
+\subsubsection{GDPR Details}
+
+
+\textbf{What is GDPR?}
+\begin{itemize}
+  \item General Data Protection Regulation
+  \item EU regulation effective May 2018
+  \item Applies to processing of EU residents' data
+  \item Extraterritorial scope (applies globally)
+  \item Heavy fines for non-compliance (up to 4\% of revenue or €20M)
+\end{itemize}
+
+
+\textbf{Key Principles:}
+\begin{enumerate}
+  \item \textbf{Lawfulness, fairness, transparency}
+  \item \textbf{Purpose limitation}
+  \item \textbf{Data minimization}
+  \item \textbf{Accuracy}
+  \item \textbf{Storage limitation}
+  \item \textbf{Integrity and confidentiality}
+  \item \textbf{Accountability}
+\end{enumerate}
+
+
+\textbf{Data Subject Rights:}
+\begin{itemize}
+  \item Right to access
+  \item Right to rectification
+  \item Right to erasure ("right to be forgotten")
+  \item Right to restrict processing
+  \item Right to data portability
+  \item Right to object
+  \item Rights related to automated decision-making
+\end{itemize}
+
+
+\textbf{AWS GDPR Compliance:}
+\begin{itemize}
+  \item AWS Data Processing Addendum (DPA) available
+  \item Supports customer GDPR compliance
+  \item Data residency options (choose regions)
+  \item Encryption capabilities
+  \item Access controls and logging
+  \item Data portability features
+\end{itemize}
+
+
+\textbf{Technical Measures for GDPR:}
+\begin{itemize}
+  \item \textbf{Encryption:} KMS, SSL/TLS for data protection
+  \item \textbf{Access Control:} IAM for limiting data access
+  \item \textbf{Logging:} CloudTrail for accountability
+  \item \textbf{Data Residency:} Region selection for data location
+  \item \textbf{Deletion:} S3 lifecycle policies for right to erasure
+  \item \textbf{Portability:} Data export capabilities
+  \item \textbf{Anonymization:} Services for de-identification
+\end{itemize}
+
+
+\textbf{Breach Notification:}
+\begin{itemize}
+  \item Must notify supervisory authority within 72 hours
+  \item Must notify affected individuals without undue delay
+  \item AWS notifies customers of breaches affecting them
+  \item Customer responsible for notifying authorities/individuals
+\end{itemize}
+
+
+\textbf{AWS Tools for GDPR:}
+\begin{itemize}
+  \item IAM for access control
+  \item KMS for encryption
+  \item CloudTrail for audit logs
+  \item Config for compliance monitoring
+  \item Macie for PII discovery
+  \item S3 versioning and lifecycle for data retention
+\end{itemize}
+
+
+---
+
+\subsection{Common Security Mistakes and How to Avoid Them}
+
+
+\subsubsection{Mistake 1: Using Root Account for Daily Tasks}
+
+
+\textbf{Why it's dangerous:}
+\begin{itemize}
+  \item Root account has unrestricted access
+  \item Cannot limit permissions
+  \item If compromised, entire account at risk
+  \item Difficult to track who did what
+\end{itemize}
+
+
+\textbf{How to avoid:}
+\begin{itemize}
+  \item Create IAM users for daily tasks
+  \item Use root account only for initial setup
+  \item Enable MFA on root account
+  \item Never create access keys for root account
+  \item Lock away root account credentials
+  \item Set up billing alerts on root account
+\end{itemize}
+
+
+\textbf{Best practice:}
+\begin{verbatim}
+1. Create IAM admin user immediately after account creation
+2. Enable MFA on root account
+3. Store root credentials in secure location (password manager)
+4. Use IAM admin user for all tasks
+5. Monitor root account usage with CloudWatch alarm
+\end{verbatim}
+
+\subsubsection{Mistake 2: Overly Permissive IAM Policies}
+
+
+\textbf{Common patterns:}
+\begin{lstlisting}[language=json]
+\{
+  "Effect": "Allow",
+  "Action": "*",
+  "Resource": "*"
+\}
+\end{lstlisting}
+\textbf{Why it's dangerous:}
+\begin{itemize}
+  \item Grants unlimited access
+  \item Violates least privilege
+  \item Increases blast radius of compromise
+  \item Hard to audit what's actually used
+\end{itemize}
+
+
+\textbf{How to avoid:}
+\begin{itemize}
+  \item Start with minimal permissions
+  \item Add permissions as needed
+  \item Use AWS managed policies as starting point
+  \item Regularly review and remove unused permissions
+  \item Use IAM Access Analyzer
+  \item Implement permission boundaries
+\end{itemize}
+
+
+\textbf{Better approach:}
+\begin{lstlisting}[language=json]
+\{
+  "Effect": "Allow",
+  "Action": [
+    "s3:GetObject",
+    "s3:PutObject"
+  ],
+  "Resource": "arn:aws:s3:::specific-bucket/*"
+\}
+\end{lstlisting}
+
+\subsubsection{Mistake 3: Hardcoding Credentials in Code}
+
+
+\textbf{Examples of what NOT to do:}
+\begin{lstlisting}[language=python]
+\# NEVER DO THIS
+aws\_access\_key = "AKIAIOSFODNN7EXAMPLE"
+aws\_secret\_key = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+\end{lstlisting}
+
+\textbf{Why it's dangerous:}
+\begin{itemize}
+  \item Credentials exposed in version control
+  \item Difficult to rotate
+  \item Can be discovered by attackers
+  \item Violates security best practices
+\end{itemize}
+
+
+\textbf{How to avoid:}
+\begin{itemize}
+  \item Use IAM roles for EC2 instances
+  \item Use environment variables
+  \item Use AWS Secrets Manager
+  \item Use Systems Manager Parameter Store
+  \item Use temporary credentials via STS
+\end{itemize}
+
+
+\textbf{Better approach:}
+\begin{lstlisting}[language=python]
+\# Use IAM role (credentials automatically provided)
+import boto3
+s3 = boto3.client('s3')  \# Credentials from instance role
+
+\# Or use Secrets Manager
+import json
+secretsmanager = boto3.client('secretsmanager')
+secret = secretsmanager.get\_secret\_value(SecretId='MySecret')
+credentials = json.loads(secret['SecretString'])
+\end{lstlisting}
+
+\subsubsection{Mistake 4: Leaving S3 Buckets Publicly Accessible}
+
+
+\textbf{Why it's dangerous:}
+\begin{itemize}
+  \item Data exposed to internet
+  \item Source of many data breaches
+  \item Compliance violations
+  \item Potential for data loss or ransomware
+\end{itemize}
+
+
+\textbf{How to avoid:}
+\begin{itemize}
+  \item Enable S3 Block Public Access (account-level)
+  \item Use bucket policies to restrict access
+  \item Enable S3 server access logging
+  \item Use AWS Macie to find sensitive data
+  \item Regular audits with AWS Config
+  \item Use VPC endpoints for private access
+\end{itemize}
+
+
+\textbf{Configuration:}
+\begin{verbatim}
+Enable S3 Block Public Access Settings:
+✓ Block public access to buckets through new ACLs
+✓ Block public access to buckets through any ACLs
+✓ Block public access to buckets through new public bucket policies
+✓ Block public and cross-account access through any public bucket policies
+\end{verbatim}
+
+\subsubsection{Mistake 5: Not Enabling MFA}
+
+
+\textbf{Why it's dangerous:}
+\begin{itemize}
+  \item Password-only authentication is weak
+  \item Vulnerable to phishing
+  \item Credential stuffing attacks
+  \item Account takeover
+\end{itemize}
+
+
+\textbf{How to avoid:}
+\begin{itemize}
+  \item Enable MFA on root account (mandatory)
+  \item Enable MFA for all IAM users
+  \item Require MFA for sensitive operations
+  \item Use hardware MFA for high-privilege users
+  \item Enforce MFA with IAM policies
+\end{itemize}
+
+
+\textbf{MFA enforcement policy:}
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Effect": "Deny",
+      "Action": "*",
+      "Resource": "*",
+      "Condition": \{
+        "BoolIfExists": \{
+          "aws:MultiFactorAuthPresent": "false"
+        \}
+      \}
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\subsubsection{Mistake 6: Ignoring CloudTrail Logs}
+
+
+\textbf{Why it's dangerous:}
+\begin{itemize}
+  \item No audit trail
+  \item Can't investigate incidents
+  \item Compliance violations
+  \item Unable to detect unauthorized access
+\end{itemize}
+
+
+\textbf{How to avoid:}
+\begin{itemize}
+  \item Enable CloudTrail in all regions
+  \item Send logs to S3 bucket
+  \item Enable log file validation
+  \item Set up CloudWatch Logs integration
+  \item Create alarms for suspicious activity
+  \item Restrict access to CloudTrail logs
+  \item Enable in separate security account
+\end{itemize}
+
+
+\textbf{Critical events to monitor:}
+\begin{itemize}
+  \item Root account usage
+  \item IAM policy changes
+  \item Security group changes
+  \item CloudTrail being disabled
+  \item Unauthorized API calls
+  \item Failed login attempts
+\end{itemize}
+
+
+\subsubsection{Mistake 7: Poor Security Group Configuration}
+
+
+\textbf{Common mistakes:}
+\begin{itemize}
+  \item Opening 0.0.0.0/0 on all ports
+  \item Allowing RDP/SSH from anywhere
+  \item Overly permissive outbound rules
+  \item Not using security group references
+\end{itemize}
+
+
+\textbf{Why it's dangerous:}
+\begin{itemize}
+  \item Exposes resources to internet
+  \item Increases attack surface
+  \item Brute force attacks
+  \item Lateral movement if compromised
+\end{itemize}
+
+
+\textbf{How to avoid:}
+\begin{itemize}
+  \item Use principle of least privilege
+  \item Restrict SSH/RDP to specific IPs
+  \item Use security group references
+  \item Regular audits
+  \item Use AWS Config rules
+  \item Implement bastion hosts
+\end{itemize}
+
+
+\textbf{Bad configuration:}
+\begin{verbatim}
+Inbound: 0.0.0.0/0 on port 22 (SSH)
+\end{verbatim}
+
+\textbf{Good configuration:}
+\begin{verbatim}
+Inbound: YOUR\_IP/32 on port 22 (SSH)
+Or better: Bastion-SG on port 22
+\end{verbatim}
+
+\subsubsection{Mistake 8: Not Encrypting Data}
+
+
+\textbf{Why it's dangerous:}
+\begin{itemize}
+  \item Data exposed if storage compromised
+  \item Compliance violations
+  \item Data breaches
+  \item Regulatory fines
+\end{itemize}
+
+
+\textbf{How to avoid:}
+\begin{itemize}
+  \item Enable encryption by default
+  \item Use KMS for key management
+  \item Encrypt data in transit (TLS/SSL)
+  \item Encrypt data at rest
+  \item Use S3 bucket encryption
+  \item Enable EBS encryption by default
+  \item Use RDS encryption
+\end{itemize}
+
+
+\textbf{Enable encryption by default:}
+\begin{verbatim}
+Account Settings:
+✓ EBS encryption enabled by default
+✓ S3 default encryption enabled
+✓ RDS encryption required
+
+✓ TLS 1.2+ enforced
+✓ HTTPS required for CloudFront
+\end{verbatim}
+
+\subsubsection{Mistake 9: Sharing IAM Credentials}
+
+
+\textbf{Examples:}
+\begin{itemize}
+  \item Multiple people using same IAM user
+  \item Sharing access keys
+  \item Using one "service account" for everything
+\end{itemize}
+
+
+\textbf{Why it's dangerous:}
+\begin{itemize}
+  \item No accountability
+  \item Can't track who did what
+  \item Difficult to rotate
+  \item Violates compliance requirements
+\end{itemize}
+
+
+\textbf{How to avoid:}
+\begin{itemize}
+  \item Create individual IAM users
+  \item Use IAM roles for services
+  \item Implement federation for user access
+  \item No shared credentials ever
+  \item Use temporary credentials
+  \item Monitor and alert on concurrent logins
+\end{itemize}
+
+
+\subsubsection{Mistake 10: Neglecting Security Updates}
+
+
+\textbf{What's neglected:}
+\begin{itemize}
+  \item OS patches
+  \item Application updates
+  \item Security patches
+  \item AMI updates
+\end{itemize}
+
+
+\textbf{Why it's dangerous:}
+\begin{itemize}
+  \item Known vulnerabilities exploited
+  \item Malware infections
+  \item Compliance violations
+  \item Security breaches
+\end{itemize}
+
+
+\textbf{How to avoid:}
+\begin{itemize}
+  \item Use AWS Systems Manager Patch Manager
+  \item Enable automatic security updates
+  \item Regularly update AMIs
+  \item Use Amazon Inspector
+  \item Implement patch compliance monitoring
+  \item Schedule regular maintenance windows
+\end{itemize}
+
+
+\textbf{Patch management strategy:}
+\begin{verbatim}
+1. Test patches in dev environment
+2. Schedule maintenance windows
+3. Use Systems Manager for patching
+4. Monitor patch compliance with Config
+5. Automate where possible
+6. Maintain patch documentation
+\end{verbatim}
+
+\subsubsection{Mistake 11: Not Using Least Privilege}
+
+
+\textbf{Common patterns:}
+\begin{itemize}
+  \item Giving admin access to everyone
+  \item Using wildcard (*) in policies
+  \item Not reviewing permissions
+  \item Adding permissions but never removing
+\end{itemize}
+
+
+\textbf{How to avoid:}
+\begin{itemize}
+  \item Start with zero permissions
+  \item Add only what's needed
+  \item Regular access reviews
+  \item Use IAM Access Analyzer
+  \item Remove unused permissions
+  \item Use permission boundaries
+\end{itemize}
+
+
+\subsubsection{Mistake 12: Poor Network Segmentation}
+
+
+\textbf{Mistakes:}
+\begin{itemize}
+  \item All resources in public subnet
+  \item No separation between tiers
+  \item Flat network architecture
+\end{itemize}
+
+
+\textbf{How to avoid:}
+\begin{itemize}
+  \item Use multiple subnets
+  \item Separate by tier (web, app, data)
+  \item Use private subnets for databases
+  \item Implement defense in depth
+  \item Use NACLs and security groups
+  \item Follow well-architected principles
+\end{itemize}
+
+
+\textbf{Proper architecture:}
+\begin{verbatim}
+Public Subnet: Load balancers, bastion hosts
+Private Subnet: Application servers
+Private Subnet: Databases (no internet access)
+\end{verbatim}
+
+---
+
+\subsection{Security Checklist for Exam Preparation}
+
+
+\subsubsection{IAM Security Checklist}
+
+
+\begin{itemize}
+  \item [ ] Root account has MFA enabled
+  \item [ ] Root account has no access keys
+  \item [ ] Individual IAM users created (no sharing)
+  \item [ ] IAM users have MFA enabled
+  \item [ ] IAM password policy is strong
+  \item [ ] IAM users grouped by role
+  \item [ ] Policies attached to groups, not users
+  \item [ ] Least privilege principle applied
+  \item [ ] Unused credentials removed
+  \item [ ] Access keys rotated every 90 days
+  \item [ ] IAM roles used for EC2 instances
+  \item [ ] Cross-account access uses roles
+  \item [ ] Service Control Policies implemented (Organizations)
+  \item [ ] Permission boundaries used where appropriate
+\end{itemize}
+
+
+\subsubsection{Data Protection Checklist}
+
+
+\begin{itemize}
+  \item [ ] S3 buckets have encryption enabled
+  \item [ ] S3 Block Public Access enabled
+  \item [ ] S3 versioning enabled for important data
+  \item [ ] EBS encryption enabled by default
+  \item [ ] RDS databases encrypted
+  \item [ ] Data encrypted in transit (TLS/SSL)
+  \item [ ] KMS used for key management
+  \item [ ] Automatic key rotation enabled
+  \item [ ] Sensitive data classified
+  \item [ ] DLP policies implemented (Macie)
+  \item [ ] Backup strategy defined
+  \item [ ] Backup testing performed regularly
+\end{itemize}
+
+
+\subsubsection{Network Security Checklist}
+
+
+\begin{itemize}
+  \item [ ] VPC created for resources
+  \item [ ] Public/private subnets separated
+  \item [ ] Security groups follow least privilege
+  \item [ ] NACLs configured for subnet protection
+  \item [ ] VPC Flow Logs enabled
+  \item [ ] No 0.0.0.0/0 on SSH/RDP
+  \item [ ] Bastion hosts used for access
+  \item [ ] VPC endpoints used for AWS services
+  \item [ ] Network segmentation implemented
+  \item [ ] WAF enabled for web applications
+  \item [ ] Shield Standard active (automatic)
+  \item [ ] DDoS response plan documented
+\end{itemize}
+
+
+\subsubsection{Monitoring and Logging Checklist}
+
+
+\begin{itemize}
+  \item [ ] CloudTrail enabled in all regions
+  \item [ ] CloudTrail log file validation enabled
+  \item [ ] CloudTrail logs in separate account
+  \item [ ] VPC Flow Logs enabled
+  \item [ ] S3 access logging enabled
+  \item [ ] ELB access logs enabled
+  \item [ ] CloudWatch alarms configured
+  \item [ ] GuardDuty enabled
+  \item [ ] Security Hub enabled
+  \item [ ] Config rules enabled
+  \item [ ] Automated remediation configured
+  \item [ ] Incident response plan documented
+\end{itemize}
+
+
+\subsubsection{Compliance Checklist}
+
+
+\begin{itemize}
+  \item [ ] Compliance requirements identified
+  \item [ ] AWS Artifact reports reviewed
+  \item [ ] BAA signed (if HIPAA required)
+  \item [ ] Compliance documentation maintained
+  \item [ ] Regular compliance audits performed
+  \item [ ] Config rules for compliance checking
+  \item [ ] Tags applied for governance
+  \item [ ] Resource inventory maintained
+\end{itemize}
+
+
+\subsubsection{Exam Readiness Checklist}
+
+
+\begin{itemize}
+  \item [ ] Understand Shared Responsibility Model
+  \item [ ] Know IAM components (users, groups, roles, policies)
+  \item [ ] Understand difference between authentication and authorization
+  \item [ ] Know when to use each security service
+  \item [ ] Understand compliance programs and industries
+  \item [ ] Know security best practices
+  \item [ ] Understand encryption (at rest and in transit)
+  \item [ ] Know network security concepts
+  \item [ ] Understand monitoring and logging services
+  \item [ ] Know incident response basics
+\end{itemize}
+
+
+\subsubsection{AWS Config}
+
+
+Assess, audit, and evaluate AWS resource configurations.
+
+\textbf{Key Features:}
+
+\begin{itemize}
+  \item \textbf{Assess, audit, and evaluate configurations}
+  \item Configuration history
+  \item Configuration snapshots
+  \item \textbf{Continuous monitoring} of resource configurations
+  \item Real-time tracking
+  \item Change detection
+  \item \textbf{Track configuration changes over time}
+  \item Who made changes
+  \item When changes occurred
+  \item What changed
+  \item \textbf{Compliance auditing and security analysis}
+  \item Configuration compliance
+  \item Security posture assessment
+  \item \textbf{Config Rules} define desired configurations
+  \item AWS managed rules
+  \item Custom rules (Lambda)
+  \item Automatic or triggered evaluation
+  \item \textbf{Automated remediation} of non-compliant resources
+  \item SSM Automation documents
+  \item Automatic or manual remediation
+\end{itemize}
+
+
+\textbf{Use Cases:}
+\begin{itemize}
+  \item Continuous compliance monitoring
+  \item Security analysis
+  \item Change management
+  \item Troubleshooting
+  \item Configuration history
+\end{itemize}
+
+
+\textbf{How It Works:}
+\begin{enumerate}
+  \item Enable AWS Config in your account
+  \item Select resources to monitor
+  \item Define Config Rules
+  \item Review compliance dashboard
+  \item Set up automated remediation (optional)
+\end{enumerate}
+
+
+\textbf{Integration:}
+\begin{itemize}
+  \item CloudTrail (who made the change)
+  \item SNS (notifications)
+  \item S3 (configuration snapshots)
+  \item Systems Manager (remediation)
+\end{itemize}
+
+
+---
+
+\subsection{Review Questions}
+
+
+Test your knowledge of Domain 2: Security and Compliance.
+
+\subsubsection{Question 1}
+
+
+\textbf{According to the Shared Responsibility Model, which security aspect is AWS responsible for?}
+
+A. Security group configuration
+B. Physical security of data centers
+C. Customer data encryption
+D. IAM user management
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: B}
+
+\textbf{Explanation:} AWS is responsible for security OF the cloud, which includes physical security of data centers, hardware, and infrastructure. The customer is responsible for security IN the cloud, including security groups (A), data encryption (C), and IAM user management (D).
+
+</details>
+
+---
+
+\subsubsection{Question 2}
+
+
+\textbf{Which service provides DDoS protection at no additional cost?}
+
+A. AWS WAF
+B. AWS Shield Advanced
+C. AWS Shield Standard
+D. Amazon GuardDuty
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: C}
+
+\textbf{Explanation:} AWS Shield Standard provides automatic DDoS protection for all AWS customers at no additional cost. Shield Advanced (B) costs \$3,000/month, WAF (A) has its own pricing, and GuardDuty (D) is for threat detection, not DDoS protection.
+
+</details>
+
+---
+
+\subsubsection{Question 3}
+
+
+\textbf{What is the best practice for granting permissions to a group of developers?}
+
+A. Attach policies directly to each user
+B. Create an IAM group, attach policies to the group, add users to the group
+C. Share the root account credentials
+D. Create one IAM user that everyone shares
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: B}
+
+\textbf{Explanation:} The best practice is to create IAM groups, attach policies to the groups, and then add users to appropriate groups. This simplifies management and follows security best practices. Sharing credentials (C and D) is never recommended, and attaching policies to individual users (A) is harder to manage.
+
+</details>
+
+---
+
+\subsubsection{Question 4}
+
+
+\textbf{Which service uses machine learning to discover and protect sensitive data in S3?}
+
+A. Amazon GuardDuty
+B. Amazon Inspector
+C. Amazon Macie
+D. AWS Config
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: C}
+
+\textbf{Explanation:} Amazon Macie uses machine learning to discover, classify, and protect sensitive data (like PII) in Amazon S3. GuardDuty (A) is for threat detection, Inspector (B) is for vulnerability assessment, and Config (D) is for configuration compliance.
+
+</details>
+
+---
+
+\subsubsection{Question 5}
+
+
+\textbf{Which IAM entity provides temporary security credentials?}
+
+A. IAM User
+B. IAM Group
+C. IAM Role
+D. IAM Policy
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: C}
+
+\textbf{Explanation:} IAM Roles provide temporary security credentials that are automatically rotated. Users (A) have long-term credentials, Groups (B) are collections of users, and Policies (D) define permissions but don't provide credentials.
+
+</details>
+
+---
+
+\subsubsection{Question 6}
+
+
+\textbf{Where can you download AWS compliance reports and certifications?}
+
+A. AWS Config
+B. AWS Artifact
+C. AWS Inspector
+D. AWS Organizations
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: B}
+
+\textbf{Explanation:} AWS Artifact is the self-service portal where you can download AWS compliance reports, certifications (ISO, SOC, PCI), and agreements. It's available at no cost to all AWS customers.
+
+</details>
+
+---
+
+\subsubsection{Question 7}
+
+
+\textbf{What is the primary purpose of AWS Config?}
+
+A. Encrypt data at rest
+B. Track configuration changes and compliance
+C. Detect threats using machine learning
+D. Protect against DDoS attacks
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: B}
+
+\textbf{Explanation:} AWS Config tracks configuration changes over time and evaluates compliance against desired configurations. KMS handles encryption (A), GuardDuty detects threats (C), and Shield protects against DDoS (D).
+
+</details>
+
+---
+
+\subsubsection{Question 8}
+
+
+\textbf{Which authentication factor does MFA add to username/password?}
+
+A. Something you know
+B. Something you have
+C. Something you are
+D. Somewhere you are
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: B}
+
+\textbf{Explanation:} MFA adds "something you have" (the MFA device) to "something you know" (the password), providing two-factor authentication. The password is "something you know" (A), biometrics would be "something you are" (C), and location would be "somewhere you are" (D).
+
+</details>
+
+---
+
+\subsubsection{Question 9}
+
+
+\textbf{Which service would you use to centrally manage multiple AWS accounts and apply governance policies?}
+
+A. IAM
+B. AWS Organizations
+C. AWS Config
+D. AWS Control Tower
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: B}
+
+\textbf{Explanation:} AWS Organizations allows you to centrally manage multiple AWS accounts, provide consolidated billing, and apply Service Control Policies (SCPs) for governance. IAM (A) manages access within a single account, Config (C) tracks configurations, and while Control Tower (D) can also manage accounts, Organizations is the core service tested at the Cloud Practitioner level.
+
+</details>
+
+---
+
+\subsubsection{Question 10}
+
+
+\textbf{Which compliance program is specifically for healthcare data in the United States?}
+
+A. PCI DSS
+B. GDPR
+C. HIPAA
+D. SOC 2
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: C}
+
+\textbf{Explanation:} HIPAA (Health Insurance Portability and Accountability Act) is the US regulation for protecting healthcare data and PHI (Protected Health Information). PCI DSS (A) is for payment cards, GDPR (B) is EU data privacy, and SOC 2 (D) is for general security controls.
+
+</details>
+
+---
+
+\subsubsection{Question 11}
+
+
+\textbf{Which AWS service should you use to discover and protect sensitive data like credit card numbers in S3?}
+
+A. AWS Config
+B. Amazon Macie
+C. AWS WAF
+D. Amazon Inspector
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: B}
+
+\textbf{Explanation:} Amazon Macie uses machine learning to discover, classify, and protect sensitive data like PII, credit card numbers, and other confidential information in S3 buckets. Config (A) tracks configurations, WAF (C) protects web applications, and Inspector (D) assesses vulnerabilities.
+
+</details>
+
+---
+
+\subsubsection{Question 12}
+
+
+\textbf{Your company needs to encrypt data at rest in S3 with full control over the encryption keys, including rotation. Which solution should you use?}
+
+A. SSE-S3 (Server-Side Encryption with S3-Managed Keys)
+B. SSE-KMS with customer managed CMK
+C. SSE-C (Server-Side Encryption with Customer-Provided Keys)
+D. Client-side encryption
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: B}
+
+\textbf{Explanation:} SSE-KMS with customer managed CMK gives you full control over encryption keys, including rotation, while AWS handles the encryption process. SSE-S3 (A) doesn't give you control over keys, SSE-C (C) requires you to provide keys with each request, and client-side encryption (D) requires you to manage the entire encryption process.
+
+</details>
+
+---
+
+\subsubsection{Question 13}
+
+
+\textbf{Which service provides automated vulnerability assessment for EC2 instances and container images?}
+
+A. Amazon GuardDuty
+B. AWS Security Hub
+C. Amazon Inspector
+D. AWS Systems Manager
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: C}
+
+\textbf{Explanation:} Amazon Inspector is an automated security assessment service that checks for vulnerabilities in EC2 instances, container images in ECR, and Lambda functions. GuardDuty (A) is for threat detection, Security Hub (B) is a centralized security view, and Systems Manager (D) is for operational management.
+
+</details>
+
+---
+
+\subsubsection{Question 14}
+
+
+\textbf{According to the Shared Responsibility Model, who is responsible for patching the guest operating system on an EC2 instance?}
+
+A. AWS
+B. Customer
+C. Both AWS and Customer
+D. Neither, it's automated
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: B}
+
+\textbf{Explanation:} The customer is responsible for patching the guest OS on EC2 instances. This falls under "security IN the cloud." AWS is responsible for patching the hypervisor and infrastructure (security OF the cloud). For managed services like RDS, AWS handles the patching.
+
+</details>
+
+---
+
+\subsubsection{Question 15}
+
+
+\textbf{Which feature of AWS Organizations allows you to restrict actions across all accounts in your organization?}
+
+A. IAM Policies
+B. Resource Access Manager
+C. Service Control Policies (SCPs)
+D. Permission Boundaries
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: C}
+
+\textbf{Explanation:} Service Control Policies (SCPs) allow you to set maximum available permissions across accounts in AWS Organizations. They act as guardrails and can even restrict the root user. IAM policies (A) work within a single account, RAM (B) is for resource sharing, and permission boundaries (D) set maximum permissions for IAM entities.
+
+</details>
+
+---
+
+\subsubsection{Question 16}
+
+
+\textbf{What is the primary purpose of AWS CloudTrail?}
+
+A. Monitor resource utilization
+B. Log API activity for auditing
+C. Detect security threats
+D. Track configuration changes
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: B}
+
+\textbf{Explanation:} CloudTrail logs API activity in your AWS account, providing an audit trail of who did what, when, and from where. CloudWatch (A) monitors resource utilization, GuardDuty (C) detects threats, and Config (D) tracks configuration changes.
+
+</details>
+
+---
+
+\subsubsection{Question 17}
+
+
+\textbf{Which of the following is NOT a valid MFA device option for AWS?}
+
+A. Virtual MFA device (smartphone app)
+B. Hardware MFA device (YubiKey)
+C. SMS text message
+D. Fingerprint scanner
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: D}
+
+\textbf{Explanation:} AWS does not support fingerprint scanners or other biometric authentication for MFA. Valid options include virtual MFA devices (A), hardware MFA devices (B), and SMS text messages (C), although SMS is not recommended for root accounts.
+
+</details>
+
+---
+
+\subsubsection{Question 18}
+
+
+\textbf{A startup is building a web application that needs to authenticate users via Facebook and Google. Which AWS service should they use?}
+
+A. AWS IAM
+B. Amazon Cognito
+C. AWS Directory Service
+D. AWS Single Sign-On
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: B}
+
+\textbf{Explanation:} Amazon Cognito supports web identity federation, allowing users to authenticate with social identity providers like Facebook, Google, and Amazon. IAM (A) is for AWS resource access, Directory Service (C) is for Microsoft AD integration, and SSO (D) is for AWS account and business application access.
+
+</details>
+
+---
+
+\subsubsection{Question 19}
+
+
+\textbf{Which encryption option for S3 provides an audit trail of when keys were used and by whom?}
+
+A. SSE-S3
+B. SSE-KMS
+C. SSE-C
+D. Client-side encryption
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: B}
+
+\textbf{Explanation:} SSE-KMS integrates with CloudTrail, providing an audit trail of when encryption keys were used and by whom. SSE-S3 (A) doesn't provide this visibility, SSE-C (C) means you manage keys outside AWS, and client-side encryption (D) is entirely managed by you.
+
+</details>
+
+---
+
+\subsubsection{Question 20}
+
+
+\textbf{What is the purpose of VPC Flow Logs?}
+
+A. Log API calls in your VPC
+B. Capture network traffic information
+C. Monitor VPC configuration changes
+D. Detect malware in network traffic
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: B}
+
+\textbf{Explanation:} VPC Flow Logs capture information about IP traffic going to and from network interfaces in your VPC, including source/destination IPs, ports, and protocols. CloudTrail (A) logs API calls, Config (C) monitors configuration changes, and while flow logs can help security analysis, they don't directly detect malware (D).
+
+</details>
+
+---
+
+\subsubsection{Question 21}
+
+
+\textbf{Which compliance program is specifically designed for US federal government agencies?}
+
+A. HIPAA
+B. PCI DSS
+C. FedRAMP
+D. SOC 2
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: C}
+
+\textbf{Explanation:} FedRAMP (Federal Risk and Authorization Management Program) is the US government's cloud security standard. HIPAA (A) is for healthcare, PCI DSS (B) is for payment cards, and SOC 2 (D) is a general security audit framework.
+
+</details>
+
+---
+
+\subsubsection{Question 22}
+
+
+\textbf{A company wants to share an encrypted S3 bucket with another AWS account. What must be configured?}
+
+A. S3 bucket policy only
+B. KMS key policy and S3 bucket policy
+C. IAM role only
+D. VPC peering
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: B}
+
+\textbf{Explanation:} To share an encrypted S3 bucket cross-account, you need to update both the KMS key policy (to allow the other account to decrypt) and the S3 bucket policy (to allow access to objects). Just one or the other won't work. VPC peering (D) is not required for S3 access.
+
+</details>
+
+---
+
+\subsubsection{Question 23}
+
+
+\textbf{Which AWS service protects against DDoS attacks at no additional cost?}
+
+A. AWS WAF
+B. AWS Shield Advanced
+C. AWS Shield Standard
+D. Amazon GuardDuty
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: C}
+
+\textbf{Explanation:} AWS Shield Standard provides DDoS protection at no additional cost and is automatically enabled for all AWS customers. Shield Advanced (B) costs \$3,000/month, WAF (A) has its own pricing for rule complexity and requests, and GuardDuty (D) is for threat detection, not DDoS protection.
+
+</details>
+
+---
+
+\subsubsection{Question 24}
+
+
+\textbf{What is the difference between security groups and Network ACLs?}
+
+A. Security groups are stateful; NACLs are stateless
+B. Security groups are stateless; NACLs are stateful
+C. Both are stateful
+D. Both are stateless
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: A}
+
+\textbf{Explanation:} Security groups are stateful (return traffic is automatically allowed), while Network ACLs are stateless (you must explicitly allow both inbound and outbound traffic). This is a critical difference for the exam.
+
+</details>
+
+---
+
+\subsubsection{Question 25}
+
+
+\textbf{A company must ensure that all data stored in AWS is encrypted at rest and in transit. Which services should they use? (Choose TWO)}
+
+A. AWS KMS for encryption at rest
+B. AWS CloudHSM for encryption in transit
+C. TLS/SSL for encryption in transit
+D. AWS Certificate Manager for encryption at rest
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer: A and C}
+
+\textbf{Explanation:} AWS KMS provides encryption at rest for services like S3, EBS, and RDS (A). TLS/SSL provides encryption in transit for data moving between systems (C). CloudHSM (B) is for hardware-based key storage but not specifically for transit encryption, and ACM (D) provides certificates for TLS/SSL but doesn't encrypt at rest.
+
+</details>
+
+---
+
+\subsection{Advanced Exam Tips and Scenarios}
+
+
+\subsubsection{Exam Tip 1: Shared Responsibility Model Questions}
+
+
+\textbf{How to identify:} Questions ask "who is responsible for..."
+
+\textbf{Decision tree:}
+\begin{enumerate}
+  \item Is it infrastructure (physical, network hardware, data centers)? → \textbf{AWS}
+  \item Is it a managed service (RDS, Lambda, DynamoDB)? → \textbf{AWS manages infrastructure, you manage data and access}
+  \item Is it EC2? → \textbf{AWS manages hypervisor, you manage OS, applications, data}
+  \item Is it customer data, encryption, or IAM? → \textbf{Always customer}
+\end{enumerate}
+
+
+\textbf{Common tricky scenarios:}
+\begin{itemize}
+  \item "Who patches RDS database engine?" → \textbf{AWS}
+  \item "Who patches EC2 operating system?" → \textbf{Customer}
+  \item "Who configures security groups?" → \textbf{Customer}
+  \item "Who secures AWS data centers?" → \textbf{AWS}
+\end{itemize}
+
+
+\subsubsection{Exam Tip 2: IAM Policy Evaluation Logic}
+
+
+\textbf{Order of evaluation:}
+\begin{enumerate}
+  \item Explicit DENY → Always wins
+  \item Explicit ALLOW → If no deny exists
+  \item Implicit DENY → Default if no allow
+\end{enumerate}
+
+
+\textbf{Remember:} One explicit deny overrules all allows!
+
+\textbf{Example scenario:}
+\begin{verbatim}
+User has policy: Allow s3:*
+Group has policy: Deny s3:DeleteBucket
+Result: User can do everything EXCEPT delete buckets
+\end{verbatim}
+
+\subsubsection{Exam Tip 3: Encryption Service Selection}
+
+
+\textbf{Question type:} "Which encryption service should you use when..."
+
+\textbf{Decision matrix:}
+
+\begin{longtable}{ll}
+\toprule
+\textbf{Requirement} & \textbf{Solution} \\
+\midrule
+Simple S3 encryption & SSE-S3 \\
+Need audit trail of key usage & SSE-KMS \\
+Must control keys outside AWS & SSE-C or Client-side \\
+Encrypt EBS volumes & KMS (default) \\
+Encrypt in transit & TLS/SSL, ACM \\
+Meet compliance requirements & KMS with customer managed CMK \\
+Hardware-based key storage & CloudHSM \\
+\bottomrule
+\end{longtable}
+
+\subsubsection{Exam Tip 4: Security Service Selection}
+
+
+\textbf{Question type:} "Which service detects/protects/monitors..."
+
+\textbf{Quick reference:}
+
+\begin{longtable}{ll}
+\toprule
+\textbf{Need} & \textbf{Service} \\
+\midrule
+Detect threats with ML & GuardDuty \\
+Find vulnerabilities & Inspector \\
+Discover sensitive data & Macie \\
+Protect against DDoS & Shield \\
+Protect web applications & WAF \\
+Manage encryption keys & KMS \\
+Audit API calls & CloudTrail \\
+Track configurations & Config \\
+Compliance reports & Artifact \\
+Centralized security view & Security Hub \\
+\bottomrule
+\end{longtable}
+
+\subsubsection{Exam Tip 5: Compliance Program Matching}
+
+
+\textbf{Pattern recognition for exam:}
+\begin{itemize}
+  \item "Healthcare data" or "PHI" → \textbf{HIPAA}
+  \item "Credit card" or "payment data" → \textbf{PCI DSS}
+  \item "Government" or "federal agency" → \textbf{FedRAMP}
+  \item "EU residents" or "data privacy" → \textbf{GDPR}
+  \item "Audit report" or "financial controls" → \textbf{SOC reports}
+  \item "International security standard" → \textbf{ISO 27001}
+\end{itemize}
+
+
+\subsubsection{Exam Tip 6: MFA Scenarios}
+
+
+\textbf{When MFA is the answer:}
+\begin{itemize}
+  \item Question mentions "additional layer of security"
+  \item Scenario involves privileged users or root account
+  \item Compliance requirement for sensitive operations
+  \item "Something you have" factor is mentioned
+\end{itemize}
+
+
+\textbf{MFA is NOT the answer for:}
+\begin{itemize}
+  \item Service-to-service authentication (use roles)
+  \item Programmatic access from applications (use roles)
+  \item Long-term credential storage (use IAM roles)
+\end{itemize}
+
+
+\subsubsection{Exam Tip 7: Network Security Scenarios}
+
+
+\textbf{Security Group vs NACL:}
+
+\begin{longtable}{ll}
+\toprule
+\textbf{Scenario} & \textbf{Use} \\
+\midrule
+Need to explicitly deny an IP & NACL \\
+Need stateful filtering & Security Group \\
+Subnet-level protection & NACL \\
+Instance-level protection & Security Group \\
+Process rules in order & NACL \\
+Simple allow rules & Security Group \\
+\bottomrule
+\end{longtable}
+
+\subsubsection{Exam Tip 8: Identity Federation}
+
+
+\textbf{Scenario patterns:}
+\begin{itemize}
+  \item "Corporate users need AWS access" → \textbf{SAML federation or IAM Identity Center}
+  \item "Mobile app users" → \textbf{Cognito}
+  \item "Social login (Facebook, Google)" → \textbf{Cognito}
+  \item "Active Directory integration" → \textbf{Directory Service or IAM Identity Center}
+  \item "Multiple AWS accounts, single login" → \textbf{IAM Identity Center}
+\end{itemize}
+
+
+\subsubsection{Exam Tip 9: Data Protection Scenarios}
+
+
+\textbf{Pattern matching:}
+\begin{itemize}
+  \item "Prevent public access to S3" → \textbf{S3 Block Public Access}
+  \item "Track who accesses S3 objects" → \textbf{S3 Server Access Logging + CloudTrail}
+  \item "Find sensitive data in S3" → \textbf{Macie}
+  \item "Encrypt data before upload" → \textbf{Client-side encryption}
+  \item "AWS manages encryption" → \textbf{SSE-S3 or SSE-KMS}
+\end{itemize}
+
+
+\subsubsection{Exam Tip 10: Cost Considerations}
+
+
+\textbf{Free services/features:}
+\begin{itemize}
+  \item IAM (completely free)
+  \item CloudTrail (first trail free)
+  \item Shield Standard (free DDoS protection)
+  \item S3 SSE-S3 encryption (no extra cost)
+  \item VPC (core features free)
+  \item AWS managed CMKs (free, pay for API calls only)
+\end{itemize}
+
+
+\textbf{Paid services:}
+\begin{itemize}
+  \item Shield Advanced (\$3,000/month)
+  \item GuardDuty (pay per GB analyzed)
+  \item Macie (pay per GB scanned)
+  \item Inspector (pay per assessment)
+  \item WAF (pay per rule and requests)
+  \item Customer managed CMKs (\$1/month + API calls)
+\end{itemize}
+
+
+\subsubsection{Exam Tip 11: Incident Response Questions}
+
+
+\textbf{Scenario:} "What should you do first when..."
+\begin{enumerate}
+  \item Isolate affected resources
+  \item Preserve evidence (snapshots, logs)
+  \item Investigate and analyze
+  \item Remediate
+  \item Document lessons learned
+\end{enumerate}
+
+
+\textbf{Key services:}
+\begin{itemize}
+  \item CloudTrail for forensics
+  \item VPC Flow Logs for network analysis
+  \item GuardDuty for threat detection
+  \item Systems Manager for remediation
+\end{itemize}
+
+
+\subsubsection{Exam Tip 12: Common Exam Traps}
+
+
+\textbf{Watch out for:}
+\begin{enumerate}
+  \item "Most cost-effective" → Usually the simpler, managed option
+  \item "Least operational overhead" → Usually the fully managed service
+  \item "Most secure" → Usually involves encryption, MFA, least privilege
+  \item "Best practice" → Follow AWS recommendations (IAM roles, not keys)
+\end{enumerate}
+
+
+\textbf{Red flags:}
+\begin{itemize}
+  \item Hardcoding credentials → ❌ Never correct
+  \item Root account for daily tasks → ❌ Never correct
+  \item Wildcard (*) permissions → ❌ Usually incorrect
+  \item Public access to production data → ❌ Usually incorrect
+\end{itemize}
+
+
+---
+
+\subsection{Key Takeaways}
+
+
+\begin{examtip}
+\textbf{Remember for the Exam:}
+\end{examtip}
+
+>
+\begin{keypoint}
+- \textbf{Shared Responsibility Model:} AWS = infrastructure; Customer = data and configuration
+- \textbf{IAM Best Practices:} Root account protection, least privilege, use groups and roles, enable MFA
+- \textbf{Shield Standard:} Free DDoS protection for everyone
+- \textbf{GuardDuty:} Threat detection with ML
+- \textbf{Macie:} Sensitive data discovery in S3
+- \textbf{Artifact:} Download compliance reports
+- \textbf{Config:} Track configuration changes and compliance
+- \textbf{Organizations:} Multi-account management with consolidated billing and SCPs
+\end{keypoint}
+
+
+---
+
+\href{02-cloud-concepts.md}{← Previous: Cloud Concepts} | \href{README.md}{Back to Main} | \href{04-technology-services.md}{Next: Cloud Technology and Services →}

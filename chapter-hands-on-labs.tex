@@ -1,0 +1,6974 @@
+\chapter{Hands-On Practice Labs}
+
+
+
+
+\subsection{Table of Contents}
+
+\begin{itemize}
+  \item \href{\#introduction}{Introduction}
+  \item \href{\#pre-lab-checklist}{Pre-Lab Checklist}
+  \item \href{\#prerequisites}{Prerequisites}
+  \item \href{\#important-notes}{Important Notes}
+  \item \href{\#lab-difficulty-guide}{Lab Difficulty Guide}
+  \item \href{\#lab-1-set-up-billing-alerts-and-budget}{Lab 1: Set Up Billing Alerts and Budget}
+  \item \href{\#lab-2-iam-users-groups-roles-and-mfa}{Lab 2: IAM Users, Groups, Roles, and MFA}
+  \item \href{\#lab-3-launch-and-configure-ec2-instance}{Lab 3: Launch and Configure EC2 Instance}
+  \item \href{\#lab-4-amazon-s3-storage-and-website-hosting}{Lab 4: Amazon S3 Storage and Website Hosting}
+  \item \href{\#lab-5-vpc-subnets-and-network-configuration}{Lab 5: VPC, Subnets, and Network Configuration}
+  \item \href{\#lab-6-amazon-rds-database}{Lab 6: Amazon RDS Database}
+  \item \href{\#lab-7-cloudwatch-monitoring-and-alarms}{Lab 7: CloudWatch Monitoring and Alarms}
+  \item \href{\#lab-8-aws-cost-management-tools}{Lab 8: AWS Cost Management Tools}
+  \item \href{\#lab-9-lambda-serverless-function}{Lab 9: Lambda Serverless Function}
+  \item \href{\#lab-10-cloudformation-infrastructure-as-code}{Lab 10: CloudFormation Infrastructure as Code}
+  \item \href{\#lab-11-auto-scaling-and-load-balancing}{Lab 11: Auto Scaling and Load Balancing}
+  \item \href{\#lab-12-dynamodb-hands-on}{Lab 12: DynamoDB Hands-On}
+  \item \href{\#lab-13-sns-and-sqs-messaging}{Lab 13: SNS and SQS Messaging}
+  \item \href{\#lab-14-route-53-dns-and-health-checks}{Lab 14: Route 53 DNS and Health Checks}
+  \item \href{\#lab-15-aws-organizations-and-multi-account-setup}{Lab 15: AWS Organizations and Multi-Account Setup}
+  \item \href{\#troubleshooting-faq}{Troubleshooting FAQ}
+  \item \href{\#additional-practice-recommendations}{Additional Practice Recommendations}
+\end{itemize}
+
+
+---
+
+\subsection{Introduction}
+
+
+\begin{examtip}
+\textbf{Important:} Hands-on experience is crucial for exam success. These labs will help you understand AWS services beyond theory and are designed to stay within Free Tier limits when done carefully.
+\end{examtip}
+
+
+Practical experience with AWS services provides:
+\begin{itemize}
+  \item Deeper understanding of service capabilities
+  \item Familiarity with AWS Management Console
+  \item Confidence during the exam
+  \item Real-world skills applicable to jobs
+  \item Better retention of concepts
+\end{itemize}
+
+
+\textbf{Total Time Investment:} Approximately 11-12 hours for all 15 labs
+
+---
+
+\subsection{Pre-Lab Checklist}
+
+
+Before starting any lab, ensure you have completed the following:
+
+\subsubsection{Essential Requirements}
+
+\begin{itemize}
+  \item [ ] \textbf{AWS Account created and activated} (may take up to 24 hours)
+  \item [ ] \textbf{Valid credit/debit card} on file (required even for Free Tier)
+  \item [ ] \textbf{Email access} to confirm SNS subscriptions and receive alerts
+  \item [ ] \textbf{Billing alerts set up} (Lab 1 - do this FIRST!)
+  \item [ ] \textbf{Free Tier dashboard bookmarked} for easy monitoring
+  \item [ ] \textbf{Account ID noted} and saved securely
+\end{itemize}
+
+
+\subsubsection{Technical Setup}
+
+\begin{itemize}
+  \item [ ] \textbf{Modern web browser} (Chrome, Firefox, Safari, Edge - latest version)
+  \item [ ] \textbf{Stable internet connection} (minimum 5 Mbps recommended)
+  \item [ ] \textbf{Text editor} installed (VS Code, Sublime, Notepad++, or any editor)
+  \item [ ] \textbf{SSH client available} (built-in on Mac/Linux, PuTTY or OpenSSH for Windows)
+  \item [ ] \textbf{Terminal/command prompt} access and basic familiarity
+\end{itemize}
+
+
+\subsubsection{Knowledge Prerequisites}
+
+\begin{itemize}
+  \item [ ] \textbf{Basic understanding} of cloud computing concepts
+  \item [ ] \textbf{Familiarity with IP addresses} and networking basics (for VPC labs)
+  \item [ ] \textbf{Basic command line} experience (helpful but not required)
+  \item [ ] \textbf{Understanding of JSON/YAML} formats (for CloudFormation)
+\end{itemize}
+
+
+\subsubsection{Safety Measures}
+
+\begin{itemize}
+  \item [ ] \textbf{Password manager} or secure location for credentials
+  \item [ ] \textbf{Notepad ready} for documenting resource IDs and URLs
+  \item [ ] \textbf{Calendar reminder} set to check and clean up resources daily
+  \item [ ] \textbf{Budget limit decided} (recommend \$10-20 maximum)
+  \item [ ] \textbf{Understanding of charges} - know what costs money vs. what's free
+\end{itemize}
+
+
+\subsubsection{Best Practices Before Starting}
+
+\begin{itemize}
+  \item [ ] \textbf{Read entire lab} before executing any steps
+  \item [ ] \textbf{Take screenshots} as you progress for documentation
+  \item [ ] \textbf{Use consistent naming} conventions (include date or lab number)
+  \item [ ] \textbf{Tag all resources} with project name for easy identification
+  \item [ ] \textbf{Set aside uninterrupted time} for each lab
+  \item [ ] \textbf{Prepare to take notes} on errors and solutions
+\end{itemize}
+
+
+\subsubsection{Region Selection}
+
+\begin{itemize}
+  \item [ ] \textbf{Choose your primary region} (recommend us-east-1 or us-west-2)
+  \item [ ] \textbf{Verify Free Tier availability} in chosen region
+  \item [ ] \textbf{Note region for all labs} to maintain consistency
+  \item [ ] \textbf{Bookmark region selector} for quick access
+\end{itemize}
+
+
+\subsubsection{Time Planning}
+
+\begin{itemize}
+  \item [ ] \textbf{Review lab duration} estimates
+  \item [ ] \textbf{Add 25\% buffer time} for troubleshooting
+  \item [ ] \textbf{Plan cleanup time} (5-10 minutes per lab)
+  \item [ ] \textbf{Schedule breaks} between complex labs
+  \item [ ] \textbf{Avoid starting labs} late at night (may forget cleanup)
+\end{itemize}
+
+
+---
+
+\subsection{Prerequisites}
+
+
+\subsubsection{Create Your AWS Account}
+
+
+Follow these steps to create your AWS account:
+
+\begin{enumerate}
+  \item Visit \href{https://aws.amazon.com}{https://aws.amazon.com}
+  \item Click \textbf{"Create an AWS Account"}
+  \item Provide:
+\end{enumerate}
+
+\begin{itemize}
+  \item Email address
+  \item Password
+  \item AWS account name
+\end{itemize}
+
+\begin{enumerate}
+  \item Enter contact information
+  \item Provide payment method
+\end{enumerate}
+
+\begin{itemize}
+  \item Credit or debit card required
+  \item You won't be charged if you stay within Free Tier
+\end{itemize}
+
+\begin{enumerate}
+  \item Verify identity via phone call or SMS
+  \item Select Support Plan: \textbf{Basic (Free)}
+  \item Wait for account activation (can take up to 24 hours)
+  \item Check email for confirmation
+\end{enumerate}
+
+
+\subsubsection{AWS Free Tier}
+
+
+\textbf{Duration:} 12 months from account creation date
+
+\textbf{Key Free Tier Services:}
+\begin{itemize}
+  \item \textbf{EC2:} 750 hours/month of t2.micro or t3.micro instances
+  \item \textbf{S3:} 5 GB of standard storage
+  \item \textbf{RDS:} 750 hours/month of db.t2.micro, db.t3.micro, or db.t4g.micro
+  \item \textbf{Lambda:} 1 million free requests per month
+  \item \textbf{CloudWatch:} 10 custom metrics and alarms
+\end{itemize}
+
+
+\textbf{Always Free Services:}
+\begin{itemize}
+  \item DynamoDB: 25 GB storage
+  \item Lambda: 1 million requests/month
+  \item CloudFormation: No charge (pay for resources created)
+\end{itemize}
+
+
+\begin{examtip}
+Set up billing alerts immediately to avoid unexpected charges. AWS Free Tier is generous, but mistakes can incur costs.
+\end{examtip}
+
+
+---
+
+\subsection{Important Notes}
+
+
+\subsubsection{Safety and Cost Management}
+
+
+\begin{enumerate}
+  \item \textbf{Always clean up resources} after each lab to avoid charges
+  \item \textbf{Set billing alerts} before starting any hands-on work
+  \item \textbf{Use t2.micro or t3.micro} instance types (Free Tier eligible)
+  \item \textbf{Choose Free Tier regions} (us-east-1, us-west-2 recommended)
+  \item \textbf{Monitor Free Tier usage} in billing dashboard regularly
+  \item \textbf{Don't leave resources running} overnight or when not in use
+\end{enumerate}
+
+
+\subsubsection{Best Practices}
+
+
+\begin{itemize}
+  \item Complete labs in order (dependencies exist)
+  \item Take notes and screenshots for future reference
+  \item Read error messages carefully - they often contain solutions
+  \item Use tags to identify lab resources for easy cleanup
+  \item Stop services rather than terminate if you plan to return
+\end{itemize}
+
+
+\subsubsection{Troubleshooting Resources}
+
+
+\begin{itemize}
+  \item AWS Documentation: \href{https://docs.aws.amazon.com}{https://docs.aws.amazon.com}
+  \item AWS re:Post (community forum): \href{https://repost.aws}{https://repost.aws}
+  \item Service Health Dashboard: \href{https://status.aws.amazon.com}{https://status.aws.amazon.com}
+  \item AWS Support (if you have paid support plan)
+\end{itemize}
+
+
+---
+
+\subsection{Lab Difficulty Guide}
+
+
+\subsubsection{Understanding Difficulty Ratings}
+
+
+Each lab is rated on three dimensions:
+
+\textbf{Technical Complexity:}
+\begin{itemize}
+  \item \textbf{Beginner:} Straightforward steps, minimal technical knowledge required
+  \item \textbf{Intermediate:} Some technical concepts, may require troubleshooting
+  \item \textbf{Advanced:} Complex networking/architecture, requires careful attention
+\end{itemize}
+
+
+\textbf{Time Investment:}
+\begin{itemize}
+  \item Short: 15-30 minutes
+  \item Medium: 30-60 minutes
+  \item Long: 60+ minutes
+\end{itemize}
+
+
+\textbf{Prerequisites:}
+\begin{itemize}
+  \item Minimal: Just AWS account
+  \item Moderate: Completion of earlier labs helpful
+  \item Extensive: Requires specific knowledge or completed labs
+\end{itemize}
+
+
+\subsubsection{Lab Difficulty Matrix}
+
+
+\begin{longtable}{lllll}
+\toprule
+\textbf{Lab} & \textbf{Difficulty} & \textbf{Duration} & \textbf{Prerequisites} & \textbf{Complexity Score} \\
+\midrule
+Lab 1: Billing Alerts & Beginner & 15 min & None & 1/5 \\
+Lab 2: IAM \& MFA & Beginner & 30 min & None & 2/5 \\
+Lab 3: EC2 Instance & Intermediate & 45 min & Lab 2 recommended & 3/5 \\
+Lab 4: S3 Website & Intermediate & 40 min & Basic HTML & 2/5 \\
+Lab 5: VPC Network & Advanced & 60 min & Networking basics & 4/5 \\
+Lab 6: RDS Database & Intermediate & 30 min & Lab 3 \& 5 & 3/5 \\
+Lab 7: CloudWatch & Beginner & 25 min & Lab 3 & 2/5 \\
+Lab 8: Cost Tools & Beginner & 30 min & None & 1/5 \\
+Lab 9: Lambda & Intermediate & 25 min & Basic Python & 2/5 \\
+Lab 10: CloudFormation & Intermediate & 20 min & YAML/JSON & 3/5 \\
+Lab 11: Auto Scaling & Advanced & 45 min & Lab 3 \& 5 & 4/5 \\
+Lab 12: DynamoDB & Intermediate & 35 min & Database concepts & 2/5 \\
+Lab 13: SNS \& SQS & Intermediate & 30 min & Lab 9 helpful & 3/5 \\
+Lab 14: Route 53 & Intermediate & 25 min & DNS knowledge & 3/5 \\
+Lab 15: Organizations & Advanced & 40 min & Multiple accounts & 4/5 \\
+\bottomrule
+\end{longtable}
+
+\subsubsection{Recommended Learning Paths}
+
+
+\textbf{Path 1: Absolute Beginners}
+\begin{enumerate}
+  \item Lab 1 (Billing) → Lab 2 (IAM) → Lab 8 (Cost Tools) → Lab 4 (S3)
+  \item Then proceed with: Lab 3 → Lab 7 → Lab 9 → Lab 12
+\end{enumerate}
+
+
+\textbf{Path 2: Developers}
+\begin{enumerate}
+  \item Lab 1 → Lab 2 → Lab 3 → Lab 9 (Lambda)
+  \item Then: Lab 4 → Lab 13 (Messaging) → Lab 12 (DynamoDB) → Lab 10 (IaC)
+\end{enumerate}
+
+
+\textbf{Path 3: Infrastructure/Operations}
+\begin{enumerate}
+  \item Lab 1 → Lab 2 → Lab 3 → Lab 5 (VPC)
+  \item Then: Lab 11 (Auto Scaling) → Lab 6 (RDS) → Lab 14 (Route 53) → Lab 15
+\end{enumerate}
+
+
+\textbf{Path 4: Complete Sequential} (Recommended for Most)
+\begin{itemize}
+  \item Follow labs 1-15 in order for comprehensive understanding
+\end{itemize}
+
+
+\subsubsection{Skill Development Tracking}
+
+
+After completing each lab, self-assess your confidence:
+
+\textbf{Rating Scale:}
+\begin{itemize}
+  \item 1 = Need to review
+  \item 2 = Understood with help
+  \item 3 = Comfortable, could explain to others
+  \item 4 = Expert, could troubleshoot independently
+  \item 5 = Could teach this topic
+\end{itemize}
+
+
+\textbf{Target Scores for Exam:}
+\begin{itemize}
+  \item Core labs (1-10): Aim for 4/5
+  \item Advanced labs (11-15): Aim for 3/5
+\end{itemize}
+
+
+---
+
+\subsection{Lab 1: Set Up Billing Alerts and Budget}
+
+
+\textbf{Duration:} 15 minutes
+\textbf{Cost:} Free
+\textbf{Difficulty:} Beginner
+
+\subsubsection{Learning Objectives}
+
+
+By the end of this lab, you will be able to:
+
+\begin{enumerate}
+  \item Enable IAM user access to billing information
+  \item Create CloudWatch billing alarms with SNS notifications
+  \item Configure AWS Budgets with multiple alert thresholds
+  \item Understand the difference between CloudWatch billing metrics and AWS Budgets
+  \item Monitor Free Tier usage to prevent unexpected charges
+  \item Set up proactive cost monitoring for AWS account safety
+\end{enumerate}
+
+
+\subsubsection{Why This Lab Matters}
+
+
+\textbf{Real-World Scenario:} A developer left an RDS database running in a personal AWS account and accumulated \$450 in charges over a weekend. Proper billing alerts would have caught this within hours, limiting damage to less than \$20.
+
+\textbf{Exam Relevance:} The Cloud Practitioner exam heavily emphasizes cost management, billing, and monitoring. Questions often test your understanding of:
+\begin{itemize}
+  \item AWS Budgets vs. Cost Explorer vs. CloudWatch billing alarms
+  \item Free Tier limits and monitoring
+  \item Billing alert best practices
+  \item SNS notification mechanisms
+\end{itemize}
+
+
+\subsubsection{Objective}
+
+
+Protect yourself from unexpected charges by setting up billing alerts and budgets.
+
+\subsubsection{Prerequisites}
+
+
+\begin{itemize}
+  \item Active AWS account
+  \item Access to root account or IAM user with billing permissions
+\end{itemize}
+
+
+\subsubsection{Step-by-Step Instructions}
+
+
+\paragraph{Part 1: Enable Billing Alerts}
+
+
+\begin{keypoint}
+\textbf{What You'll See:} The AWS Management Console with the navigation bar at the top showing your account name and region selector.
+\end{keypoint}
+
+
+\begin{enumerate}
+  \item Sign in to \textbf{AWS Management Console} as root user or admin
+\end{enumerate}
+
+\begin{itemize}
+  \item You should see the AWS Services search bar and dashboard
+\end{itemize}
+
+
+\begin{enumerate}
+  \item Click your \textbf{account name} (top right corner) → Select \textbf{"Account"}
+\end{enumerate}
+
+\begin{itemize}
+  \item This opens the Account settings page
+  \item Alternative path: Navigate via "My Account" link in dropdown
+\end{itemize}
+
+
+\begin{enumerate}
+  \item Scroll down to \textbf{"IAM User and Role Access to Billing Information"} section
+\end{enumerate}
+
+\begin{itemize}
+  \item This section is about halfway down the page
+  \item You'll see a description about allowing IAM users to access billing data
+  \item \textbf{Why this matters:} By default, only root users can see billing info. This setting allows IAM users with appropriate permissions to view costs.
+\end{itemize}
+
+
+\begin{enumerate}
+  \item Click \textbf{"Edit"} button on the right side
+\end{enumerate}
+
+\begin{itemize}
+  \item A popup or inline editor will appear
+\end{itemize}
+
+
+\begin{enumerate}
+  \item Check the box to \textbf{"Activate IAM Access"}
+\end{enumerate}
+
+\begin{itemize}
+  \item When enabled, IAM users with billing permissions can see costs
+  \item \textbf{Best Practice:} This allows you to use IAM users instead of root for daily billing monitoring
+\end{itemize}
+
+
+\begin{enumerate}
+  \item Click \textbf{"Update"}
+\end{enumerate}
+
+\begin{itemize}
+  \item You'll see a success message: "Successfully updated IAM user/role access to billing information"
+\end{itemize}
+
+
+\textbf{Validation Step:}
+\begin{itemize}
+  \item The setting should now show as "Activated"
+  \item This is a one-time setup per AWS account
+\end{itemize}
+
+
+\textbf{Common Issue:} If you don't see this option, verify you're logged in as the root user (account owner), not an IAM user.
+
+\paragraph{Part 2: Create CloudWatch Billing Alarm}
+
+
+\begin{enumerate}
+  \item Navigate to \textbf{CloudWatch} service
+  \item Select region: \textbf{N. Virginia (us-east-1)} (billing metrics only in us-east-1)
+  \item Go to \textbf{"Alarms"} → \textbf{"Billing"} → \textbf{"Create alarm"}
+  \item Click \textbf{"Select metric"}
+  \item Select \textbf{"Billing"} → \textbf{"Total Estimated Charge"}
+  \item Select \textbf{USD} checkbox
+  \item Click \textbf{"Select metric"}
+  \item Configure alarm:
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Threshold type:} Static
+  \item \textbf{Whenever:} Greater than
+  \item \textbf{Amount:} \$5 (or your preferred threshold)
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Next"}
+\end{enumerate}
+
+
+\paragraph{Part 3: Configure SNS Notification}
+
+
+\begin{enumerate}
+  \item Under \textbf{"Notification"}:
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Select an SNS topic:} Create new topic
+  \item \textbf{Topic name:} "Billing-Alerts"
+  \item \textbf{Email endpoints:} Enter your email address
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Create topic"}
+  \item Click \textbf{"Next"}
+  \item \textbf{Alarm name:} "Monthly-Billing-Alert"
+  \item \textbf{Alarm description:} "Alert when monthly charges exceed \$5"
+  \item Click \textbf{"Next"}
+  \item Review and click \textbf{"Create alarm"}
+  \item \textbf{Check your email} and click confirmation link
+\end{enumerate}
+
+
+\paragraph{Part 4: Create AWS Budget}
+
+
+\begin{enumerate}
+  \item Navigate to \textbf{"Billing and Cost Management"}
+  \item Click \textbf{"Budgets"} in left menu
+  \item Click \textbf{"Create budget"}
+  \item Select \textbf{"Cost budget"} → \textbf{"Next"}
+  \item Configure budget:
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Budget name:} "Monthly-Cost-Budget"
+  \item \textbf{Period:} Monthly
+  \item \textbf{Budget amount:} \$10
+  \item \textbf{Budget scope:} All AWS services
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Next"}
+  \item Configure alerts:
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Alert 1:} 80\% of budgeted amount
+  \item \textbf{Email recipients:} Your email
+  \item \textbf{Alert 2:} 100\% of budgeted amount
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Next"}
+  \item Review and click \textbf{"Create budget"}
+\end{enumerate}
+
+
+\subsubsection{Expected Outcomes}
+
+
+\begin{itemize}
+  \item CloudWatch billing alarm created and active
+  \item Email confirmation received for SNS subscription
+  \item Budget created with two alert thresholds
+  \item Email notifications configured
+\end{itemize}
+
+
+\subsubsection{Verification}
+
+
+\begin{enumerate}
+  \item Go to \textbf{CloudWatch} → \textbf{Alarms} → Verify alarm shows "OK" state
+  \item Go to \textbf{Budgets} → Verify budget shows current spend vs. budget
+  \item Check email for SNS confirmation
+\end{enumerate}
+
+
+\subsubsection{Troubleshooting}
+
+
+\textbf{Problem:} Billing metric not showing
+\textbf{Solution:} Ensure you're in us-east-1 region; billing metrics only available there
+
+\textbf{Problem:} Email confirmation not received
+\textbf{Solution:} Check spam folder; resend confirmation from SNS console
+
+\textbf{Problem:} Can't access billing information
+\textbf{Solution:} Enable IAM access to billing in Account settings
+
+\subsubsection{What You Should See at Each Step}
+
+
+\textbf{After Creating CloudWatch Alarm:}
+\begin{itemize}
+  \item Alarm appears in CloudWatch → Alarms dashboard
+  \item Status shows "Insufficient data" initially (normal - need 24 hours of data)
+  \item After confirmation, status changes to "OK" (no alarm condition met)
+  \item Graph shows estimated charges over time
+\end{itemize}
+
+
+\textbf{After Confirming SNS Subscription:}
+\begin{itemize}
+  \item Email from "AWS Notifications" with subject "AWS Notification - Subscription Confirmation"
+  \item After clicking link, browser shows "Subscription confirmed!"
+  \item SNS console shows subscription status as "Confirmed"
+\end{itemize}
+
+
+\textbf{After Creating Budget:}
+\begin{itemize}
+  \item Budget appears in Budgets dashboard
+  \item Shows current spend vs. budgeted amount (likely \$0.00 of \$10.00)
+  \item Alert thresholds displayed at 80\% (\$8) and 100\% (\$10)
+  \item Forecast shows projected end-of-month spend
+\end{itemize}
+
+
+\subsubsection{Real-World Tips}
+
+
+\textbf{Recommended Alert Thresholds:}
+\begin{itemize}
+  \item For students/learners: \$5 alarm, \$10 budget
+  \item For production accounts: Set based on expected monthly spend
+  \item Conservative approach: Alert at 50\%, 80\%, and 100\%
+\end{itemize}
+
+
+\textbf{Multiple Budget Strategy:}
+\begin{itemize}
+  \item Total account budget: \$10
+  \item Per-service budgets: EC2 \$3, RDS \$3, S3 \$2, Other \$2
+  \item Helps identify which service is driving costs
+\end{itemize}
+
+
+\textbf{Alert Fatigue Prevention:}
+\begin{itemize}
+  \item Don't set thresholds too low (avoid constant alerts)
+  \item Review and adjust monthly based on actual usage
+  \item Use forecasted budgets for proactive monitoring
+\end{itemize}
+
+
+\textbf{Best Practice - Multiple Notification Recipients:}
+\begin{itemize}
+  \item Add team members' emails to SNS topic
+  \item Consider SMS notifications for critical budgets (note: SMS costs money)
+  \item Set up Slack/Teams integration via Lambda (advanced)
+\end{itemize}
+
+
+\subsubsection{Alternative Approaches}
+
+
+\textbf{Method 1: AWS Budgets Only}
+\begin{itemize}
+  \item Skip CloudWatch billing alarm
+  \item Use only AWS Budgets (simpler for beginners)
+  \item Limitation: Less granular, updated 3x per day vs. CloudWatch every 5 minutes
+\end{itemize}
+
+
+\textbf{Method 2: CloudWatch Only}
+\begin{itemize}
+  \item Skip AWS Budgets
+  \item Create multiple CloudWatch alarms at different thresholds
+  \item Limitation: Doesn't show forecasts or budget tracking UI
+\end{itemize}
+
+
+\textbf{Method 3: Cost Anomaly Detection (Advanced)}
+\begin{itemize}
+  \item AWS provides ML-based anomaly detection
+  \item Navigate to Cost Management → Cost Anomaly Detection
+  \item Create monitor → Set alert preferences
+  \item Automatically detects unusual spending patterns
+\end{itemize}
+
+
+\subsubsection{Cleanup}
+
+
+\begin{keypoint}
+\textbf{Note:} Keep these alerts active for ongoing protection. No cleanup needed.
+\end{keypoint}
+
+
+\textbf{If you need to remove alerts later:}
+
+\begin{enumerate}
+  \item \textbf{Delete CloudWatch Alarm:}
+\end{enumerate}
+
+\begin{itemize}
+  \item CloudWatch → Alarms → Select alarm → Actions → Delete
+  \item Confirm deletion by typing alarm name
+  \item Alarm deleted immediately
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete Budget:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Billing → Budgets → Select budget → Actions → Delete budget
+  \item Type "delete" to confirm
+  \item Budget removed from dashboard
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete SNS Topic:}
+\end{enumerate}
+
+\begin{itemize}
+  \item SNS → Topics → Select topic → Delete
+  \item Type "delete me" to confirm
+  \item Associated subscriptions automatically deleted
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Verify Cleanup:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Check CloudWatch Alarms list (should be empty)
+  \item Check Budgets dashboard (should show no budgets)
+  \item Emails stop arriving
+\end{itemize}
+
+
+\textbf{Cost Impact of Deletion:}
+\begin{itemize}
+  \item No ongoing costs for these free services
+  \item Safe to keep active indefinitely
+\end{itemize}
+
+
+---
+
+\subsubsection{Post-Lab Knowledge Check}
+
+
+Test your understanding of Lab 1 concepts:
+
+\textbf{Question 1:} What's the difference between CloudWatch billing alarms and AWS Budgets?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:}
+\begin{itemize}
+  \item \textbf{CloudWatch Alarms:} Monitor actual charges in near real-time (every 5-10 minutes), trigger SNS notifications when threshold exceeded. Only available in us-east-1 region.
+  \item \textbf{AWS Budgets:} Track costs and usage against planned budgets, provide forecasting, update 3 times per day. Support usage-based budgets (not just cost). Available globally.
+  \item \textbf{Use both together:} CloudWatch for immediate alerts, Budgets for tracking and forecasting.
+\end{itemize}
+
+
+</details>
+
+\textbf{Question 2:} Why must CloudWatch billing metrics be created in the us-east-1 region?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:} Billing is a global service, and AWS consolidates all billing data in the us-east-1 (N. Virginia) region. Billing metrics are only published to CloudWatch in this region. This is an AWS design decision to centralize global billing data.
+
+\textbf{Exam Tip:} Remember this for the exam - it's a common trick question!
+
+</details>
+
+\textbf{Question 3:} If your alarm shows "Insufficient data" status, is something wrong?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:} No, this is normal. "Insufficient data" means CloudWatch doesn't have enough data points yet to evaluate the alarm. This typically happens:
+\begin{itemize}
+  \item Within first 24 hours of alarm creation
+  \item For new AWS accounts with minimal usage
+  \item After changing alarm parameters
+\end{itemize}
+
+
+Status will change to "OK" once sufficient data is available. If charges exceed threshold, status changes to "In alarm."
+
+</details>
+
+\textbf{Question 4:} You set a \$10 budget but received an alert at \$8. Why?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:} You configured an alert threshold at 80\% of your budget. 80\% of \$10 = \$8. This is intentional and a best practice. Getting alerts before hitting 100\% gives you time to investigate and take action before exceeding your budget.
+
+Multiple thresholds (50\%, 80\%, 100\%) provide escalating warnings as you approach your limit.
+
+</details>
+
+\textbf{Question 5:} Can you set up billing alarms for individual services like EC2 or S3?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:}
+\begin{itemize}
+  \item \textbf{CloudWatch Billing Alarms:} Can only monitor total estimated charges for the account, not individual services.
+  \item \textbf{AWS Budgets:} YES, can create service-specific budgets (e.g., EC2 only, S3 only).
+  \item \textbf{Best Practice:} Use AWS Budgets for service-level cost tracking, CloudWatch alarms for total account spending.
+\end{itemize}
+
+
+</details>
+
+\textbf{Question 6:} What happens if you don't confirm the SNS subscription email?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:} The subscription remains in "Pending confirmation" status and you will NOT receive any alarm notifications. The alarm will still evaluate and trigger, but emails won't be sent.
+
+Always check spam folder and confirm subscriptions within 3 days. After 3 days, you may need to recreate the subscription.
+
+</details>
+
+\textbf{Question 7:} Your Free Tier includes 10 CloudWatch alarms. What happens if you create 11?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:} You'll be charged \$0.10 per alarm per month for the 11th alarm (and any beyond that). With 11 alarms, cost would be \$0.10/month.
+
+\textbf{Best Practice for Free Tier:}
+\begin{itemize}
+  \item Stay within 10 alarms
+  \item Use AWS Budgets (free) for additional monitoring
+  \item Combine multiple thresholds in fewer alarms
+\end{itemize}
+
+
+</details>
+
+\textbf{Question 8:} How often should you check your Free Tier usage dashboard?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:}
+\begin{itemize}
+  \item \textbf{Minimum:} Weekly
+  \item \textbf{Recommended:} Every 2-3 days when actively learning
+  \item \textbf{Best Practice:} Daily while running labs
+  \item \textbf{Set Calendar Reminder:} Add recurring reminder to check dashboard
+\end{itemize}
+
+
+Free Tier dashboard shows current month usage vs. limits with visual progress bars. Catches issues before they become charges.
+
+</details>
+
+\subsubsection{Key Takeaways}
+
+
+\begin{itemize}
+  \item \textbf{Billing alerts are your safety net} - Set them up before doing anything else in AWS
+  \item \textbf{Use both CloudWatch alarms and Budgets} - They complement each other
+  \item \textbf{Always confirm SNS subscriptions} - Check spam folder if needed
+  \item \textbf{Monitor Free Tier usage} - Make it a daily habit during learning phase
+  \item \textbf{Be conservative with thresholds} - Better to get warned early than surprised by charges
+  \item \textbf{Billing metrics are us-east-1 only} - Remember this for the exam
+  \item \textbf{Budgets can track usage, not just costs} - Useful for monitoring Free Tier hours
+  \item \textbf{Free Tier is per service} - 750 EC2 hours + 750 RDS hours, not combined
+\end{itemize}
+
+
+\subsubsection{Additional Resources}
+
+
+\begin{itemize}
+  \item \href{https://docs.aws.amazon.com/account-billing/}{AWS Billing and Cost Management Documentation}
+  \item \href{https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor\\textit{estimated\}charges\\textit{with\}cloudwatch.html}{CloudWatch Billing Metrics Guide}
+  \item \href{https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-best-practices.html}{AWS Budgets Best Practices}
+  \item \href{https://aws.amazon.com/free/}{Understanding AWS Free Tier}
+\end{itemize}
+
+
+---
+
+\subsection{Lab 2: IAM Users, Groups, Roles, and MFA}
+
+
+\textbf{Duration:} 30 minutes
+\textbf{Cost:} Free
+\textbf{Difficulty:} Beginner
+
+\subsubsection{Objective}
+
+
+Understand IAM security best practices by creating users, groups, roles, and enabling MFA.
+
+\subsubsection{Prerequisites}
+
+
+\begin{itemize}
+  \item AWS account with root access
+  \item Smartphone with authenticator app (Google Authenticator, Authy, etc.)
+\end{itemize}
+
+
+\subsubsection{Step-by-Step Instructions}
+
+
+\paragraph{Part 1: Secure Root Account with MFA}
+
+
+\begin{enumerate}
+  \item Navigate to \textbf{IAM} service in AWS Console
+  \item Click \textbf{"Dashboard"} → Review security recommendations
+  \item Click \textbf{"Add MFA"} for root account
+  \item \textbf{MFA device name:} "root-mfa-device"
+  \item Select \textbf{"Virtual MFA device"} → \textbf{"Next"}
+  \item Install authenticator app on your phone:
+\end{enumerate}
+
+\begin{itemize}
+  \item Google Authenticator (iOS/Android)
+  \item Authy (iOS/Android)
+  \item Microsoft Authenticator
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Show QR code"}
+  \item Scan QR code with authenticator app
+  \item Enter \textbf{two consecutive MFA codes} from app
+  \item Click \textbf{"Add MFA"}
+  \item \textbf{Verify:} MFA badge appears on dashboard
+\end{enumerate}
+
+
+\begin{important}
+\textbf{Important:} Store root account credentials securely and use IAM users for daily tasks.
+\end{important}
+
+
+\paragraph{Part 2: Create IAM Admin User}
+
+
+\begin{enumerate}
+  \item In IAM, click \textbf{"Users"} → \textbf{"Create user"}
+  \item \textbf{User name:} "admin-user"
+  \item Select \textbf{"Provide user access to the AWS Management Console"}
+  \item Choose \textbf{"I want to create an IAM user"}
+  \item Password options:
+\end{enumerate}
+
+\begin{itemize}
+  \item Custom password OR Autogenerated
+  \item Uncheck "Users must create a new password at next sign-in"
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Next"}
+  \item \textbf{Permissions options:} "Attach policies directly"
+  \item Search and select \textbf{"AdministratorAccess"}
+  \item Click \textbf{"Next"}
+  \item Review and click \textbf{"Create user"}
+  \item \textbf{Download .csv file} (contains credentials)
+  \item \textbf{Copy console sign-in URL} (save for later)
+\end{enumerate}
+
+
+\paragraph{Part 3: Create IAM Groups}
+
+
+\textbf{Create Developers Group:}
+
+\begin{enumerate}
+  \item Click \textbf{"User groups"} → \textbf{"Create group"}
+  \item \textbf{Group name:} "Developers"
+  \item \textbf{Attach permissions policies:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Search and select \textbf{"AmazonEC2ReadOnlyAccess"}
+  \item Search and select \textbf{"AmazonS3FullAccess"}
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Create group"}
+\end{enumerate}
+
+
+\textbf{Create Administrators Group:}
+
+\begin{enumerate}
+  \item Click \textbf{"Create group"} again
+  \item \textbf{Group name:} "Administrators"
+  \item \textbf{Attach permissions policy:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Search and select \textbf{"AdministratorAccess"}
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Create group"}
+\end{enumerate}
+
+
+\paragraph{Part 4: Create Additional IAM Users}
+
+
+\textbf{Create Developer User 1:}
+
+\begin{enumerate}
+  \item Click \textbf{"Users"} → \textbf{"Create user"}
+  \item \textbf{User name:} "developer-1"
+  \item Enable \textbf{console access}
+  \item Set password (custom or autogenerated)
+  \item Click \textbf{"Next"}
+  \item \textbf{Add user to groups:} Select \textbf{"Developers"} group
+  \item Click \textbf{"Next"} → \textbf{"Create user"}
+\end{enumerate}
+
+
+\textbf{Create Developer User 2:}
+
+\begin{enumerate}
+  \item Repeat above steps
+  \item \textbf{User name:} "developer-2"
+  \item Add to \textbf{"Developers"} group
+  \item Create user
+\end{enumerate}
+
+
+\paragraph{Part 5: Create IAM Role for EC2}
+
+
+\begin{enumerate}
+  \item Click \textbf{"Roles"} → \textbf{"Create role"}
+  \item \textbf{Trusted entity type:} "AWS service"
+  \item \textbf{Use case:} Select \textbf{"EC2"}
+  \item Click \textbf{"Next"}
+  \item \textbf{Attach permissions:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Search and select \textbf{"AmazonS3ReadOnlyAccess"}
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Next"}
+  \item \textbf{Role name:} "EC2-S3-ReadOnly-Role"
+  \item \textbf{Description:} "Allows EC2 instances to read from S3"
+  \item Click \textbf{"Create role"}
+\end{enumerate}
+
+
+\paragraph{Part 6: Test IAM Policies}
+
+
+\begin{enumerate}
+  \item \textbf{Sign out} from root account
+  \item \textbf{Sign in} as "developer-1" using:
+\end{enumerate}
+
+\begin{itemize}
+  \item Console sign-in URL (saved earlier)
+  \item Username: developer-1
+  \item Password: (as set)
+\end{itemize}
+
+\begin{enumerate}
+  \item Try to access \textbf{S3} service (should work - full access)
+  \item Try to create S3 bucket (should work)
+  \item Try to access \textbf{IAM} service (should be denied - no permission)
+  \item Try to view \textbf{EC2} instances (should work - read-only)
+  \item Try to launch EC2 instance (should be denied - read-only)
+  \item \textbf{Sign out}
+\end{enumerate}
+
+
+\subsubsection{Expected Outcomes}
+
+
+\begin{itemize}
+  \item Root account secured with MFA
+  \item IAM admin user created with full permissions
+  \item Two IAM groups created (Developers, Administrators)
+  \item Two developer users created and added to Developers group
+  \item IAM role created for EC2 to access S3
+  \item Successfully tested permissions and restrictions
+\end{itemize}
+
+
+\subsubsection{Verification}
+
+
+\begin{enumerate}
+  \item \textbf{IAM Dashboard} shows:
+\end{enumerate}
+
+\begin{itemize}
+  \item MFA enabled for root
+  \item Multiple users created
+  \item Groups with attached policies
+  \item Role created
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Sign-in test} as developer-1 confirms permission boundaries
+\end{enumerate}
+
+
+\subsubsection{Troubleshooting}
+
+
+\textbf{Problem:} Can't sign in as IAM user
+\textbf{Solution:} Use account-specific sign-in URL, not root login page
+
+\textbf{Problem:} MFA setup fails
+\textbf{Solution:} Ensure phone time is synchronized; try re-scanning QR code
+
+\textbf{Problem:} Permission denied errors
+\textbf{Solution:} Verify user is in correct group; check group policies attached
+
+\subsubsection{Cleanup}
+
+
+\begin{keypoint}
+\textbf{Note:} Keep admin-user for future labs. Can delete developer users and groups if desired.
+\end{keypoint}
+
+
+\textbf{To delete users:}
+\begin{enumerate}
+  \item Select user → \textbf{"Delete"} → Confirm
+\end{enumerate}
+
+
+\textbf{To delete groups:}
+\begin{enumerate}
+  \item Remove all users from group first
+  \item Select group → \textbf{"Delete"} → Confirm
+\end{enumerate}
+
+
+\textbf{To delete role:}
+\begin{enumerate}
+  \item Select role → \textbf{"Delete"} → Confirm
+\end{enumerate}
+
+
+---
+
+\subsection{Lab 3: Launch and Configure EC2 Instance}
+
+
+\textbf{Duration:} 45 minutes
+\textbf{Cost:} Free (t2.micro/t3.micro in Free Tier)
+\textbf{Difficulty:} Intermediate
+
+\subsubsection{Objective}
+
+
+Launch a web server on EC2, connect via SSH, create an AMI, and take snapshots.
+
+\subsubsection{Prerequisites}
+
+
+\begin{itemize}
+  \item AWS account
+  \item IAM user with EC2 permissions
+  \item Basic command line knowledge
+\end{itemize}
+
+
+\subsubsection{Step-by-Step Instructions}
+
+
+\paragraph{Part 1: Launch EC2 Instance}
+
+
+\begin{enumerate}
+  \item Navigate to \textbf{EC2} service
+  \item Select region: \textbf{us-east-1} (or your preferred region)
+  \item Click \textbf{"Launch instance"}
+  \item \textbf{Name:} "MyWebServer"
+  \item \textbf{Application and OS Images (AMI):}
+\end{enumerate}
+
+\begin{itemize}
+  \item Select \textbf{"Amazon Linux 2023 AMI"}
+  \item Verify "Free tier eligible" label
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Instance type:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Select \textbf{"t2.micro"} or \textbf{"t3.micro"} (Free tier eligible)
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Key pair:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Create new key pair"}
+  \item \textbf{Key pair name:} "my-key-pair"
+  \item \textbf{Key pair type:} RSA
+  \item \textbf{Private key file format:}
+  \item \textbf{.pem} (for Mac/Linux/Windows OpenSSH)
+  \item \textbf{.ppk} (for Windows PuTTY)
+  \item Click \textbf{"Create key pair"}
+  \item \textbf{Save file securely} (you can't download again)
+\end{itemize}
+
+
+\paragraph{Part 2: Configure Network Settings}
+
+
+\begin{enumerate}
+  \item \textbf{Network settings:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Edit"}
+  \item \textbf{VPC:} Default VPC
+  \item \textbf{Subnet:} No preference
+  \item \textbf{Auto-assign public IP:} Enable
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Firewall (Security groups):}
+\end{enumerate}
+
+\begin{itemize}
+  \item Select \textbf{"Create security group"}
+  \item \textbf{Security group name:} "web-server-sg"
+  \item \textbf{Description:} "Allow SSH and HTTP"
+  \item \textbf{Inbound security group rules:}
+  \item \textbf{Rule 1:}
+  \item Type: SSH
+  \item Protocol: TCP
+  \item Port: 22
+  \item Source: My IP
+  \item Click \textbf{"Add security group rule"}
+  \item \textbf{Rule 2:}
+  \item Type: HTTP
+  \item Protocol: TCP
+  \item Port: 80
+  \item Source: 0.0.0.0/0 (anywhere)
+\end{itemize}
+
+
+\paragraph{Part 3: Configure Storage and User Data}
+
+
+\begin{enumerate}
+  \item \textbf{Configure storage:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Size:} 8 GiB (default)
+  \item \textbf{Volume type:} gp3 (default)
+  \item Keep other defaults
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Expand "Advanced details"}
+  \item Scroll to \textbf{"User data"}
+  \item Paste the following script:
+\end{enumerate}
+
+
+\begin{lstlisting}[language=bash]
+\#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Hello from AWS EC2</h1>" > /var/www/html/index.html
+\end{lstlisting}
+
+\begin{enumerate}
+  \item Click \textbf{"Launch instance"}
+  \item Wait for \textbf{"Successfully initiated launch"} message
+  \item Click \textbf{"View all instances"}
+\end{enumerate}
+
+
+\paragraph{Part 4: Connect to Instance}
+
+
+\textbf{Wait for instance to be ready:}
+\begin{itemize}
+  \item \textbf{Instance state:} Running
+  \item \textbf{Status check:} 2/2 checks passed (may take 2-3 minutes)
+\end{itemize}
+
+
+\textbf{Get connection information:}
+\begin{enumerate}
+  \item Select your instance
+  \item Copy \textbf{"Public IPv4 address"}
+  \item Test web server: Open browser, navigate to \texttt{http://[public-ip]}
+  \item You should see: \textbf{"Hello from AWS EC2"}
+\end{enumerate}
+
+
+\textbf{Connect via SSH (Mac/Linux/Windows OpenSSH):}
+
+\begin{enumerate}
+  \item Open terminal
+  \item Navigate to directory with key pair:
+\end{enumerate}
+
+   \texttt{`}bash
+   cd \textasciitilde{}/Downloads
+   \texttt{`}
+\begin{enumerate}
+  \item Set correct permissions:
+\end{enumerate}
+
+   \texttt{`}bash
+   chmod 400 my-key-pair.pem
+   \texttt{`}
+\begin{enumerate}
+  \item Connect to instance:
+\end{enumerate}
+
+   \texttt{`}bash
+   ssh -i my-key-pair.pem ec2-user@[public-ip-address]
+   \texttt{`}
+\begin{enumerate}
+  \item Type \textbf{"yes"} to accept fingerprint
+  \item You're now connected!
+\end{enumerate}
+
+
+\textbf{Connect via SSH (Windows PuTTY):}
+
+\begin{enumerate}
+  \item Open PuTTY
+  \item \textbf{Host Name:} ec2-user@[public-ip]
+  \item \textbf{Port:} 22
+  \item \textbf{Connection → SSH → Auth:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Browse and select .ppk file
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Open"}
+  \item Accept security alert
+  \item You're connected!
+\end{enumerate}
+
+
+\textbf{Verify web server:}
+\begin{lstlisting}[language=bash]
+sudo systemctl status httpd
+\end{lstlisting}
+
+\paragraph{Part 5: Create AMI (Amazon Machine Image)}
+
+
+\begin{enumerate}
+  \item In EC2 Console, select your instance
+  \item Click \textbf{"Actions"} → \textbf{"Image and templates"} → \textbf{"Create image"}
+  \item \textbf{Image name:} "MyWebServer-AMI"
+  \item \textbf{Image description:} "Web server with Apache installed"
+  \item Keep other defaults
+  \item Click \textbf{"Create image"}
+  \item Go to \textbf{"AMIs"} in left navigation menu
+  \item Wait for \textbf{Status:} "Available" (takes 2-5 minutes)
+\end{enumerate}
+
+
+\begin{keypoint}
+\textbf{Note:} You can now launch new instances from this AMI with Apache pre-installed.
+\end{keypoint}
+
+
+\paragraph{Part 6: Create EBS Snapshot}
+
+
+\begin{enumerate}
+  \item Go to \textbf{"Volumes"} in EC2 left menu
+  \item Select volume attached to your instance (check "Attachment information")
+  \item Click \textbf{"Actions"} → \textbf{"Create snapshot"}
+  \item \textbf{Description:} "WebServer-backup"
+  \item \textbf{Tags:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Key: Name
+  \item Value: WebServer-Snapshot
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Create snapshot"}
+  \item Go to \textbf{"Snapshots"} to view status
+  \item Wait for \textbf{Status:} "Completed"
+\end{enumerate}
+
+
+\subsubsection{Expected Outcomes}
+
+
+\begin{itemize}
+  \item EC2 instance running Amazon Linux 2023
+  \item Apache web server installed and accessible via HTTP
+  \item Successfully connected via SSH
+  \item AMI created from running instance
+  \item EBS snapshot created for backup
+\end{itemize}
+
+
+\subsubsection{Verification}
+
+
+\begin{enumerate}
+  \item \textbf{Web server accessible:} Visit \texttt{http://[public-ip]} → See "Hello from AWS EC2"
+  \item \textbf{SSH connection works:} Able to connect and run commands
+  \item \textbf{AMI created:} Shows in AMIs list with "Available" status
+  \item \textbf{Snapshot created:} Shows in Snapshots list with "Completed" status
+\end{enumerate}
+
+
+\subsubsection{Troubleshooting}
+
+
+\textbf{Problem:} Can't access web server (timeout)
+\textbf{Solution:}
+\begin{itemize}
+  \item Verify security group allows HTTP (port 80) from 0.0.0.0/0
+  \item Ensure instance is in "running" state
+  \item Check status checks passed
+  \item Verify you're using HTTP, not HTTPS
+\end{itemize}
+
+
+\textbf{Problem:} SSH connection refused
+\textbf{Solution:}
+\begin{itemize}
+  \item Verify security group allows SSH (port 22) from your IP
+  \item Check you're using correct key pair file
+  \item Ensure using "ec2-user" as username
+  \item Verify key file has correct permissions (400)
+\end{itemize}
+
+
+\textbf{Problem:} Permission denied (publickey)
+\textbf{Solution:}
+\begin{itemize}
+  \item Verify using correct .pem file
+  \item Check file permissions: \texttt{chmod 400 my-key-pair.pem}
+  \item Ensure using correct username (ec2-user for Amazon Linux)
+\end{itemize}
+
+
+\textbf{Problem:} AMI creation fails
+\textbf{Solution:}
+\begin{itemize}
+  \item Ensure instance is in "running" or "stopped" state
+  \item Check you have sufficient EBS snapshot quota
+\end{itemize}
+
+
+\subsubsection{Cleanup (Important!)}
+
+
+\begin{keypoint}
+\textbf{Critical:} Always clean up to avoid charges after Free Tier expires.
+\end{keypoint}
+
+
+\textbf{Delete resources in this order:}
+
+\begin{enumerate}
+  \item \textbf{Terminate instance:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Select instance
+  \item \textbf{"Instance state"} → \textbf{"Terminate instance"}
+  \item Confirm termination
+  \item Wait for state: "Terminated"
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete snapshot:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to \textbf{"Snapshots"}
+  \item Select your snapshot
+  \item \textbf{"Actions"} → \textbf{"Delete snapshot"}
+  \item Confirm deletion
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Deregister AMI:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to \textbf{"AMIs"}
+  \item Select your AMI
+  \item \textbf{"Actions"} → \textbf{"Deregister AMI"}
+  \item Confirm deregistration
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete AMI snapshot:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to \textbf{"Snapshots"}
+  \item Find snapshot created by AMI (check description)
+  \item \textbf{"Actions"} → \textbf{"Delete snapshot"}
+  \item Confirm deletion
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete key pair (optional):}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to \textbf{"Key Pairs"}
+  \item Select key pair
+  \item \textbf{"Actions"} → \textbf{"Delete"}
+  \item Confirm deletion
+\end{itemize}
+
+
+---
+
+\subsection{Lab 4: Amazon S3 Storage and Website Hosting}
+
+
+\textbf{Duration:} 40 minutes
+\textbf{Cost:} Free (within 5 GB Free Tier)
+\textbf{Difficulty:} Intermediate
+
+\subsubsection{Objective}
+
+
+Master S3 storage features including bucket creation, static website hosting, versioning, lifecycle policies, and encryption.
+
+\subsubsection{Prerequisites}
+
+
+\begin{itemize}
+  \item AWS account
+  \item Basic HTML knowledge
+  \item Text editor
+\end{itemize}
+
+
+\subsubsection{Step-by-Step Instructions}
+
+
+\paragraph{Part 1: Create S3 Bucket}
+
+
+\begin{enumerate}
+  \item Navigate to \textbf{S3} service
+  \item Click \textbf{"Create bucket"}
+  \item \textbf{Bucket name:} "my-website-[yourname]-[random-numbers]"
+\end{enumerate}
+
+\begin{itemize}
+  \item Must be globally unique
+  \item Example: "my-website-john-12345"
+  \item Only lowercase letters, numbers, hyphens
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{AWS Region:} Select your preferred region (us-east-1 recommended)
+  \item \textbf{Object Ownership:} ACLs disabled (recommended)
+  \item \textbf{Block Public Access settings:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Uncheck} "Block all public access"
+  \item \textbf{Check} acknowledgment box (needed for website hosting)
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Bucket Versioning:} Enable
+  \item \textbf{Tags:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Key: Project
+  \item Value: Learning
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Default encryption:} Server-side encryption with Amazon S3 managed keys (SSE-S3)
+  \item Click \textbf{"Create bucket"}
+\end{enumerate}
+
+
+\paragraph{Part 2: Upload HTML Files}
+
+
+\textbf{Create index.html file:}
+
+\begin{enumerate}
+  \item Open text editor
+  \item Create file named \texttt{index.html}
+  \item Paste the following content:
+\end{enumerate}
+
+
+\begin{lstlisting}[language=html]
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My AWS Website</title>
+    <style>
+        body \{
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        \}
+        h1 \{ color: \#FF9900; \}
+    </style>
+</head>
+<body>
+    <h1>Welcome to My S3 Website</h1>
+    <p>This website is hosted on Amazon S3!</p>
+    <p>S3 provides durable, scalable object storage.</p>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{enumerate}
+  \item Save file
+\end{enumerate}
+
+
+\textbf{Create error.html file:}
+
+\begin{enumerate}
+  \item Create file named \texttt{error.html}
+  \item Paste the following content:
+\end{enumerate}
+
+
+\begin{lstlisting}[language=html]
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error</title>
+</head>
+<body>
+    <h1>404 - Page Not Found</h1>
+    <p>The requested page doesn't exist.</p>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{enumerate}
+  \item Save file
+\end{enumerate}
+
+
+\textbf{Upload files to S3:}
+
+\begin{enumerate}
+  \item Click on your bucket name
+  \item Click \textbf{"Upload"}
+  \item Click \textbf{"Add files"}
+  \item Select \texttt{index.html} and \texttt{error.html}
+  \item Click \textbf{"Upload"}
+  \item Wait for upload to complete
+  \item Click \textbf{"Close"}
+\end{enumerate}
+
+
+\paragraph{Part 3: Enable Static Website Hosting}
+
+
+\begin{enumerate}
+  \item In your bucket, go to \textbf{"Properties"} tab
+  \item Scroll to \textbf{"Static website hosting"}
+  \item Click \textbf{"Edit"}
+  \item \textbf{Static website hosting:} Enable
+  \item \textbf{Hosting type:} "Host a static website"
+  \item \textbf{Index document:} index.html
+  \item \textbf{Error document:} error.html
+  \item Click \textbf{"Save changes"}
+  \item Scroll back to "Static website hosting"
+  \item \textbf{Copy the "Bucket website endpoint" URL} (save for later)
+\end{enumerate}
+
+
+\paragraph{Part 4: Configure Bucket Policy for Public Access}
+
+
+\begin{enumerate}
+  \item Go to \textbf{"Permissions"} tab
+  \item Scroll to \textbf{"Bucket policy"}
+  \item Click \textbf{"Edit"}
+  \item Paste the following policy (replace \texttt{YOUR-BUCKET-NAME} with your actual bucket name):
+\end{enumerate}
+
+
+\begin{lstlisting}[language=json]
+\{
+  "Version": "2012-10-17",
+  "Statement": [
+    \{
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::YOUR-BUCKET-NAME/*"
+    \}
+  ]
+\}
+\end{lstlisting}
+
+\begin{enumerate}
+  \item Click \textbf{"Save changes"}
+  \item \textbf{Test website:} Open bucket website endpoint URL in browser
+  \item You should see your "Welcome to My S3 Website" page!
+\end{enumerate}
+
+
+\paragraph{Part 5: Test Versioning}
+
+
+\begin{enumerate}
+  \item Edit \texttt{index.html} locally:
+\end{enumerate}
+
+\begin{itemize}
+  \item Change heading to "Welcome to My Updated S3 Website"
+  \item Add a line: \texttt{<p>This is version 2!</p>}
+  \item Save file
+\end{itemize}
+
+\begin{enumerate}
+  \item Upload new version to S3:
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to bucket → \textbf{"Upload"}
+  \item Select modified \texttt{index.html}
+  \item \textbf{"Upload"}
+\end{itemize}
+
+\begin{enumerate}
+  \item View versions:
+\end{enumerate}
+
+\begin{itemize}
+  \item In bucket, select \texttt{index.html}
+  \item Click \textbf{"Versions"} tab
+  \item You'll see multiple versions listed
+\end{itemize}
+
+\begin{enumerate}
+  \item Click on older version to view/download
+  \item To restore older version:
+\end{enumerate}
+
+\begin{itemize}
+  \item Select older version
+  \item Click \textbf{"Actions"} → \textbf{"Download"}
+  \item Re-upload as new version
+\end{itemize}
+
+
+\paragraph{Part 6: Create Lifecycle Policy}
+
+
+\begin{enumerate}
+  \item Go to \textbf{"Management"} tab
+  \item Click \textbf{"Create lifecycle rule"}
+  \item \textbf{Lifecycle rule name:} "Archive-Old-Files"
+  \item \textbf{Rule scope:} Apply to all objects in the bucket
+  \item \textbf{Lifecycle rule actions} (check these):
+\end{enumerate}
+
+\begin{itemize}
+  \item Transition current versions of objects between storage classes
+  \item Expire current versions of objects
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Transition current versions:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Days after object creation:} 30
+  \item \textbf{Storage class:} Standard-IA
+  \item Click \textbf{"Add transition"}
+  \item \textbf{Days:} 90
+  \item \textbf{Storage class:} Glacier Flexible Retrieval
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Expire current versions of objects:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Days after object creation:} 365
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Acknowledge warning} about costs
+  \item Click \textbf{"Create rule"}
+\end{enumerate}
+
+
+\paragraph{Part 7: Enable Server-Side Encryption}
+
+
+\begin{enumerate}
+  \item Go to \textbf{"Properties"} tab
+  \item Scroll to \textbf{"Default encryption"}
+  \item Click \textbf{"Edit"}
+  \item \textbf{Encryption type:} Server-side encryption with Amazon S3 managed keys (SSE-S3)
+  \item \textbf{Bucket Key:} Enabled (reduces encryption costs)
+  \item Click \textbf{"Save changes"}
+\end{enumerate}
+
+
+\subsubsection{Expected Outcomes}
+
+
+\begin{itemize}
+  \item S3 bucket created with unique name
+  \item Static website hosting enabled and accessible
+  \item HTML files uploaded and viewable via HTTP
+  \item Versioning enabled and tested
+  \item Lifecycle policy created for automatic archival
+  \item Encryption enabled for security
+\end{itemize}
+
+
+\subsubsection{Verification}
+
+
+\begin{enumerate}
+  \item \textbf{Website accessible:} Visit bucket endpoint URL → See your website
+  \item \textbf{Versioning works:} Multiple versions visible in Versions tab
+  \item \textbf{Lifecycle rule created:} Visible in Management tab
+  \item \textbf{Encryption enabled:} Shows in Properties tab
+\end{enumerate}
+
+
+\subsubsection{Troubleshooting}
+
+
+\textbf{Problem:} 403 Forbidden error when accessing website
+\textbf{Solution:}
+\begin{itemize}
+  \item Verify bucket policy allows public read (s3:GetObject)
+  \item Check "Block all public access" is OFF
+  \item Ensure bucket policy has correct bucket name
+  \item Verify ARN includes /* at end
+\end{itemize}
+
+
+\textbf{Problem:} 404 Not Found error
+\textbf{Solution:}
+\begin{itemize}
+  \item Ensure index.html is uploaded to bucket root
+  \item Check filename is exactly "index.html" (case-sensitive)
+  \item Verify static website hosting is enabled
+\end{itemize}
+
+
+\textbf{Problem:} Can't upload files
+\textbf{Solution:}
+\begin{itemize}
+  \item Check you have s3:PutObject permissions
+  \item Verify bucket exists and you're in correct region
+  \item Try uploading smaller files first
+\end{itemize}
+
+
+\subsubsection{Cleanup}
+
+
+\begin{important}
+\textbf{Important:} Delete all objects before deleting bucket.
+\end{important}
+
+
+\begin{enumerate}
+  \item \textbf{Empty bucket:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Select your bucket
+  \item Click \textbf{"Empty"}
+  \item Type \textbf{"permanently delete"}
+  \item Click \textbf{"Empty"}
+  \item Wait for completion
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete bucket:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Select your bucket
+  \item Click \textbf{"Delete"}
+  \item Type bucket name to confirm
+  \item Click \textbf{"Delete bucket"}
+\end{itemize}
+
+
+---
+
+\subsection{Lab 5: VPC, Subnets, and Network Configuration}
+
+
+\textbf{Duration:} 60 minutes
+\textbf{Cost:} Free (NAT Gateway excluded to avoid charges)
+\textbf{Difficulty:} Advanced
+
+\subsubsection{Objective}
+
+
+Build a custom VPC with public and private subnets, configure routing, security groups, and NACLs.
+
+\subsubsection{Prerequisites}
+
+
+\begin{itemize}
+  \item Understanding of networking basics (IP addresses, subnets, CIDR)
+  \item Completed Lab 3 (EC2 knowledge required)
+\end{itemize}
+
+
+\subsubsection{Step-by-Step Instructions}
+
+
+\paragraph{Part 1: Create VPC}
+
+
+\begin{enumerate}
+  \item Navigate to \textbf{VPC} service
+  \item Click \textbf{"Create VPC"}
+  \item \textbf{Resources to create:} "VPC and more" (creates VPC with subnets automatically)
+  \item \textbf{Name tag auto-generation:} "MyVPC"
+  \item \textbf{IPv4 CIDR block:} 10.0.0.0/16
+\end{enumerate}
+
+\begin{itemize}
+  \item Provides 65,536 IP addresses
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{IPv6 CIDR block:} No IPv6 CIDR block
+  \item \textbf{Tenancy:} Default
+  \item \textbf{Number of Availability Zones:} 2
+  \item \textbf{Number of public subnets:} 2
+  \item \textbf{Number of private subnets:} 2
+  \item \textbf{NAT gateways:} None (to stay in Free Tier)
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Important:} NAT Gateway costs \$0.045/hour
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{VPC endpoints:} None
+  \item \textbf{DNS options:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Enable DNS hostnames: Yes
+  \item Enable DNS resolution: Yes
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Create VPC"}
+  \item Wait for creation (takes 1-2 minutes)
+  \item Click \textbf{"View VPC"}
+\end{enumerate}
+
+
+\paragraph{Part 2: Review VPC Components}
+
+
+\textbf{Review VPC:}
+\begin{enumerate}
+  \item Go to \textbf{"Your VPCs"}
+  \item Verify VPC created with CIDR 10.0.0.0/16
+  \item Note VPC ID (starts with vpc-)
+\end{enumerate}
+
+
+\textbf{Review Subnets:}
+\begin{enumerate}
+  \item Go to \textbf{"Subnets"}
+  \item You should see 4 subnets:
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Public subnet 1:} 10.0.0.0/20 (AZ a) - 4096 IPs
+  \item \textbf{Public subnet 2:} 10.0.16.0/20 (AZ b) - 4096 IPs
+  \item \textbf{Private subnet 1:} 10.0.128.0/20 (AZ a) - 4096 IPs
+  \item \textbf{Private subnet 2:} 10.0.144.0/20 (AZ b) - 4096 IPs
+\end{itemize}
+
+
+\textbf{Review Internet Gateway:}
+\begin{enumerate}
+  \item Go to \textbf{"Internet Gateways"}
+  \item Verify IGW created and attached to your VPC
+  \item Note IGW ID (starts with igw-)
+\end{enumerate}
+
+
+\textbf{Review Route Tables:}
+\begin{enumerate}
+  \item Go to \textbf{"Route Tables"}
+  \item You should see:
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Public route table:}
+  \item Local route: 10.0.0.0/16 → local
+  \item Internet route: 0.0.0.0/0 → igw-xxx
+  \item Associated with public subnets
+  \item \textbf{Private route tables:}
+  \item Local route only: 10.0.0.0/16 → local
+  \item Associated with private subnets
+\end{itemize}
+
+
+\paragraph{Part 3: Create Security Groups}
+
+
+\textbf{Create Web Server Security Group:}
+
+\begin{enumerate}
+  \item Go to \textbf{"Security Groups"}
+  \item Click \textbf{"Create security group"}
+  \item \textbf{Security group name:} "WebServer-SG"
+  \item \textbf{Description:} "Allow HTTP and SSH"
+  \item \textbf{VPC:} Select your VPC (MyVPC)
+  \item \textbf{Inbound rules:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Add rule"}
+  \item Type: SSH
+  \item Source: My IP
+  \item Click \textbf{"Add rule"}
+  \item Type: HTTP
+  \item Source: 0.0.0.0/0 (anywhere IPv4)
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Outbound rules:} Leave default (allows all outbound)
+  \item \textbf{Tags:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Key: Name
+  \item Value: WebServer-SG
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Create security group"}
+\end{enumerate}
+
+
+\textbf{Create Database Security Group:}
+
+\begin{enumerate}
+  \item Click \textbf{"Create security group"}
+  \item \textbf{Security group name:} "Database-SG"
+  \item \textbf{Description:} "Allow MySQL from WebServer"
+  \item \textbf{VPC:} Select your VPC (MyVPC)
+  \item \textbf{Inbound rules:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Add rule"}
+  \item Type: MySQL/Aurora
+  \item Port: 3306
+  \item Source: Custom
+  \item Search and select "WebServer-SG"
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Outbound rules:} Leave default
+  \item Click \textbf{"Create security group"}
+\end{enumerate}
+
+
+\begin{keypoint}
+\textbf{Explanation:} Database-SG only allows MySQL connections from instances with WebServer-SG, implementing principle of least privilege.
+\end{keypoint}
+
+
+\paragraph{Part 4: Launch EC2 Instance in Custom VPC}
+
+
+\begin{enumerate}
+  \item Go to \textbf{EC2} service
+  \item Click \textbf{"Launch instance"}
+  \item \textbf{Name:} "VPC-Test-Instance"
+  \item \textbf{AMI:} Amazon Linux 2023 AMI (Free Tier)
+  \item \textbf{Instance type:} t2.micro
+  \item \textbf{Key pair:} Use existing or create new
+  \item \textbf{Network settings:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Edit"}
+  \item \textbf{VPC:} Select MyVPC
+  \item \textbf{Subnet:} Select public subnet (10.0.0.0/20 or 10.0.16.0/20)
+  \item \textbf{Auto-assign public IP:} Enable
+  \item \textbf{Firewall:} Select existing security group
+  \item Select \textbf{WebServer-SG}
+\end{itemize}
+
+\begin{enumerate}
+  \item Keep other defaults
+  \item Click \textbf{"Launch instance"}
+  \item Wait for instance to reach "Running" state
+  \item \textbf{Verify:} Instance has public IP and you can SSH into it
+\end{enumerate}
+
+
+\paragraph{Part 5: Create Network ACL (NACL)}
+
+
+\begin{enumerate}
+  \item Go to \textbf{"Network ACLs"} in VPC
+  \item Click \textbf{"Create network ACL"}
+  \item \textbf{Name:} "Custom-NACL"
+  \item \textbf{VPC:} Select MyVPC
+  \item Click \textbf{"Create network ACL"}
+\end{enumerate}
+
+
+\textbf{Configure Inbound Rules:}
+
+\begin{enumerate}
+  \item Select your NACL
+  \item Go to \textbf{"Inbound rules"} tab
+  \item Click \textbf{"Edit inbound rules"}
+  \item Click \textbf{"Add new rule"} and add:
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Rule 100:}
+  \item Type: HTTP (80)
+  \item Source: 0.0.0.0/0
+  \item Allow
+  \item \textbf{Rule 110:}
+  \item Type: SSH (22)
+  \item Source: 0.0.0.0/0
+  \item Allow
+  \item \textbf{Rule 120:}
+  \item Type: Custom TCP
+  \item Port range: 1024-65535 (ephemeral ports)
+  \item Source: 0.0.0.0/0
+  \item Allow
+  \item \textbf{Rule \textbackslash{}* (default):} All traffic, Deny
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Save changes"}
+\end{enumerate}
+
+
+\textbf{Configure Outbound Rules:}
+
+\begin{enumerate}
+  \item Go to \textbf{"Outbound rules"} tab
+  \item Click \textbf{"Edit outbound rules"}
+  \item Add rules:
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Rule 100:}
+  \item Type: HTTP (80)
+  \item Destination: 0.0.0.0/0
+  \item Allow
+  \item \textbf{Rule 110:}
+  \item Type: HTTPS (443)
+  \item Destination: 0.0.0.0/0
+  \item Allow
+  \item \textbf{Rule 120:}
+  \item Type: Custom TCP
+  \item Port range: 1024-65535
+  \item Destination: 0.0.0.0/0
+  \item Allow
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Save changes"}
+\end{enumerate}
+
+
+\textbf{Associate NACL with Subnet (Optional):}
+
+\begin{enumerate}
+  \item Go to \textbf{"Subnet associations"} tab
+  \item Click \textbf{"Edit subnet associations"}
+  \item Select a public subnet
+  \item Click \textbf{"Save changes"}
+\end{enumerate}
+
+
+\begin{keypoint}
+\textbf{Note:} Default NACL allows all traffic. Custom NACLs deny all traffic by default.
+\end{keypoint}
+
+
+\subsubsection{Expected Outcomes}
+
+
+\begin{itemize}
+  \item Custom VPC created with CIDR 10.0.0.0/16
+  \item 2 public subnets and 2 private subnets across 2 AZs
+  \item Internet Gateway attached and routes configured
+  \item Security groups created for web server and database
+  \item EC2 instance launched in public subnet
+  \item Custom NACL created and configured
+\end{itemize}
+
+
+\subsubsection{Verification}
+
+
+\begin{enumerate}
+  \item \textbf{VPC exists:} Shows in "Your VPCs" with correct CIDR
+  \item \textbf{Subnets created:} 4 subnets visible with correct CIDR blocks
+  \item \textbf{Routing works:} EC2 instance in public subnet has internet access
+  \item \textbf{Security groups work:} Can SSH to instance, HTTP accessible
+  \item \textbf{NACLs configured:} Rules visible in NACL
+\end{enumerate}
+
+
+\subsubsection{Troubleshooting}
+
+
+\textbf{Problem:} Can't create VPC
+\textbf{Solution:}
+\begin{itemize}
+  \item Check you haven't exceeded VPC limit (5 per region default)
+  \item Verify CIDR block doesn't overlap with existing VPCs
+\end{itemize}
+
+
+\textbf{Problem:} EC2 instance has no internet access
+\textbf{Solution:}
+\begin{itemize}
+  \item Verify instance in public subnet
+  \item Check route table has route to IGW (0.0.0.0/0 → igw-xxx)
+  \item Ensure auto-assign public IP enabled
+  \item Verify NACL allows traffic
+\end{itemize}
+
+
+\textbf{Problem:} Can't SSH to instance
+\textbf{Solution:}
+\begin{itemize}
+  \item Check security group allows SSH from your IP
+  \item Verify NACL allows SSH and ephemeral ports
+  \item Ensure instance has public IP
+  \item Check route table configuration
+\end{itemize}
+
+
+\subsubsection{Cleanup}
+
+
+\textbf{Delete resources in order:}
+
+\begin{enumerate}
+  \item \textbf{Terminate EC2 instance:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to EC2 → Instances
+  \item Select instance → Terminate
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete custom security groups:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to VPC → Security Groups
+  \item Select custom SGs → Delete
+  \item Note: Default SG cannot be deleted
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete custom NACLs:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to VPC → Network ACLs
+  \item Disassociate from subnets first
+  \item Select custom NACL → Delete
+  \item Note: Default NACL cannot be deleted
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete VPC:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to VPC → Your VPCs
+  \item Select your VPC → Delete VPC
+  \item This will delete:
+  \item Subnets
+  \item Route tables (except default)
+  \item Internet Gateway
+  \item VPC itself
+  \item Confirm deletion
+\end{itemize}
+
+
+---
+
+\subsection{Lab 6: Amazon RDS Database}
+
+
+\textbf{Duration:} 30 minutes
+\textbf{Cost:} Free (db.t3.micro or db.t4g.micro in Free Tier)
+\textbf{Difficulty:} Intermediate
+
+\subsubsection{Objective}
+
+
+Launch a managed MySQL database using Amazon RDS.
+
+\subsubsection{Prerequisites}
+
+
+\begin{itemize}
+  \item Basic understanding of relational databases
+  \item Completed Lab 3 (EC2 knowledge) and Lab 5 (VPC knowledge)
+\end{itemize}
+
+
+\subsubsection{Step-by-Step Instructions}
+
+
+\paragraph{Part 1: Create RDS Database}
+
+
+\begin{enumerate}
+  \item Navigate to \textbf{RDS} service
+  \item Click \textbf{"Create database"}
+  \item \textbf{Database creation method:} Standard create
+  \item \textbf{Engine options:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Engine type: MySQL
+  \item Version: MySQL 8.0.xx (latest)
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Templates:} \textbf{Free tier}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Important:} This automatically configures Free Tier eligible options
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Settings:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{DB instance identifier:} "mydatabase"
+  \item \textbf{Master username:} admin
+  \item \textbf{Credentials management:} Self managed
+  \item \textbf{Master password:} Create secure password (minimum 8 characters)
+  \item \textbf{Confirm password:} Re-enter password
+  \item \textbf{Save password securely!}
+\end{itemize}
+
+
+\paragraph{Part 2: Configure Instance}
+
+
+\begin{enumerate}
+  \item \textbf{DB instance class:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Burstable classes (includes t classes)
+  \item db.t3.micro or db.t4g.micro (Free Tier eligible)
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Storage:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Storage type: General Purpose SSD (gp3)
+  \item Allocated storage: 20 GiB
+  \item \textbf{Uncheck} "Enable storage autoscaling" (to control costs)
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Storage autoscaling:} Disabled
+\end{enumerate}
+
+
+\paragraph{Part 3: Configure Connectivity}
+
+
+\begin{enumerate}
+  \item \textbf{Compute resource:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Don't connect to an EC2 compute resource
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Network type:} IPv4
+  \item \textbf{Virtual private cloud (VPC):}
+\end{enumerate}
+
+\begin{itemize}
+  \item Select Default VPC (or custom VPC if you have one)
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{DB subnet group:} Default
+  \item \textbf{Public access:} \textbf{No} (recommended for security)
+\end{enumerate}
+
+\begin{itemize}
+  \item Database won't have public IP
+  \item Only accessible from EC2 in same VPC
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{VPC security group:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Choose existing
+  \item Create new
+  \item \textbf{Name:} "rds-mysql-sg"
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Availability Zone:} No preference
+  \item \textbf{Database port:} 3306 (default)
+\end{enumerate}
+
+
+\paragraph{Part 4: Additional Configuration}
+
+
+\begin{enumerate}
+  \item Expand \textbf{"Additional configuration"}
+  \item \textbf{Database options:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Initial database name:} "mydb"
+  \item This creates a database automatically
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Backup:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Uncheck} "Enable automated backups" (to stay in Free Tier)
+  \item Free Tier allows backups, but to be safe disable
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Encryption:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Uncheck} "Enable encryption" (optional, for simplicity)
+  \item In production, always enable encryption
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Monitoring:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Uncheck} "Enable Enhanced monitoring" (to avoid charges)
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Maintenance:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Keep defaults
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Create database"}
+  \item Wait 5-10 minutes for database creation
+  \item \textbf{Status} will change: Creating → Backing up → Available
+\end{enumerate}
+
+
+\paragraph{Part 5: Review Database Details}
+
+
+\begin{enumerate}
+  \item Once status is \textbf{"Available"}, click on database name
+  \item \textbf{Connectivity \& security} tab:
+\end{enumerate}
+
+\begin{itemize}
+  \item Note \textbf{Endpoint} (e.g., mydatabase.xxxxx.us-east-1.rds.amazonaws.com)
+  \item Note \textbf{Port:} 3306
+  \item \textbf{Security group:} Click to view rules
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Configuration} tab:
+\end{enumerate}
+
+\begin{itemize}
+  \item Verify DB instance class, storage, and version
+\end{itemize}
+
+
+\paragraph{Part 6: Connect to RDS (Requires EC2 in Same VPC)}
+
+
+\textbf{Launch EC2 instance (if you don't have one):}
+
+\begin{enumerate}
+  \item Go to EC2 → Launch instance
+  \item Use same VPC as RDS
+  \item Select public subnet
+  \item Use Amazon Linux 2023 AMI
+  \item Launch and SSH into instance
+\end{enumerate}
+
+
+\textbf{Install MySQL client on EC2:}
+
+\begin{lstlisting}[language=bash]
+sudo yum update -y
+sudo yum install -y mariadb105
+\end{lstlisting}
+
+\textbf{Update RDS Security Group:}
+
+\begin{enumerate}
+  \item Go to VPC → Security Groups
+  \item Select RDS security group (rds-mysql-sg)
+  \item Edit inbound rules
+  \item Add rule:
+\end{enumerate}
+
+\begin{itemize}
+  \item Type: MySQL/Aurora
+  \item Port: 3306
+  \item Source: Security group of your EC2 instance
+\end{itemize}
+
+\begin{enumerate}
+  \item Save rules
+\end{enumerate}
+
+
+\textbf{Connect to RDS from EC2:}
+
+\begin{lstlisting}[language=bash]
+mysql -h mydatabase.xxxxx.us-east-1.rds.amazonaws.com -u admin -p
+\end{lstlisting}
+
+Replace with your actual RDS endpoint.
+
+Enter password when prompted.
+
+\textbf{Test database:}
+
+\begin{lstlisting}[language=sql]
+SHOW DATABASES;
+USE mydb;
+CREATE TABLE users (id INT, name VARCHAR(50));
+INSERT INTO users VALUES (1, 'John Doe');
+INSERT INTO users VALUES (2, 'Jane Smith');
+SELECT * FROM users;
+\end{lstlisting}
+
+Expected output:
+\begin{verbatim}
++------+------------+
+| id   | name       |
++------+------------+
+|    1 | John Doe   |
+|    2 | Jane Smith |
++------+------------+
+\end{verbatim}
+
+\textbf{Exit MySQL:}
+\begin{lstlisting}[language=sql]
+exit;
+\end{lstlisting}
+
+\subsubsection{Expected Outcomes}
+
+
+\begin{itemize}
+  \item RDS MySQL database created and running
+  \item Database accessible from EC2 instance in same VPC
+  \item Successfully connected and executed SQL commands
+  \item Test table created with sample data
+\end{itemize}
+
+
+\subsubsection{Verification}
+
+
+\begin{enumerate}
+  \item \textbf{RDS shows "Available" status}
+  \item \textbf{Can connect from EC2} using MySQL client
+  \item \textbf{SQL commands execute successfully}
+  \item \textbf{No public access} (more secure configuration)
+\end{enumerate}
+
+
+\subsubsection{Troubleshooting}
+
+
+\textbf{Problem:} Can't connect to RDS from EC2
+\textbf{Solution:}
+\begin{itemize}
+  \item Verify both in same VPC
+  \item Check RDS security group allows MySQL (3306) from EC2 security group
+  \item Ensure using correct endpoint and credentials
+  \item Verify RDS status is "Available"
+\end{itemize}
+
+
+\textbf{Problem:} Access denied error
+\textbf{Solution:}
+\begin{itemize}
+  \item Double-check username (admin) and password
+  \item Ensure password entered correctly (case-sensitive)
+  \item Check user exists in database
+\end{itemize}
+
+
+\textbf{Problem:} Connection timeout
+\textbf{Solution:}
+\begin{itemize}
+  \item Verify security group rules
+  \item Check EC2 and RDS in same VPC
+  \item Ensure RDS is not publicly accessible (can't connect from outside VPC)
+  \item Check network ACLs
+\end{itemize}
+
+
+\subsubsection{Cleanup}
+
+
+\begin{keypoint}
+\textbf{Critical:} RDS instances incur charges if running beyond Free Tier hours (750 hours/month).
+\end{keypoint}
+
+
+\begin{enumerate}
+  \item Go to \textbf{RDS} console
+  \item Select your database
+  \item Click \textbf{"Actions"} → \textbf{"Delete"}
+  \item Delete options:
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Uncheck} "Create final snapshot" (for lab purposes)
+  \item \textbf{Uncheck} "Retain automated backups"
+  \item \textbf{Check} "I acknowledge that upon instance deletion..."
+\end{itemize}
+
+\begin{enumerate}
+  \item Type \textbf{"delete me"} to confirm
+  \item Click \textbf{"Delete"}
+  \item Deletion takes 2-5 minutes
+  \item Verify database removed from list
+\end{enumerate}
+
+
+---
+
+\subsection{Lab 7: CloudWatch Monitoring and Alarms}
+
+
+\textbf{Duration:} 25 minutes
+\textbf{Cost:} Free (within Free Tier limits)
+\textbf{Difficulty:} Beginner
+
+\subsubsection{Objective}
+
+
+Monitor EC2 instances using CloudWatch metrics and create alarms for notifications.
+
+\subsubsection{Prerequisites}
+
+
+\begin{itemize}
+  \item Running EC2 instance (from Lab 3 or new instance)
+  \item Email address for notifications
+\end{itemize}
+
+
+\subsubsection{Step-by-Step Instructions}
+
+
+\paragraph{Part 1: Launch EC2 Instance (if needed)}
+
+
+\begin{enumerate}
+  \item Launch t2.micro EC2 instance if you don't have one
+  \item Wait for instance to reach "Running" state
+  \item Note instance ID
+\end{enumerate}
+
+
+\paragraph{Part 2: Explore CloudWatch Metrics}
+
+
+\begin{enumerate}
+  \item Navigate to \textbf{CloudWatch} service
+  \item Click \textbf{"All metrics"} in left menu
+  \item Click \textbf{"EC2"}
+  \item Click \textbf{"Per-Instance Metrics"}
+  \item Search for your instance ID
+  \item Select metrics:
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{CPUUtilization}
+  \item \textbf{NetworkIn}
+  \item \textbf{NetworkOut}
+\end{itemize}
+
+\begin{enumerate}
+  \item View graphed metrics
+  \item Change time range (1 hour, 3 hours, 1 day)
+  \item Change period (1 minute, 5 minutes)
+\end{enumerate}
+
+
+\paragraph{Part 3: Create CloudWatch Alarm}
+
+
+\begin{enumerate}
+  \item Select \textbf{"CPUUtilization"} metric (checkbox)
+  \item Click \textbf{"Actions"} → \textbf{"Create alarm"}
+  \item \textbf{Metric and conditions:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Metric name: CPUUtilization
+  \item Statistic: Average
+  \item Period: 5 minutes
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Conditions:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Threshold type: Static
+  \item Whenever CPUUtilization is: Greater
+  \item than: \textbf{70}
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Next"}
+\end{enumerate}
+
+
+\paragraph{Part 4: Configure SNS Notification}
+
+
+\begin{enumerate}
+  \item \textbf{Alarm state trigger:} In alarm
+  \item \textbf{SNS topic:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Create new topic
+  \item \textbf{Topic name:} "EC2-Alerts"
+  \item \textbf{Email endpoints:} Enter your email address
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Create topic"}
+  \item Click \textbf{"Next"}
+  \item \textbf{Alarm name:} "High-CPU-Alert"
+  \item \textbf{Alarm description:} "Alert when EC2 CPU exceeds 70\%"
+  \item Click \textbf{"Next"}
+  \item Review settings
+  \item Click \textbf{"Create alarm"}
+  \item \textbf{Check email} and click confirmation link in SNS subscription email
+\end{enumerate}
+
+
+\paragraph{Part 5: Test Alarm (Optional)}
+
+
+\begin{keypoint}
+\textbf{Warning:} This will stress your CPU. Only do if you want to test.
+\end{keypoint}
+
+
+\textbf{SSH into EC2 instance:}
+
+\begin{lstlisting}[language=bash]
+ssh -i your-key.pem ec2-user@[public-ip]
+\end{lstlisting}
+
+\textbf{Install stress tool:}
+
+\begin{lstlisting}[language=bash]
+sudo yum install -y stress
+\end{lstlisting}
+
+\textbf{Run CPU stress test:}
+
+\begin{lstlisting}[language=bash]
+stress --cpu 2 --timeout 300
+\end{lstlisting}
+
+This runs for 5 minutes (300 seconds).
+
+\textbf{Monitor alarm:}
+
+\begin{enumerate}
+  \item Go to CloudWatch → Alarms
+  \item Wait 5-10 minutes
+  \item Alarm state will change: OK → In alarm
+  \item You'll receive email notification
+  \item After stress test completes, alarm returns to OK state
+\end{enumerate}
+
+
+\paragraph{Part 6: View CloudWatch Logs}
+
+
+\begin{enumerate}
+  \item In CloudWatch, go to \textbf{"Logs"} → \textbf{"Log groups"}
+  \item Click \textbf{"Create log group"}
+  \item \textbf{Log group name:} "/aws/my-application"
+  \item Click \textbf{"Create"}
+  \item Click on log group to explore
+  \item Note: No logs yet (need to configure application to send logs)
+\end{enumerate}
+
+
+\textbf{Explore existing log groups:}
+\begin{itemize}
+  \item Look for /aws/lambda/, /aws/rds/, etc.
+  \item Click on log group → Log streams → View logs
+\end{itemize}
+
+
+\subsubsection{Expected Outcomes}
+
+
+\begin{itemize}
+  \item CloudWatch metrics visible for EC2 instance
+  \item CPU alarm created with 70\% threshold
+  \item SNS topic created and email subscription confirmed
+  \item Email notification received when alarm triggered (if tested)
+  \item Log group created
+\end{itemize}
+
+
+\subsubsection{Verification}
+
+
+\begin{enumerate}
+  \item \textbf{Alarm visible} in CloudWatch → Alarms
+  \item \textbf{SNS subscription confirmed} (check email)
+  \item \textbf{Metrics displaying} in graphs
+  \item \textbf{Alarm triggers correctly} (if stress test performed)
+\end{enumerate}
+
+
+\subsubsection{Troubleshooting}
+
+
+\textbf{Problem:} No metrics showing for EC2
+\textbf{Solution:}
+\begin{itemize}
+  \item Wait 5-10 minutes after instance launch
+  \item Verify instance is running
+  \item Check correct region selected
+  \item Refresh page
+\end{itemize}
+
+
+\textbf{Problem:} Email notification not received
+\textbf{Solution:}
+\begin{itemize}
+  \item Check spam/junk folder
+  \item Verify email address entered correctly
+  \item Resend confirmation from SNS console
+  \item Check SNS subscription status (should be "Confirmed")
+\end{itemize}
+
+
+\textbf{Problem:} Alarm not triggering
+\textbf{Solution:}
+\begin{itemize}
+  \item Verify CPU is actually exceeding 70\%
+  \item Check alarm configuration and threshold
+  \item Wait for evaluation period (5 minutes)
+  \item Review alarm history in details
+\end{itemize}
+
+
+\subsubsection{Cleanup}
+
+
+\begin{enumerate}
+  \item \textbf{Delete CloudWatch alarm:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to CloudWatch → Alarms
+  \item Select alarm → Actions → Delete
+  \item Confirm deletion
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete SNS topic:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to SNS → Topics
+  \item Select topic → Delete
+  \item Type "delete me"
+  \item Confirm deletion
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete log group:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to CloudWatch → Log groups
+  \item Select log group → Actions → Delete
+  \item Confirm deletion
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Terminate EC2 instance:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to EC2 → Instances
+  \item Select instance → Instance state → Terminate
+\end{itemize}
+
+
+---
+
+\subsection{Lab 8: AWS Cost Management Tools}
+
+
+\textbf{Duration:} 30 minutes
+\textbf{Cost:} Free
+\textbf{Difficulty:} Beginner
+
+\subsubsection{Objective}
+
+
+Explore AWS billing and cost management tools including Pricing Calculator, Cost Explorer, Budgets, and Trusted Advisor.
+
+\subsubsection{Prerequisites}
+
+
+\begin{itemize}
+  \item AWS account with some usage (even minimal)
+  \item Billing access enabled
+\end{itemize}
+
+
+\subsubsection{Step-by-Step Instructions}
+
+
+\paragraph{Part 1: AWS Pricing Calculator}
+
+
+\begin{enumerate}
+  \item Open browser and visit \href{https://calculator.aws}{https://calculator.aws}
+  \item Click \textbf{"Create estimate"}
+  \item \textbf{Add EC2:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Search for "EC2"
+  \item Click \textbf{"Configure"}
+  \item \textbf{Region:} Select us-east-1
+  \item \textbf{Quick estimate:}
+  \item Number of instances: 10
+  \item Instance type: t3.medium
+  \item \textbf{Pricing model:} On-Demand
+  \item Review monthly cost estimate
+  \item Click \textbf{"Add to my estimate"}
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Add S3:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Search for "S3"
+  \item Click \textbf{"Configure"}
+  \item \textbf{S3 Standard storage:} 1000 GB
+  \item \textbf{PUT/COPY/POST requests:} 100,000
+  \item \textbf{GET requests:} 1,000,000
+  \item Review cost
+  \item Click \textbf{"Add to my estimate"}
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Add RDS:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Search for "RDS"
+  \item Click \textbf{"Configure"}
+  \item \textbf{Database engine:} MySQL
+  \item \textbf{Instance type:} db.t3.medium
+  \item \textbf{Deployment:} Single-AZ
+  \item \textbf{Storage:} 100 GB
+  \item \textbf{Pricing model:} On-Demand
+  \item Click \textbf{"Add to my estimate"}
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Review total:}
+\end{enumerate}
+
+\begin{itemize}
+  \item See estimated monthly cost
+  \item Compare different pricing models:
+  \item On-Demand
+  \item Reserved Instances (1-year, 3-year)
+  \item Savings Plans
+  \item Note potential savings
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Export estimate:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Export"} → \textbf{"PDF"} or \textbf{"CSV"}
+  \item Save for reference
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Share estimate:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Share"}
+  \item Copy shareable link
+  \item Can send to colleagues or save for later
+\end{itemize}
+
+
+\paragraph{Part 2: AWS Cost Explorer}
+
+
+\begin{keypoint}
+\textbf{Note:} Cost Explorer takes 24 hours to populate for new accounts.
+\end{keypoint}
+
+
+\begin{enumerate}
+  \item Go to \textbf{Billing and Cost Management} console
+  \item Click \textbf{"Cost Explorer"} in left menu
+  \item Click \textbf{"Launch Cost Explorer"} (if first time)
+  \item Wait for initialization (if new account, data appears in 24 hours)
+\end{enumerate}
+
+
+\textbf{Explore costs (if data available):}
+
+\begin{enumerate}
+  \item \textbf{View monthly costs:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Default view shows last 6 months
+  \item View costs by service
+  \item Identify top services
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Filter by service:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click filter dropdown
+  \item Select specific service (EC2, S3, etc.)
+  \item View service-specific costs
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Group by:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Service
+  \item Region
+  \item Tag
+  \item Instance type
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{View forecast:}
+\end{enumerate}
+
+\begin{itemize}
+  \item See projected costs for next month
+  \item Based on current usage patterns
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Create custom report:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Select date range
+  \item Choose groupings and filters
+  \item Click \textbf{"Save to report library"}
+  \item Name: "Monthly Service Breakdown"
+  \item Save report for future use
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Download CSV:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Download CSV"}
+  \item Open in spreadsheet for analysis
+\end{itemize}
+
+
+\paragraph{Part 3: Review Bills}
+
+
+\begin{enumerate}
+  \item Go to \textbf{"Bills"} in Billing console
+  \item \textbf{View current month charges:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Expand services to see breakdown
+  \item View charges by region
+  \item Check data transfer costs
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Check Free Tier usage:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Free Tier"} in left menu
+  \item View current month usage vs. Free Tier limits
+  \item \textbf{Important:} Monitor to avoid charges
+  \item See warnings for services approaching limits
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Download bill:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Download CSV"}
+  \item Save for records
+\end{itemize}
+
+
+\paragraph{Part 4: AWS Budgets}
+
+
+\begin{enumerate}
+  \item Go to \textbf{"Budgets"} in Billing console
+  \item Review budget created in Lab 1 (if you did it)
+  \item \textbf{Create additional budget:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Create budget"}
+  \item \textbf{Budget type:} Usage budget
+  \item \textbf{Service:} Amazon Elastic Compute Cloud
+  \item Click \textbf{"Next"}
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Set budget details:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Budget name:} "EC2-Usage-Budget"
+  \item \textbf{Period:} Monthly
+  \item \textbf{Usage type:} Running Hours
+  \item \textbf{Unit:} Hrs
+  \item \textbf{Amount:} 750 (Free Tier limit)
+  \item Click \textbf{"Next"}
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Configure alert:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Threshold:} 80\% of budgeted amount
+  \item \textbf{Email recipients:} Your email
+  \item Click \textbf{"Add alert threshold"}
+  \item \textbf{Second threshold:} 100\%
+  \item Click \textbf{"Next"}
+\end{itemize}
+
+
+\begin{enumerate}
+  \item Review and click \textbf{"Create budget"}
+  \item \textbf{View budgets:}
+\end{enumerate}
+
+\begin{itemize}
+  \item See all budgets in dashboard
+  \item Monitor current usage vs. budget
+  \item View alerts history
+\end{itemize}
+
+
+\paragraph{Part 5: AWS Trusted Advisor}
+
+
+\begin{enumerate}
+  \item Navigate to \textbf{Trusted Advisor} service
+  \item \textbf{Dashboard overview:}
+\end{enumerate}
+
+\begin{itemize}
+  \item View checks by category:
+  \item Cost Optimization
+  \item Performance
+  \item Security
+  \item Fault Tolerance
+  \item Service Limits
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Review 7 core checks} (available on Basic support):
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{S3 Bucket Permissions}
+  \item Checks for publicly accessible buckets
+  \item Click to view details
+  \item \textbf{Security Groups - Specific Ports Unrestricted}
+  \item Identifies overly permissive rules
+  \item \textbf{IAM Use}
+  \item Checks if you're using IAM
+  \item \textbf{MFA on Root Account}
+  \item Verifies MFA enabled
+  \item \textbf{EBS Public Snapshots}
+  \item Checks for public snapshots
+  \item \textbf{RDS Public Snapshots}
+  \item Checks for public snapshots
+  \item \textbf{Service Limits}
+  \item Shows usage vs. limits
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Click on each check:}
+\end{enumerate}
+
+\begin{itemize}
+  \item View details and recommendations
+  \item Take action on warnings
+  \item Green = good, Yellow = investigate, Red = action needed
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Refresh checks:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Refresh all"}
+  \item Checks update (may take few minutes)
+\end{itemize}
+
+
+\begin{keypoint}
+\textbf{Note:} Full Trusted Advisor features require Business or Enterprise support plan.
+\end{keypoint}
+
+
+\subsubsection{Expected Outcomes}
+
+
+\begin{itemize}
+  \item Created cost estimate in Pricing Calculator
+  \item Explored Cost Explorer (if data available)
+  \item Reviewed current billing and Free Tier usage
+  \item Created usage budget for EC2
+  \item Reviewed Trusted Advisor recommendations
+\end{itemize}
+
+
+\subsubsection{Verification}
+
+
+\begin{enumerate}
+  \item \textbf{Pricing estimate created} and can be shared
+  \item \textbf{Cost Explorer launched} (data may take 24 hours)
+  \item \textbf{Current bill viewable} with service breakdown
+  \item \textbf{Budgets configured} with email alerts
+  \item \textbf{Trusted Advisor checks reviewed}
+\end{enumerate}
+
+
+\subsubsection{Troubleshooting}
+
+
+\textbf{Problem:} Can't access billing information
+\textbf{Solution:}
+\begin{itemize}
+  \item Enable IAM access to billing in Account settings
+  \item Sign in as root user or IAM user with billing permissions
+\end{itemize}
+
+
+\textbf{Problem:} Cost Explorer shows no data
+\textbf{Solution:}
+\begin{itemize}
+  \item Wait 24 hours after account creation
+  \item Ensure you have some usage (launch services)
+  \item Refresh page
+\end{itemize}
+
+
+\textbf{Problem:} Trusted Advisor shows limited checks
+\textbf{Solution:}
+\begin{itemize}
+  \item Basic support only includes 7 core checks
+  \item Upgrade to Business/Enterprise for full checks
+  \item This is expected behavior
+\end{itemize}
+
+
+\subsubsection{Cleanup}
+
+
+\begin{keypoint}
+\textbf{Note:} Keep budgets and Trusted Advisor checks active for ongoing protection. No cleanup needed.
+\end{keypoint}
+
+
+---
+
+\subsection{Lab 9: Lambda Serverless Function}
+
+
+\textbf{Duration:} 25 minutes
+\textbf{Cost:} Free (1 million requests/month in Free Tier)
+\textbf{Difficulty:} Intermediate
+
+\subsubsection{Objective}
+
+
+Create a serverless Lambda function with API Gateway trigger.
+
+\subsubsection{Prerequisites}
+
+
+\begin{itemize}
+  \item Basic programming knowledge (Python helpful but not required)
+  \item Understanding of API concepts
+\end{itemize}
+
+
+\subsubsection{Step-by-Step Instructions}
+
+
+\paragraph{Part 1: Create Lambda Function}
+
+
+\begin{enumerate}
+  \item Navigate to \textbf{Lambda} service
+  \item Click \textbf{"Create function"}
+  \item \textbf{Function option:} Author from scratch
+  \item \textbf{Function name:} "HelloWorldFunction"
+  \item \textbf{Runtime:} Python 3.12 (or latest available)
+  \item \textbf{Architecture:} x86\_64
+  \item \textbf{Permissions:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Execution role: Create a new role with basic Lambda permissions
+  \item Role name: (auto-generated)
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Create function"}
+  \item Wait for function creation
+\end{enumerate}
+
+
+\paragraph{Part 2: Write Function Code}
+
+
+\begin{enumerate}
+  \item In \textbf{Code source} section:
+  \item Delete existing code in \texttt{lambda\_function.py}
+  \item Paste the following code:
+\end{enumerate}
+
+
+\begin{lstlisting}[language=python]
+import json
+
+def lambda\_handler(event, context):
+    \# Get name from event, default to 'World'
+    name = event.get('name', 'World')
+
+    \# Create response
+    message = f'Hello, \{name\}!'
+
+    return \{
+        'statusCode': 200,
+        'body': json.dumps(message),
+        'headers': \{
+            'Content-Type': 'application/json'
+        \}
+    \}
+\end{lstlisting}
+
+\begin{enumerate}
+  \item Click \textbf{"Deploy"} (important!)
+  \item Wait for "Successfully deployed" message
+\end{enumerate}
+
+
+\paragraph{Part 3: Test Function}
+
+
+\begin{enumerate}
+  \item Click \textbf{"Test"} button
+  \item \textbf{Configure test event:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Event name:} "TestEvent"
+  \item \textbf{Event JSON:}
+\end{itemize}
+
+   \texttt{`}json
+   {
+     "name": "AWS Student"
+   }
+   \texttt{`}
+\begin{enumerate}
+  \item Click \textbf{"Save"}
+  \item Click \textbf{"Test"} again
+  \item \textbf{View execution results:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Status:} Succeeded
+  \item \textbf{Response:}
+\end{itemize}
+
+   \texttt{`}json
+   {
+     "statusCode": 200,
+     "body": "\textbackslash{}"Hello, AWS Student!\textbackslash{}"",
+     "headers": {
+       "Content-Type": "application/json"
+     }
+   }
+   \texttt{`}
+\begin{enumerate}
+  \item View \textbf{logs} in output
+  \item Note execution time and memory used
+\end{enumerate}
+
+
+\paragraph{Part 4: View CloudWatch Logs}
+
+
+\begin{enumerate}
+  \item Click \textbf{"Monitor"} tab
+  \item Click \textbf{"View CloudWatch logs"}
+  \item Click on latest log stream
+  \item View log details:
+\end{enumerate}
+
+\begin{itemize}
+  \item START RequestId
+  \item Function output
+  \item END RequestId
+  \item REPORT (duration, memory)
+\end{itemize}
+
+
+\paragraph{Part 5: Configure API Gateway Trigger}
+
+
+\begin{enumerate}
+  \item Go back to \textbf{Lambda function} (Code tab)
+  \item Click \textbf{"Add trigger"}
+  \item \textbf{Select a trigger:} API Gateway
+  \item \textbf{API type:} HTTP API
+  \item \textbf{Security:} Open
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Warning:} This makes API publicly accessible
+  \item For production, use authentication
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Add"}
+  \item Wait for trigger creation
+\end{enumerate}
+
+
+\paragraph{Part 6: Test API Endpoint}
+
+
+\begin{enumerate}
+  \item In \textbf{Configuration} → \textbf{Triggers}, click on API Gateway
+  \item \textbf{Copy API endpoint URL}
+\end{enumerate}
+
+\begin{itemize}
+  \item Example: \texttt{https://abc123.execute-api.us-east-1.amazonaws.com/default/HelloWorldFunction}
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Test in browser:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Paste URL in browser
+  \item Add query parameter: \texttt{?name=YourName}
+  \item Full URL: \texttt{https://abc123.execute-api.us-east-1.amazonaws.com/default/HelloWorldFunction?name=John}
+  \item \textbf{Result:} You should see: \texttt{"Hello, John!"}
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Test with curl (terminal):}
+\end{enumerate}
+
+   \texttt{`}bash
+   curl "https://your-api-url.execute-api.us-east-1.amazonaws.com/default/HelloWorldFunction?name=John"
+   \texttt{`}
+
+\begin{enumerate}
+  \item \textbf{Test with different names:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Try \texttt{?name=AWS}
+  \item Try without parameter (should return "Hello, World!")
+\end{itemize}
+
+
+\paragraph{Part 7: Modify Function}
+
+
+\begin{enumerate}
+  \item Go back to \textbf{Code} tab
+  \item Modify code to add more functionality:
+\end{enumerate}
+
+
+\begin{lstlisting}[language=python]
+import json
+from datetime import datetime
+
+def lambda\_handler(event, context):
+    \# Get name from event or query parameters
+    name = event.get('name')
+    if not name and 'queryStringParameters' in event:
+        name = event['queryStringParameters'].get('name', 'World')
+    else:
+        name = name or 'World'
+
+    \# Get current time
+    current\_time = datetime.now().strftime('\%Y-\%m-\%d \%H:\%M:\%S')
+
+    \# Create response
+    message = \{
+        'greeting': f'Hello, \{name\}!',
+        'timestamp': current\_time,
+        'requestId': context.request\_id
+    \}
+
+    return \{
+        'statusCode': 200,
+        'body': json.dumps(message),
+        'headers': \{
+            'Content-Type': 'application/json'
+        \}
+    \}
+\end{lstlisting}
+
+\begin{enumerate}
+  \item Click \textbf{"Deploy"}
+  \item \textbf{Test again} with API endpoint
+  \item Now response includes timestamp and request ID
+\end{enumerate}
+
+
+\subsubsection{Expected Outcomes}
+
+
+\begin{itemize}
+  \item Lambda function created and deployed
+  \item Function executes successfully with test events
+  \item CloudWatch logs capture function output
+  \item API Gateway trigger configured
+  \item Function accessible via public HTTPS endpoint
+  \item Modified function with enhanced functionality
+\end{itemize}
+
+
+\subsubsection{Verification}
+
+
+\begin{enumerate}
+  \item \textbf{Test event executes successfully}
+  \item \textbf{API endpoint returns correct response}
+  \item \textbf{CloudWatch logs show execution details}
+  \item \textbf{Different inputs produce different outputs}
+\end{enumerate}
+
+
+\subsubsection{Troubleshooting}
+
+
+\textbf{Problem:} Function fails with syntax error
+\textbf{Solution:}
+\begin{itemize}
+  \item Check Python indentation (use spaces, not tabs)
+  \item Verify all quotes and brackets match
+  \item Review error in CloudWatch logs
+\end{itemize}
+
+
+\textbf{Problem:} API returns "Internal Server Error"
+\textbf{Solution:}
+\begin{itemize}
+  \item Check CloudWatch logs for error details
+  \item Verify function deployed after code changes
+  \item Ensure JSON formatting correct in response
+\end{itemize}
+
+
+\textbf{Problem:} Can't access API endpoint
+\textbf{Solution:}
+\begin{itemize}
+  \item Verify API Gateway trigger added
+  \item Check security set to "Open"
+  \item Ensure using correct HTTP method (GET)
+  \item Try in different browser or incognito mode
+\end{itemize}
+
+
+\textbf{Problem:} Query parameters not working
+\textbf{Solution:}
+\begin{itemize}
+  \item Use modified code that checks queryStringParameters
+  \item Format URL correctly: \texttt{?name=Value}
+  \item Check API Gateway integration settings
+\end{itemize}
+
+
+\subsubsection{Cleanup}
+
+
+\begin{enumerate}
+  \item \textbf{Delete Lambda function:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Select function
+  \item \textbf{Actions} → \textbf{Delete}
+  \item Type "delete"
+  \item Confirm deletion
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete API Gateway:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to \textbf{API Gateway} service
+  \item Select your API
+  \item \textbf{Actions} → \textbf{Delete}
+  \item Confirm deletion
+\end{itemize}
+
+
+\begin{keypoint}
+\textbf{Note:} CloudWatch logs persist after function deletion. Delete log group if desired:
+- CloudWatch → Log groups → Select /aws/lambda/HelloWorldFunction → Delete
+\end{keypoint}
+
+
+---
+
+\subsection{Lab 10: CloudFormation Infrastructure as Code}
+
+
+\textbf{Duration:} 20 minutes
+\textbf{Cost:} Free (resources created are Free Tier eligible)
+\textbf{Difficulty:} Intermediate
+
+\subsubsection{Objective}
+
+
+Deploy AWS infrastructure using CloudFormation templates (Infrastructure as Code).
+
+\subsubsection{Prerequisites}
+
+
+\begin{itemize}
+  \item Understanding of YAML or JSON
+  \item Text editor
+  \item Familiarity with S3 (from Lab 4)
+\end{itemize}
+
+
+\subsubsection{Step-by-Step Instructions}
+
+
+\paragraph{Part 1: Create CloudFormation Template}
+
+
+\begin{enumerate}
+  \item Open text editor
+  \item Create file named \texttt{simple-stack.yaml}
+  \item Paste the following template:
+\end{enumerate}
+
+
+\begin{lstlisting}[language=yaml]
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Simple S3 bucket stack for learning CloudFormation
+
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'cf-bucket-\$\{AWS::AccountId\}'
+      VersioningConfiguration:
+        Status: Enabled
+      Tags:
+        - Key: Environment
+          Value: Learning
+        - Key: ManagedBy
+          Value: CloudFormation
+
+Outputs:
+  BucketName:
+    Description: Name of the S3 bucket
+    Value: !Ref MyS3Bucket
+  BucketArn:
+    Description: ARN of the S3 bucket
+    Value: !GetAtt MyS3Bucket.Arn
+\end{lstlisting}
+
+\begin{enumerate}
+  \item \textbf{Save file} to your computer
+\end{enumerate}
+
+
+\begin{keypoint}
+\textbf{Explanation:}
+- \textbf{Resources:} Defines S3 bucket with versioning
+- \textbf{!Sub:} Substitutes account ID to make bucket name unique
+- \textbf{Outputs:} Returns bucket name and ARN after creation
+\end{keypoint}
+
+
+\paragraph{Part 2: Create CloudFormation Stack}
+
+
+\begin{enumerate}
+  \item Navigate to \textbf{CloudFormation} service
+  \item Click \textbf{"Create stack"} → \textbf{"With new resources (standard)"}
+  \item \textbf{Prepare template:} Template is ready
+  \item \textbf{Template source:} Upload a template file
+  \item Click \textbf{"Choose file"} and select \texttt{simple-stack.yaml}
+  \item Click \textbf{"Next"}
+  \item \textbf{Stack name:} "MyFirstStack"
+  \item Click \textbf{"Next"}
+  \item \textbf{Configure stack options:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Tags (optional):}
+  \item Key: Project
+  \item Value: CloudFormation-Lab
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Next"}
+  \item \textbf{Review:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Verify all settings
+  \item Review template in JSON/YAML view
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Submit"}
+\end{enumerate}
+
+
+\paragraph{Part 3: Monitor Stack Creation}
+
+
+\begin{enumerate}
+  \item \textbf{Stack status:} CREATE\\textit{IN\}PROGRESS
+  \item Click \textbf{"Events"} tab
+\end{enumerate}
+
+\begin{itemize}
+  \item Watch real-time creation events
+  \item See each resource being created
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Resources"} tab
+\end{enumerate}
+
+\begin{itemize}
+  \item View logical ID and physical ID
+  \item See S3 bucket being created
+\end{itemize}
+
+\begin{enumerate}
+  \item Wait for \textbf{Status:} CREATE\_COMPLETE (takes 1-2 minutes)
+  \item Click \textbf{"Outputs"} tab
+\end{enumerate}
+
+\begin{itemize}
+  \item View BucketName and BucketArn
+  \item Copy bucket name
+\end{itemize}
+
+
+\paragraph{Part 4: Verify Resource Creation}
+
+
+\begin{enumerate}
+  \item Open new tab → Navigate to \textbf{S3} service
+  \item \textbf{Verify bucket exists:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Find bucket: \texttt{cf-bucket-[your-account-id]}
+  \item Click on bucket
+  \item Verify versioning enabled (Properties → Bucket Versioning)
+  \item Check tags (Properties → Tags)
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Note:} This bucket was created entirely by CloudFormation template
+\end{enumerate}
+
+
+\paragraph{Part 5: Update Stack}
+
+
+\textbf{Create updated template:}
+
+\begin{enumerate}
+  \item Open \texttt{simple-stack.yaml}
+  \item Add encryption configuration:
+\end{enumerate}
+
+
+\begin{lstlisting}[language=yaml]
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Simple S3 bucket stack for learning CloudFormation
+
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'cf-bucket-\$\{AWS::AccountId\}'
+      VersioningConfiguration:
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      Tags:
+        - Key: Environment
+          Value: Learning
+        - Key: ManagedBy
+          Value: CloudFormation
+
+Outputs:
+  BucketName:
+    Description: Name of the S3 bucket
+    Value: !Ref MyS3Bucket
+  BucketArn:
+    Description: ARN of the S3 bucket
+    Value: !GetAtt MyS3Bucket.Arn
+\end{lstlisting}
+
+\begin{enumerate}
+  \item Save file
+\end{enumerate}
+
+
+\textbf{Update the stack:}
+
+\begin{enumerate}
+  \item Go back to \textbf{CloudFormation} console
+  \item Select \textbf{MyFirstStack}
+  \item Click \textbf{"Update"}
+  \item \textbf{Replace current template:} Upload a template file
+  \item Choose updated \texttt{simple-stack.yaml}
+  \item Click \textbf{"Next"}
+  \item \textbf{Parameters:} (none to change)
+  \item Click \textbf{"Next"}
+  \item \textbf{Review change set:}
+\end{enumerate}
+
+\begin{itemize}
+  \item CloudFormation shows what will change
+  \item Added: Encryption configuration
+  \item Added: Public access block
+  \item \textbf{Important:} Shows BEFORE making changes
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Next"}
+  \item Review and click \textbf{"Submit"}
+  \item \textbf{Watch update:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Status: UPDATE\\textit{IN\}PROGRESS
+  \item Events show modifications
+  \item Status: UPDATE\_COMPLETE
+\end{itemize}
+
+
+\textbf{Verify update:}
+
+\begin{enumerate}
+  \item Go to S3 → Your bucket
+  \item Properties → Default encryption → Verify enabled
+  \item Properties → Block public access → Verify all enabled
+\end{enumerate}
+
+
+\paragraph{Part 6: View Stack Template}
+
+
+\begin{enumerate}
+  \item In CloudFormation, select stack
+  \item Click \textbf{"Template"} tab
+  \item \textbf{View in Designer:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"View in Application Composer"} or \textbf{"View in Designer"}
+  \item See visual representation of resources
+  \item Shows relationships between resources
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Download template:}
+\end{enumerate}
+
+\begin{itemize}
+  \item View in JSON or YAML format
+  \item Click "Copy to clipboard" if needed
+\end{itemize}
+
+
+\subsubsection{Expected Outcomes}
+
+
+\begin{itemize}
+  \item CloudFormation stack created successfully
+  \item S3 bucket deployed with versioning enabled
+  \item Stack updated to add encryption
+  \item Template viewable in designer
+  \item Infrastructure defined as code (repeatable, version-controlled)
+\end{itemize}
+
+
+\subsubsection{Verification}
+
+
+\begin{enumerate}
+  \item \textbf{Stack shows CREATE\_COMPLETE status}
+  \item \textbf{S3 bucket exists} with correct configuration
+  \item \textbf{Outputs display} bucket name and ARN
+  \item \textbf{Update successful} with encryption enabled
+  \item \textbf{All resources tagged} with CloudFormation info
+\end{enumerate}
+
+
+\subsubsection{Troubleshooting}
+
+
+\textbf{Problem:} Stack creation fails with "Bucket already exists"
+\textbf{Solution:}
+\begin{itemize}
+  \item Bucket names must be globally unique
+  \item Change bucket name in template
+  \item Or delete existing bucket first
+\end{itemize}
+
+
+\textbf{Problem:} Template validation error
+\textbf{Solution:}
+\begin{itemize}
+  \item Check YAML syntax (indentation critical)
+  \item Verify all keys spelled correctly
+  \item Use online YAML validator
+  \item Check CloudFormation documentation for resource properties
+\end{itemize}
+
+
+\textbf{Problem:} Update fails
+\textbf{Solution:}
+\begin{itemize}
+  \item Review change set before confirming
+  \item Some properties can't be updated (require replacement)
+  \item Check Events tab for specific error
+  \item May need to delete and recreate stack
+\end{itemize}
+
+
+\textbf{Problem:} Can't delete stack
+\textbf{Solution:}
+\begin{itemize}
+  \item Ensure S3 bucket is empty first
+  \item CloudFormation can't delete non-empty buckets
+  \item Manually empty bucket, then retry delete
+\end{itemize}
+
+
+\subsubsection{Cleanup}
+
+
+\begin{important}
+\textbf{Important:} CloudFormation makes cleanup easy - deletes all resources automatically.
+\end{important}
+
+
+\begin{enumerate}
+  \item Go to \textbf{CloudFormation} console
+  \item Select \textbf{MyFirstStack}
+  \item Click \textbf{"Delete"}
+  \item \textbf{Confirm deletion}
+  \item \textbf{Monitor deletion:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Status: DELETE\\textit{IN\}PROGRESS
+  \item Events show resources being deleted
+  \item S3 bucket deleted (if empty)
+  \item Status: DELETE\_COMPLETE (or stack disappears)
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Verify in S3:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to S3 console
+  \item Bucket should be gone
+\end{itemize}
+
+
+\begin{keypoint}
+\textbf{Note:} If deletion fails, it's usually because S3 bucket not empty. Empty bucket manually and retry.
+\end{keypoint}
+
+
+---
+
+\subsection{Lab 11: Auto Scaling and Load Balancing}
+
+
+\textbf{Duration:} 45 minutes
+\textbf{Cost:} Free (within Free Tier limits)
+\textbf{Difficulty:} Advanced
+
+\subsubsection{Learning Objectives}
+
+
+By the end of this lab, you will be able to:
+
+\begin{enumerate}
+  \item Create a Launch Template for EC2 instances
+  \item Configure an Application Load Balancer (ALB)
+  \item Set up an Auto Scaling Group with scaling policies
+  \item Understand target tracking and step scaling
+  \item Test automatic scale-out and scale-in behaviors
+  \item Monitor Auto Scaling activities in CloudWatch
+\end{enumerate}
+
+
+\subsubsection{Why This Lab Matters}
+
+
+\textbf{Real-World Scenario:} An e-commerce website experiences 10x traffic during Black Friday sales. Auto Scaling automatically adds servers during peak hours and removes them when traffic decreases, optimizing both performance and cost.
+
+\textbf{Exam Relevance:} Auto Scaling and ELB are heavily tested topics. Know:
+\begin{itemize}
+  \item Types of load balancers (ALB, NLB, CLB)
+  \item Auto Scaling components (launch templates, groups, policies)
+  \item Scaling policies (target tracking, step, scheduled)
+  \item Health checks and high availability
+\end{itemize}
+
+
+\subsubsection{Prerequisites}
+
+
+\begin{itemize}
+  \item Completed Lab 3 (EC2) and Lab 5 (VPC)
+  \item Understanding of load balancing concepts
+  \item Basic knowledge of web servers
+\end{itemize}
+
+
+\subsubsection{Step-by-Step Instructions}
+
+
+\paragraph{Part 1: Create Launch Template}
+
+
+\begin{keypoint}
+\textbf{What You'll See:} Launch template configuration wizard with pre-defined settings for EC2 instances.
+\end{keypoint}
+
+
+\begin{enumerate}
+  \item Navigate to \textbf{EC2} service
+  \item In left menu, click \textbf{"Launch Templates"}
+  \item Click \textbf{"Create launch template"}
+  \item \textbf{Launch template name:} "WebServer-Template"
+  \item \textbf{Template version description:} "Initial version with Apache"
+  \item \textbf{Auto Scaling guidance:} Check "Provide guidance to help me set up a template that I can use with EC2 Auto Scaling"
+  \item \textbf{Application and OS Images (AMI):}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Quick Start"}
+  \item Select \textbf{"Amazon Linux 2023 AMI"}
+  \item Verify "Free tier eligible" label
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Instance type:} t2.micro (or t3.micro)
+  \item \textbf{Key pair:} Select existing key pair or create new one
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Best Practice:} Use existing key from Lab 3 if available
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Network settings:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Subnet:} Don't include in launch template (let Auto Scaling choose)
+  \item \textbf{Firewall (security groups):}
+  \item Click \textbf{"Create security group"}
+  \item \textbf{Name:} "ALB-WebServer-SG"
+  \item \textbf{Description:} "Allow HTTP from Load Balancer"
+  \item \textbf{VPC:} Default VPC
+  \item \textbf{Inbound rules:}
+  \item Rule 1: HTTP (80), Source: 0.0.0.0/0
+  \item Rule 2: SSH (22), Source: My IP
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Advanced details:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Scroll to \textbf{"User data"} section
+  \item Paste the following script:
+\end{itemize}
+
+
+\begin{lstlisting}[language=bash]
+\#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+
+\# Create unique web page showing instance ID
+INSTANCE\_ID=\$(ec2-metadata --instance-id | cut -d " " -f 2)
+AZ=\$(ec2-metadata --availability-zone | cut -d " " -f 2)
+cat > /var/www/html/index.html <<EOF
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auto Scaling Demo</title>
+    <style>
+        body \{ font-family: Arial; text-align: center; margin-top: 50px; \}
+        .box \{ background: linear-gradient(135deg, \#667eea 0\%, \#764ba2 100\%);
+               color: white; padding: 40px; border-radius: 10px;
+               display: inline-block; \}
+        h1 \{ margin: 0; \}
+        p \{ font-size: 18px; \}
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Auto Scaling is Working!</h1>
+        <p><strong>Instance ID:</strong> \$INSTANCE\_ID</p>
+        <p><strong>Availability Zone:</strong> \$AZ</p>
+        <p>Refresh to see different instances</p>
+    </div>
+</body>
+</html>
+EOF
+\end{lstlisting}
+
+\begin{enumerate}
+  \item Click \textbf{"Create launch template"}
+  \item You'll see success message: "Successfully created WebServer-Template"
+  \item Click \textbf{"View launch template"} to verify
+\end{enumerate}
+
+
+\textbf{Validation:}
+\begin{itemize}
+  \item Template shows in list with version 1
+  \item All configuration visible in template details
+\end{itemize}
+
+
+\paragraph{Part 2: Create Application Load Balancer}
+
+
+\begin{enumerate}
+  \item In EC2 console, scroll down left menu to \textbf{"Load Balancers"}
+  \item Click \textbf{"Create load balancer"}
+  \item \textbf{Load balancer types:} Select \textbf{"Application Load Balancer"}
+  \item Click \textbf{"Create"}
+  \item \textbf{Basic configuration:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Name:} "WebApp-ALB"
+  \item \textbf{Scheme:} Internet-facing
+  \item \textbf{IP address type:} IPv4
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Network mapping:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{VPC:} Default VPC
+  \item \textbf{Mappings:} Select at least 2 Availability Zones
+  \item Check boxes for us-east-1a, us-east-1b (or your region's AZs)
+  \item Select public subnets for each
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Security groups:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Create new security group"} (opens new tab)
+  \item \textbf{Name:} "ALB-SG"
+  \item \textbf{Description:} "Allow HTTP from internet"
+  \item \textbf{VPC:} Default
+  \item \textbf{Inbound rules:}
+  \item Type: HTTP, Port: 80, Source: 0.0.0.0/0
+  \item \textbf{Outbound rules:} Keep default (all traffic)
+  \item Click \textbf{"Create security group"}
+  \item Return to ALB tab, refresh security groups list
+  \item Select \textbf{"ALB-SG"}
+  \item \textbf{Remove default security group}
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Listeners and routing:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Protocol: HTTP, Port: 80 (default)
+  \item \textbf{Default action:} Create target group
+  \item Click \textbf{"Create target group"} (opens new tab)
+\end{itemize}
+
+
+\paragraph{Part 3: Create Target Group}
+
+
+\begin{enumerate}
+  \item \textbf{Target type:} Instances
+  \item \textbf{Target group name:} "WebApp-TG"
+  \item \textbf{Protocol:} HTTP, Port: 80
+  \item \textbf{VPC:} Default VPC
+  \item \textbf{Health checks:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Protocol:} HTTP
+  \item \textbf{Path:} / (root path)
+  \item \textbf{Advanced health check settings:}
+  \item Healthy threshold: 2
+  \item Unhealthy threshold: 2
+  \item Timeout: 5 seconds
+  \item Interval: 30 seconds
+  \item Success codes: 200
+  \item \textbf{Why these settings:} Fast health checks (30s interval) with quick failover (2 failed checks = unhealthy)
+\end{itemize}
+
+
+\begin{enumerate}
+  \item Click \textbf{"Next"}
+  \item \textbf{Register targets:} Skip (Auto Scaling will register instances automatically)
+  \item Click \textbf{"Create target group"}
+  \item Return to ALB tab, refresh target groups
+  \item Select \textbf{"WebApp-TG"} from dropdown
+  \item \textbf{Tags (optional):}
+\end{enumerate}
+
+\begin{itemize}
+  \item Key: Project, Value: AutoScaling-Lab
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Review} all settings
+  \item Click \textbf{"Create load balancer"}
+  \item Wait 2-3 minutes for \textbf{State:} Active
+\end{enumerate}
+
+
+\textbf{Validation:}
+\begin{itemize}
+  \item ALB shows "Active" state
+  \item Copy DNS name (e.g., WebApp-ALB-1234567890.us-east-1.elb.amazonaws.com)
+  \item Try accessing in browser (will show 503 error - no targets yet, this is expected)
+\end{itemize}
+
+
+\paragraph{Part 4: Create Auto Scaling Group}
+
+
+\begin{enumerate}
+  \item In EC2 left menu, click \textbf{"Auto Scaling Groups"}
+  \item Click \textbf{"Create Auto Scaling group"}
+  \item \textbf{Step 1: Choose launch template}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Name:} "WebApp-ASG"
+  \item \textbf{Launch template:} Select "WebServer-Template"
+  \item \textbf{Version:} Latest (1)
+  \item Click \textbf{"Next"}
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Step 2: Choose instance launch options}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{VPC:} Default VPC
+  \item \textbf{Availability Zones and subnets:} Select 2 or more AZs
+  \item Choose public subnets in each AZ
+  \item Click \textbf{"Next"}
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Step 3: Configure advanced options}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Load balancing:} Attach to an existing load balancer
+  \item \textbf{Choose from your load balancer target groups}
+  \item Select \textbf{"WebApp-TG"}
+  \item \textbf{Health checks:}
+  \item Check \textbf{"Turn on Elastic Load Balancing health checks"}
+  \item Health check grace period: 300 seconds
+  \item \textbf{Why:} Gives instances time to fully start before health checks
+  \item \textbf{Monitoring:}
+  \item Check \textbf{"Enable group metrics collection within CloudWatch"}
+  \item Click \textbf{"Next"}
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Step 4: Configure group size and scaling}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Group size:}
+  \item Desired capacity: 2
+  \item Minimum capacity: 1
+  \item Maximum capacity: 4
+  \item \textbf{Scaling policies:}
+  \item Select \textbf{"Target tracking scaling policy"}
+  \item \textbf{Scaling policy name:} "Target-Tracking-CPU"
+  \item \textbf{Metric type:} Average CPU utilization
+  \item \textbf{Target value:} 50
+  \item \textbf{Instance warmup:} 300 seconds
+  \item \textbf{Why this works:} When average CPU across all instances exceeds 50\%, add instances. When below 50\%, remove instances.
+  \item Click \textbf{"Next"}
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Step 5: Add notifications (optional)}
+\end{enumerate}
+
+\begin{itemize}
+  \item Skip or add SNS topic for scaling events
+  \item Click \textbf{"Next"}
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Step 6: Add tags}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Key:} Name, \textbf{Value:} AutoScaled-WebServer
+  \item Check \textbf{"Tag new instances"}
+  \item Click \textbf{"Next"}
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Step 7: Review}
+\end{enumerate}
+
+\begin{itemize}
+  \item Verify all settings
+  \item Click \textbf{"Create Auto Scaling group"}
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Monitor creation:}
+\end{enumerate}
+
+\begin{itemize}
+  \item ASG created immediately
+  \item Watch "Activity" tab for instance launches
+  \item Wait 3-5 minutes for 2 instances to launch and become healthy
+\end{itemize}
+
+
+\textbf{Validation:}
+\begin{itemize}
+  \item Auto Scaling group shows "2 instances" desired/running
+  \item Activity history shows successful launches
+  \item Go to Target Group → Targets tab → Both instances show "healthy"
+  \item Access ALB DNS name → See web page with instance ID
+\end{itemize}
+
+
+\paragraph{Part 5: Test Load Balancing}
+
+
+\begin{enumerate}
+  \item \textbf{Copy ALB DNS name} from Load Balancers page
+  \item \textbf{Open in browser:} \texttt{http://WebApp-ALB-1234567890.us-east-1.elb.amazonaws.com}
+  \item You should see: "Auto Scaling is Working!" with an instance ID
+  \item \textbf{Refresh page multiple times} (F5 or Cmd+R)
+  \item Notice instance ID changes between refreshes
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{What's happening:} ALB distributes requests across instances (round-robin by default)
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Test from command line (optional):}
+\end{enumerate}
+
+\begin{lstlisting}[language=bash]
+for i in \{1..10\}; do curl http://your-alb-dns-name.elb.amazonaws.com | grep "Instance ID"; done
+\end{lstlisting}
+\begin{itemize}
+  \item Shows distribution across instances
+\end{itemize}
+
+
+\textbf{Expected Behavior:}
+\begin{itemize}
+  \item Requests alternate between 2 different instance IDs
+  \item Both instances serve traffic
+  \item Response time is fast (<100ms)
+\end{itemize}
+
+
+\paragraph{Part 6: Test Auto Scaling (Scale Out)}
+
+
+\begin{keypoint}
+\textbf{Warning:} This generates CPU load. Monitor closely and stop if needed.
+\end{keypoint}
+
+
+\begin{enumerate}
+  \item \textbf{SSH into one instance:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to EC2 → Instances
+  \item Find instances tagged "AutoScaled-WebServer"
+  \item Connect via SSH:
+\end{itemize}
+
+   \texttt{`}bash
+   ssh -i your-key.pem ec2-user@[public-ip]
+   \texttt{`}
+
+\begin{enumerate}
+  \item \textbf{Install stress tool:}
+\end{enumerate}
+
+\begin{lstlisting}[language=bash]
+sudo yum install -y stress
+\end{lstlisting}
+
+\begin{enumerate}
+  \item \textbf{Generate CPU load:}
+\end{enumerate}
+
+\begin{lstlisting}[language=bash]
+stress --cpu 2 --timeout 600
+\end{lstlisting}
+\begin{itemize}
+  \item Runs for 10 minutes (600 seconds)
+  \item Pushes CPU to \textasciitilde{}100\%
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Monitor Auto Scaling:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to Auto Scaling Groups → WebApp-ASG
+  \item Click \textbf{"Activity"} tab
+  \item Watch for new scaling activities
+  \item \textbf{Time to scale:} 5-10 minutes typically
+  \item 5 minutes of high CPU (CloudWatch evaluation)
+  \item 2-3 minutes to launch new instance
+  \item 5 minutes warmup period
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Watch CloudWatch metrics:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to CloudWatch → Metrics → EC2 → By Auto Scaling Group
+  \item Select CPUUtilization for WebApp-ASG
+  \item \textbf{Graph settings:} 1-minute period
+  \item You'll see CPU spike above 50\% target
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Verify scale-out:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Auto Scaling group capacity increases: 2 → 3 or 3 → 4
+  \item Activity history shows: "Launching a new EC2 instance"
+  \item New instance appears in Instances list
+  \item Target group shows 3-4 healthy targets
+\end{itemize}
+
+
+\textbf{What You Should See:}
+\begin{itemize}
+  \item CPU metric crosses 50\% threshold
+  \item After \textasciitilde{}5 minutes, scaling activity triggers
+  \item New instance launches automatically
+  \item Total capacity increases
+  \item Load distributes across more instances
+\end{itemize}
+
+
+\paragraph{Part 7: Test Auto Scaling (Scale In)}
+
+
+\begin{enumerate}
+  \item \textbf{Stop stress test:} Press Ctrl+C in SSH session (or wait for timeout)
+  \item \textbf{Exit SSH:} Type \texttt{exit}
+  \item \textbf{Monitor CPU decrease:}
+\end{enumerate}
+
+\begin{itemize}
+  \item CloudWatch shows CPU dropping below 50\%
+  \item Wait 15-20 minutes for scale-in
+  \item \textbf{Why longer:} AWS conservatively waits before removing capacity
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Watch Auto Scaling Activity:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Activity tab shows: "Terminating EC2 instance"
+  \item Capacity decreases back to 2 (desired capacity)
+  \item Extra instance terminates automatically
+\end{itemize}
+
+
+\textbf{Expected Timeline:}
+\begin{itemize}
+  \item CPU drops: Immediate
+  \item Scale-in evaluation: 15 minutes (default cooldown)
+  \item Instance termination: 2-3 minutes
+  \item Total time to scale in: \textasciitilde{}20 minutes
+\end{itemize}
+
+
+\subsubsection{Expected Outcomes}
+
+
+\begin{itemize}
+  \item Launch template created with user data script
+  \item Application Load Balancer distributing traffic across AZs
+  \item Target group with health checks configured
+  \item Auto Scaling group maintaining 2 instances normally
+  \item Automatic scale-out when CPU exceeds 50\%
+  \item Automatic scale-in when CPU returns to normal
+  \item All instances serving traffic through ALB
+\end{itemize}
+
+
+\subsubsection{Verification Checklist}
+
+
+\begin{itemize}
+  \item [ ] Launch template shows in EC2 templates list
+  \item [ ] ALB status is "Active"
+  \item [ ] Target group shows all instances "healthy"
+  \item [ ] Accessing ALB URL displays web page
+  \item [ ] Refreshing shows different instance IDs (load balancing)
+  \item [ ] Auto Scaling group maintains desired capacity
+  \item [ ] Scale-out occurred during stress test
+  \item [ ] Scale-in occurred after CPU normalized
+\end{itemize}
+
+
+\subsubsection{Real-World Tips}
+
+
+\textbf{Launch Template Best Practices:}
+\begin{itemize}
+  \item Version templates for rollback capability
+  \item Use latest Amazon Linux AMI for security patches
+  \item Include monitoring agents in user data
+  \item Test user data scripts before using in templates
+\end{itemize}
+
+
+\textbf{Load Balancer Configuration:}
+\begin{itemize}
+  \item Always use at least 2 AZs for high availability
+  \item Configure appropriate health check paths (not just /)
+  \item Set reasonable timeout values (5-10 seconds)
+  \item Use HTTPS in production (requires SSL certificate)
+  \item Enable access logs for troubleshooting
+\end{itemize}
+
+
+\textbf{Auto Scaling Tuning:}
+\begin{itemize}
+  \item \textbf{Conservative scaling:} Lower thresholds (40\% CPU) with longer cooldowns
+  \item \textbf{Aggressive scaling:} Higher thresholds (70\% CPU) with shorter cooldowns
+  \item \textbf{Production recommendation:} Start conservative, tune based on metrics
+  \item \textbf{Cost optimization:} Use scheduled scaling for predictable patterns
+\end{itemize}
+
+
+\textbf{Common Scaling Metrics:}
+\begin{itemize}
+  \item CPU utilization: Most common, good for compute-bound apps
+  \item Request count per target: Good for web apps with uniform requests
+  \item Network throughput: For network-intensive applications
+  \item Custom CloudWatch metrics: Application-specific (queue length, etc.)
+\end{itemize}
+
+
+\subsubsection{Troubleshooting}
+
+
+\textbf{Problem:} Instances launch but stay "unhealthy" in target group
+
+\textbf{Solution:}
+\begin{itemize}
+  \item Check security group allows HTTP (port 80) from ALB
+  \item Verify health check path is correct (/)
+  \item Ensure web server started (check user data logs: /var/log/cloud-init-output.log)
+  \item Increase health check grace period to 400-500 seconds
+  \item SSH to instance and test: \texttt{curl localhost}
+\end{itemize}
+
+
+\textbf{Problem:} Auto Scaling doesn't scale out despite high CPU
+
+\textbf{Solution:}
+\begin{itemize}
+  \item Verify CPU metric is publishing to CloudWatch (EC2 → Instances → Monitoring)
+  \item Check Auto Scaling group already at maximum capacity (4 instances)
+  \item Wait full evaluation period (5 minutes of high CPU)
+  \item Review scaling policy configuration and thresholds
+  \item Check CloudWatch Alarms for scaling policy
+\end{itemize}
+
+
+\textbf{Problem:} Cannot access load balancer URL (timeout)
+
+\textbf{Solution:}
+\begin{itemize}
+  \item Verify ALB security group allows HTTP from 0.0.0.0/0
+  \item Ensure ALB is in public subnets with internet gateway
+  \item Check ALB state is "Active" not "Provisioning"
+  \item Verify at least one target is healthy
+  \item Check route tables have internet gateway route
+\end{itemize}
+
+
+\textbf{Problem:} Scale-in never occurs
+
+\textbf{Solution:}
+\begin{itemize}
+  \item Default scale-in protection may be enabled (check ASG settings)
+  \item Wait longer (scale-in takes 15-20 minutes)
+  \item Verify CPU actually dropped below threshold
+  \item Check instance protection settings on individual instances
+  \item Review scale-in policies (may have different thresholds)
+\end{itemize}
+
+
+\textbf{Problem:} Web page not showing instance ID
+
+\textbf{Solution:}
+\begin{itemize}
+  \item User data script may have failed
+  \item SSH to instance: \texttt{sudo cat /var/log/cloud-init-output.log}
+  \item Check for script errors
+  \item Verify httpd is running: \texttt{sudo systemctl status httpd}
+  \item Test HTML file: \texttt{cat /var/www/html/index.html}
+\end{itemize}
+
+
+\subsubsection{Cleanup}
+
+
+\begin{keypoint}
+\textbf{Critical:} Load Balancers and running EC2 instances incur charges. Clean up immediately after lab.
+\end{keypoint}
+
+
+\textbf{Cleanup Order (Important - follow sequence):}
+
+\begin{enumerate}
+  \item \textbf{Delete Auto Scaling Group:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to Auto Scaling Groups
+  \item Select "WebApp-ASG"
+  \item \textbf{Actions} → \textbf{Delete}
+  \item Type "delete" to confirm
+  \item \textbf{This terminates all instances in the group}
+  \item Wait for instances to terminate (2-3 minutes)
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Verify instances terminated:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to EC2 → Instances
+  \item Ensure all "AutoScaled-WebServer" instances show "Terminated"
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete Load Balancer:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to Load Balancers
+  \item Select "WebApp-ALB"
+  \item \textbf{Actions} → \textbf{Delete load balancer}
+  \item Type "confirm" to delete
+  \item Wait for deletion (1-2 minutes)
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete Target Group:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to Target Groups
+  \item Select "WebApp-TG"
+  \item \textbf{Actions} → \textbf{Delete}
+  \item Confirm deletion
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete Launch Template:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to Launch Templates
+  \item Select "WebServer-Template"
+  \item \textbf{Actions} → \textbf{Delete template}
+  \item Confirm deletion
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Delete Security Groups:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to Security Groups
+  \item Select "ALB-SG" → \textbf{Actions} → \textbf{Delete security groups}
+  \item Select "ALB-WebServer-SG" → \textbf{Actions} → \textbf{Delete security groups}
+  \item \textbf{Note:} May need to wait if dependencies exist
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Verify cleanup:}
+\end{enumerate}
+
+\begin{itemize}
+  \item No running or pending EC2 instances from this lab
+  \item No load balancers in list
+  \item No Auto Scaling groups in list
+  \item Target group deleted
+\end{itemize}
+
+
+\textbf{Cost Warning:}
+\begin{itemize}
+  \item Load Balancers: \$0.0225/hour (\textasciitilde{}\$16/month) - NOT free tier eligible
+  \item EC2 instances: Free if within 750 hours/month on t2.micro
+  \item \textbf{Leaving ALB running overnight = \textasciitilde{}\$0.54 wasted}
+\end{itemize}
+
+
+\textbf{Verification Commands (optional):}
+\begin{lstlisting}[language=bash]
+aws elbv2 describe-load-balancers --region us-east-1
+aws autoscaling describe-auto-scaling-groups --region us-east-1
+aws ec2 describe-instances --filters "Name=instance-state-name,Values=running" --region us-east-1
+\end{lstlisting}
+
+\subsubsection{Post-Lab Knowledge Check}
+
+
+\textbf{Question 1:} What's the difference between desired, minimum, and maximum capacity?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:}
+\begin{itemize}
+  \item \textbf{Desired capacity:} Current target number of instances Auto Scaling maintains
+  \item \textbf{Minimum capacity:} Lowest number of instances (never goes below this)
+  \item \textbf{Maximum capacity:} Highest number of instances (never exceeds this)
+\end{itemize}
+
+
+Example: Min=1, Desired=2, Max=4
+\begin{itemize}
+  \item Normal operation: 2 instances running
+  \item During scale-out: Can add up to 2 more (total 4)
+  \item During scale-in: Can remove 1 (minimum is 1)
+  \item Desired capacity changes dynamically, min/max are boundaries
+\end{itemize}
+
+
+</details>
+
+\textbf{Question 2:} Why use target tracking instead of step scaling?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:}
+\begin{itemize}
+  \item \textbf{Target tracking:} Simpler to configure, automatically calculates scaling adjustments to maintain target (like a thermostat). Best for most use cases.
+  \item \textbf{Step scaling:} More control, define specific scaling amounts for different threshold ranges. Use for complex scaling patterns.
+  \item \textbf{Exam tip:} Target tracking is recommended by AWS for most scenarios and is the default option.
+\end{itemize}
+
+
+</details>
+
+\textbf{Question 3:} What happens if an instance fails health checks?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:}
+\begin{enumerate}
+  \item Target group marks instance "unhealthy" after 2 failed checks (configurable)
+  \item Load balancer stops sending traffic to that instance
+  \item Auto Scaling detects unhealthy instance
+  \item After grace period, Auto Scaling terminates unhealthy instance
+  \item Auto Scaling launches replacement instance to maintain desired capacity
+  \item New instance goes through health checks before receiving traffic
+\end{enumerate}
+
+
+This provides self-healing infrastructure!
+
+</details>
+
+\textbf{Question 4:} Can Auto Scaling work without a load balancer?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:} Yes! Auto Scaling works independently of load balancers.
+
+\textbf{Without ELB:}
+\begin{itemize}
+  \item Instances still launch/terminate based on policies
+  \item Use cases: Batch processing, worker nodes, background jobs
+  \item Health checks based on EC2 status only
+\end{itemize}
+
+
+\textbf{With ELB:}
+\begin{itemize}
+  \item Better for web apps serving user traffic
+  \item Health checks from both ELB and EC2
+  \item Traffic distributed automatically
+  \item More resilient architecture
+\end{itemize}
+
+
+\textbf{Exam tip:} Know that Auto Scaling and ELB are separate services that work well together but aren't required together.
+
+</details>
+
+\textbf{Question 5:} What's the purpose of the warmup period?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:} Warmup period (300 seconds recommended) prevents new instances from being evaluated for scaling before they're ready.
+
+\textbf{Without warmup:}
+\begin{itemize}
+  \item New instance launched (CPU low while starting)
+  \item Average CPU of group drops
+  \item Might trigger premature scale-in
+  \item Instability and thrashing
+\end{itemize}
+
+
+\textbf{With warmup:}
+\begin{itemize}
+  \item New instance launches
+  \item Metrics ignored for 300 seconds
+  \item Instance has time to initialize and receive traffic
+  \item Stable scaling behavior
+\end{itemize}
+
+
+</details>
+
+\subsubsection{Key Takeaways}
+
+
+\begin{itemize}
+  \item \textbf{Auto Scaling provides elasticity} - capacity matches demand automatically
+  \item \textbf{ELB distributes traffic} - no single point of failure
+  \item \textbf{Target tracking is simplest} - set target, AWS handles the rest
+  \item \textbf{Health checks are critical} - determines which instances receive traffic
+  \item \textbf{Multi-AZ deployment} - provides high availability
+  \item \textbf{Launch templates} - define instance configuration once, reuse many times
+  \item \textbf{Cooldown periods prevent thrashing} - avoids rapid scale in/out cycles
+  \item \textbf{Cost optimization} - only pay for what you need, when you need it
+\end{itemize}
+
+
+---
+
+\subsection{Lab 12: DynamoDB Hands-On}
+
+
+\textbf{Duration:} 35 minutes
+\textbf{Cost:} Free (25 GB storage always free)
+\textbf{Difficulty:} Intermediate
+
+\subsubsection{Learning Objectives}
+
+
+By the end of this lab, you will be able to:
+
+\begin{enumerate}
+  \item Create a DynamoDB table with partition and sort keys
+  \item Understand DynamoDB data types and attributes
+  \item Add, query, and scan items using the AWS Console
+  \item Create and use Global Secondary Indexes (GSI)
+  \item Configure DynamoDB auto-scaling
+  \item Understand read/write capacity modes
+  \item Export table data and enable point-in-time recovery
+\end{enumerate}
+
+
+\subsubsection{Why This Lab Matters}
+
+
+\textbf{Real-World Scenario:} A mobile gaming company uses DynamoDB to store player profiles, game scores, and real-time leaderboards. DynamoDB handles millions of requests per day with single-digit millisecond latency, automatically scaling without server management.
+
+\textbf{Exam Relevance:} DynamoDB is a key AWS service. Know:
+\begin{itemize}
+  \item NoSQL vs. relational databases
+  \item Primary keys (partition key, sort key)
+  \item Indexes (LSI, GSI)
+  \item Capacity modes (on-demand vs. provisioned)
+  \item DynamoDB Accelerator (DAX) for caching
+\end{itemize}
+
+
+\subsubsection{Prerequisites}
+
+
+\begin{itemize}
+  \item Basic understanding of databases (SQL or NoSQL)
+  \item Knowledge of data structures (key-value pairs)
+  \item Completed Lab 1 (billing alerts recommended)
+\end{itemize}
+
+
+\subsubsection{Step-by-Step Instructions}
+
+
+\paragraph{Part 1: Create DynamoDB Table}
+
+
+\begin{enumerate}
+  \item Navigate to \textbf{DynamoDB} service
+  \item Click \textbf{"Create table"}
+  \item \textbf{Table details:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Table name:} "GameScores"
+  \item \textbf{Partition key:} "UserId" (String)
+  \item \textbf{Sort key:} "GameTitle" (String)
+  \item \textbf{Why these keys:}
+  \item Partition key distributes data across partitions
+  \item Sort key orders items within each partition
+  \item Together form unique composite key
+  \item Example: User123 + Minecraft, User123 + Fortnite
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Table settings:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Select \textbf{"Customize settings"} (not Default settings)
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Table class:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Select \textbf{"DynamoDB Standard"}
+  \item (Standard-IA is for infrequently accessed data)
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Read/write capacity settings:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Capacity mode:} On-demand
+  \item \textbf{Why on-demand:} Automatically scales, no capacity planning, pay per request
+  \item \textbf{Alternative:} Provisioned mode (Free Tier: 25 WCU + 25 RCU)
+  \item \textbf{Best for lab:} On-demand (simpler, less chance of throttling)
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Secondary indexes:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Skip for now (add later in lab)
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Encryption at rest:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Encryption type:} Owned by Amazon DynamoDB
+  \item (Default, no additional cost)
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Tags (optional):}
+\end{enumerate}
+
+\begin{itemize}
+  \item Key: Project, Value: DynamoDB-Lab
+\end{itemize}
+
+
+\begin{enumerate}
+  \item Click \textbf{"Create table"}
+  \item Wait 10-20 seconds for status: "Active"
+\end{enumerate}
+
+
+\textbf{Validation:}
+\begin{itemize}
+  \item Table appears in Tables list
+  \item Status shows "Active"
+  \item Table details show partition and sort keys
+\end{itemize}
+
+
+\paragraph{Part 2: Add Items to Table}
+
+
+\begin{enumerate}
+  \item Click on \textbf{"GameScores"} table name
+  \item Click \textbf{"Explore table items"} button
+  \item Click \textbf{"Create item"}
+\end{enumerate}
+
+
+\textbf{Item 1:}
+\begin{enumerate}
+  \item \textbf{Add attributes:}
+\end{enumerate}
+
+\begin{itemize}
+  \item UserId (String): "User001"
+  \item GameTitle (String): "Minecraft"
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Add new attribute"} → \textbf{Number}
+\end{enumerate}
+
+\begin{itemize}
+  \item Attribute name: "Score"
+  \item Value: 1250
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Add new attribute"} → \textbf{Number}
+\end{enumerate}
+
+\begin{itemize}
+  \item Attribute name: "Level"
+  \item Value: 15
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Add new attribute"} → \textbf{String}
+\end{enumerate}
+
+\begin{itemize}
+  \item Attribute name: "PlayerName"
+  \item Value: "Steve"
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Add new attribute"} → \textbf{Number}
+\end{enumerate}
+
+\begin{itemize}
+  \item Attribute name: "Timestamp"
+  \item Value: 1699564800 (Unix timestamp)
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Create item"}
+\end{enumerate}
+
+
+\textbf{Item 2:}
+\begin{enumerate}
+  \item Click \textbf{"Create item"} again
+  \item Add attributes:
+\end{enumerate}
+
+\begin{itemize}
+  \item UserId: "User001"
+  \item GameTitle: "Fortnite"
+  \item Score: 2400
+  \item Level: 22
+  \item PlayerName: "Steve"
+  \item Timestamp: 1699651200
+\end{itemize}
+
+
+\textbf{Item 3:}
+\begin{enumerate}
+  \item Create third item:
+\end{enumerate}
+
+\begin{itemize}
+  \item UserId: "User002"
+  \item GameTitle: "Minecraft"
+  \item Score: 980
+  \item Level: 12
+  \item PlayerName: "Alex"
+  \item Timestamp: 1699737600
+\end{itemize}
+
+
+\textbf{Item 4:}
+\begin{enumerate}
+  \item Create fourth item:
+\end{enumerate}
+
+\begin{itemize}
+  \item UserId: "User002"
+  \item GameTitle: "Fortnite"
+  \item Score: 3100
+  \item Level: 28
+  \item PlayerName: "Alex"
+  \item Timestamp: 1699824000
+\end{itemize}
+
+
+\textbf{Item 5:}
+\begin{enumerate}
+  \item Create fifth item:
+\end{enumerate}
+
+\begin{itemize}
+  \item UserId: "User003"
+  \item GameTitle: "Minecraft"
+  \item Score: 1800
+  \item Level: 18
+  \item PlayerName: "Herobrine"
+  \item Timestamp: 1699910400
+\end{itemize}
+
+
+\textbf{What You Should See:}
+\begin{itemize}
+  \item Items appear in table immediately
+  \item Each item has UserId + GameTitle (keys) plus additional attributes
+  \item Items can have different attributes (schema-less)
+  \item Scan shows all items
+\end{itemize}
+
+
+\paragraph{Part 3: Query Items}
+
+
+\begin{keypoint}
+\textbf{Query vs. Scan:} Query is efficient (uses keys), Scan reads entire table (slow, expensive).
+\end{keypoint}
+
+
+\begin{enumerate}
+  \item Click \textbf{"Query"} (default view after adding items)
+  \item \textbf{Query items where:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Partition key: UserId
+  \item \textbf{Enter:} "User001"
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Run"}
+\end{enumerate}
+
+
+\textbf{Results:}
+\begin{itemize}
+  \item Shows 2 items: Minecraft and Fortnite for User001
+  \item Sorted by GameTitle (sort key)
+  \item Fast query using primary key
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Add sort key condition:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Partition key: "User001"
+  \item \textbf{Sort key condition:} GameTitle = "Minecraft"
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Run"}
+\end{enumerate}
+
+
+\textbf{Results:}
+\begin{itemize}
+  \item Shows only 1 item: User001's Minecraft score
+  \item Even more specific query
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Try another query:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Partition key: "User002"
+  \item Leave sort key empty
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Run"}
+\end{enumerate}
+
+
+\textbf{Results:}
+\begin{itemize}
+  \item Shows both games for User002
+\end{itemize}
+
+
+\textbf{Real-World Use:} Query player's specific game score or all games for a player
+
+\paragraph{Part 4: Scan Items}
+
+
+\begin{enumerate}
+  \item Click \textbf{"Scan"} tab (next to Query)
+  \item Click \textbf{"Run"}
+\end{enumerate}
+
+
+\textbf{Results:}
+\begin{itemize}
+  \item Shows all 5 items from table
+  \item No filtering applied
+  \item \textbf{Warning:} Scans are expensive for large tables (read all data)
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Add scan filter:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Filters"}
+  \item \textbf{Add filter:}
+  \item Attribute name: Score
+  \item Condition: Greater than or equal to
+  \item Value: 2000
+  \item Click \textbf{"Run"}
+\end{itemize}
+
+
+\textbf{Results:}
+\begin{itemize}
+  \item Shows only 2 items: User001 Fortnite (2400), User002 Fortnite (3100)
+  \item Filtered after scanning entire table
+  \item \textbf{Note:} Still scans all items then filters (not as efficient as query)
+\end{itemize}
+
+
+\textbf{Best Practice:} Use queries with keys whenever possible; scans for analytics only
+
+\paragraph{Part 5: Create Global Secondary Index (GSI)}
+
+
+\textbf{Problem:} What if we want to find all players with Score > 2000 efficiently?
+\textbf{Solution:} Create GSI with Score as partition key
+
+\begin{enumerate}
+  \item Go to \textbf{"Indexes"} tab
+  \item Click \textbf{"Create index"}
+  \item \textbf{Index details:}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{Partition key:} Score (Number)
+  \item \textbf{Sort key:} Timestamp (Number) (optional, but useful for ordering)
+  \item \textbf{Index name:} "ScoreIndex"
+  \item \textbf{Attribute projections:} All
+  \item Projects all table attributes into index
+  \item Alternative: Keys only (smaller, cheaper) or Include (specify attributes)
+\end{itemize}
+
+
+\begin{enumerate}
+  \item Click \textbf{"Create index"}
+  \item Wait 20-30 seconds for status: "Active"
+\end{enumerate}
+
+
+\textbf{Validation:}
+\begin{itemize}
+  \item Index shows in Indexes tab
+  \item Status: Active
+  \item Can now query by Score efficiently
+\end{itemize}
+
+
+\paragraph{Part 6: Query Using GSI}
+
+
+\begin{enumerate}
+  \item Go back to \textbf{"Explore table items"}
+  \item Click \textbf{"Query"} tab
+  \item \textbf{Index:} Select "ScoreIndex" from dropdown
+  \item \textbf{Query items:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Partition key (Score): 1250
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Run"}
+\end{enumerate}
+
+
+\textbf{Results:}
+\begin{itemize}
+  \item Shows User001's Minecraft score
+  \item Queried by Score instead of UserId
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Try range query on GSI:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Unfortunately, DynamoDB Query requires exact partition key value
+  \item For range queries on Score, must use Scan with filter (limitation of DynamoDB)
+  \item \textbf{Alternative approach:} Create items with score ranges as partition keys (advanced)
+\end{itemize}
+
+
+\textbf{Real-World Use:}
+\begin{itemize}
+  \item GSI for querying by non-key attributes
+  \item Common pattern: UserId as partition key, GSI on Email for login lookups
+  \item Up to 20 GSIs per table
+\end{itemize}
+
+
+\paragraph{Part 7: Update Item}
+
+
+\begin{enumerate}
+  \item In "Explore table items" view, select an item (click radio button)
+  \item Click \textbf{"Actions"} → \textbf{"Edit item"}
+  \item Change Score from 1250 to 1300
+  \item Click \textbf{"Add new attribute"} → \textbf{String}
+\end{enumerate}
+
+\begin{itemize}
+  \item Attribute name: "Achievement"
+  \item Value: "Master Builder"
+\end{itemize}
+
+\begin{enumerate}
+  \item Click \textbf{"Save changes"}
+\end{enumerate}
+
+
+\textbf{What You Should See:}
+\begin{itemize}
+  \item Item updated immediately
+  \item New attribute added
+  \item Other items not affected (schema-less flexibility)
+\end{itemize}
+
+
+\paragraph{Part 8: Delete Item}
+
+
+\begin{enumerate}
+  \item Select an item (checkbox)
+  \item Click \textbf{"Actions"} → \textbf{"Delete items"}
+  \item Confirm deletion
+  \item Item removed immediately
+\end{enumerate}
+
+
+\textbf{Restore item (practice adding):}
+\begin{itemize}
+  \item Click "Create item" and re-add the deleted item
+\end{itemize}
+
+
+\paragraph{Part 9: Configure Table Settings}
+
+
+\begin{enumerate}
+  \item Go to \textbf{"Additional settings"} tab
+\end{enumerate}
+
+
+\textbf{Point-in-time recovery (PITR):}
+\begin{enumerate}
+  \item Scroll to \textbf{"Point-in-time recovery"} section
+  \item Click \textbf{"Edit"}
+  \item Select \textbf{"Turn on"}
+  \item Click \textbf{"Save changes"}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{What it does:} Continuous backups, restore to any point in last 35 days
+  \item \textbf{Cost:} Additional charge based on table size
+  \item \textbf{Exam tip:} PITR protects against accidental deletes/updates
+\end{itemize}
+
+
+\textbf{Time to Live (TTL):}
+\begin{enumerate}
+  \item Scroll to \textbf{"Time to Live (TTL)"} section
+  \item Click \textbf{"Edit"}
+  \item \textbf{Turn on} TTL
+  \item \textbf{TTL attribute:} "ExpiresAt"
+  \item Click \textbf{"Save changes"}
+\end{enumerate}
+
+\begin{itemize}
+  \item \textbf{What it does:} Automatically deletes items after expiration time
+  \item \textbf{Use case:} Session data, temporary records
+  \item \textbf{Cost:} Free (deletion doesn't consume write capacity)
+\end{itemize}
+
+
+\textbf{Note:} We didn't add ExpiresAt to our items, so TTL won't affect them
+
+\paragraph{Part 10: Export Table Data}
+
+
+\begin{enumerate}
+  \item Go to \textbf{"Exports and streams"} tab
+  \item Click \textbf{"Export to S3"}
+  \item \textbf{Destination S3 bucket:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Click \textbf{"Browse S3"}
+  \item Select existing bucket or create new one: "dynamodb-exports-[yourname]"
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Export format:} DynamoDB JSON
+  \item Click \textbf{"Export"}
+  \item Export status: "In progress" → "Completed" (2-3 minutes)
+  \item \textbf{View exported data:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to S3 → Your export bucket
+  \item Navigate through folders to find data file
+  \item Download and view JSON export
+\end{itemize}
+
+
+\textbf{Use cases:}
+\begin{itemize}
+  \item Data analysis with Athena
+  \item Backup and archival
+  \item Data migration
+  \item Compliance requirements
+\end{itemize}
+
+
+\subsubsection{Expected Outcomes}
+
+
+\begin{itemize}
+  \item DynamoDB table created with composite primary key
+  \item Multiple items added with various attributes
+  \item Successfully queried items using partition key
+  \item Scanned table with filters applied
+  \item Created Global Secondary Index for alternative queries
+  \item Updated and deleted items
+  \item Configured Point-in-time Recovery and TTL
+  \item Exported table data to S3
+\end{itemize}
+
+
+\subsubsection{Verification Checklist}
+
+
+\begin{itemize}
+  \item [ ] Table "GameScores" shows "Active" status
+  \item [ ] At least 5 items in table
+  \item [ ] Query by UserId returns correct items
+  \item [ ] Scan with filter shows expected results
+  \item [ ] Global Secondary Index "ScoreIndex" is active
+  \item [ ] Can query using GSI
+  \item [ ] Point-in-time recovery enabled
+  \item [ ] Successfully exported to S3
+\end{itemize}
+
+
+\subsubsection{Real-World Tips}
+
+
+\textbf{Partition Key Design:}
+\begin{itemize}
+  \item High cardinality (many unique values) for even distribution
+  \item Avoid "hot partitions" (one key getting most traffic)
+  \item Bad example: Date as partition key (all today's data on one partition)
+  \item Good example: CustomerId (distributed across customers)
+\end{itemize}
+
+
+\textbf{When to Use DynamoDB:}
+\begin{itemize}
+  \item \textbf{Yes:} High-scale applications, gaming, IoT, mobile backends, real-time bidding
+  \item \textbf{Yes:} Serverless applications (pairs well with Lambda)
+  \item \textbf{Yes:} Key-value access patterns
+  \item \textbf{No:} Complex joins (use RDS instead)
+  \item \textbf{No:} Ad-hoc queries (use Athena + S3 or RDS)
+  \item \textbf{No:} ACID transactions across tables (use RDS)
+\end{itemize}
+
+
+\textbf{Capacity Mode Selection:}
+\begin{itemize}
+  \item \textbf{On-demand:} Unpredictable workloads, new applications, pay-per-request
+  \item \textbf{Provisioned:} Predictable traffic, steady state, cost optimization (up to 60\% savings)
+  \item \textbf{Can switch:} Once per 24 hours between modes
+\end{itemize}
+
+
+\textbf{Cost Optimization:}
+\begin{itemize}
+  \item Use on-demand for development, provisioned for production
+  \item Enable auto-scaling for provisioned mode
+  \item Use S3 + Athena for analytics instead of scans
+  \item Archive old data to S3 using TTL + streams
+  \item Standard-IA class for infrequently accessed data
+\end{itemize}
+
+
+\subsubsection{Troubleshooting}
+
+
+\textbf{Problem:} "Validation Exception" when creating item
+
+\textbf{Solution:}
+\begin{itemize}
+  \item Verify partition key and sort key values provided
+  \item Check attribute names don't have typos
+  \item Ensure data types match (String vs. Number)
+  \item Partition and sort keys are required fields
+\end{itemize}
+
+
+\textbf{Problem:} Query returns no results
+
+\textbf{Solution:}
+\begin{itemize}
+  \item Verify exact partition key value (case-sensitive)
+  \item Check you're using correct index (table vs. GSI)
+  \item Confirm items exist with that partition key
+  \item Try scan to see all items first
+\end{itemize}
+
+
+\textbf{Problem:} Cannot create GSI - limit exceeded
+
+\textbf{Solution:}
+\begin{itemize}
+  \item Free Tier allows up to 20 GSIs per table
+  \item Delete unused indexes before creating new ones
+  \item Consider if you really need GSI (scan might be acceptable)
+\end{itemize}
+
+
+\textbf{Problem:} Export to S3 fails
+
+\textbf{Solution:}
+\begin{itemize}
+  \item Verify S3 bucket exists and in same region
+  \item Check DynamoDB has permissions to write to bucket
+  \item Ensure bucket name is globally unique
+  \item Review export status details for specific error
+\end{itemize}
+
+
+\textbf{Problem:} High read/write costs
+
+\textbf{Solution:}
+\begin{itemize}
+  \item Check for scan operations (use queries instead)
+  \item Review on-demand vs. provisioned pricing
+  \item Implement caching layer (DAX or ElastiCache)
+  \item Use eventually consistent reads (50\% cheaper)
+\end{itemize}
+
+
+\subsubsection{Cleanup}
+
+
+\begin{keypoint}
+\textbf{Good News:} DynamoDB charges only for storage and requests. With 25 GB always free, small tables are essentially free.
+\end{keypoint}
+
+
+\textbf{Option 1: Keep Table (Recommended for Learning)}
+\begin{itemize}
+  \item Minimal cost with 5 items (<1 KB storage)
+  \item Good for practicing queries
+  \item Can experiment further
+\end{itemize}
+
+
+\textbf{Option 2: Delete Table}
+
+\begin{enumerate}
+  \item Go to \textbf{DynamoDB} → \textbf{Tables}
+  \item Select \textbf{"GameScores"} table
+  \item Click \textbf{"Delete"}
+  \item \textbf{Delete all CloudWatch alarms for this table:} Check box
+  \item \textbf{Create a backup before deleting:} Uncheck (for lab purposes)
+  \item Type \textbf{"delete"} to confirm
+  \item Click \textbf{"Delete table"}
+  \item \textbf{Delete S3 export bucket (if created):}
+\end{enumerate}
+
+\begin{itemize}
+  \item Go to S3
+  \item Select export bucket
+  \item Click \textbf{"Empty"} → Type "permanently delete" → Empty
+  \item Click \textbf{"Delete"} → Type bucket name → Delete
+\end{itemize}
+
+
+\textbf{Verification:}
+\begin{itemize}
+  \item Table no longer in DynamoDB tables list
+  \item Export bucket deleted from S3
+  \item No ongoing charges
+\end{itemize}
+
+
+\textbf{Cost Note:}
+\begin{itemize}
+  \item On-demand mode: \$0 with no traffic
+  \item 5 items < 1 KB: \textasciitilde{}\$0.00025/month storage
+  \item Effectively free to keep for practice
+\end{itemize}
+
+
+\subsubsection{Post-Lab Knowledge Check}
+
+
+\textbf{Question 1:} What's the difference between partition key and sort key?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:}
+\begin{itemize}
+  \item \textbf{Partition key (Hash key):} Required, determines which partition stores the item, must be unique if used alone
+  \item \textbf{Sort key (Range key):} Optional, orders items within a partition, enables range queries
+  \item \textbf{Together:} Form composite primary key (partition + sort), partition key groups items, sort key orders within group
+\end{itemize}
+
+
+Example: UserId (partition) + Timestamp (sort) allows querying all actions for a user, ordered by time
+
+</details>
+
+\textbf{Question 2:} When should you use a Global Secondary Index?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:}
+Use GSI when you need to query by attributes other than the primary key.
+
+\textbf{Example scenarios:}
+\begin{itemize}
+  \item Table has UserId as partition key, need to query by Email → Create GSI with Email as partition key
+  \item Table has OrderId as partition key, need to find all orders for a CustomerId → GSI on CustomerId
+  \item Need different sort order → GSI with different sort key
+\end{itemize}
+
+
+\textbf{Limitations:}
+\begin{itemize}
+  \item Eventually consistent (slight delay)
+  \item Consumes additional write capacity
+  \item Costs extra storage (projects attributes)
+  \item Cannot be changed after creation (must delete and recreate)
+\end{itemize}
+
+
+</details>
+
+\textbf{Question 3:} What's the difference between Query and Scan?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:}
+\begin{itemize}
+  \item \textbf{Query:} Efficient, uses partition key (and optionally sort key), returns only matching items, low latency, predictable cost
+  \item \textbf{Scan:} Inefficient, reads entire table, filters after reading, high latency for large tables, expensive
+\end{itemize}
+
+
+\textbf{Example:}
+\begin{itemize}
+  \item Query for "UserId=User001": Reads only User001's items
+  \item Scan with filter "UserId=User001": Reads ALL items, then filters
+\end{itemize}
+
+
+\textbf{Exam tip:} Always prefer Query over Scan. Use Scan only for analytics or one-time operations.
+
+</details>
+
+\textbf{Question 4:} What is DynamoDB Accelerator (DAX)?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:}
+DAX is an in-memory cache for DynamoDB providing microsecond latency.
+
+\textbf{Features:}
+\begin{itemize}
+  \item Fully managed, highly available cache
+  \item Reduces read latency from milliseconds to microseconds
+  \item No application code changes (drop-in compatible)
+  \item Supports eventually consistent and strongly consistent reads
+\end{itemize}
+
+
+\textbf{Use cases:}
+\begin{itemize}
+  \item Read-heavy workloads
+  \item Gaming leaderboards
+  \item Real-time bidding
+  \item Applications requiring <1ms response
+\end{itemize}
+
+
+\textbf{Note:} Not included in Free Tier, costs apply
+
+</details>
+
+\textbf{Question 5:} How does DynamoDB pricing work?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:}
+\textbf{On-Demand Mode:}
+\begin{itemize}
+  \item Pay per request: \$1.25 per million write requests, \$0.25 per million read requests
+  \item Storage: \$0.25 per GB/month
+  \item Best for unpredictable workloads
+\end{itemize}
+
+
+\textbf{Provisioned Mode:}
+\begin{itemize}
+  \item Reserve capacity: \$0.00065 per WCU-hour, \$0.00013 per RCU-hour
+  \item Auto-scaling available
+  \item Best for predictable, steady workloads
+  \item Free Tier: 25 WCU + 25 RCU + 25 GB storage
+\end{itemize}
+
+
+\textbf{Additional costs:}
+\begin{itemize}
+  \item Backups, restores, global tables, streams
+  \item Data transfer out
+\end{itemize}
+
+
+\textbf{Exam tip:} Know the difference between capacity modes and when to use each
+
+</details>
+
+\textbf{Question 6:} Can DynamoDB handle relational data like SQL databases?
+
+<details>
+<summary>Click to reveal answer</summary>
+
+\textbf{Answer:}
+DynamoDB is NoSQL - not designed for relational patterns like JOINs.
+
+\textbf{What DynamoDB CAN'T do well:}
+\begin{itemize}
+  \item Multi-table joins
+  \item Complex aggregations
+  \item Ad-hoc queries
+  \item Referential integrity constraints
+\end{itemize}
+
+
+\textbf{What DynamoDB DOES well:}
+\begin{itemize}
+  \item Key-value lookups
+  \item Single-table design patterns
+  \item High-scale applications
+  \item Low-latency requirements
+\end{itemize}
+
+
+\textbf{Best Practice:}
+\begin{itemize}
+  \item Denormalize data (duplicate information across items)
+  \item Single-table design (advanced pattern)
+  \item Use RDS/Aurora for complex relational needs
+\end{itemize}
+
+
+\textbf{Exam tip:} Know when to use DynamoDB vs. RDS
+
+</details>
+
+\subsubsection{Key Takeaways}
+
+
+\begin{itemize}
+  \item \textbf{DynamoDB is NoSQL} - schema-less, scalable, managed service
+  \item \textbf{Primary key is critical} - determines data distribution and access patterns
+  \item \textbf{Query > Scan} - always design for query access patterns
+  \item \textbf{GSIs enable flexibility} - query by non-key attributes
+  \item \textbf{25 GB storage always free} - great for learning and small apps
+  \item \textbf{On-demand mode} - simplest for beginners, no capacity planning
+  \item \textbf{Point-in-time recovery} - protection against mistakes
+  \item \textbf{Use with Lambda} - perfect for serverless architectures
+  \item \textbf{Not a replacement for RDS} - choose right database for use case
+\end{itemize}
+
+
+\subsubsection{Additional Resources}
+
+
+\begin{itemize}
+  \item \href{https://docs.aws.amazon.com/dynamodb/}{DynamoDB Developer Guide}
+  \item \href{https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices.html}{Best Practices for DynamoDB}
+  \item \href{https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/data-modeling.html}{DynamoDB Data Modeling}
+  \item \href{https://www.youtube.com/results?search\_query=aws+reinvent+dynamodb}{AWS re:Invent DynamoDB Sessions}
+\end{itemize}
+
+
+---
+
+---
+
+\subsection{Troubleshooting FAQ}
+
+
+This section addresses common issues encountered across all labs.
+
+\subsubsection{General AWS Console Issues}
+
+
+\textbf{Q: I can't find a service in the AWS Console}
+
+A:
+\begin{itemize}
+  \item Use the search bar at the top (type service name)
+  \item Check if you're in the correct region (some services are region-specific)
+  \item Verify your IAM user has permissions to access that service
+  \item Some services have different names (e.g., "Billing and Cost Management" vs. "Billing")
+\end{itemize}
+
+
+\textbf{Q: AWS Console is very slow or timing out}
+
+A:
+\begin{itemize}
+  \item Clear browser cache and cookies
+  \item Try incognito/private browsing mode
+  \item Switch to a different browser (Chrome, Firefox, Edge)
+  \item Check your internet connection (minimum 5 Mbps recommended)
+  \item Try a different region (some regions may have connectivity issues)
+  \item Check AWS Service Health Dashboard: https://status.aws.amazon.com
+\end{itemize}
+
+
+\textbf{Q: I'm getting "You are not authorized to perform this operation" errors}
+
+A:
+\begin{itemize}
+  \item Check IAM user has appropriate permissions (policies attached)
+  \item If using IAM user, ensure root account enabled IAM billing access (for billing operations)
+  \item Wait 5-10 minutes after creating IAM user (policy propagation delay)
+  \item Try logging out and back in
+  \item Verify you're in correct account (check account ID)
+\end{itemize}
+
+
+\textbf{Q: Resources I created don't appear in the console}
+
+A:
+\begin{itemize}
+  \item \textbf{Most common:} Wrong region selected (check region dropdown in top right)
+  \item Wait 30-60 seconds and refresh (eventual consistency)
+  \item Check filters applied in console (clear all filters)
+  \item Verify resource actually created (check for error messages)
+  \item Check CloudTrail for creation events
+\end{itemize}
+
+
+\subsubsection{Billing and Cost Issues}
+
+
+\textbf{Q: I'm being charged even though I'm using Free Tier}
+
+A:
+\begin{itemize}
+  \item Check Free Tier Dashboard for usage vs. limits
+  \item Verify instance types are Free Tier eligible (t2.micro, t3.micro)
+  \item Check for resources in multiple regions (Free Tier is per-account, not per-region)
+  \item Look for non-Free Tier services (NAT Gateway, Load Balancers)
+  \item Data transfer charges (out to internet)
+  \item EBS storage beyond 30 GB
+  \item RDS Multi-AZ (not Free Tier eligible)
+\end{itemize}
+
+
+\textbf{Q: My billing alarm isn't working}
+
+A:
+\begin{itemize}
+  \item Verify billing alarm created in us-east-1 region only
+  \item Check SNS subscription confirmed (look for confirmation email)
+  \item Wait 24 hours for initial data (billing metrics take time to populate)
+  \item Ensure charges actually exceed threshold
+  \item Verify alarm state is "OK" not "Insufficient data"
+\end{itemize}
+
+
+\textbf{Q: I can't access billing dashboard}
+
+A:
+\begin{itemize}
+  \item Must be logged in as root user OR
+  \item IAM user with billing permissions AND root enabled IAM billing access
+  \item Go to Account settings → Enable "Activate IAM Access" to billing
+\end{itemize}
+
+
+\textbf{Q: Unexpected charges after Free Tier ended}
+
+A:
+\begin{itemize}
+  \item Free Tier expires 12 months after account creation (check start date)
+  \item Some services are "always free" (Lambda 1M requests, DynamoDB 25GB)
+  \item Set up billing alerts for post-Free Tier monitoring
+  \item Review bill in detail to identify costly services
+  \item Consider shutting down non-essential resources
+\end{itemize}
+
+
+\subsubsection{EC2 Issues}
+
+
+\textbf{Q: Cannot connect to EC2 instance via SSH}
+
+A:
+\begin{enumerate}
+  \item \textbf{Connection timeout:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Security group allows SSH (port 22) from your IP
+  \item Instance in public subnet with public IP
+  \item Route table has internet gateway route (0.0.0.0/0 → igw-xxx)
+  \item Network ACL allows SSH traffic
+  \item Instance is in "running" state
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Permission denied (publickey):}
+\end{enumerate}
+
+\begin{itemize}
+  \item Using correct .pem key file
+  \item Key file has proper permissions: \texttt{chmod 400 key.pem}
+  \item Using correct username (ec2-user for Amazon Linux, ubuntu for Ubuntu)
+  \item Key pair matches instance
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Host key verification failed:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Type "yes" to accept fingerprint
+  \item Or use: \texttt{ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@IP}
+\end{itemize}
+
+
+\textbf{Q: Instance status checks failing}
+
+A:
+\begin{itemize}
+  \item \textbf{1/2 checks passed:} System reachability failed (AWS hardware issue - stop/start instance)
+  \item \textbf{0/2 checks passed:} Both system and instance checks failing (check logs, bad user data script)
+  \item Wait 2-3 minutes after launch (checks take time)
+  \item View System Log and Instance Screenshot from Actions menu
+\end{itemize}
+
+
+\textbf{Q: User data script didn't run}
+
+A:
+\begin{itemize}
+  \item SSH to instance: \texttt{cat /var/log/cloud-init-output.log}
+  \item Look for errors in script execution
+  \item Check syntax (bash scripts need \#!/bin/bash)
+  \item Ensure script has proper permissions
+  \item User data runs only on first boot (unless configured otherwise)
+\end{itemize}
+
+
+\textbf{Q: Can't access web server on EC2}
+
+A:
+\begin{itemize}
+  \item Security group allows HTTP (port 80) from 0.0.0.0/0
+  \item Web server actually running: \texttt{sudo systemctl status httpd} or \texttt{nginx}
+  \item Check from inside: \texttt{curl localhost} (should work)
+  \item Using HTTP not HTTPS (http:// not https://)
+  \item Check firewall on instance: \texttt{sudo iptables -L}
+\end{itemize}
+
+
+\textbf{Q: Instance type not available / capacity error}
+
+A:
+\begin{itemize}
+  \item Try different Availability Zone within same region
+  \item Try slightly different instance type (t2.micro vs t3.micro)
+  \item Wait 30 minutes and retry (capacity fluctuates)
+  \item Consider different region
+  \item For persistent issues, contact AWS Support
+\end{itemize}
+
+
+\subsubsection{S3 Issues}
+
+
+\textbf{Q: 403 Forbidden error when accessing S3 website}
+
+A:
+\begin{itemize}
+  \item Bucket policy allows public read (\texttt{s3:GetObject} for Principal: *)
+  \item "Block all public access" is OFF
+  \item Static website hosting enabled
+  \item Objects actually uploaded to bucket
+  \item Bucket policy ARN includes \texttt{/\textit{} at end (\texttt{arn:aws:s3:::bucket-name/}})
+  \item Correct bucket website endpoint URL (not regular S3 URL)
+\end{itemize}
+
+
+\textbf{Q: 404 Not Found error on S3 website}
+
+A:
+\begin{itemize}
+  \item index.html file exists in bucket root (case-sensitive)
+  \item File name exactly "index.html" (not Index.html or index.HTML)
+  \item Static website hosting enabled
+  \item Check if using correct endpoint (website endpoint, not REST endpoint)
+  \item Clear browser cache
+\end{itemize}
+
+
+\textbf{Q: Cannot create bucket - name already exists}
+
+A:
+\begin{itemize}
+  \item S3 bucket names are globally unique across all AWS accounts
+  \item Try different name with random numbers: \texttt{my-bucket-12345678}
+  \item Bucket names must be DNS-compliant (lowercase, no underscores)
+  \item Someone else may have that name (even if deleted <24 hours ago)
+\end{itemize}
+
+
+\textbf{Q: Cannot delete bucket - "Bucket not empty"}
+
+A:
+\begin{enumerate}
+  \item Go to bucket
+  \item Click "Empty" button
+  \item Type "permanently delete"
+  \item Wait for emptying to complete
+  \item Then click "Delete bucket"
+\end{enumerate}
+
+\begin{itemize}
+  \item Alternative: Enable versioning → Delete all versions → Then delete bucket
+  \item Check for incomplete multipart uploads
+\end{itemize}
+
+
+\textbf{Q: S3 uploads are very slow}
+
+A:
+\begin{itemize}
+  \item Check internet connection speed
+  \item Try uploading smaller files first
+  \item Use multipart upload for files >100 MB
+  \item Consider using AWS CLI or SDKs (faster than console)
+  \item Check if browser extensions interfering
+\end{itemize}
+
+
+\subsubsection{VPC and Networking Issues}
+
+
+\textbf{Q: EC2 instance has no internet access}
+
+A:
+\begin{itemize}
+  \item Instance in public subnet (check subnet settings)
+  \item Instance has public IP or Elastic IP
+  \item Subnet's route table has route to Internet Gateway (0.0.0.0/0 → igw-xxx)
+  \item Security group allows outbound traffic (default allows all)
+  \item Network ACL allows outbound traffic (default allows all)
+  \item DNS resolution enabled for VPC
+\end{itemize}
+
+
+\textbf{Q: Cannot SSH between EC2 instances in same VPC}
+
+A:
+\begin{itemize}
+  \item Security groups allow traffic between instances
+  \item Use private IPs (not public IPs) for same-VPC communication
+  \item Both instances in subnets with proper routing
+  \item Network ACLs allow traffic (if custom NACLs)
+\end{itemize}
+
+
+\textbf{Q: VPC creation fails}
+
+A:
+\begin{itemize}
+  \item Check VPC limit not exceeded (5 per region by default)
+  \item CIDR block doesn't overlap with existing VPCs (if VPC peering planned)
+  \item CIDR block valid (/16 to /28 for VPC)
+  \item Try different region if persistent issues
+\end{itemize}
+
+
+\textbf{Q: Security group changes don't take effect}
+
+A:
+\begin{itemize}
+  \item Wait 30-60 seconds (eventual consistency)
+  \item Refresh console page
+  \item Check correct security group attached to instance
+  \item Verify rule syntax (port ranges, protocols, sources)
+  \item Security groups are stateful (don't need outbound rules for responses)
+\end{itemize}
+
+
+\subsubsection{RDS Issues}
+
+
+\textbf{Q: Cannot connect to RDS from EC2}
+
+A:
+\begin{itemize}
+  \item RDS and EC2 in same VPC
+  \item RDS security group allows MySQL/PostgreSQL port from EC2 security group
+  \item Using RDS endpoint hostname (not IP address)
+  \item Correct port (3306 for MySQL, 5432 for PostgreSQL)
+  \item RDS status is "Available"
+  \item Credentials correct (case-sensitive)
+  \item Not trying to connect from public internet (RDS public access = No)
+\end{itemize}
+
+
+\textbf{Q: RDS creation is slow}
+
+A:
+\begin{itemize}
+  \item Normal: RDS takes 5-15 minutes to create
+  \item Multi-AZ takes longer (15-20 minutes)
+  \item Watch status: Creating → Backing up → Available
+  \item If stuck for >30 minutes, check CloudTrail for errors
+\end{itemize}
+
+
+\textbf{Q: RDS costs more than expected}
+
+A:
+\begin{itemize}
+  \item Check instance class (db.t3.micro is Free Tier)
+  \item Multi-AZ doubles costs (not Free Tier eligible)
+  \item Backup storage over 20 GB
+  \item Provisioned IOPS costs extra
+  \item Enabled Enhanced Monitoring (\$)
+  \item Verify "Free Tier" template used during creation
+\end{itemize}
+
+
+\subsubsection{IAM Issues}
+
+
+\textbf{Q: IAM user can't sign in}
+
+A:
+\begin{itemize}
+  \item Using IAM user sign-in URL (not root sign-in page)
+  \item Sign-in URL format: \texttt{https://account-id.signin.aws.amazon.com/console}
+  \item Or: \texttt{https://account-alias.signin.aws.amazon.com/console}
+  \item Username and password correct (case-sensitive)
+  \item User has console access enabled (not just programmatic)
+  \item Account not locked after multiple failed attempts (wait 15 minutes)
+\end{itemize}
+
+
+\textbf{Q: IAM user has no permissions despite policy attached}
+
+A:
+\begin{itemize}
+  \item Wait 5-10 minutes for policy propagation
+  \item Check policy attached to user OR group user belongs to
+  \item Policy JSON syntax correct (use policy validator)
+  \item No explicit Deny statements (Deny overrides Allow)
+  \item Check if SCPs (Service Control Policies) limiting access (AWS Organizations)
+\end{itemize}
+
+
+\textbf{Q: Cannot enable MFA}
+
+A:
+\begin{itemize}
+  \item Phone time synchronized with internet time
+  \item Scan QR code successfully with authenticator app
+  \item Enter two consecutive codes (not same code twice)
+  \item Codes entered quickly (expire every 30 seconds)
+  \item Try different authenticator app if persistent issues
+\end{itemize}
+
+
+\subsubsection{Lambda Issues}
+
+
+\textbf{Q: Lambda function fails with timeout}
+
+A:
+\begin{itemize}
+  \item Increase timeout setting (default 3 seconds, max 15 minutes)
+  \item Check function actually completes within timeout
+  \item Look for infinite loops or blocking operations
+  \item Review CloudWatch logs for execution time
+\end{itemize}
+
+
+\textbf{Q: Lambda function fails with "Permission denied"}
+
+A:
+\begin{itemize}
+  \item Lambda execution role has required permissions
+  \item If accessing S3: Role needs \texttt{s3:GetObject}, \texttt{s3:PutObject}
+  \item If accessing DynamoDB: Role needs appropriate DynamoDB permissions
+  \item Check CloudWatch Logs for specific permission errors
+\end{itemize}
+
+
+\textbf{Q: API Gateway returns "Internal Server Error"}
+
+A:
+\begin{itemize}
+  \item Check Lambda function CloudWatch logs for actual error
+  \item Function returning proper response format (statusCode, body, headers)
+  \item Integration configured correctly (Lambda proxy integration recommended)
+  \item API deployed (must redeploy after changes)
+\end{itemize}
+
+
+\textbf{Q: Lambda function can't connect to RDS/internet}
+
+A:
+\begin{itemize}
+  \item If Lambda in VPC: VPC needs NAT Gateway for internet access
+  \item Security groups allow traffic between Lambda and RDS
+  \item Lambda execution role has \texttt{ec2:CreateNetworkInterface} permission
+  \item Timeout increased (VPC adds latency)
+\end{itemize}
+
+
+\subsubsection{CloudFormation Issues}
+
+
+\textbf{Q: Stack creation failed - rollback initiated}
+
+A:
+\begin{itemize}
+  \item Check "Events" tab for specific error message
+  \item Common: Resource name conflict (already exists)
+  \item Common: Insufficient permissions
+  \item Common: Invalid parameter values
+  \item Fix template and create new stack (or update if supported)
+\end{itemize}
+
+
+\textbf{Q: Stack stuck in CREATE\\textit{IN\}PROGRESS}
+
+A:
+\begin{itemize}
+  \item Check Events for last completed action
+  \item Some resources take time (RDS 10-15 min, NAT Gateway 3-5 min)
+  \item If truly stuck >30 min, delete stack and recreate
+  \item Check service limits (might be at capacity)
+\end{itemize}
+
+
+\textbf{Q: Can't delete stack - resource dependencies}
+
+A:
+\begin{itemize}
+  \item Empty S3 buckets before deleting stack
+  \item Remove ENIs (Elastic Network Interfaces) attached to Lambda/RDS
+  \item Delete dependencies manually then retry
+  \item Check "Retain" resource policy (some resources protected)
+\end{itemize}
+
+
+\subsubsection{Auto Scaling and Load Balancer Issues}
+
+
+\textbf{Q: Auto Scaling not launching instances}
+
+A:
+\begin{itemize}
+  \item Check Auto Scaling group Activity tab for errors
+  \item Verify launch template valid (AMI exists, instance type available)
+  \item Not at maximum capacity limit
+  \item Subnet has available IP addresses
+  \item Service limits not exceeded (EC2 instance limit)
+\end{itemize}
+
+
+\textbf{Q: Load Balancer shows all targets unhealthy}
+
+A:
+\begin{itemize}
+  \item Health check path correct (must return 200 status)
+  \item Security group allows health check traffic from load balancer
+  \item Application actually running on instances
+  \item Health check interval/threshold appropriate (increase grace period)
+  \item Check target group health check settings
+\end{itemize}
+
+
+\textbf{Q: Load Balancer returns 503 Service Unavailable}
+
+A:
+\begin{itemize}
+  \item No healthy targets available
+  \item All targets failing health checks
+  \item Target group has no registered targets
+  \item Instances in correct subnets
+  \item Wait for instances to pass health checks (2 consecutive successes)
+\end{itemize}
+
+
+\subsubsection{DynamoDB Issues}
+
+
+\textbf{Q: Query returns no results}
+
+A:
+\begin{itemize}
+  \item Partition key value exact match (case-sensitive)
+  \item Using correct index (base table vs GSI)
+  \item Items actually exist with that key
+  \item Try Scan to verify items in table
+\end{itemize}
+
+
+\textbf{Q: DynamoDB throttling errors (ProvisionedThroughputExceededException)}
+
+A:
+\begin{itemize}
+  \item Switch to On-Demand capacity mode
+  \item Or increase provisioned capacity (WCU/RCU)
+  \item Enable Auto Scaling for provisioned mode
+  \item Implement exponential backoff in application
+  \item Check for hot partition (one key getting all traffic)
+\end{itemize}
+
+
+\textbf{Q: Cannot create GSI - limit exceeded}
+
+A:
+\begin{itemize}
+  \item Maximum 20 GSIs per table
+  \item Delete unused indexes
+  \item Consider if Scan with filter acceptable
+\end{itemize}
+
+
+\subsubsection{Common Error Messages Decoded}
+
+
+\textbf{"InvalidParameterValue":}
+\begin{itemize}
+  \item A parameter you provided has invalid value
+  \item Check AWS documentation for valid values
+  \item Common: Wrong availability zone, invalid CIDR block, bad instance type
+\end{itemize}
+
+
+\textbf{"UnauthorizedOperation":}
+\begin{itemize}
+  \item IAM user/role lacks required permission
+  \item Add necessary policy to user/role
+  \item Check typos in action names
+\end{itemize}
+
+
+\textbf{"ResourceNotFoundException":}
+\begin{itemize}
+  \item Resource you're trying to access doesn't exist
+  \item Verify resource ID correct
+  \item Check correct region
+  \item Resource may have been deleted
+\end{itemize}
+
+
+\textbf{"LimitExceeded":}
+\begin{itemize}
+  \item Hit AWS service limit (EC2 instances, VPCs, security groups)
+  \item Request limit increase via Service Quotas console
+  \item Or clean up unused resources
+\end{itemize}
+
+
+\textbf{"DependencyViolation":}
+\begin{itemize}
+  \item Trying to delete resource with dependencies
+  \item Example: Can't delete security group attached to running instance
+  \item Remove dependencies first
+\end{itemize}
+
+
+\subsubsection{Getting Help}
+
+
+\textbf{When to ask for help:}
+\begin{itemize}
+  \item Tried all troubleshooting steps
+  \item Issue persists for >30 minutes
+  \item Billing concern (unexpected charges)
+  \item Service outage suspected
+\end{itemize}
+
+
+\textbf{Where to get help:}
+\begin{enumerate}
+  \item \textbf{AWS Documentation:} Most comprehensive - https://docs.aws.amazon.com
+  \item \textbf{AWS re:Post:} Community forum - https://repost.aws
+  \item \textbf{AWS Support:} If you have paid support plan
+  \item \textbf{Stack Overflow:} Tag questions with [amazon-web-services]
+  \item \textbf{AWS Service Health Dashboard:} Check for outages - https://status.aws.amazon.com
+\end{enumerate}
+
+
+\textbf{Information to provide when asking for help:}
+\begin{itemize}
+  \item AWS service name
+  \item Region
+  \item Exact error message
+  \item Steps taken so far
+  \item Screenshots (redact sensitive info)
+  \item Resource IDs
+  \item Timeline (when did issue start)
+\end{itemize}
+
+
+\textbf{What NOT to share:}
+\begin{itemize}
+  \item AWS Access Keys or Secret Keys
+  \item Passwords
+  \item Full ARNs with account IDs (can be partially redacted)
+  \item Credit card information
+\end{itemize}
+
+
+---
+
+\subsection{Additional Practice Recommendations}
+
+
+\subsubsection{Explore More AWS Services}
+
+
+\begin{enumerate}
+  \item \textbf{DynamoDB}
+\end{enumerate}
+
+\begin{itemize}
+  \item Create NoSQL table
+  \item Add items using console
+  \item Query and scan data
+  \item Explore indexes
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{CloudTrail}
+\end{enumerate}
+
+\begin{itemize}
+  \item Enable trail
+  \item View API call history
+  \item Search for specific events
+  \item Understand audit logging
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{AWS Config}
+\end{enumerate}
+
+\begin{itemize}
+  \item Set up Config
+  \item Track resource configurations
+  \item View configuration timeline
+  \item Create compliance rules
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Auto Scaling}
+\end{enumerate}
+
+\begin{itemize}
+  \item Create launch template
+  \item Set up Auto Scaling group
+  \item Configure scaling policies
+  \item Test scale-out/scale-in
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Elastic Beanstalk}
+\end{enumerate}
+
+\begin{itemize}
+  \item Deploy sample application
+  \item Explore managed environment
+  \item View logs and monitoring
+  \item Update application
+\end{itemize}
+
+
+\subsubsection{AWS CLI Practice}
+
+
+\textbf{Install AWS CLI:}
+
+\begin{enumerate}
+  \item Follow instructions: \href{https://aws.amazon.com/cli/}{https://aws.amazon.com/cli/}
+  \item Configure credentials: \texttt{aws configure}
+  \item Run basic commands:
+\end{enumerate}
+
+   \texttt{`}bash
+   aws s3 ls
+   aws ec2 describe-instances
+   aws iam list-users
+   \texttt{`}
+
+\subsubsection{Multi-Region Exploration}
+
+
+\begin{enumerate}
+  \item \textbf{Compare regions:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Note service availability differences
+  \item Check pricing variations
+  \item Test latency from your location
+\end{itemize}
+
+
+\begin{enumerate}
+  \item \textbf{Practice disaster recovery:}
+\end{enumerate}
+
+\begin{itemize}
+  \item Create resources in multiple regions
+  \item Understand cross-region replication
+  \item Learn about global services vs. regional
+\end{itemize}
+
+
+\subsubsection{Cost Management}
+
+
+\begin{enumerate}
+  \item \textbf{Monitor Free Tier Dashboard daily}
+  \item \textbf{Set up multiple budgets} for different services
+  \item \textbf{Review Cost Explorer weekly}
+  \item \textbf{Practice using Pricing Calculator} for different scenarios
+  \item \textbf{Understand billing cycle} and payment methods
+\end{enumerate}
+
+
+\subsubsection{Documentation Habits}
+
+
+\begin{enumerate}
+  \item \textbf{Take screenshots} of each step
+  \item \textbf{Create diagrams} of architectures built
+  \item \textbf{Write notes} on lessons learned
+  \item \textbf{Document errors} and solutions
+  \item \textbf{Build your own cheat sheet}
+\end{enumerate}
+
+
+\subsubsection{Advanced Labs (After Basics)}
+
+
+\begin{enumerate}
+  \item \textbf{VPC Peering}
+  \item \textbf{Load Balancer with Auto Scaling}
+  \item \textbf{RDS Multi-AZ Deployment}
+  \item \textbf{CloudFront with S3 Origin}
+  \item \textbf{Lambda with SQS and DynamoDB}
+  \item \textbf{CodePipeline for CI/CD}
+\end{enumerate}
+
+
+---
+
+\subsection{Final Important Reminders}
+
+
+\subsubsection{Always Clean Up Resources}
+
+
+\begin{keypoint}
+\textbf{Critical:} Leaving resources running can result in unexpected charges after Free Tier expires.
+\end{keypoint}
+
+
+\textbf{Daily checklist:}
+\begin{itemize}
+  \item [ ] Terminate all EC2 instances
+  \item [ ] Delete RDS databases
+  \item [ ] Empty and delete S3 buckets
+  \item [ ] Delete CloudFormation stacks
+  \item [ ] Remove unused EBS volumes and snapshots
+  \item [ ] Check billing dashboard
+\end{itemize}
+
+
+\subsubsection{Monitor Costs}
+
+
+\begin{itemize}
+  \item Check \textbf{Free Tier usage} daily
+  \item Review \textbf{billing alerts}
+  \item Set up \textbf{budgets} for each service
+  \item Download \textbf{monthly bills} for records
+  \item Use \textbf{Cost Explorer} to track trends
+\end{itemize}
+
+
+\subsubsection{Security Best Practices}
+
+
+\begin{itemize}
+  \item \textbf{Never share} root account credentials
+  \item \textbf{Enable MFA} on all accounts
+  \item \textbf{Use IAM roles} instead of access keys when possible
+  \item \textbf{Follow principle of least privilege}
+  \item \textbf{Regularly rotate} credentials
+  \item \textbf{Review} security group rules frequently
+\end{itemize}
+
+
+\subsubsection{Learn More}
+
+
+\begin{itemize}
+  \item \textbf{AWS Documentation:} \href{https://docs.aws.amazon.com}{https://docs.aws.amazon.com}
+  \item \textbf{AWS Skill Builder:} Free training courses
+  \item \textbf{AWS Workshops:} \href{https://workshops.aws}{https://workshops.aws}
+  \item \textbf{AWS YouTube:} Official tutorials and demos
+  \item \textbf{AWS re:Post:} Community Q\&A forum
+\end{itemize}
+
+
+---
+
+\subsection{Congratulations!}
+
+
+You've completed all 10 hands-on labs! You now have practical experience with:
+
+\begin{itemize}
+  \item Billing and cost management
+  \item IAM security
+  \item EC2 compute instances
+  \item S3 object storage
+  \item VPC networking
+  \item RDS managed databases
+  \item CloudWatch monitoring
+  \item Lambda serverless functions
+  \item CloudFormation infrastructure as code
+\end{itemize}
+
+
+This hands-on knowledge will significantly help you on the AWS Cloud Practitioner exam and in real-world AWS usage.
+
+\textbf{Next steps:}
+\begin{itemize}
+  \item Review weak areas
+  \item Take practice exams
+  \item Study theory in conjunction with practical experience
+  \item Schedule your certification exam
+\end{itemize}
+
+
+Good luck on your AWS Cloud Practitioner journey!
+
+---
+
+\href{06-study-plan.md}{← Back to Study Plan} | \href{README.md}{Return to Main Guide →}

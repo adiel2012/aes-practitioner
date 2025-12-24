@@ -4,7 +4,19 @@
       "Bash(pdflatex:*)",
       "Bash(ls:*)",
       "Bash(du -sh:*)",
-      "Bash(du:*)"
+      "Bash(du:*)",
+      "Bash(cat:*)",
+      "Bash(if [ -f /mnt/d/trash/aws-practitioner/.git/config ])",
+      "Bash(then git status)",
+      "Bash(else echo \"Not a git repository\")",
+      "Bash(fi)",
+      "Bash(git restore:*)",
+      "Bash(python3:*)",
+      "Bash(for file in chapter-security-compliance.tex chapter-technology-services.tex chapter-billing-pricing.tex chapter-hands-on-labs.tex)",
+      "Bash(do sed -i '0,/\\\\\\\\section{/{s/\\\\\\\\section{/\\\\\\\\chapter{/}' \"$file\")",
+      "Bash(done)",
+      "Bash(pdfinfo:*)",
+      "Bash(sort:*)"
     ]
   }
 }
