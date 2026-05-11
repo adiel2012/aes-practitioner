@@ -1,743 +1,743 @@
-# Chapter 9: Common Exam Scenarios and Real-World Solutions
+# Capítulo 9: Escenarios Comunes del Examen y Soluciones del Mundo Real
 
-[← Previous: Exam Preparation](08-exam-preparation.md) | [Next: Additional Resources →](10-additional-resources.md)
-
----
-
-## Table of Contents
-- [Scenario-Based Learning](#scenario-based-learning)
-  - [Scenario 1: Cost Optimization for Predictable Workloads](#scenario-1-cost-optimization-for-predictable-workloads)
-  - [Scenario 2: Designing for High Availability](#scenario-2-designing-for-high-availability)
-  - [Scenario 3: Large Data Migration](#scenario-3-large-data-migration)
-  - [Scenario 4: Serverless Application Architecture](#scenario-4-serverless-application-architecture)
-  - [Scenario 5: Compliance and Governance](#scenario-5-compliance-and-governance)
-  - [Scenario 6: Disaster Recovery Strategy](#scenario-6-disaster-recovery-strategy)
-  - [Scenario 7: Hybrid Cloud Connectivity](#scenario-7-hybrid-cloud-connectivity)
-  - [Scenario 8: Multi-Region Architecture for Global Application](#scenario-8-multi-region-architecture-for-global-application)
-  - [Scenario 9: Security Incident Response and Prevention](#scenario-9-security-incident-response-and-prevention)
-  - [Scenario 10: Modernizing Legacy Monolith Application](#scenario-10-modernizing-legacy-monolith-application)
-  - [Scenario 11: Big Data Analytics Platform](#scenario-11-big-data-analytics-platform)
-  - [Scenario 12: DevOps CI/CD Pipeline Implementation](#scenario-12-devops-cicd-pipeline-implementation)
-- [Common Troubleshooting Scenarios](#common-troubleshooting-scenarios)
-  - [Cannot Connect to EC2 Instance](#cannot-connect-to-ec2-instance)
-  - [S3 Access Denied Errors](#s3-access-denied-errors)
-  - [Lambda Function Issues](#lambda-function-issues)
-  - [RDS Connection Problems](#rds-connection-problems)
-  - [CloudFormation Stack Failures](#cloudformation-stack-failures)
-  - [Auto Scaling Not Working](#auto-scaling-not-working)
-  - [High AWS Bill Unexpectedly](#high-aws-bill-unexpectedly)
-  - [API Gateway 502/504 Errors](#api-gateway-502504-errors)
+[← Anterior: Preparación para el Examen](08-exam-preparation.md) | [Siguiente: Recursos Adicionales →](10-additional-resources.md)
 
 ---
 
-## Scenario-Based Learning
-
-### Scenario 1: Cost Optimization for Predictable Workloads
-
-**Situation**: A company runs a web application on EC2 instances that experiences predictable traffic Monday-Friday 9 AM-5 PM EST. Traffic is minimal on weekends and nights.
-
-**Current Setup**:
-- 10 m5.large instances running 24/7
-- On-Demand pricing
-- Monthly cost: $1,200
-
-**Question**: What's the MOST cost-effective solution?
-
-**Analysis**:
-- Predictable schedule = opportunity for optimization
-- Not running 24/7 = On-Demand might be wasteful
-- Regular business hours = scheduled scaling
-- Baseline capacity needed = Reserved Instances candidate
-
-**Recommended Solution**:
-
-1. **Purchase 3-year Standard Reserved Instances for 2-3 instances (baseline capacity)**
-   - Savings: Up to 75% on these instances
-
-2. **Configure EC2 Auto Scaling with scheduled actions**:
-   - Scale up Monday-Friday 8:30 AM EST (before traffic starts)
-   - Scale down at 5:30 PM EST (after traffic ends)
-   - Minimum capacity on weekends: 2-3 instances
-
-3. **Use On-Demand for peak periods during business hours**
-
-4. **Store session data in ElastiCache or DynamoDB (not on instances)**
-
-**Expected Savings**: 40-60% reduction in monthly costs
+## Tabla de Contenidos
+- [Aprendizaje Basado en Escenarios](#scenario-based-learning)
+  - [Escenario 1: Optimización de Costos para Cargas de Trabajo Predecibles](#scenario-1-cost-optimization-for-predictable-workloads)
+  - [Escenario 2: Diseño para Alta Disponibilidad](#scenario-2-designing-for-high-availability)
+  - [Escenario 3: Migración de Grandes Volúmenes de Datos](#scenario-3-large-data-migration)
+  - [Escenario 4: Arquitectura de Aplicación Serverless](#scenario-4-serverless-application-architecture)
+  - [Escenario 5: Cumplimiento y Gobernanza](#scenario-5-compliance-and-governance)
+  - [Escenario 6: Estrategia de Recuperación ante Desastres](#scenario-6-disaster-recovery-strategy)
+  - [Escenario 7: Conectividad de Nube Híbrida](#scenario-7-hybrid-cloud-connectivity)
+  - [Escenario 8: Arquitectura Multi-Región para Aplicación Global](#scenario-8-multi-region-architecture-for-global-application)
+  - [Escenario 9: Respuesta y Prevención de Incidentes de Seguridad](#scenario-9-security-incident-response-and-prevention)
+  - [Escenario 10: Modernización de una Aplicación Monolítica Heredada](#scenario-10-modernizing-legacy-monolith-application)
+  - [Escenario 11: Plataforma de Analítica de Big Data](#scenario-11-big-data-analytics-platform)
+  - [Escenario 12: Implementación de Pipeline DevOps CI/CD](#scenario-12-devops-cicd-pipeline-implementation)
+- [Escenarios Comunes de Resolución de Problemas](#common-troubleshooting-scenarios)
+  - [No se puede conectar a la instancia EC2](#cannot-connect-to-ec2-instance)
+  - [Errores de Acceso Denegado en S3](#s3-access-denied-errors)
+  - [Problemas con Funciones Lambda](#lambda-function-issues)
+  - [Problemas de Conexión en RDS](#rds-connection-problems)
+  - [Fallos en los Stacks de CloudFormation](#cloudformation-stack-failures)
+  - [Auto Scaling no funciona](#auto-scaling-not-working)
+  - [Factura de AWS Inesperadamente Alta](#high-aws-bill-unexpectedly)
+  - [Errores 502/504 en API Gateway](#api-gateway-502504-errors)
 
 ---
 
-### Scenario 2: Designing for High Availability
+## Aprendizaje Basado en Escenarios
 
-**Situation**: An e-commerce company's application must remain available even if an entire Availability Zone fails. The application currently runs on a single EC2 instance with a MySQL database.
+### Escenario 1: Optimización de Costos para Cargas de Trabajo Predecibles
 
-**Question**: How should you architect this for high availability?
+**Situación**: Una empresa ejecuta una aplicación web en instancias **EC2** que experimenta un tráfico predecible de lunes a viernes de 9 a.m. a 5 p.m. EST. El tráfico es mínimo los fines de semana y las noches.
 
-**Current Problems**:
-- Single point of failure (one EC2 instance)
-- Database not redundant
-- No automatic failover
-- Session data tied to instance
+**Configuración Actual**:
+- 10 instancias **m5.large** ejecutándose las 24 horas del día, los 7 días de la semana.
+- Precios **On-Demand**.
+- Costo mensual: $1,200.
 
-**Recommended Solution**:
+**Pregunta**: ¿Cuál es la solución MÁS rentable?
 
-#### 1. Multi-AZ Application Tier
-- Deploy **Application Load Balancer** spanning multiple AZs
-- Create **Auto Scaling group** with minimum 2 instances across different AZs
-- Set desired capacity based on traffic patterns
-- Configure health checks on ALB and Auto Scaling
+**Análisis**:
+- Horario predecible = oportunidad de optimización.
+- No se ejecuta las 24 horas del día, los 7 días de la semana = **On-Demand** podría ser un desperdicio.
+- Horas de oficina regulares = escalado programado.
+- Capacidad base necesaria = candidato para **Reserved Instances**.
 
-#### 2. Multi-AZ Database
-- Migrate MySQL to **Amazon RDS Multi-AZ**
-- Automatic failover to standby in different AZ
-- Synchronous replication
-- Minimal downtime during failover
+**Solución Recomendada**:
 
-#### 3. Stateless Application Design
-- Store session data in **ElastiCache** (Redis with Multi-AZ)
-- Or use **DynamoDB** for session storage
-- Enable sticky sessions on ALB if needed (but prefer stateless)
+1. **Comprar Standard Reserved Instances de 3 años para 2-3 instancias (capacidad base)**
+   - Ahorros: Hasta un 75% en estas instancias.
 
-#### 4. Static Assets
-- Store in **S3** (automatically multi-AZ)
-- Use **CloudFront** for global distribution
+2. **Configurar EC2 Auto Scaling con acciones programadas**:
+   - Escalar hacia arriba de lunes a viernes a las 8:30 a.m. EST (antes de que comience el tráfico).
+   - Escalar hacia abajo a las 5:30 p.m. EST (después de que termine el tráfico).
+   - Capacidad mínima los fines de semana: 2-3 instancias.
 
-#### 5. Monitoring
-- Set up **CloudWatch alarms** for health checks
-- Configure **SNS notifications** for failures
+3. **Usar On-Demand para periodos pico durante el horario de oficina**
 
-**Architecture Benefits**:
-- Survives AZ failure
-- Automatic scaling for traffic spikes
-- Automatic failover for database
-- No single point of failure
+4. **Almacenar los datos de sesión en ElastiCache o DynamoDB (no en las instancias)**
+
+**Ahorros Esperados**: Reducción del 40-60% en los costos mensuales.
 
 ---
 
-### Scenario 3: Large Data Migration
+### Escenario 2: Diseño para Alta Disponibilidad
 
-**Situation**: A healthcare company needs to migrate 80 TB of medical imaging data from on-premises storage to S3. Compliance requires data to be encrypted and migration completed within 2 weeks.
+**Situación**: La aplicación de una empresa de comercio electrónico debe permanecer disponible incluso si falla una Zona de Disponibilidad (**AZ**) completa. La aplicación se ejecuta actualmente en una sola instancia **EC2** con una base de datos **MySQL**.
 
-**Constraints**:
-- Internet connection: 100 Mbps
-- Upload via internet would take: ~74 days
-- Deadline: 2 weeks
-- Data must be encrypted
-- HIPAA compliance required
+**Pregunta**: ¿Cómo debería diseñar esta arquitectura para lograr alta disponibilidad?
 
-**Question**: What's the best migration approach?
+**Problemas Actuales**:
+- Punto único de fallo (una instancia **EC2**).
+- Base de datos no redundante.
+- Sin conmutación por error automática.
+- Datos de sesión vinculados a la instancia.
 
-**Analysis**:
-- Data volume too large for internet upload
-- Time constraint eliminates internet-based solutions
-- Security and compliance requirements
-- Need physical device for transfer
+**Solución Recomendada**:
 
-**Recommended Solution**:
+#### 1. Nivel de Aplicación Multi-AZ
+- Desplegar un **Application Load Balancer** (**ALB**) que abarque múltiples **AZs**.
+- Crear un **Auto Scaling group** con un mínimo de 2 instancias en diferentes **AZs**.
+- Establecer la capacidad deseada basada en los patrones de tráfico.
+- Configurar verificaciones de estado en el **ALB** y el **Auto Scaling**.
 
-#### 1. Use AWS Snowball Edge Storage Optimized
-- 80 TB usable capacity per device
-- Order 1-2 devices (for redundancy)
-- 256-bit encryption built-in
-- HIPAA compliant
+#### 2. Base de Datos Multi-AZ
+- Migrar **MySQL** a **Amazon RDS Multi-AZ**.
+- Conmutación por error automática a una instancia en espera en una **AZ** diferente.
+- Replicación síncrona.
+- Tiempo de inactividad mínimo durante la conmutación por error.
 
-#### 2. Migration Process
+#### 3. Diseño de Aplicación sin Estado (Stateless)
+- Almacenar los datos de sesión en **ElastiCache** (**Redis** con **Multi-AZ**).
+- O usar **DynamoDB** para el almacenamiento de sesiones.
+- Habilitar sesiones pegajosas (**sticky sessions**) en el **ALB** si es necesario (pero es preferible sin estado).
 
-1. Order Snowball device via AWS Console
-2. AWS ships device (2-3 days)
-3. Connect to network, unlock with credentials
-4. Copy data using Snowball client (2-4 days for 80 TB)
-5. Ship device back to AWS (2-3 days)
-6. AWS uploads to S3 (1-2 days)
+#### 4. Activos Estáticos
+- Almacenar en **S3** (automáticamente multi-AZ).
+- Usar **CloudFront** para la distribución global.
 
-#### 3. S3 Configuration
-- Enable **S3 server-side encryption (SSE-S3 or SSE-KMS)**
-- Enable **versioning** for data protection
-- Configure **lifecycle policies** to transition older data to Glacier
-- Enable **S3 Object Lock** for compliance (WORM)
+#### 5. Monitoreo
+- Configurar alarmas de **CloudWatch** para las verificaciones de estado.
+- Configurar notificaciones de **SNS** para los fallos.
 
-#### 4. Compliance
-- Use **AWS Artifact** to access HIPAA BAA
-- Sign Business Associate Addendum (BAA)
-- Enable **CloudTrail** for audit logging
-- Use **AWS Config** for compliance monitoring
-
-**Timeline**: 7-12 days (meets 2-week deadline)
-
-> **Tip**: For data volumes >100 PB, use **AWS Snowmobile**
+**Beneficios de la Arquitectura**:
+- Sobrevive al fallo de una **AZ**.
+- Escalado automático para picos de tráfico.
+- Conmutación por error automática para la base de datos.
+- Sin punto único de fallo.
 
 ---
 
-### Scenario 4: Serverless Application Architecture
+### Escenario 3: Migración de Grandes Volúmenes de Datos
 
-**Situation**: A startup wants to build a mobile app backend with REST API. They have limited DevOps resources and want to minimize operational overhead while paying only for actual usage.
+**Situación**: Una empresa de atención médica necesita migrar 80 TB de datos de imágenes médicas desde el almacenamiento local a **S3**. El cumplimiento normativo requiere que los datos estén cifrados y que la migración se complete en un plazo de 2 semanas.
 
-**Requirements**:
-- REST API for mobile app
-- User authentication
-- Data storage
-- Image storage
-- Scalable to millions of users
-- Minimal operational management
-- Pay-per-use pricing
+**Restricciones**:
+- Conexión a internet: 100 Mbps.
+- La carga a través de internet tomaría: ~74 días.
+- Fecha límite: 2 semanas.
+- Los datos deben estar cifrados.
+- Se requiere cumplimiento de **HIPAA**.
 
-**Question**: What AWS services should they use?
+**Pregunta**: ¿Cuál es el mejor enfoque de migración?
 
-**Recommended Serverless Architecture**:
+**Análisis**:
+- El volumen de datos es demasiado grande para la carga por internet.
+- La restricción de tiempo elimina las soluciones basadas en internet.
+- Requisitos de seguridad y cumplimiento.
+- Necesidad de un dispositivo físico para la transferencia.
 
-#### 1. API Layer
-- **Amazon API Gateway**: Create and manage REST API
-- Features: Request throttling, API keys, caching, CORS
-- Pay per million API calls
+**Solución Recomendada**:
 
-#### 2. Compute Layer
-- **AWS Lambda**: Run business logic without servers
-- Languages: Node.js, Python, Java, Go, etc.
-- Auto-scaling built-in
-- Pay only for execution time
+#### 1. Usar AWS Snowball Edge Storage Optimized
+- 80 TB de capacidad utilizable por dispositivo.
+- Pedir 1-2 dispositivos (por redundancia).
+- Cifrado de 256 bits integrado.
+- Compatible con **HIPAA**.
 
-#### 3. Authentication
-- **Amazon Cognito**: User sign-up, sign-in, access control
-- User pools for authentication
-- Identity pools for AWS resource access
-- Social identity providers (Facebook, Google)
-- Free tier: 50,000 MAUs
+#### 2. Proceso de Migración
 
-#### 4. Data Storage
-- **Amazon DynamoDB**: NoSQL database
-- Single-digit millisecond latency
-- Automatic scaling
-- On-demand or provisioned capacity
-- Always-free tier: 25 GB storage
+1. Pedir el dispositivo **Snowball** a través de la consola de **AWS**.
+2. **AWS** envía el dispositivo (2-3 días).
+3. Conectar a la red, desbloquear con las credenciales.
+4. Copiar los datos usando el cliente de **Snowball** (2-4 días para 80 TB).
+5. Devolver el dispositivo a **AWS** (2-3 días).
+6. **AWS** carga los datos a **S3** (1-2 días).
 
-#### 5. Image Storage
-- **Amazon S3**: Store user-uploaded images
-- Lifecycle policies to move old images to Glacier
-- CloudFront for fast image delivery
+#### 3. Configuración de S3
+- Habilitar el cifrado del lado del servidor de **S3** (**SSE-S3** o **SSE-KMS**).
+- Habilitar el control de versiones (**versioning**) para la protección de datos.
+- Configurar políticas de ciclo de vida (**lifecycle**) para la transición de datos antiguos a **Glacier**.
+- Habilitar **S3 Object Lock** para el cumplimiento (**WORM**).
 
-#### 6. Optional Enhancements
-- **Amazon CloudFront**: CDN for API and static assets
-- **AWS AppSync**: GraphQL API (alternative to API Gateway + Lambda)
-- **Amazon SES**: Send transactional emails
-- **Amazon SNS**: Push notifications to mobile devices
+#### 4. Cumplimiento
+- Usar **AWS Artifact** para acceder al **BAA** de **HIPAA**.
+- Firmar el apéndice para asociados comerciales (**BAA**).
+- Habilitar **CloudTrail** para el registro de auditoría.
+- Usar **AWS Config** para el monitoreo del cumplimiento.
 
-**Benefits**:
-- Zero server management
-- Automatic scaling from 0 to millions of users
-- Pay only for actual usage
-- High availability built-in
-- Focus on application code, not infrastructure
-- Fast deployment and iteration
+**Cronograma**: 7-12 días (c### Escenario 4: Arquitectura de Aplicación Serverless
 
-**Cost Example**:
-- 1 million API requests: ~$3.50
-- Lambda executions: ~$0.20
-- DynamoDB: ~$1.25
-- S3 storage (100 GB): ~$2.30
-- **Total: ~$7.25/month for 1M requests**
+**Situación**: Una startup quiere crear el backend de una aplicación móvil con una **API REST**. Tienen recursos de **DevOps** limitados y quieren minimizar los gastos operativos pagando solo por el uso real.
+
+**Requisitos**:
+- **API REST** para la aplicación móvil.
+- Autenticación de usuarios.
+- Almacenamiento de datos.
+- Almacenamiento de imágenes.
+- Escalable a millones de usuarios.
+- Gestión operativa mínima.
+- Precios de pago por uso.
+
+**Pregunta**: ¿Qué servicios de AWS deberían usar?
+
+**Arquitectura Serverless Recomendada**:
+
+#### 1. Capa de API
+- **Amazon API Gateway**: Crear y administrar la **API REST**.
+- Características: Estrangulamiento de solicitudes (**throttling**), claves de **API**, almacenamiento en caché, **CORS**.
+- Pago por cada millón de llamadas a la **API**.
+
+#### 2. Capa de Cómputo
+- **AWS Lambda**: Ejecutar la lógica de negocio sin servidores.
+- Lenguajes: **Node.js**, **Python**, **Java**, **Go**, etc.
+- Escalado automático integrado.
+- Pague solo por el tiempo de ejecución.
+
+#### 3. Autenticación
+- **Amazon Cognito**: Registro de usuarios, inicio de sesión, control de acceso.
+- Grupos de usuarios (**User pools**) para la autenticación.
+- Grupos de identidad (**Identity pools**) para el acceso a los recursos de AWS.
+- Proveedores de identidad social (**Facebook**, **Google**).
+- Nivel gratuito: 50,000 **MAUs**.
+
+#### 4. Almacenamiento de Datos
+- **Amazon DynamoDB**: Base de datos **NoSQL**.
+- Latencia de milisegundos de un solo dígito.
+- Escalado automático.
+- Capacidad bajo demanda o provisionada.
+- Nivel siempre gratuito: 25 GB de almacenamiento.
+
+#### 5. Almacenamiento de Imágenes
+- **Amazon S3**: Almacenar imágenes cargadas por el usuario.
+- Políticas de **lifecycle** para mover imágenes antiguas a **Glacier**.
+- **CloudFront** para una entrega rápida de imágenes.
+
+#### 6. Mejoras Opcionales
+- **Amazon CloudFront**: **CDN** para la **API** y activos estáticos.
+- **AWS AppSync**: **API GraphQL** (alternativa a **API Gateway** + **Lambda**).
+- **Amazon SES**: Enviar correos electrónicos transaccionales.
+- **Amazon SNS**: Notificaciones **push** a dispositivos móviles.
+
+**Beneficios**:
+- Gestión de servidores cero.
+- Escalado automático de 0 a millones de usuarios.
+- Pague solo por el uso real.
+- Alta disponibilidad integrada.
+- Enfoque en el código de la aplicación, no en la infraestructura.
+- Despliegue e iteración rápidos.
+
+**Ejemplo de Costo**:
+- 1 millón de solicitudes de **API**: ~$3.50.
+- Ejecuciones de **Lambda**: ~$0.20.
+- **DynamoDB**: ~$1.25.
+- Almacenamiento de **S3** (100 GB): ~$2.30.
+- **Total: ~$7.25/mes para 1 millón de solicitudes.**
 
 ---
 
-### Scenario 5: Compliance and Governance
+### Escenario 5: Cumplimiento y Gobernanza
 
-**Situation**: A financial services company with 50 AWS accounts needs to ensure no S3 buckets are publicly accessible across the organization. They also need to track all changes and demonstrate compliance.
+**Situación**: Una empresa de servicios financieros con 50 cuentas de AWS necesita asegurarse de que ningún bucket de **S3** sea accesible públicamente en toda la organización. También necesitan rastrear todos los cambios y demostrar el cumplimiento.
 
-**Requirements**:
-- Enforce no public S3 buckets
-- Apply to all accounts
-- Monitor compliance continuously
-- Audit all changes
-- Automated remediation preferred
+**Requisitos**:
+- Aplicar que no haya buckets de **S3** públicos.
+- Aplicar a todas las cuentas.
+- Monitorear el cumplimiento continuamente.
+- Auditar todos los cambios.
+- Se prefiere la remediación automatizada.
 
-**Question**: How can they enforce and monitor this policy?
+**Pregunta**: ¿Cómo pueden aplicar y monitorear esta política?
 
-**Recommended Solution**:
+**Solución Recomendada**:
 
-#### 1. AWS Organizations Setup
-- Group accounts using **Organizational Units (OUs)**
-- Example structure: Production OU, Development OU, Test OU
+#### 1. Configuración de AWS Organizations
+- Agrupar cuentas usando Unidades Organizativas (**OUs**).
+- Ejemplo de estructura: **Production OU**, **Development OU**, **Test OU**.
 
 #### 2. Service Control Policies (SCPs)
-- Create SCP denying `s3:PutBucketPublicAccessBlock` with value False
-- Deny `s3:PutBucketPolicy` if it allows public access
-- Apply to root or specific OUs
-- SCPs define maximum permissions (even admins can't override)
+- Crear una **SCP** que deniegue `s3:PutBucketPublicAccessBlock` con el valor **False**.
+- Denegar `s3:PutBucketPolicy` si permite el acceso público.
+- Aplicar a la raíz o a **OUs** específicas.
+- Las **SCPs** definen los permisos máximos (incluso los administradores no pueden anularlos).
 
 #### 3. S3 Block Public Access
-- Enable **S3 Block Public Access** at organization level
-- Applies to all accounts in organization
-- Prevents accidental public exposure
+- Habilitar **S3 Block Public Access** a nivel de organización.
+- Se aplica a todas las cuentas de la organización.
+- Evita la exposición pública accidental.
 
-#### 4. Continuous Monitoring
-- Enable **AWS Config** across all accounts
-- Deploy **s3-bucket-public-read-prohibited** rule
-- Deploy **s3-bucket-public-write-prohibited** rule
-- Automatic compliance reporting
+#### 4. Monitoreo Continuo
+- Habilitar **AWS Config** en todas las cuentas.
+- Desplegar la regla **s3-bucket-public-read-prohibited**.
+- Desplegar la regla **s3-bucket-public-write-prohibited**.
+- Informes de cumplimiento automáticos.
 
-#### 5. Automated Remediation
-- Configure **AWS Config auto-remediation**
-- Use AWS Systems Manager Automation documents
-- Automatically disable public access when detected
+#### 5. Remediación Automatizada
+- Configurar la **auto-remediación** de **AWS Config**.
+- Usar documentos de **AWS Systems Manager Automation**.
+- Desactivar automáticamente el acceso público cuando se detecte.
 
-#### 6. Audit and Logging
-- Enable **CloudTrail** in all accounts
-- Centralize logs in dedicated security account
-- Track all S3 API calls
-- Set up **CloudWatch alarms** for policy violations
+#### 6. Auditoría y Registro
+- Habilitar **CloudTrail** en todas las cuentas.
+- Centralizar los registros en una cuenta de seguridad dedicada.
+- Rastrear todas las llamadas a la **API** de **S3**.
+- Configurar alarmas de **CloudWatch** para las violaciones de políticas.
 
-#### 7. Centralized Security
-- Use **AWS Security Hub** for centralized security view
-- Aggregates findings from Config, GuardDuty, Inspector
-- Compliance dashboards for standards (PCI DSS, CIS)
+#### 7. Seguridad Centralizada
+- Usar **AWS Security Hub** para una visión de seguridad centralizada.
+- Agrega hallazgos de **Config**, **GuardDuty**, **Inspector**.
+- Cuadros de mando de cumplimiento para estándares (**PCI DSS**, **CIS**).
 
-**Additional Recommendations**:
-- Regular compliance reports using **AWS Artifact**
-- Periodic access reviews
-- Employee training on security best practices
-- Implement least privilege IAM policies
-
----
-
-### Scenario 6: Disaster Recovery Strategy
-
-**Situation**: An e-commerce company needs disaster recovery for their application. Their business requires:
-- RPO (Recovery Point Objective): 1 hour
-- RTO (Recovery Time Objective): 4 hours
-- Currently running in us-east-1
-
-**Question**: What DR strategy should they implement?
-
-**DR Strategy Options**:
-
-| Strategy | RPO | RTO | Cost | Best For |
-|----------|-----|-----|------|----------|
-| **Backup and Restore** | Hours to days | Hours to days | Lowest | Non-critical workloads |
-| **Pilot Light** ⭐ | Minutes to hours | Hours | Low-Medium | This scenario |
-| **Warm Standby** | Seconds to minutes | Minutes | Medium-High | Critical applications |
-| **Multi-Site Active/Active** | Near zero | Near zero | Highest | Mission-critical systems |
-
-> **Recommendation**: **Pilot Light** is the optimal strategy for this scenario, meeting the 1-hour RPO and 4-hour RTO requirements at a reasonable cost.
-
-**Recommended Pilot Light Implementation**:
-
-#### 1. Data Replication
-- Use **RDS cross-region read replicas**
-- Replicate from us-east-1 to us-west-2
-- Meets 1-hour RPO requirement
-
-#### 2. Application AMIs
-- Regularly copy AMIs to DR region
-- Keep AMIs up-to-date
-- Automate with Lambda
-
-#### 3. Infrastructure as Code
-- Use **CloudFormation templates**
-- Pre-create VPC, subnets, security groups in DR region
-- Keep Auto Scaling groups in DR region with 0 capacity
-
-#### 4. DNS Failover
-- Use **Route 53 health checks**
-- Configure failover routing policy
-- Automatic DNS failover to DR region
-
-#### 5. Testing
-- Quarterly DR drills
-- Document runbooks
-- Measure actual RTO/RPO
-
-**Failover Process**:
-
-1. Detect primary region failure (Route 53 health check)
-2. Promote RDS read replica to master
-3. Update CloudFormation stack to scale up Auto Scaling
-4. Route 53 automatically redirects traffic
-5. **Total time: ~2-3 hours (meets 4-hour RTO)**
+**Recomendaciones Adicionales**:
+- Informes de cumplimiento regulares usando **AWS Artifact**.
+- Revisiones de acceso periódicas.
+- Capacitación de empleados en las mejores prácticas de seguridad.
+- Implementar políticas **IAM** de privilegio mínimo.
 
 ---
 
-### Scenario 7: Hybrid Cloud Connectivity
+### Escenario 6: Estrategia de Recuperación ante Desastres
 
-**Situation**: A manufacturing company wants to extend their on-premises data center to AWS while maintaining consistent network performance for their ERP system.
+**Situación**: Una empresa de comercio electrónico necesita una recuperación ante desastres para su aplicación. Su negocio requiere:
+- **RPO** (Objetivo de Punto de Recuperación): 1 hora.
+- **RTO** (Objetivo de Tiempo de Recuperación): 4 horas.
+- Actualmente se ejecuta en **us-east-1**.
 
-**Requirements**:
-- Consistent network latency
-- Private connection (no internet)
-- Bandwidth: 1 Gbps
-- Access to multiple VPCs
+**Pregunta**: ¿Qué estrategia de **DR** deberían implementar?
 
-**Connection Options Analysis**:
+**Opciones de Estrategia de DR**:
 
-| Solution | Pros | Cons | Best For |
-|----------|------|------|----------|
-| **Site-to-Site VPN** | Quick setup (hours), low cost, encrypted | Variable latency, internet-based, limited bandwidth | Dev/test, temporary connections |
-| **AWS Direct Connect** ⭐ | Consistent performance, high bandwidth, private | Expensive, takes weeks, not encrypted by default | Production, high bandwidth needs |
-| **Direct Connect + VPN** | Best of both worlds | Most expensive, complex | Regulated industries requiring encryption |
+| Estrategia | RPO | RTO | Costo | Mejor para |
+|------------|-----|-----|-------|------------|
+| **Backup and Restore** | Horas a días | Horas a días | El más bajo | Cargas de trabajo no críticas |
+| **Pilot Light** ⭐ | Minutos a horas | Horas | Bajo-Medio | Este escenario |
+| **Warm Standby** | Segundos a minutos | Minutos | Medio-Alto | Aplicaciones críticas |
+| **Multi-Site Activo/Activo** | Cerca de cero | Cerca de cero | El más alto | Sistemas de misión crítica |
 
-**Recommended Solution: AWS Direct Connect**
+> **Recomendación**: **Pilot Light** es la estrategia óptima para este escenario, cumpliendo con los requisitos de **RPO** de 1 hora y **RTO** de 4 horas a un costo razonable.
 
-#### 1. Direct Connect Setup
-- Order 1 Gbps Direct Connect port
-- Work with AWS Direct Connect Partner
-- Provision takes 2-4 weeks
-- Set up cross-connect at colocation facility
+**Implementación de Pilot Light Recomendada**:
 
-#### 2. Multiple VPC Access
-- Use **Direct Connect Gateway**
-- Connect to multiple VPCs across regions
-- Single Direct Connect connection
-- Simplifies connectivity
+#### 1. Replicación de Datos
+- Usar réplicas de lectura entre regiones de **RDS**.
+- Replicar de **us-east-1** a **us-west-2**.
+- Cumple con el requisito de **RPO** de 1 hora.
 
-#### 3. High Availability
-- Order second Direct Connect connection (different location)
-- Configure BGP for automatic failover
-- Or use VPN as backup connection
+#### 2. AMIs de la Aplicación
+- Copiar regularmente las **AMIs** a la región de **DR**.
+- Mantener las **AMIs** actualizadas.
+- Automatizar con **Lambda**.
 
-#### 4. Security
-- Layer VPN over Direct Connect for encryption
+#### 3. Infraestructura como Código
+- Usar plantillas de **CloudFormation**.
+- Pre-crear **VPC**, subredes, grupos de seguridad en la región de **DR**.
+- Mantener los **Auto Scaling groups** en la región de **DR** con capacidad 0.
+
+#### 4. Conmutación por Error de DNS
+- Usar verificaciones de estado de **Route 53**.
+- Configurar la política de enrutamiento de conmutación por error (**failover**).
+- Conmutación por error de **DNS** automática a la región de **DR**.
+
+#### 5. Pruebas
+- Simulacros de **DR** trimestrales.
+- Documentar manuales de procedimientos (**runbooks**).
+- Medir el **RTO**/**RPO** real.
+
+**Proceso de Conmutación por Error**:
+
+1. Detectar el fallo de la región primaria (verificación de estado de **Route 53**).
+2. Promover la réplica de lectura de **RDS** a maestro.
+3. Actualizar el stack de **CloudFormation** para escalar el **Auto Scaling**.
+4. **Route 53** redirige automáticamente el tráfico.
+5. **Tiempo total: ~2-3 horas (cumple con el RTO de 4 horas)**.
+
+---
+
+### Escenario 7: Conectividad de Nube Híbrida
+
+**Situación**: Una empresa de fabricación quiere ampliar su centro de datos local a AWS manteniendo un rendimiento de red constante para su sistema **ERP**.
+
+**Requisitos**:
+- Latencia de red constante.
+- Conexión privada (sin internet).
+- Ancho de banda: 1 Gbps.
+- Acceso a múltiples **VPCs**.
+
+**Análisis de Opciones de Conexión**:
+
+| Solución | Pros | Contras | Mejor para |
+|----------|------|---------|------------|
+| **Site-to-Site VPN** | Configuración rápida (horas), bajo costo, cifrada | Latencia variable, basada en internet, ancho de banda limitado | Des/pruebas, conexiones temporales |
+| **AWS Direct Connect** ⭐ | Rendimiento constante, alto ancho de banda, privada | Costosa, tarda semanas, no cifrada por defecto | Producción, necesidades de alto ancho de banda |
+| **Direct Connect + VPN** | Lo mejor de ambos mundos | La más costosa, compleja | Industrias reguladas que requieren cifrado |
+
+**Solución Recomendada: AWS Direct Connect**
+
+#### 1. Configuración de Direct Connect
+- Pedir un puerto de **Direct Connect** de 1 Gbps.
+- Trabajar con un socio de **AWS Direct Connect**.
+- El aprovisionamiento tarda de 2 a 4 semanas.
+- Configurar la interconexión (**cross-connect**) en la instalación de coubicación.
+
+#### 2. Acceso a Múltiples VPC
+- Usar **Direct Connect Gateway**.
+- Conectarse a múltiples **VPCs** en todas las regiones.
+- Una sola conexión de **Direct Connect**.
+- Simplifica la conectividad.
+
+#### 3. Alta Disponibilidad
+- Pedir una segunda conexión de **Direct Connect** (ubicación diferente).
+- Configurar **BGP** para la conmutación por error automática.
+- O usar una **VPN** como conexión de respaldo.
+
+#### 4. Seguridad
+- Superponer la **VPN** sobre **Direct Connect** para el cifrado.
+- O usar cifrado **MACsec**.
+- **VIF** privada para el acceso a la **VPC**.
+- **VIF** pública para los servicios públicos de AWS.
+
+---
+t for encryption
 - Or use **MACsec** encryption
 - Private VIF for VPC access
 - Public VIF for public AWS services
 
 ---
 
-### Scenario 8: Multi-Region Architecture for Global Application
+### Escenario 8: Arquitectura Multi-Región para Aplicación Global
 
-**Situation**: A social media company is launching a new photo-sharing application that needs to serve users across North America, Europe, and Asia. They expect rapid growth and need to provide low-latency access to content while maintaining data consistency.
+**Situación**: Una empresa de redes sociales va a lanzar una nueva aplicación para compartir fotos que debe dar servicio a usuarios de Norteamérica, Europa y Asia. Esperan un crecimiento rápido y necesitan proporcionar un acceso de baja latencia al contenido manteniendo la consistencia de los datos.
 
-**Current State**:
-- Single-region deployment in us-east-1
-- 200ms+ latency for users in Asia and Europe
-- Customer complaints about slow image loading
-- Growing user base: 100K users → 5M expected in 6 months
+**Estado Actual**:
+- Despliegue en una sola región en **us-east-1**.
+- Latencia de más de 200 ms para los usuarios de Asia y Europa.
+- Quejas de los clientes sobre la lentitud en la carga de imágenes.
+- Base de usuarios creciente: 100,000 usuarios → se esperan 5 millones en 6 meses.
 
-**Requirements**:
+**Requisitos**:
 
-**Functional Requirements**:
-- Users can upload/view photos from any region
-- Social features: likes, comments, follows
-- User profile and settings
-- Search functionality
-- Mobile and web access
+**Requisitos Funcionales**:
+- Los usuarios pueden cargar/ver fotos desde cualquier región.
+- Funciones sociales: me gusta, comentarios, seguimientos.
+- Perfil de usuario y configuración.
+- Funcionalidad de búsqueda.
+- Acceso móvil y web.
 
-**Non-Functional Requirements**:
-- Latency: <100ms for content delivery
-- Availability: 99.95%
-- Data residency compliance (GDPR for EU)
-- RPO: 1 hour, RTO: 2 hours
-- Support 10M concurrent users
-- Cost-effective scaling
+**Requisitos No Funcionales**:
+- Latencia: <100 ms para la entrega de contenido.
+- Disponibilidad: 99.95%.
+- Cumplimiento de la residencia de datos (**GDPR** para la UE).
+- **RPO**: 1 hora, **RTO**: 2 horas.
+- Soporte para 10 millones de usuarios concurrentes.
+- Escalado rentable.
 
-**Question**: How should they architect a multi-region solution?
+**Pregunta**: ¿Cómo deberían diseñar una arquitectura multi-región?
 
-**Recommended Architecture**:
+**Arquitectura Recomendada**:
 
-#### 1. Global Content Delivery
+#### 1. Entrega de Contenido Global
 
 **Amazon CloudFront**:
-- Deploy CloudFront distributions with edge locations worldwide
-- Cache static assets (images, CSS, JavaScript)
-- Regional edge caches for large files
-- Configure custom origins pointing to regional endpoints
-- Enable HTTP/2 and compression
+- Desplegar distribuciones de **CloudFront** con ubicaciones de borde en todo el mundo.
+- Almacenar en caché activos estáticos (imágenes, **CSS**, **JavaScript**).
+- Cachés de borde regionales para archivos grandes.
+- Configurar orígenes personalizados que apunten a los endpoints regionales.
+- Habilitar **HTTP/2** y compresión.
 
 **Amazon S3**:
-- Create S3 buckets in each primary region (us-east-1, eu-west-1, ap-southeast-1)
-- Enable S3 Transfer Acceleration for faster uploads
-- Use S3 Intelligent-Tiering for automatic cost optimization
-- Implement lifecycle policies for old content
+- Crear buckets de **S3** en cada región principal (**us-east-1**, **eu-west-1**, **ap-southeast-1**).
+- Habilitar **S3 Transfer Acceleration** para cargas más rápidas.
+- Usar **S3 Intelligent-Tiering** para la optimización automática de costos.
+- Implementar políticas de ciclo de vida para el contenido antiguo.
 
-**Cross-Region Replication**:
-- Enable S3 Cross-Region Replication for disaster recovery
-- Replicate photos bidirectionally between regions
-- Use replication time control for predictable replication
-- Replicate only active content (photos <30 days)
+**Replicación entre Regiones**:
+- Habilitar **S3 Cross-Region Replication** para la recuperación ante desastres.
+- Replicar fotos de forma bidireccional entre regiones.
+- Usar el control de tiempo de replicación para una replicación predecible.
+- Replicar solo el contenido activo (fotos de <30 días).
 
-#### 2. Database Architecture
+#### 2. Arquitectura de Base de Datos
 
 **Amazon DynamoDB Global Tables**:
-- Deploy Global Tables across 3 regions
-- Tables: Users, Posts, Likes, Comments, Follows
-- Multi-master replication (writes to any region)
-- Typical replication latency: <1 second
-- Automatic conflict resolution (last writer wins)
-- Use on-demand capacity for unpredictable traffic
+- Desplegar **Global Tables** en 3 regiones.
+- Tablas: Usuarios, Publicaciones, Me gusta, Comentarios, Seguimientos.
+- Replicación multi-maestro (escrituras en cualquier región).
+- Latencia de replicación típica: <1 segundo.
+- Resolución automática de conflictos (el último en escribir gana).
+- Usar capacidad bajo demanda para el tráfico impredecible.
 
-**Alternative: Amazon Aurora Global Database**:
-- If complex queries needed
-- Primary region: us-east-1
-- Read replicas in eu-west-1 and ap-southeast-1
-- Lag: <1 second
-- Failover: <1 minute
-- Better for relational data and complex joins
+**Alternativa: Amazon Aurora Global Database**:
+- Si se necesitan consultas complejas.
+- Región primaria: **us-east-1**.
+- Réplicas de lectura en **eu-west-1** y **ap-southeast-1**.
+- Retraso (**lag**): <1 segundo.
+- Conmutación por error: <1 minuto.
+- Mejor para datos relacionales y uniones (**joins**) complejas.
 
-**Data Residency Compliance**:
-- Create separate DynamoDB tables for EU users
-- Store EU user data only in eu-west-1
-- Use IAM policies to enforce data boundaries
-- Document data flow for GDPR compliance
+**Cumplimiento de la Residencia de Datos**:
+- Crear tablas de **DynamoDB** separadas para los usuarios de la UE.
+- Almacenar los datos de los usuarios de la UE solo en **eu-west-1**.
+- Usar políticas **IAM** para aplicar los límites de datos.
+- Documentar el flujo de datos para el cumplimiento de **GDPR**.
 
-#### 3. API and Application Layer
+#### 3. Capa de Aplicación y API
 
 **Amazon API Gateway**:
-- Deploy regional API Gateway endpoints
-- Edge-optimized for CloudFront integration
-- Custom domain names per region
-- Request throttling and caching
+- Desplegar endpoints regionales de **API Gateway**.
+- Optimizado para el borde para la integración con **CloudFront**.
+- Nombres de dominio personalizados por región.
+- Estrangulamiento de solicitudes (**throttling**) y almacenamiento en caché.
 
-**AWS Lambda or ECS Fargate**:
-- Lambda for event-driven, sporadic workloads
-- ECS Fargate for containerized applications
-- Deploy in multiple AZs per region
-- Auto Scaling based on request volume
+**AWS Lambda o ECS Fargate**:
+- **Lambda** para cargas de trabajo esporádicas impulsadas por eventos.
+- **ECS Fargate** para aplicaciones contenedorizadas.
+- Desplegar en múltiples **AZs** por región.
+- Escalado automático basado en el volumen de solicitudes.
 
-#### 4. Routing and Traffic Management
+#### 4. Enrutamiento y Gestión del Tráfico
 
 **Amazon Route 53**:
-- Create geolocation routing policy
-- North America → us-east-1
-- Europe → eu-west-1
-- Asia → ap-southeast-1
-- Configure health checks for failover
-- Latency-based routing for optimal performance
+- Crear una política de enrutamiento por geolocalización.
+- Norteamérica → **us-east-1**.
+- Europa → **eu-west-1**.
+- Asia → **ap-southeast-1**.
+- Configurar verificaciones de estado para la conmutación por error.
+- Enrutamiento basado en la latencia para un rendimiento óptimo.
 
-**Implementation**:
+**Implementación**:
 ```
-User in Germany
-→ Route 53 (geolocation: Europe)
-→ CloudFront (Frankfurt edge)
+Usuario en Alemania
+→ Route 53 (geolocalización: Europa)
+→ CloudFront (borde de Frankfurt)
 → API Gateway (eu-west-1)
 → Lambda/ECS (eu-west-1)
 → DynamoDB Global Table (eu-west-1)
-→ S3 (eu-west-1) via CloudFront
+→ S3 (eu-west-1) a través de CloudFront
 ```
 
-#### 5. Search Functionality
+#### 5. Funcionalidad de Búsqueda
 
 **Amazon OpenSearch Service**:
-- Deploy domain in each region
-- Index user data and posts
-- Cross-region snapshot for backup
-- Or use Amazon CloudSearch
+- Desplegar el dominio en cada región.
+- Indexar datos de usuarios y publicaciones.
+- Instantánea (**snapshot**) entre regiones para respaldo.
+- O usar **Amazon CloudSearch**.
 
-**Alternative: Amazon Kendra**:
-- For intelligent search with ML
-- Natural language queries
+**Alternativa: Amazon Kendra**:
+- Para búsqueda inteligente con **ML**.
+- Consultas en lenguaje natural.
 
-#### 6. Monitoring and Operations
+#### 6. Monitoreo y Operaciones
 
 **Amazon CloudWatch**:
-- Cross-region dashboards
-- Unified logging with CloudWatch Logs Insights
-- Alarms for latency, errors, costs
-- Custom metrics for business KPIs
+- Cuadros de mando entre regiones.
+- Registro unificado con **CloudWatch Logs Insights**.
+- Alarmas por latencia, errores, costos.
+- Métricas personalizadas para **KPIs** de negocio.
 
 **AWS X-Ray**:
-- Distributed tracing across regions
-- Identify bottlenecks
-- Service map visualization
+- Rastreo distribuido entre regiones.
+- Identificar cuellos de botella.
+- Visualización del mapa de servicios.
 
-**Step-by-Step Implementation**:
+**Implementación Paso a Paso**:
 
-**Phase 1: Foundation (Weeks 1-2)**
-1. Set up AWS Organizations and multi-account structure
-2. Create VPCs in target regions
-3. Deploy CloudFormation templates for infrastructure
-4. Set up centralized logging and monitoring
-5. Configure IAM roles and policies
+**Fase 1: Fundación (Semanas 1-2)**
+1. Configurar **AWS Organizations** y la estructura de múltiples cuentas.
+2. Crear **VPCs** en las regiones objetivo.
+3. Desplegar plantillas de **CloudFormation** para la infraestructura.
+4. Configurar el monitoreo y registro centralizados.
+5. Configurar roles y políticas **IAM**.
 
-**Phase 2: Data Layer (Weeks 3-4)**
-1. Create DynamoDB Global Tables
-2. Set up S3 buckets with replication
-3. Configure Aurora Global Database (if chosen)
-4. Test data replication and consistency
-5. Implement backup strategies
+**Fase 2: Capa de Datos (Semanas 3-4)**
+1. Crear **DynamoDB Global Tables**.
+2. Configurar buckets de **S3** con replicación.
+3. Configurar **Aurora Global Database** (si se elige).
+4. Probar la replicación y consistencia de los datos.
+5. Implementar estrategias de respaldo.
 
-**Phase 3: Application Deployment (Weeks 5-6)**
-1. Deploy API Gateway in all regions
-2. Deploy Lambda functions or ECS services
-3. Configure Auto Scaling policies
-4. Implement caching strategies
-5. Set up CloudFront distributions
+**Fase 3: Despliegue de la Aplicación (Semanas 5-6)**
+1. Desplegar **API Gateway** en todas las regiones.
+2. Desplegar funciones **Lambda** o servicios **ECS**.
+3. Configurar políticas de **Auto Scaling**.
+4. Implementar estrategias de almacenamiento en caché.
+5. Configurar distribuciones de **CloudFront**.
 
-**Phase 4: Routing and DNS (Week 7)**
-1. Configure Route 53 geolocation routing
-2. Set up health checks and failover
-3. Test routing from different regions
-4. Configure SSL/TLS certificates
+**Fase 4: Enrutamiento y DNS (Semana 7)**
+1. Configurar el enrutamiento por geolocalización de **Route 53**.
+2. Configurar verificaciones de estado y conmutación por error.
+3. Probar el enrutamiento desde diferentes regiones.
+4. Configurar certificados **SSL**/**TLS**.
 
-**Phase 5: Testing and Optimization (Week 8)**
-1. Load testing from multiple regions
-2. Latency measurements
-3. Failover testing
-4. Cost optimization
-5. Security hardening
+**Fase 5: Pruebas y Optimización (Semana 8)**
+1. Pruebas de carga desde múltiples regiones.
+2. Mediciones de latencia.
+3. Pruebas de conmutación por error.
+4. Optimización de costos.
+5. Refuerzo de la seguridad.
 
-**Cost Breakdown (Monthly Estimate for 5M users)**:
+**Desglose de Costos (Estimación Mensual para 5 Millones de Usuarios)**:
 
-| Service | Configuration | Monthly Cost |
-|---------|--------------|--------------|
-| CloudFront | 10 TB data transfer, 100M requests | $850 |
-| S3 | 50 TB storage, Transfer Acceleration | $1,250 |
-| DynamoDB Global Tables | 1 billion requests, 500 GB | $1,800 |
-| Lambda | 500M requests, 1GB memory | $900 |
-| API Gateway | 500M requests | $1,750 |
-| Route 53 | Hosted zones, health checks | $100 |
-| CloudWatch | Logs, metrics, alarms | $250 |
-| Data Transfer | Cross-region replication | $450 |
-| **Total** | | **~$7,350/month** |
+| Servicio | Configuración | Costo Mensual |
+|----------|---------------|---------------|
+| **CloudFront** | 10 TB de transferencia de datos, 100M de solicitudes | $850 |
+| **S3** | 50 TB de almacenamiento, **Transfer Acceleration** | $1,250 |
+| **DynamoDB Global Tables** | 1,000 millones de solicitudes, 500 GB | $1,800 |
+| **Lambda** | 500M de solicitudes, 1GB de memoria | $900 |
+| **API Gateway** | 500M de solicitudes | $1,750 |
+| **Route 53** | Zonas alojadas, verificaciones de estado | $100 |
+| **CloudWatch** | Registros, métricas, alarmas | $250 |
+| **Transferencia de Datos** | Replicación entre regiones | $450 |
+| **Total** | | **~$7,350/mes** |
 
-**Cost Optimization Strategies**:
-1. Use S3 Intelligent-Tiering for automatic storage class transitions
-2. Enable CloudFront compression to reduce data transfer
-3. Implement DynamoDB on-demand pricing for variable workloads
-4. Use reserved capacity for predictable base load
-5. Set up AWS Budgets alerts
-6. Archive old content to S3 Glacier
+**Estrategias de Optimización de Costos**:
+1. Usar **S3 Intelligent-Tiering** para transiciones automáticas de clases de almacenamiento.
+2. Habilitar la compresión de **CloudFront** para reducir la transferencia de datos.
+3. Implementar precios bajo demanda de **DynamoDB** para cargas de trabajo variables.
+4. Usar capacidad reservada para la carga base predecible.
+5. Configurar alertas de **AWS Budgets**.
+6. Archivar contenido antiguo en **S3 Glacier**.
 
-**Benefits**:
-- **Performance**: <100ms latency worldwide
-- **Availability**: 99.99% with multi-region failover
-- **Scalability**: Seamlessly handles traffic spikes
-- **Data Sovereignty**: GDPR compliance with regional data storage
-- **User Experience**: Fast content delivery regardless of location
-- **Business Continuity**: Automatic failover between regions
+**Beneficios**:
+- **Rendimiento**: <100 ms de latencia en todo el mundo.
+- **Disponibilidad**: 99.99% con conmutación por error multi-región.
+- **Escalabilidad**: Maneja picos de tráfico sin problemas.
+- **Soberanía de Datos**: Cumplimiento de **GDPR** con almacenamiento de datos regional.
+- **Experiencia de Usuario**: Entrega rápida de contenido independientemente de la ubicación.
+- **Continuidad del Negocio**: Conmutación por error automática entre regiones.
 
-**Trade-offs**:
-- **Complexity**: Managing multi-region infrastructure
-- **Cost**: Higher than single-region deployment (3-4x)
-- **Data Consistency**: Eventual consistency with Global Tables
-- **Development**: More complex testing and deployment
-- **Operational Overhead**: Multi-region monitoring and troubleshooting
+**Compromisos (Trade-offs)**:
+- **Complejidad**: Gestión de la infraestructura multi-región.
+- **Costo**: Más alto que un despliegue en una sola región (3-4 veces).
+- **Consistencia de Datos**: Consistencia eventual con **Global Tables**.
+- **Desarrollo**: Pruebas y despliegue más complejos.
+- **Gasto Operativo**: Monitoreo y resolución de problemas en múltiples regiones.
 
-**Alternative Approaches**:
+**Enfoques Alternativos**:
 
-**Option 1: Hybrid Approach**
-- Primary region with CloudFront for content delivery
-- Lower cost but higher latency for writes
-- Best for read-heavy applications
+**Opción 1: Enfoque Híbrido**
+- Región primaria con **CloudFront** para la entrega de contenido.
+- Menor costo pero mayor latencia para las escrituras.
+- El mejor para aplicaciones con muchas lecturas.
 
-**Option 2: Active-Passive Multi-Region**
-- Active region handles all traffic
-- Passive region for disaster recovery only
-- Lower cost, simpler but longer failover time
+**Opción 2: Multi-Región Activo-Pasivo**
+- La región activa maneja todo el tráfico.
+- Región pasiva solo para recuperación ante desastres.
+- Menor costo, más simple pero mayor tiempo de conmutación por error.
 
-**Option 3: Regional Isolation**
-- Completely separate deployments per region
-- No data replication between regions
-- Best for data residency requirements
+**Opción 3: Aislamiento Regional**
+- Despliegues completamente separados por región.
+- Sin replicación de datos entre regiones.
+- El mejor para requisitos estrictos de residencia de datos.
 
-**Common Pitfalls to Avoid**:
-1. **Not testing failover**: Regularly practice region failover
-2. **Ignoring data transfer costs**: Can be 30-40% of total costs
-3. **Synchronous replication assumptions**: DynamoDB Global Tables are eventually consistent
-4. **Over-engineering**: Start with 2 regions, expand as needed
-5. **Neglecting monitoring**: Set up comprehensive CloudWatch dashboards early
-6. **Hardcoded endpoints**: Use service discovery or configuration
-7. **Ignoring data residency laws**: Consult legal team for compliance
-8. **Not considering latency for writes**: Global Tables have ~1s replication lag
+**Errores Comunes a Evitar**:
+1. **No probar la conmutación por error**: Practique regularmente la conmutación por error de región.
+2. **Ignorar los costos de transferencia de datos**: Pueden ser el 30-40% de los costos totales.
+3. **Suposiciones de replicación síncrona**: Las **DynamoDB Global Tables** son eventualmente consistentes.
+4. **Sobre-ingeniería**: Comience con 2 regiones, amplíe según sea necesario.
+5. **Descuidar el monitoreo**: Configure cuadros de mando integrales de **CloudWatch** desde el principio.
+6. **Endpoints codificados (hardcoded)**: Use el descubrimiento de servicios o la configuración.
+7. **Ignorar las leyes de residencia de datos**: Consulte al equipo legal para el cumplimiento.
+8. **No considerar la latencia para las escrituras**: Las **Global Tables** tienen un retraso de replicación de ~1s.
 
 ---
 
-### Scenario 9: Security Incident Response and Prevention
+### Escenario 9: Respuesta y Prevención de Incidentes de Seguridad
 
-**Situation**: A healthcare technology company experienced a security incident where an S3 bucket containing patient data was briefly exposed publicly. The CISO has mandated a comprehensive security overhaul to prevent future incidents and improve detection and response capabilities.
+**Situación**: Una empresa de tecnología de atención médica experimentó un incidente de seguridad en el que un bucket de **S3** que contenía datos de pacientes estuvo expuesto públicamente por un breve periodo. El **CISO** ha ordenado una revisión exhaustiva de la seguridad para prevenir futuros incidentes y mejorar las capacidades de detección y respuesta.
 
-**Current State**:
-- 25 AWS accounts with inconsistent security practices
-- No centralized security monitoring
-- Manual security reviews
-- Limited visibility into configuration changes
-- Reactive security approach
+**Estado Actual**:
+- 25 cuentas de AWS con prácticas de seguridad inconsistentes.
+- Sin monitoreo de seguridad centralizado.
+- Revisiones de seguridad manuales.
+- Visibilidad limitada de los cambios de configuración.
+- Enfoque de seguridad reactivo.
 
-**Incident Impact**:
-- 10,000 patient records potentially exposed
-- 4 hours until detection
-- HIPAA violation investigation
-- Reputation damage
-- Potential fines up to $1.5M
+**Impacto del Incidente**:
+- 10,000 registros de pacientes potencialmente expuestos.
+- 4 horas hasta la detección.
+- Investigación por violación de **HIPAA**.
+- Daño a la reputación.
+- Multas potenciales de hasta $1.5 millones.
 
-**Requirements**:
+**Requisitos**:
 
-**Functional Requirements**:
-- Detect security threats in real-time
-- Prevent unauthorized access
-- Automated incident response
-- Continuous compliance monitoring
-- Audit trail for all actions
-- Encryption at rest and in transit
+**Requisitos Funcionales**:
+- Detectar amenazas de seguridad en tiempo real.
+- Prevenir el acceso no autorizado.
+- Respuesta automatizada ante incidentes.
+- Monitoreo continuo del cumplimiento.
+- Pista de auditoría para todas las acciones.
+- Cifrado en reposo y en tránsito.
 
-**Non-Functional Requirements**:
-- Detection time: <5 minutes
-- Automated response: <1 minute
-- 100% configuration compliance
-- 7-year log retention
-- SOC 2, HIPAA compliance
-- Zero trust architecture
+**Requisitos No Funcionales**:
+- Tiempo de detección: <5 minutos.
+- Respuesta automatizada: <1 minuto.
+- 100% de cumplimiento de la configuración.
+- Retención de registros por 7 años.
+- Cumplimiento de **SOC 2**, **HIPAA**.
+- Arquitectura de confianza cero (**Zero Trust**).
 
-**Question**: How should they implement comprehensive security controls?
+**Pregunta**: ¿Cómo deberían implementar controles de seguridad integrales?
 
-**Recommended Security Architecture**:
+**Arquitectura de Seguridad Recomendada**:
 
-#### 1. Detective Controls - Threat Detection
+#### 1. Controles Detectivos - Detección de Amenazas
 
 **Amazon GuardDuty**:
-- Enable in all accounts and regions
-- Monitors VPC Flow Logs, CloudTrail, DNS logs
-- ML-based anomaly detection
-- Detects:
-  - Compromised EC2 instances (cryptocurrency mining)
-  - Reconnaissance activity
-  - Unauthorized access attempts
-  - Data exfiltration
-  - Malicious IP communications
+- Habilitar en todas las cuentas y regiones.
+- Monitorea **VPC Flow Logs**, **CloudTrail**, registros de **DNS**.
+- Detección de anomalías basada en **ML**.
+- Detecta:
+  - Instancias **EC2** comprometidas (minería de criptomonedas).
+  - Actividad de reconocimiento.
+  - Intentos de acceso no autorizados.
+  - Exfiltración de datos.
+  - Comunicaciones con IPs maliciosas.
 
 **AWS Security Hub**:
-- Centralized security dashboard
-- Aggregates findings from:
-  - GuardDuty
-  - Amazon Inspector
-  - Amazon Macie
-  - IAM Access Analyzer
-  - AWS Config
-  - Third-party tools
-- Compliance checks against:
-  - CIS AWS Foundations Benchmark
-  - PCI DSS
-  - HIPAA
-  - AWS Foundational Security Best Practices
+- Panel de seguridad centralizado.
+- Agrega hallazgos de:
+  - **GuardDuty**
+  - **Amazon Inspector**
+  - **Amazon Macie**
+  - **IAM Access Analyzer**
+  - **AWS Config**
+  - Herramientas de terceros.
+- Verificaciones de cumplimiento contra:
+  - **CIS AWS Foundations Benchmark**
+  - **PCI DSS**
+  - **HIPAA**
+  - **AWS Foundational Security Best Practices**.
 
 **Amazon Macie**:
-- Automated sensitive data discovery
-- Scans S3 buckets for PII, PHI
-- Machine learning classification
-- Identifies:
-  - Credit card numbers
-  - Social Security numbers
-  - Patient health records
-  - API keys and secrets
+- Descubrimiento automatizado de datos sensibles.
+- Escanea buckets de **S3** en busca de **PII** (Información de Identificación Personal), **PHI** (Información de Salud Protegida).
+- Clasificación mediante aprendizaje automático.
+- Identifica:
+  - Números de tarjetas de crédito.
+  - Números de seguridad social.
+  - Registros de salud de pacientes.
+  - Claves de **API** y secretos.
 
 **AWS CloudTrail**:
-- Enable in all regions
-- Record all API calls
-- Multi-region trail
-- Log file integrity validation
-- Centralized logging to dedicated security account
-- S3 bucket with MFA Delete enabled
-- Lifecycle policy: 7-year retention
+- Habilitar en todas las regiones.
+- Registrar todas las llamadas a la **API**.
+- Trail multi-región.
+- Validación de la integridad del archivo de registro.
+- Registro centralizado en una cuenta de seguridad dedicada.
+- Bucket de **S3** con **MFA Delete** habilitado.
+- Política de ciclo de vida: retención de 7 años.
 
-#### 2. Preventive Controls - Access Management
+#### 2. Controles Preventivos - Gestión de Accesos
 
-**AWS Organizations with SCPs**:
-- Organizational hierarchy:
-  - Root
-    - Security OU
-    - Production OU
-    - Development OU
-    - Sandbox OU
+**AWS Organizations con SCPs**:
+- Jerarquía organizacional:
+  - Raíz
+    - **Security OU**
+    - **Production OU**
+    - **Development OU**
+    - **Sandbox OU**
 
-**Service Control Policies**:
+**Service Control Policies (SCPs)**:
 ```json
-// Prevent disabling security services
+// Prevenir la desactivación de los servicios de seguridad
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -756,7 +756,7 @@ User in Germany
   ]
 }
 
-// Enforce encryption
+// Obligar al cifrado
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -776,7 +776,7 @@ User in Germany
   ]
 }
 
-// Prevent public S3 access
+// Prevenir el acceso público a S3
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -797,24 +797,24 @@ User in Germany
 ```
 
 **IAM Access Analyzer**:
-- Continuously monitors IAM policies
-- Identifies resources shared with external entities
-- Validates policies against best practices
-- Generates policy recommendations
+- Monitorea continuamente las políticas de **IAM**.
+- Identifica recursos compartidos con entidades externas.
+- Valida las políticas contra las mejores prácticas.
+- Genera recomendaciones de políticas.
 
 **AWS IAM Identity Center (SSO)**:
-- Centralized user access management
-- Multi-factor authentication mandatory
-- Integration with corporate identity provider (Okta, Azure AD)
-- Time-bound elevated access
-- Attribute-based access control
+- Gestión centralizada del acceso de usuarios.
+- Autenticación multifactor (**MFA**) obligatoria.
+- Integración con proveedores de identidad corporativos (**Okta**, **Azure AD**).
+- Acceso elevado limitado en el tiempo.
+- Control de acceso basado en atributos (**ABAC**).
 
-#### 3. Continuous Compliance Monitoring
+#### 3. Monitoreo Continuo del Cumplimiento
 
 **AWS Config**:
-- Enable in all regions and accounts
-- Configuration recording for all resources
-- Compliance rules:
+- Habilitar en todas las regiones y cuentas.
+- Registro de configuración para todos los recursos.
+- Reglas de cumplimiento:
   - `s3-bucket-public-read-prohibited`
   - `s3-bucket-public-write-prohibited`
   - `s3-bucket-server-side-encryption-enabled`
@@ -827,27 +827,27 @@ User in Germany
   - `vpc-flow-logs-enabled`
 
 **AWS Config Aggregator**:
-- Centralized compliance view across all accounts
-- Deployed in security account
-- Cross-account access via IAM roles
+- Vista de cumplimiento centralizada en todas las cuentas.
+- Desplegado en la cuenta de seguridad.
+- Acceso entre cuentas mediante roles **IAM**.
 
-#### 4. Automated Incident Response
+#### 4. Respuesta Automatizada ante Incidentes
 
-**AWS Lambda for Auto-Remediation**:
+**AWS Lambda para Auto-Remediación**:
 
-**Scenario: S3 Bucket Made Public**
+**Escenario: Bucket de S3 hecho público**
 ```python
-# Lambda function triggered by Config rule violation
+# Función Lambda activada por la violación de una regla de Config
 import boto3
 
 def lambda_handler(event, context):
     s3 = boto3.client('s3')
     config = boto3.client('config')
 
-    # Extract bucket name from Config event
+    # Extraer el nombre del bucket del evento de Config
     bucket_name = event['configRuleEvaluations'][0]['resourceId']
 
-    # Block all public access
+    # Bloquear todo el acceso público
     s3.put_public_access_block(
         Bucket=bucket_name,
         PublicAccessBlockConfiguration={
@@ -858,240 +858,235 @@ def lambda_handler(event, context):
         }
     )
 
-    # Send SNS notification
+    # Enviar notificación por SNS
     sns = boto3.client('sns')
     sns.publish(
         TopicArn='arn:aws:sns:us-east-1:123456789012:SecurityAlerts',
-        Subject='SECURITY: Public S3 Bucket Auto-Remediated',
-        Message=f'Bucket {bucket_name} was made public and has been automatically secured.'
+        Subject='SEGURIDAD: Bucket de S3 Público Auto-Remediado',
+        Message=f'El bucket {bucket_name} se hizo público y ha sido asegurado automáticamente.'
     )
 
     return {
         'statusCode': 200,
-        'body': f'Remediated public access for {bucket_name}'
+        'body': f'Acceso público remediado para {bucket_name}'
     }
 ```
 
-**Amazon EventBridge Rules**:
-- Trigger Lambda on GuardDuty findings
-- Automated responses:
-  - Isolate compromised EC2 instances (change security group)
-  - Revoke IAM user credentials
-  - Snapshot EBS volumes for forensics
-  - Block malicious IPs in NACLs
+**Reglas de Amazon EventBridge**:
+- Activar **Lambda** tras los hallazgos de **GuardDuty**.
+- Respuestas automatizadas:
+  - Aislar instancias **EC2** comprometidas (cambiar grupo de seguridad).
+  - Revocar credenciales de usuario **IAM**.
+  - Crear instantáneas (**snapshots**) de volúmenes **EBS** para análisis forense.
+  - Bloquear IPs maliciosas en **NACLs**.
 
 **AWS Systems Manager Incident Manager**:
-- Automated incident response plans
-- Escalation policies
-- On-call schedules
-- Post-incident analysis
+- Planes de respuesta ante incidentes automatizados.
+- Políticas de escalada.
+- Horarios de guardia.
+- Análisis post-incidente.
 
-#### 5. Data Protection
+#### 5. Protección de Datos
 
-**Encryption at Rest**:
-- S3: Default encryption with KMS
-- EBS: Encrypted volumes mandatory
-- RDS: Encryption enabled for all databases
-- DynamoDB: Encryption enabled
-- EFS: Encryption enabled
+**Cifrado en Reposo**:
+- **S3**: Cifrado predeterminado con **KMS**.
+- **EBS**: Volúmenes cifrados obligatorios.
+- **RDS**: Cifrado habilitado para todas las bases de datos.
+- **DynamoDB**: Cifrado habilitado.
+- **EFS**: Cifrado habilitado.
 
 **AWS Key Management Service (KMS)**:
-- Customer-managed keys (CMKs)
-- Automatic key rotation
-- Key policies restricting access
-- CloudTrail logging of key usage
-- Separate keys per environment
+- Claves administradas por el cliente (**CMKs**).
+- Rotación automática de claves.
+- Políticas de claves que restringen el acceso.
+- Registro en **CloudTrail** del uso de las claves.
+- Claves separadas por entorno.
 
-**Encryption in Transit**:
-- TLS 1.2+ for all communication
-- AWS Certificate Manager for SSL/TLS
-- VPC endpoints for private communication
-- PrivateLink for service access
+**Cifrado en Tránsito**:
+- **TLS 1.2**+ para toda la comunicación.
+- **AWS Certificate Manager** para **SSL**/**TLS**.
+- Endpoints de **VPC** para comunicación privada.
+- **PrivateLink** para acceso a servicios.
 
 **AWS Secrets Manager**:
-- Rotate database credentials automatically
-- Store API keys and secrets
-- Integration with RDS, Redshift, DocumentDB
-- Audit secret access via CloudTrail
+- Rotar credenciales de base de datos automáticamente.
+- Almacenar claves de **API** y secretos.
+- Integración con **RDS**, **Redshift**, **DocumentDB**.
+- Auditar el acceso a los secretos a través de **CloudTrail**.
 
-#### 6. Network Security
+#### 6. Seguridad de Red
 
-**VPC Security**:
-- Private subnets for application and database tiers
-- Public subnets only for load balancers
-- VPC Flow Logs enabled (all VPCs)
-- Network ACLs for subnet-level filtering
+**Seguridad de la VPC**:
+- Subredes privadas para las capas de aplicación y base de datos.
+- Subredes públicas solo para balanceadores de carga.
+- **VPC Flow Logs** habilitados (en todas las **VPCs**).
+- **Network ACLs** para filtrado a nivel de subred.
 
 **AWS Network Firewall**:
-- Stateful firewall at VPC level
-- Intrusion prevention system (IPS)
-- Block malicious domains
-- Custom rule groups
+- Firewall con estado a nivel de **VPC**.
+- Sistema de prevención de intrusiones (**IPS**).
+- Bloqueo de dominios maliciosos.
+- Grupos de reglas personalizados.
 
 **AWS WAF (Web Application Firewall)**:
-- Protect web applications from common exploits
-- Managed rules:
-  - OWASP Top 10
-  - Known bad inputs
-  - SQL injection
-  - Cross-site scripting (XSS)
-- Rate limiting
-- Geo-blocking
+- Proteger las aplicaciones web de exploits comunes.
+- Reglas administradas:
+  - **OWASP Top 10**.
+  - Entradas maliciosas conocidas.
+  - Inyección **SQL**.
+  - Cross-site scripting (**XSS**).
+- Limitación de tasa (**rate limiting**).
+- Bloqueo geográfico.
 
-**Step-by-Step Implementation**:
+**Implementación Paso a Paso**:
 
-**Phase 1: Foundation (Week 1)**
-1. Enable CloudTrail in all accounts
-2. Create security account
-3. Set up centralized logging S3 bucket
-4. Enable GuardDuty in all accounts/regions
-5. Document current security posture
+**Fase 1: Fundación (Semana 1)**
+1. Habilitar **CloudTrail** en todas las cuentas.
+2. Crear la cuenta de seguridad.
+3. Configurar un bucket de **S3** para el registro centralizado.
+4. Habilitar **GuardDuty** en todas las cuentas/regiones.
+5. Documentar la postura de seguridad actual.
 
-**Phase 2: Detection and Monitoring (Week 2)**
-1. Enable Security Hub
-2. Enable Macie for S3 scanning
-3. Deploy Config with compliance rules
-4. Set up Config Aggregator
-5. Create CloudWatch dashboards
+**Fase 2: Detección y Monitoreo (Semana 2)**
+1. Habilitar **Security Hub**.
+2. Habilitar **Macie** para el escaneo de **S3**.
+3. Desplegar **Config** con reglas de cumplimiento.
+4. Configurar **Config Aggregator**.
+5. Crear cuadros de mando de **CloudWatch**.
 
-**Phase 3: Preventive Controls (Week 3)**
-1. Implement SCPs in AWS Organizations
-2. Enable S3 Block Public Access organization-wide
-3. Deploy IAM Access Analyzer
-4. Enforce MFA for all users
-5. Implement IAM Identity Center
+**Fase 3: Controles Preventivos (Semana 3)**
+1. Implementar **SCPs** en **AWS Organizations**.
+2. Habilitar **S3 Block Public Access** en toda la organización.
+3. Desplegar **IAM Access Analyzer**.
+4. Obligar al uso de **MFA** para todos los usuarios.
+5. Implementar **IAM Identity Center**.
 
-**Phase 4: Automated Response (Week 4)**
-1. Create Lambda remediation functions
-2. Set up EventBridge rules
-3. Configure SNS topics for alerts
-4. Deploy Systems Manager Incident Manager
-5. Test automated responses
+**Fase 4: Respuesta Automatizada (Semana 4)**
+1. Crear funciones **Lambda** de remediación.
+2. Configurar reglas de **EventBridge**.
+3. Configurar temas de **SNS** para alertas.
+4. Desplegar **Systems Manager Incident Manager**.
+5. Probar las respuestas automatizadas.
 
-**Phase 5: Data Protection (Week 5)**
-1. Enable default encryption on S3
-2. Encrypt all EBS volumes
-3. Deploy KMS CMKs with rotation
-4. Migrate secrets to Secrets Manager
-5. Implement AWS Backup
+**Fase 5: Protección de Datos (Semana 5)**
+1. Habilitar cifrado predeterminado en **S3**.
+2. Cifrar todos los volúmenes **EBS**.
+3. Desplegar **KMS CMKs** con rotación.
+4. Migrar los secretos a **Secrets Manager**.
+5. Implementar **AWS Backup**.
 
-**Phase 6: Testing and Validation (Week 6)**
-1. Conduct security drills
-2. Penetration testing
-3. Red team exercises
-4. Update incident response playbooks
-5. Train security team
+**Fase 6: Pruebas y Validación (Semana 6)**
+1. Realizar simulacros de seguridad.
+2. Pruebas de penetración.
+3. Ejercicios de **Red Team**.
+4. Actualizar los manuales de respuesta ante incidentes.
+5. Capacitar al equipo de seguridad.
 
-**Cost Breakdown (Monthly for 25 accounts)**:
+**Desglose de Costos (Mensual para 25 cuentas)**:
 
-| Service | Configuration | Monthly Cost |
-|---------|--------------|--------------|
-| GuardDuty | 25 accounts, 500GB VPC Flow Logs | $650 |
-| Security Hub | 25 accounts, 10K compliance checks | $200 |
-| Macie | 1TB S3 data scanned | $300 |
-| CloudTrail | Multi-region, 1M events | $50 |
-| Config | 25 accounts, 500 rules | $800 |
-| AWS WAF | 5 web ACLs, 100M requests | $150 |
-| KMS | 100 CMKs | $100 |
-| Lambda | Auto-remediation functions | $50 |
-| S3 | Log storage (1TB) | $25 |
-| **Total** | | **~$2,325/month** |
+| Servicio | Configuración | Costo Mensual |
+|----------|---------------|---------------|
+| **GuardDuty** | 25 cuentas, 500GB **VPC Flow Logs** | $650 |
+| **Security Hub** | 25 cuentas, 10K verificaciones de cumplimiento | $200 |
+| **Macie** | 1TB de datos de **S3** escaneados | $300 |
+| **CloudTrail** | Multi-región, 1M de eventos | $50 |
+| **Config** | 25 cuentas, 500 reglas | $800 |
+| **AWS WAF** | 5 web ACLs, 100M de solicitudes | $150 |
+| **KMS** | 100 **CMKs** | $100 |
+| **Lambda** | Funciones de auto-remediación | $50 |
+| **S3** | Almacenamiento de registros (1TB) | $25 |
+| **Total** | | **~$2,325/mes** |
 
-**Benefits**:
-- **Rapid Detection**: Security threats detected in <5 minutes
-- **Automated Response**: Incidents remediated in <1 minute
-- **Compliance**: Continuous monitoring against standards
-- **Visibility**: Centralized view of security posture
-- **Prevention**: Proactive controls prevent incidents
-- **Audit Trail**: Complete history for compliance
-- **Cost of Prevention**: $2,325/month vs. potential $1.5M fine
+**Beneficios**:
+- **Detección Rápida**: Amenazas de seguridad detectadas en <5 minutos.
+- **Respuesta Automatizada**: Incidentes remediados en <1 minuto.
+- **Cumplimiento**: Monitoreo continuo contra estándares.
+- **Visibilidad**: Vista centralizada de la postura de seguridad.
+- **Prevención**: Los controles proactivos previenen incidentes.
+- **Pista de Auditoría**: Historial completo para el cumplimiento.
+- **Costo de Prevención**: $2,325/mes vs. multa potencial de $1.5 millones.
 
-**Trade-offs**:
-- **Initial Complexity**: Setting up centralized security takes time
-- **False Positives**: GuardDuty may flag legitimate activity
-- **Operational Changes**: Teams must adapt to new security controls
-- **Cost**: Ongoing security spend vs. risk mitigation
+**Compromisos (Trade-offs)**:
+- **Complejidad Inicial**: Configurar la seguridad centralizada lleva tiempo.
+- **Falsos Positivos**: **GuardDuty** puede marcar actividad legítima.
+- **Cambios Operativos**: Los equipos deben adaptarse a los nuevos controles de seguridad.
+- **Costo**: Gasto continuo en seguridad vs. mitigación de riesgos.
 
-**Alternative Approaches**:
+**Enfoques Alternativos**:
 
-**Option 1: Third-Party SIEM**
-- Splunk, Sumo Logic, or Datadog
-- More advanced analytics
-- Higher cost
-- Additional maintenance
+**Opción 1: SIEM de Terceros**
+- **Splunk**, **Sumo Logic** o **Datadog**.
+- Analítica más avanzada.
+- Costo más alto.
+- Mantenimiento adicional.
 
-**Option 2: Manual Response**
-- Lower cost
-- Slower response times
-- Not recommended for compliance
+**Opción 2: Respuesta Manual**
+- Costo más bajo.
+- Tiempos de respuesta más lentos.
+- No recomendado para cumplimiento normativo.
 
-**Common Pitfalls to Avoid**:
-1. **Security Hub alert fatigue**: Start with critical findings only
-2. **Not testing auto-remediation**: Test in dev first
-3. **Overly restrictive SCPs**: Can block legitimate operations
-4. **Ignoring GuardDuty findings**: Review and act on all findings
-5. **No incident response plan**: Document procedures before incidents
-6. **Single region deployment**: Enable security services in all regions
-7. **No security training**: Educate developers on secure practices
-8. **Forgetting about insider threats**: Monitor privileged user activity
+**Errores Comunes a Evitar**:
+1. **Fatiga de alertas de Security Hub**: Comience solo con hallazgos críticos.
+2. **No probar la auto-remediación**: Pruebe primero en desarrollo.
+3. **SCPs demasiado restrictivas**: Pueden bloquear operaciones legítimas.
+4. **Ignorar los hallazgos de GuardDuty**: Revise y actúe sobre todos los hallazgos.
+5. **Sin plan de respuesta ante incidentes**: Documente los procedimientos antes de los incidentes.
+6. **Despliegue en una sola región**: Habilite los servicios de seguridad en todas las regiones.
+7. **Sin capacitación en seguridad**: Eduque a los desarrolladores sobre prácticas seguras.
+8. **Olvidar las amenazas internas**: Monitoree la actividad de los usuarios privilegiados.
 
 ---
 
-### Scenario 10: Modernizing Legacy Monolith Application
+### Escenario 10: Modernización de una Aplicación Monolítica Heredada
 
-**Situation**: An insurance company runs a 15-year-old .NET Framework application on on-premises servers. The application handles policy management, claims processing, and customer portal. They want to migrate to AWS and modernize the architecture to improve scalability, reduce costs, and accelerate feature development.
+**Situación**: Una empresa de seguros ejecuta una aplicación de 15 años basada en **.NET Framework** en servidores locales. La aplicación se encarga de la gestión de pólizas, el procesamiento de reclamaciones y el portal del cliente. Quieren migrar a AWS y modernizar la arquitectura para mejorar la escalabilidad, reducir los costos y acelerar el desarrollo de funciones.
 
-**Current State**:
-- Monolithic .NET Framework 4.8 application
-- SQL Server 2014 database (2TB)
-- Windows Server 2012 R2
-- 10 application servers behind hardware load balancer
-- Peak load: 5,000 concurrent users
-- Deployment: Manual, monthly releases, 4-hour downtime
-- No automated testing
-- Average response time: 2-3 seconds
-- Annual infrastructure cost: $500K
+**Estado Actual**:
+- Aplicación monolítica **.NET Framework 4.8**.
+- Base de datos **SQL Server 2014** (2 TB).
+- **Windows Server 2012 R2**.
+- 10 servidores de aplicaciones detrás de un balanceador de carga de hardware.
+- Carga pico: 5,000 usuarios concurrentes.
+- Despliegue: Manual, lanzamientos mensuales, 4 horas de tiempo de inactividad.
+- Sin pruebas automatizadas.
+- Tiempo de respuesta promedio: 2-3 segundos.
+- Costo anual de infraestructura: $500,000.
 
-**Current Challenges**:
-- Slow development cycles
-- Difficult to scale individual components
-- High infrastructure costs
-- Frequent production issues
-- Aging technology stack
-- Recruitment challenges (old tech)
+**Desafíos Actuales**:
+- Ciclos de desarrollo lentos.
+- Difícil de escalar componentes individuales.
+- Altos costos de infraestructura.
+- Problemas frecuentes en producción.
+- Stack tecnológico obsoleto.
+- Desafíos de contratación (tecnología antigua).
 
-**Requirements**:
+**Requisitos**:
 
-**Functional Requirements**:
-- Migrate all functionality to AWS
-- Maintain feature parity during migration
-- Support existing integrations (SOAP, REST APIs)
-- Preserve data integrity
-- Windows authentication integration
+**Requisitos Funcionales**:
+- Migrar toda la funcionalidad a AWS.
+- Mantener la paridad de funciones durante la migración.
+- Soportar integraciones existentes (**SOAP**, **APIs REST**).
+- Preservar la integridad de los datos.
+- Integración con autenticación de **Windows**.
 
-**Non-Functional Requirements**:
-- Zero downtime during migration
-- Response time: <1 second
-- 99.9% availability
-- Support 10,000 concurrent users
-- Reduce infrastructure costs by 40%
-- Weekly deployments with zero downtime
-- Automated testing and rollback
+**Requisitos No Funcionales**:
+- Cero tiempo de inactividad durante la migración.
+- Tiempo de respuesta: <1 segundo.
+- 99.9% de disponibilidad.
+- Soporte para 10,000 usuarios concurrentes.
+- Reducir los costos de infraestructura en un 40%.
+- Despliegues semanales con cero tiempo de inactividad.
+- Pruebas y reversión (**rollback**) automatizadas.
 
-**Question**: How should they approach migration and modernization?
+**Pregunta**: ¿Cómo deberían abordar la migración y modernización?
 
-**Recommended Migration Strategy: Strangler Fig Pattern**
+**Estrategia de Migración Recomendada: Patrón Strangler Fig**
 
-#### Phase 1: Lift and Shift (Foundation)
+#### Fase 1: Lift and Shift (Fundación)
 
-**Step 1: Database Migration**
+**Paso 1: Migración de Base de Datos**
 
 **AWS Database Migration Service (DMS)**:
-- Migrate SQL Server to Amazon RDS for SQL Server
-- Minimal downtime using continuous replication
-- Or migrate to RDS with Aurora PostgreSQL-Compatible (if licensing costs are high)
-
-**Database Configuration**:
 - RDS SQL Server Enterprise Edition
 - Multi-AZ deployment for high availability
 - db.r5.4xlarge (16 vCPU, 128 GB RAM)
@@ -1103,194 +1098,194 @@ def lambda_handler(event, context):
 1. Set up DMS replication instance
 2. Create source endpoint (on-premises SQL Server)
 3. Create target endpoint (RDS)
-4. Create migration task with full load + CDC
-5. Monitor replication lag
-6. Perform cutover during low-traffic period
+4. Crear la tarea de migración con carga completa + **CDC**.
+5. Monitorear el retraso de replicación.
+6. Realizar la conmutación en un periodo de bajo tráfico.
 
-**Step 2: Application Migration with App2Container**
+**Paso 2: Migración de la Aplicación con App2Container**
 
 **AWS App2Container**:
-- Analyzes .NET Framework applications
-- Creates container image
-- Generates ECS task definitions
-- Creates CloudFormation templates
-- Minimal code changes required
+- Analiza las aplicaciones **.NET Framework**.
+- Crea la imagen del contenedor.
+- Genera definiciones de tareas de **ECS**.
+- Crea plantillas de **CloudFormation**.
+- Se requieren cambios mínimos de código.
 
-**Process**:
-1. Install App2Container on application server
-2. Run inventory: `app2container inventory`
-3. Analyze application: `app2container analyze --application-id <id>`
-4. Customize deployment (app2container-config.json)
-5. Generate artifacts: `app2container containerize`
-6. Push to Amazon ECR
+**Proceso**:
+1. Instalar **App2Container** en el servidor de aplicaciones.
+2. Ejecutar inventario: `app2container inventory`.
+3. Analizar la aplicación: `app2container analyze --application-id <id>`.
+4. Personalizar el despliegue (app2container-config.json).
+5. Generar artefactos: `app2container containerize`.
+6. Enviar a **Amazon ECR**.
 
-**Step 3: Container Orchestration**
+**Paso 3: Orquestación de Contenedores**
 
 **Amazon ECS on Fargate**:
-- Serverless compute for containers
-- No EC2 instances to manage
-- Automatic scaling
-- Integrated with Application Load Balancer
+- Cómputo sin servidor para contenedores.
+- Sin instancias **EC2** que administrar.
+- Escalado automático.
+- Integrado con **Application Load Balancer**.
 
-**ECS Configuration**:
-- Task definition:
-  - 4 vCPU, 8 GB memory per task
-  - Windows Server 2019 Core container
-  - Environment variables for configuration
-  - Secrets from AWS Secrets Manager
-- Service:
-  - Desired count: 10 tasks
-  - Auto Scaling: 10-50 tasks based on CPU
-  - Spread across 3 AZs
-  - Health check grace period: 60 seconds
+**Configuración de ECS**:
+- Definición de tarea (**Task definition**):
+  - 4 vCPU, 8 GB de memoria por tarea.
+  - Contenedor **Windows Server 2019 Core**.
+  - Variables de entorno para la configuración.
+  - Secretos de **AWS Secrets Manager**.
+- Servicio:
+  - Recuento deseado: 10 tareas.
+  - **Auto Scaling**: 10-50 tareas basadas en CPU.
+  - Distribuido en 3 **AZs**.
+  - Periodo de gracia de verificación de estado: 60 segundos.
 
-#### Phase 2: Modernization (Incremental)
+#### Fase 2: Modernización (Incremental)
 
-**Strangler Fig Pattern Implementation**:
-1. Identify bounded contexts in monolith
-2. Extract one service at a time
-3. Route traffic to new service
-4. Gradually replace monolith components
+**Implementación del Patrón Strangler Fig**:
+1. Identificar contextos delimitados (**bounded contexts**) en el monolito.
+2. Extraer un servicio a la vez.
+3. Dirigir el tráfico al nuevo servicio.
+4. Reemplazar gradualmente los componentes del monolito.
 
-**Priority Services to Extract**:
+**Servicios Prioritarios a Extraer**:
 
-**1. Authentication Service**
-- High reuse across features
-- Extract first for shared use
-- Technology: ASP.NET Core Web API
-- Database: Amazon Aurora PostgreSQL
-- Deployment: ECS Fargate
+**1. Servicio de Autenticación**
+- Alto nivel de reutilización en todas las funciones.
+- Extraer primero para uso compartido.
+- Tecnología: **ASP.NET Core Web API**.
+- Base de datos: **Amazon Aurora PostgreSQL**.
+- Despliegue: **ECS Fargate**.
 
-**2. Claims Processing Service**
-- CPU-intensive
-- Independent scaling needs
-- Benefits from queue-based processing
-- Technology: ASP.NET Core + AWS Lambda
-- Queue: Amazon SQS
-- Database: DynamoDB for claims status
+**2. Servicio de Procesamiento de Reclamaciones**
+- Intensivo en CPU.
+- Necesidades de escalado independientes.
+- Se beneficia del procesamiento basado en colas.
+- Tecnología: **ASP.NET Core** + **AWS Lambda**.
+- Cola: **Amazon SQS**.
+- Base de datos: **DynamoDB** para el estado de las reclamaciones.
 
-**3. Document Storage Service**
-- Large file uploads (claim documents, policy PDFs)
-- Extract to reduce monolith load
-- Technology: ASP.NET Core API
-- Storage: Amazon S3
-- OCR: Amazon Textract
+**3. Servicio de Almacenamiento de Documentos**
+- Cargas de archivos grandes (documentos de reclamaciones, PDFs de pólizas).
+- Extraer para reducir la carga del monolito.
+- Tecnología: **ASP.NET Core API**.
+- Almacenamiento: **Amazon S3**.
+- **OCR**: **Amazon Textract**.
 
-**4. Notification Service**
-- Email, SMS notifications
-- High volume, sporadic
-- Technology: AWS Lambda
-- Email: Amazon SES
-- SMS: Amazon SNS
-- Queue: Amazon SQS
+**4. Servicio de Notificaciones**
+- Notificaciones por correo electrónico, **SMS**.
+- Alto volumen, esporádico.
+- Tecnología: **AWS Lambda**.
+- Correo electrónico: **Amazon SES**.
+- **SMS**: **Amazon SNS**.
+- Cola: **Amazon SQS**.
 
-**5. Reporting Service**
-- Resource-intensive queries
-- Extract to dedicated read replica
-- Technology: ASP.NET Core + Lambda
-- Database: RDS read replica
-- Caching: Amazon ElastiCache
+**5. Servicio de Informes (Reporting)**
+- Consultas que consumen muchos recursos.
+- Extraer a una réplica de lectura dedicada.
+- Tecnología: **ASP.NET Core** + **Lambda**.
+- Base de datos: Réplica de lectura de **RDS**.
+- Almacenamiento en caché: **Amazon ElastiCache**.
 
-**Architecture Evolution**:
+**Evolución de la Arquitectura**:
 
 ```
-Initial (Month 0-3):
-Monolith (ECS) → RDS SQL Server
+Inicial (Meses 0-3):
+Monolito (ECS) → RDS SQL Server
 
-Phase 1 (Month 3-6):
-ALB → Authentication Service (ECS)
+Fase 1 (Meses 3-6):
+ALB → Servicio de Autenticación (ECS)
     ↓
-    → Monolith (ECS) → RDS SQL Server
+    → Monolito (ECS) → RDS SQL Server
 
-Phase 2 (Month 6-9):
-ALB → Authentication Service (ECS)
-    → Claims Service (ECS + Lambda + SQS)
-    → Monolith (ECS) → RDS SQL Server
+Fase 2 (Meses 6-9):
+ALB → Servicio de Autenticación (ECS)
+    → Servicio de Reclamaciones (ECS + Lambda + SQS)
+    → Monolito (ECS) → RDS SQL Server
 
-Phase 3 (Month 9-12):
-ALB → Authentication Service (ECS)
-    → Claims Service (ECS + Lambda + SQS)
-    → Document Service (ECS + S3 + Textract)
-    → Notification Service (Lambda + SQS + SES/SNS)
-    → Reporting Service (Lambda + ElastiCache)
-    → Monolith (ECS) → RDS SQL Server (reduced functionality)
+Fase 3 (Meses 9-12):
+ALB → Servicio de Autenticación (ECS)
+    → Servicio de Reclamaciones (ECS + Lambda + SQS)
+    → Servicio de Documentos (ECS + S3 + Textract)
+    → Servicio de Notificaciones (Lambda + SQS + SES/SNS)
+    → Servicio de Informes (Lambda + ElastiCache)
+    → Monolito (ECS) → RDS SQL Server (funcionalidad reducida)
 ```
 
-#### Phase 3: Supporting Infrastructure
+#### Fase 3: Infraestructura de Soporte
 
-**Caching Layer**:
+**Capa de Almacenamiento en Caché**:
 
 **Amazon ElastiCache for Redis**:
-- Cache frequently accessed data
-- Session storage
-- Reduce database load by 60%
-- Configuration:
-  - cache.r5.large (2 nodes)
-  - Multi-AZ with automatic failover
-  - Encryption in transit and at rest
+- Almacenar en caché los datos a los que se accede con frecuencia.
+- Almacenamiento de sesiones.
+- Reducir la carga de la base de datos en un 60%.
+- Configuración:
+  - **cache.r5.large** (2 nodos).
+  - **Multi-AZ** con conmutación por error automática.
+  - Cifrado en tránsito y en reposo.
 
 **Application Load Balancer**:
-- Path-based routing
-- Example routes:
-  - `/api/auth/*` → Authentication Service
-  - `/api/claims/*` → Claims Service
-  - `/api/documents/*` → Document Service
-  - `/*` → Monolith (default)
-- Sticky sessions for monolith compatibility
-- SSL/TLS termination
-- WAF integration
+- Enrutamiento basado en rutas (**path-based**).
+- Rutas de ejemplo:
+  - `/api/auth/*` → Servicio de Autenticación.
+  - `/api/claims/*` → Servicio de Reclamaciones.
+  - `/api/documents/*` → Servicio de Documentos.
+  - `/*` → Monolito (predeterminado).
+- Sesiones pegajosas (**sticky sessions**) para la compatibilidad con el monolito.
+- Terminación **SSL**/**TLS**.
+- Integración con **WAF**.
 
 **API Gateway**:
-- For external partners accessing APIs
-- Rate limiting and quotas
-- API key management
-- Request/response transformation
-- CloudWatch logging
+- Para socios externos que acceden a las **APIs**.
+- Limitación de tasa y cuotas.
+- Gestión de claves de **API**.
+- Transformación de solicitud/respuesta.
+- Registro en **CloudWatch**.
 
-**Observability**:
+**Observabilidad**:
 
 **AWS X-Ray**:
-- Distributed tracing
-- Identify performance bottlenecks
-- Service map visualization
-- Request flow analysis
+- Rastreo distribuido.
+- Identificar cuellos de botella de rendimiento.
+- Visualización del mapa de servicios.
+- Análisis del flujo de solicitudes.
 
 **Amazon CloudWatch**:
-- Centralized logging
-- Custom metrics (business KPIs)
-- Dashboards for each service
-- Alarms for errors and latency
+- Registro centralizado.
+- Métricas personalizadas (**KPIs** de negocio).
+- Cuadros de mando para cada servicio.
+- Alarmas por errores y latencia.
 
 **AWS CloudTrail**:
-- Audit trail for all API calls
-- Compliance and security
+- Pista de auditoría para todas las llamadas a la **API**.
+- Cumplimiento y seguridad.
 
-#### Phase 4: CI/CD Pipeline
+#### Fase 4: Pipeline CI/CD
 
 **AWS CodePipeline**:
 ```
-Source (CodeCommit)
+Origen (CodeCommit)
   ↓
-Build (CodeBuild)
-  - Compile .NET Core
-  - Run unit tests
-  - Build Docker image
-  - Push to ECR
+Compilación (CodeBuild)
+  - Compilar .NET Core
+  - Ejecutar pruebas unitarias
+  - Construir imagen de Docker
+  - Enviar a ECR
   ↓
-Test (CodeBuild)
-  - Integration tests
-  - Security scanning (Snyk, Aqua)
+Pruebas (CodeBuild)
+  - Pruebas de integración
+  - Escaneo de seguridad (Snyk, Aqua)
   ↓
-Deploy to Dev (CodeDeploy + ECS)
-  - Blue/green deployment
-  - Smoke tests
+Despliegue en Dev (CodeDeploy + ECS)
+  - Despliegue Blue/green
+  - Pruebas de humo (Smoke tests)
   ↓
-Manual Approval
+Aprobación Manual
   ↓
-Deploy to Prod (CodeDeploy + ECS)
-  - Blue/green deployment
-  - Gradual traffic shifting (10% → 50% → 100%)
-  - Automatic rollback on errors
+Despliegue en Prod (CodeDeploy + ECS)
+  - Despliegue Blue/green
+  - Cambio de tráfico gradual (10% → 50% → 100%)
+  - Rollback automático en caso de errores
 ```
 
 **AWS CodeBuild buildspec.yml**:
@@ -1299,234 +1294,234 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR...
+      - echo Iniciando sesión en Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
     commands:
-      - echo Build started on `date`
-      - echo Building the Docker image...
+      - echo La compilación comenzó el `date`
+      - echo Construyendo la imagen de Docker...
       - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
   post_build:
     commands:
-      - echo Build completed on `date`
-      - echo Pushing the Docker image...
+      - echo La compilación se completó el `date`
+      - echo Enviando la imagen de Docker...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
-      - echo Writing image definitions file...
+      - echo Escribiendo el archivo de definiciones de imagen...
       - printf '[{"name":"app-container","imageUri":"%s"}]' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
 ```
 
-**Step-by-Step Implementation**:
+**Implementación Paso a Paso**:
 
-**Phase 1: Preparation (Months 1-2)**
-1. Assess application architecture
-2. Identify dependencies and integrations
-3. Set up AWS accounts and networking
-4. Create migration plan
-5. Train team on AWS services
+**Fase 1: Preparación (Meses 1-2)**
+1. Evaluar la arquitectura de la aplicación.
+2. Identificar dependencias e integraciones.
+3. Configurar cuentas de AWS y redes.
+4. Crear el plan de migración.
+5. Capacitar al equipo en los servicios de AWS.
 
-**Phase 2: Database Migration (Month 3)**
-1. Set up RDS instance
-2. Test DMS replication
-3. Migrate database with CDC
-4. Verify data integrity
-5. Update connection strings
+**Fase 2: Migración de la Base de Datos (Mes 3)**
+1. Configurar la instancia de **RDS**.
+2. Probar la replicación de **DMS**.
+3. Migrar la base de datos con **CDC**.
+4. Verificar la integridad de los datos.
+5. Actualizar las cadenas de conexión.
 
-**Phase 3: Containerize Monolith (Month 4)**
-1. Use App2Container
-2. Test containerized application
-3. Deploy to ECS Fargate
-4. Parallel run with on-premises
-5. Gradual traffic shift (20% → 50% → 100%)
+**Fase 3: Contenerizar el Monolito (Mes 4)**
+1. Usar **App2Container**.
+2. Probar la aplicación contenerizada.
+3. Desplegar en **ECS Fargate**.
+4. Ejecución paralela con la infraestructura local.
+5. Cambio de tráfico gradual (20% → 50% → 100%).
 
-**Phase 4: Extract Services (Months 5-12)**
-1. Extract authentication service (Month 5)
-2. Extract claims service (Month 6-7)
-3. Extract document service (Month 8-9)
-4. Extract notification service (Month 10)
-5. Extract reporting service (Month 11)
-6. Decommission monolith components (Month 12)
+**Fase 4: Extraer Servicios (Meses 5-12)**
+1. Extraer el servicio de autenticación (Mes 5).
+2. Extraer el servicio de reclamaciones (Meses 6-7).
+3. Extraer el servicio de documentos (Meses 8-9).
+4. Extraer el servicio de notificaciones (Mes 10).
+5. Extraer el servicio de informes (Mes 11).
+6. Desmantelar los componentes del monolito (Mes 12).
 
-**Phase 5: Optimization (Ongoing)**
-1. Implement caching strategies
-2. Optimize database queries
-3. Right-size compute resources
-4. Implement auto-scaling
-5. Cost optimization
+**Fase 5: Optimización (Continuo)**
+1. Implementar estrategias de almacenamiento en caché.
+2. Optimizar las consultas a la base de datos.
+3. Ajustar el tamaño de los recursos de cómputo (**right-size**).
+4. Implementar el escalado automático (**auto-scaling**).
+5. Optimización de costos.
 
-**Cost Breakdown Comparison**:
+**Comparación del Desglose de Costos**:
 
-**On-Premises (Annual)**:
-- Hardware amortization: $200K
-- Maintenance and support: $150K
-- Datacenter costs: $100K
-- Personnel (4 FTEs): $400K (partially allocated)
-- **Total: $500K/year**
+**Local (Anual)**:
+- Amortización de hardware: $200,000.
+- Mantenimiento y soporte: $150,000.
+- Costos del centro de datos: $100,000.
+- Personal (4 **FTEs**): $400,000 (asignado parcialmente).
+- **Total: $500,000/año**
 
-**AWS Modernized Architecture (Annual)**:
-| Service | Configuration | Monthly | Annual |
-|---------|--------------|---------|--------|
-| ECS Fargate | 30 tasks average, Windows | $3,600 | $43,200 |
-| RDS SQL Server | Multi-AZ, db.r5.4xlarge | $5,500 | $66,000 |
-| Application Load Balancer | 2 ALBs | $150 | $1,800 |
-| ElastiCache | Redis, 2 nodes | $250 | $3,000 |
-| S3 | 10 TB storage, requests | $300 | $3,600 |
-| Lambda | 10M requests | $200 | $2,400 |
-| CloudWatch | Logs, metrics | $400 | $4,800 |
-| Data Transfer | Outbound | $500 | $6,000 |
-| **Total** | | **~$10,900/month** | **~$131K/year** |
+**Arquitectura Modernizada de AWS (Anual)**:
+| Servicio | Configuración | Mensual | Anual |
+|----------|---------------|---------|-------|
+| **ECS Fargate** | Promedio de 30 tareas, Windows | $3,600 | $43,200 |
+| **RDS SQL Server** | **Multi-AZ**, **db.r5.4xlarge** | $5,500 | $66,000 |
+| **Application Load Balancer** | 2 **ALBs** | $150 | $1,800 |
+| **ElastiCache** | Redis, 2 nodos | $250 | $3,000 |
+| **S3** | 10 TB de almacenamiento, solicitudes | $300 | $3,600 |
+| **Lambda** | 10M de solicitudes | $200 | $2,400 |
+| **CloudWatch** | Registros, métricas | $400 | $4,800 |
+| **Transferencia de Datos** | Salida (**Outbound**) | $500 | $6,000 |
+| **Total** | | **~$10,900/mes** | **~$131,000/año** |
 
-**Additional Costs**:
-- Migration tools and professional services: $50K (one-time)
-- Training: $20K (one-time)
+**Costos Adicionales**:
+- Herramientas de migración y servicios profesionales: $50,000 (pago único).
+- Capacitación: $20,000 (pago único).
 
-**Total Year 1**: $200K
-**Total Year 2+**: $131K/year
+**Total Año 1**: $200,000
+**Total Año 2+**: $131,000/año
 
-**Savings**:
-- Year 1: $300K (60% reduction)
-- Year 2+: $369K (74% reduction)
+**Ahorros**:
+- Año 1: $300,000 (reducción del 60%).
+- Año 2+: $369,000 (reducción del 74%).
 
-**Benefits**:
-- **Cost Reduction**: 74% infrastructure cost savings
-- **Scalability**: Auto-scaling handles 2x traffic without manual intervention
-- **Performance**: Response time reduced from 3s to <1s
-- **Deployment Speed**: Monthly → weekly deployments
-- **Availability**: 99.5% → 99.9%
-- **Innovation**: Development team focuses on features, not infrastructure
-- **Recruitment**: Modern tech stack attracts talent
-- **Disaster Recovery**: Built-in with multi-AZ deployment
+**Beneficios**:
+- **Reducción de Costos**: Ahorro del 74% en costos de infraestructura.
+- **Escalabilidad**: El escalado automático maneja el doble de tráfico sin intervención manual.
+- **Rendimiento**: Tiempo de respuesta reducido de 3s a <1s.
+- **Velocidad de Despliegue**: Despliegues mensuales → semanales.
+- **Disponibilidad**: 99.5% → 99.9%.
+- **Innovación**: El equipo de desarrollo se centra en las funciones, no en la infraestructura.
+- **Contratación**: El stack tecnológico moderno atrae talento.
+- **Recuperación ante Desastres**: Integrada con el despliegue **Multi-AZ**.
 
-**Trade-offs**:
-- **Migration Time**: 12-month project
-- **Learning Curve**: Team must learn AWS, containers, microservices
-- **Complexity**: Distributed systems more complex than monolith
-- **Operational Changes**: New monitoring and deployment processes
-- **Initial Investment**: Time and resources for migration
+**Compromisos (Trade-offs)**:
+- **Tiempo de Migración**: Proyecto de 12 meses.
+- **Curva de Aprendizaje**: El equipo debe aprender sobre AWS, contenedores y microservicios.
+- **Complejidad**: Los sistemas distribuidos son más complejos que el monolito.
+- **Cambios Operativos**: Nuevos procesos de monitoreo y despliegue.
+- **Inversión Inicial**: Tiempo y recursos para la migración.
 
-**Alternative Approaches**:
+**Enfoques Alternativos**:
 
-**Option 1: Full Rewrite**
-- Rebuild application from scratch
-- Pros: Latest technology, clean architecture
-- Cons: High risk, 2-3 years, expensive
-- Recommendation: Avoid unless absolutely necessary
+**Opción 1: Reescritura Completa**
+- Reconstruir la aplicación desde cero.
+- Pros: Última tecnología, arquitectura limpia.
+- Contras: Alto riesgo, 2-3 años, costoso.
+- Recomendación: Evitar a menos que sea absolutamente necesario.
 
-**Option 2: Lift and Shift Only**
-- Migrate to EC2 without containerization
-- Pros: Fastest migration (3 months)
-- Cons: Limited benefits, still managing VMs
-- Recommendation: Only if time-constrained
+**Opción 2: Solo Lift and Shift**
+- Migrar a **EC2** sin contenerización.
+- Pros: Migración más rápida (3 meses).
+- Contras: Beneficios limitados, se siguen administrando **VMs**.
+- Recomendación: Solo si hay limitaciones de tiempo.
 
-**Option 3: Serverless-First**
-- Convert to Lambda + API Gateway + DynamoDB
-- Pros: Maximum scalability, lowest operational overhead
-- Cons: Requires significant rewrite, cold starts
-- Recommendation: For new features, not existing monolith
+**Opción 3: Prioridad a lo Sin Servidor (Serverless-First)**
+- Convertir a **Lambda** + **API Gateway** + **DynamoDB**.
+- Pros: Máxima escalabilidad, menor gasto operativo.
+- Contras: Requiere una reescritura significativa, inicios en frío (**cold starts**).
+- Recomendación: Para nuevas funciones, no para el monolito existente.
 
-**Common Pitfalls to Avoid**:
-1. **Big Bang Migration**: Incremental migration reduces risk
-2. **Ignoring Data Migration Complexity**: DMS testing is critical
-3. **Not Modernizing Architecture**: Lift-and-shift alone provides limited benefits
-4. **Underestimating Team Training**: Budget time for learning
-5. **No Rollback Plan**: Always have a way to revert
-6. **Skipping Load Testing**: Test at 2x expected peak load
-7. **Not Involving Business Stakeholders**: Get buy-in early
-8. **Ignoring Observability**: Implement monitoring from day one
+**Errores Comunes a Evitar**:
+1. **Migración "Big Bang"**: La migración incremental reduce el riesgo.
+2. **Ignorar la complejidad de la migración de datos**: Las pruebas de **DMS** son críticas.
+3. **No modernizar la arquitectura**: El **lift-and-shift** por sí solo ofrece beneficios limitados.
+4. **Subestimar la capacitación del equipo**: Reserve tiempo para el aprendizaje.
+5. **Sin plan de reversión (Rollback)**: Tenga siempre una forma de volver atrás.
+6. **Omitir las pruebas de carga**: Pruebe con el doble de la carga pico esperada.
+7. **No involucrar a las partes interesadas del negocio**: Obtenga su apoyo temprano.
+8. **Ignorar la observabilidad**: Implemente el monitoreo desde el primer día.
 
 ---
 
-### Scenario 11: Big Data Analytics Platform
+### Escenario 11: Plataforma de Analítica de Big Data
 
-**Situation**: A retail company collects massive amounts of data from online transactions, mobile app usage, IoT sensors in stores, and social media. They want to build a comprehensive analytics platform to gain real-time insights into customer behavior, optimize inventory, and improve marketing effectiveness.
+**Situación**: Una empresa minorista recopila cantidades masivas de datos de transacciones en línea, uso de aplicaciones móviles, sensores de **IoT** en tiendas y redes sociales. Quieren construir una plataforma de analítica integral para obtener información en tiempo real sobre el comportamiento de los clientes, optimizar el inventario y mejorar la eficacia del marketing.
 
-**Current State**:
-- Multiple data sources generating 5 TB/day
-- Data scattered across different systems
-- Manual reporting (takes 2-3 days)
-- No real-time analytics
-- Limited data science capabilities
-- Expensive third-party analytics tools ($500K/year)
+**Estado Actual**:
+- Múltiples fuentes de datos que generan 5 TB al día.
+- Datos dispersos en diferentes sistemas.
+- Informes manuales (tardan 2-3 días).
+- Sin analítica en tiempo real.
+- Capacidades limitadas de ciencia de datos.
+- Herramientas de analítica de terceros costosas ($500,000/año).
 
-**Data Sources**:
-- Web/mobile clickstream: 2 billion events/day
-- Transaction logs: 10 million transactions/day
-- IoT sensors (foot traffic, temperature): 50 million readings/day
-- Social media mentions: APIs and web scraping
-- CRM data: Customer profiles and interactions
-- Inventory systems: Stock levels and shipments
+**Fuentes de Datos**:
+- Clickstream web/móvil: 2,000 millones de eventos al día.
+- Registros de transacciones: 10 millones de transacciones al día.
+- Sensores de **IoT** (tráfico peatonal, temperatura): 50 millones de lecturas al día.
+- Menciones en redes sociales: **APIs** y web scraping.
+- Datos de **CRM**: Perfiles e interacciones de los clientes.
+- Sistemas de inventario: Niveles de stock y envíos.
 
-**Requirements**:
+**Requisitos**:
 
-**Functional Requirements**:
-- Ingest data from multiple sources
-- Real-time dashboards for operations
-- Batch processing for daily/weekly reports
-- Ad-hoc SQL queries for analysts
-- Machine learning for recommendations
-- Data retention: Hot (90 days), Warm (1 year), Cold (7 years)
+**Requisitos Funcionales**:
+- Ingerir datos de múltiples fuentes.
+- Cuadros de mando en tiempo real para operaciones.
+- Procesamiento por lotes (**batch**) para informes diarios/semanales.
+- Consultas **SQL** ad-hoc para analistas.
+- Aprendizaje automático para recomendaciones.
+- Retención de datos: Caliente (90 días), Tibio (1 año), Frío (7 años).
 
-**Non-Functional Requirements**:
-- Real-time latency: <1 minute
-- Query performance: <5 seconds for interactive queries
-- Scalability: Handle 10x data growth
-- Cost-effective at scale
-- Data governance and security
-- Self-service analytics for business users
+**Requisitos No Funcionales**:
+- Latencia en tiempo real: <1 minuto.
+- Rendimiento de consultas: <5 segundos para consultas interactivas.
+- Escalabilidad: Manejar un crecimiento de datos de 10 veces.
+- Rentable a gran escala.
+- Gobernanza y seguridad de los datos.
+- Analítica de autoservicio para usuarios de negocio.
 
-**Question**: How should they architect a big data analytics platform?
+**Pregunta**: ¿Cómo deberían diseñar una arquitectura de plataforma de analítica de **Big Data**?
 
-**Recommended Architecture**:
+**Arquitectura Recomendada**:
 
-#### 1. Data Ingestion Layer
+#### 1. Capa de Ingesta de Datos
 
-**Real-Time Streaming Data**:
+**Datos en Streaming en Tiempo Real**:
 
 **Amazon Kinesis Data Streams**:
-- For clickstream, IoT sensors
-- Shards: 50 (1 MB/s per shard = 50 MB/s total)
-- Retention: 7 days for replay capability
-- Producers: Web/mobile apps, IoT devices via Kinesis Agent
+- Para clickstream, sensores de **IoT**.
+- Fragmentos (**shards**): 50 (1 MB/s por fragmento = 50 MB/s en total).
+- Retención: 7 días para capacidad de repetición.
+- Productores: Aplicaciones web/móviles, dispositivos de **IoT** a través de **Kinesis Agent**.
 
 **Amazon Kinesis Data Firehose**:
-- Deliver streams to S3, Redshift, OpenSearch
-- Automatic batching and compression
-- Transform data with Lambda
-- Buffer size: 5 MB or 60 seconds
+- Entrega de transmisiones a **S3**, **Redshift**, **OpenSearch**.
+- Agrupación por lotes y compresión automáticas.
+- Transformar datos con **Lambda**.
+- Tamaño del búfer: 5 MB o 60 segundos.
 
-**Batch Data Ingestion**:
+**Ingesta de Datos por Lotes (Batch)**:
 
 **AWS Glue ETL Jobs**:
-- Extract from source databases
-- Transform and clean data
-- Load to S3 data lake
-- Schedule: Nightly for transaction logs, CRM data
+- Extraer de bases de datos de origen.
+- Transformar y limpiar datos.
+- Cargar en el lago de datos de **S3**.
+- Programación: Nocturna para registros de transacciones, datos de **CRM**.
 
 **AWS Database Migration Service (DMS)**:
-- Continuous replication from transactional databases
-- Change Data Capture (CDC)
-- Minimal impact on source systems
+- Replicación continua desde bases de datos transaccionales.
+- Captura de datos modificados (**CDC**).
+- Impacto mínimo en los sistemas de origen.
 
-**API-Based Ingestion**:
+**Ingesta Basada en API**:
 
 **AWS Lambda**:
-- Fetch data from social media APIs
-- Parse and normalize
-- Write to Kinesis or S3
-- Schedule with EventBridge (hourly)
+- Obtener datos de las **APIs** de redes sociales.
+- Analizar y normalizar.
+- Escribir en **Kinesis** o **S3**.
+- Programar con **EventBridge** (cada hora).
 
-#### 2. Storage Layer - Data Lake
+#### 2. Capa de Almacenamiento - Lago de Datos (Data Lake)
 
 **Amazon S3**:
-- Central data lake repository
-- Organized by:
-  - Data source
-  - Date partitioning (year/month/day)
-  - File format (Parquet, ORC for analytics)
+- Repositorio central del lago de datos.
+- Organizado por:
+  - Fuente de datos.
+  - Particionamiento por fecha (año/mes/día).
+  - Formato de archivo (**Parquet**, **ORC** para analítica).
 
-**S3 Bucket Structure**:
+**Estructura de Buckets de S3**:
 ```
 s3://retail-datalake-raw/
   ├── clickstream/year=2025/month=01/day=15/
@@ -1544,55 +1539,55 @@ s3://retail-datalake-curated/
   └── executive-dashboards/
 ```
 
-**S3 Storage Classes**:
-- Standard: Last 90 days (hot data)
-- Standard-IA: 91 days - 1 year (warm data)
-- Glacier Flexible Retrieval: 1-7 years (cold data)
-- Lifecycle policies for automatic transitions
+**Clases de Almacenamiento de S3**:
+- Standard: Últimos 90 días (datos calientes).
+- Standard-IA: 91 días - 1 año (datos tibios).
+- Glacier Flexible Retrieval: 1-7 años (datos fríos).
+- Políticas de ciclo de vida para transiciones automáticas.
 
-**S3 Features**:
-- Versioning enabled for data protection
-- Server-side encryption (SSE-S3 or SSE-KMS)
-- S3 Object Lock for compliance
-- S3 Access Points for different teams
-- S3 Inventory for data catalog
+**Funciones de S3**:
+- Control de versiones habilitado para la protección de datos.
+- Cifrado del lado del servidor (**SSE-S3** o **SSE-KMS**).
+- **S3 Object Lock** para cumplimiento normativo.
+- **S3 Access Points** para diferentes equipos.
+- **S3 Inventory** para el catálogo de datos.
 
-#### 3. Data Processing Layer
+#### 3. Capa de Procesamiento de Datos
 
-**Real-Time Processing**:
+**Procesamiento en Tiempo Real**:
 
 **Amazon Kinesis Data Analytics**:
-- SQL queries on streaming data
-- Tumbling/sliding windows
-- Real-time aggregations
-- Anomaly detection
-- Output to Lambda, Kinesis, S3
+- Consultas **SQL** sobre datos en streaming.
+- Ventanas de tiempo (**tumbling**/**sliding windows**).
+- Agregaciones en tiempo real.
+- Detección de anomalías.
+- Salida a **Lambda**, **Kinesis**, **S3**.
 
 **AWS Lambda**:
-- Process individual events
-- Enrich with reference data (DynamoDB)
-- Real-time alerts via SNS
-- Trigger downstream workflows
+- Procesar eventos individuales.
+- Enriquecer con datos de referencia (**DynamoDB**).
+- Alertas en tiempo real a través de **SNS**.
+- Activar flujos de trabajo posteriores.
 
-**Batch Processing**:
+**Procesamiento por Lotes (Batch)**:
 
 **AWS Glue**:
-- Serverless Spark-based ETL
-- Discovers schema automatically
-- Glue Data Catalog (metadata repository)
-- Glue Studio for visual ETL
-- Glue DataBrew for data preparation
+- **ETL** basado en **Spark** sin servidor.
+- Descubre el esquema automáticamente.
+- **Glue Data Catalog** (repositorio de metadatos).
+- **Glue Studio** para **ETL** visual.
+- **Glue DataBrew** para la preparación de datos.
 
 **Amazon EMR (Elastic MapReduce)**:
-- For complex Spark, Hadoop jobs
-- EMR on EKS for containerized workloads
-- Spot Instances for cost savings (70% reduction)
-- Cluster configuration:
-  - Master: m5.xlarge (1 instance)
-  - Core: r5.2xlarge (5 instances, On-Demand)
-  - Task: r5.2xlarge (20 instances, Spot)
+- Para trabajos complejos de **Spark**, **Hadoop**.
+- **EMR on EKS** para cargas de trabajo contenerizadas.
+- **Instancias Spot** para el ahorro de costos (reducción del 70%).
+- Configuración del clúster:
+  - Maestro: **m5.xlarge** (1 instancia).
+  - Core: **r5.2xlarge** (5 instancias, **On-Demand**).
+  - Tarea: **r5.2xlarge** (20 instancias, **Spot**).
 
-**Typical Glue ETL Job**:
+**Trabajo Típico de Glue ETL**:
 ```python
 import sys
 from awsglue.transforms import *
@@ -1608,13 +1603,13 @@ spark = glueContext.spark_session
 job = Job(glueContext)
 job.init(args['JOB_NAME'], args)
 
-# Read from Data Catalog
+# Leer desde el Data Catalog
 datasource0 = glueContext.create_dynamic_frame.from_catalog(
     database = "retail_raw",
     table_name = "clickstream"
 )
 
-# Transform
+# Transformar
 applymapping1 = ApplyMapping.apply(
     frame = datasource0,
     mappings = [
@@ -1625,13 +1620,13 @@ applymapping1 = ApplyMapping.apply(
     ]
 )
 
-# Filter out invalid records
+# Filtrar registros inválidos
 filtered = Filter.apply(
     frame = applymapping1,
     f = lambda x: x["customer_id"] is not None
 )
 
-# Write to S3 in Parquet format
+# Escribir en S3 en formato Parquet
 glueContext.write_dynamic_frame.from_options(
     frame = filtered,
     connection_type = "s3",
@@ -1645,400 +1640,400 @@ glueContext.write_dynamic_frame.from_options(
 job.commit()
 ```
 
-#### 4. Data Catalog and Governance
+#### 4. Catálogo de Datos y Gobernanza
 
 **AWS Glue Data Catalog**:
-- Centralized metadata repository
-- Schema registry
-- Integration with Athena, Redshift, EMR
-- Glue Crawlers for automatic schema discovery
+- Repositorio de metadatos centralizado.
+- Registro de esquemas (**Schema Registry**).
+- Integración con **Athena**, **Redshift**, **EMR**.
+- **Glue Crawlers** para el descubrimiento automático de esquemas.
 
 **AWS Lake Formation**:
-- Fine-grained access control
-- Column-level security
-- Row-level security
-- Data filtering
-- Audit logging
-- Governed tables for ACID transactions
+- Control de acceso de grano fino.
+- Seguridad a nivel de columna.
+- Seguridad a nivel de fila.
+- Filtrado de datos.
+- Registro de auditoría.
+- Tablas gobernadas para transacciones **ACID**.
 
-**Access Control Example**:
+**Ejemplo de Control de Acceso**:
 ```
-Data Lake Administrator:
-  - Full access to all tables
+Administrador del Lago de Datos:
+  - Acceso total a todas las tablas.
 
-Marketing Team:
-  - Read access to: customer_360, campaign_analytics
-  - Column filtering: Hide PII (SSN, credit card)
+Equipo de Marketing:
+  - Acceso de lectura a: customer_360, campaign_analytics.
+  - Filtrado de columnas: Ocultar PII (SSN, tarjeta de crédito).
 
-Data Science Team:
-  - Read access to: all tables
-  - Write access to: ml_models bucket
+Equipo de Ciencia de Datos:
+  - Acceso de lectura a: todas las tablas.
+  - Acceso de escritura al bucket: ml_models.
 
-Finance Team:
-  - Read access to: sales_analytics, inventory_metrics
-  - Row filtering: Only their region's data
+Equipo de Finanzas:
+  - Acceso de lectura a: sales_analytics, inventory_metrics.
+  - Filtrado de filas: Solo los datos de su región.
 ```
 
-#### 5. Analytics and Querying
+#### 5. Analítica y Consultas
 
 **Amazon Athena**:
-- Interactive SQL queries on S3 data
-- Serverless (no infrastructure)
-- Pay per query ($5 per TB scanned)
-- Integration with QuickSight
-- Workgroups for cost control
-- Query result caching
+- Consultas **SQL** interactivas sobre datos de **S3**.
+- Sin servidor (sin infraestructura).
+- Pago por consulta ($5 por TB escaneado).
+- Integración con **QuickSight**.
+- Grupos de trabajo (**Workgroups**) para el control de costos.
+- Almacenamiento en caché de resultados de consultas.
 
-**Optimization Techniques**:
-- Partition data by date
-- Use columnar formats (Parquet, ORC)
-- Compress data (Snappy, ZSTD)
-- Limit columns in SELECT
-- Use approximate functions (approx_distinct vs COUNT DISTINCT)
+**Técnicas de Optimización**:
+- Particionar los datos por fecha.
+- Usar formatos columnares (**Parquet**, **ORC**).
+- Comprimir los datos (**Snappy**, **ZSTD**).
+- Limitar las columnas en el `SELECT`.
+- Usar funciones aproximadas (`approx_distinct` vs `COUNT DISTINCT`).
 
-**Query Performance Comparison**:
-- CSV, uncompressed: $5/TB, 45 seconds
-- Parquet, Snappy: $0.50/TB, 5 seconds
-- **90% cost reduction, 9x faster**
+**Comparación de Rendimiento de Consultas**:
+- **CSV**, sin comprimir: $5/TB, 45 segundos.
+- **Parquet**, **Snappy**: $0.50/TB, 5 segundos.
+- **90% de reducción de costos, 9 veces más rápido.**
 
 **Amazon Redshift**:
-- Data warehouse for complex queries
-- Massively parallel processing
-- Configuration:
-  - Node type: ra3.4xlarge
-  - Nodes: 5 (640 GB RAM, 128 TB storage)
-  - Redshift Spectrum for S3 queries
-  - Concurrency Scaling for peak loads
-  - Materialized views for aggregations
+- Almacén de datos (**Data Warehouse**) para consultas complejas.
+- Procesamiento masivamente paralelo.
+- Configuración:
+  - Tipo de nodo: **ra3.4xlarge**.
+  - Nodos: 5 (640 GB de RAM, 128 TB de almacenamiento).
+  - **Redshift Spectrum** para consultas en **S3**.
+  - **Concurrency Scaling** para cargas pico.
+  - Vistas materializadas para agregaciones.
 
-**Use Cases**:
-- Athena: Ad-hoc queries, exploration, infrequent queries
-- Redshift: Regular reports, complex joins, consistent performance
+**Casos de Uso**:
+- **Athena**: Consultas ad-hoc, exploración, consultas poco frecuentes.
+- **Redshift**: Informes regulares, uniones (**joins**) complejas, rendimiento constante.
 
-#### 6. Business Intelligence and Visualization
+#### 6. Inteligencia de Negocio (BI) y Visualización
 
 **Amazon QuickSight**:
-- Serverless BI service
-- Connect to Athena, Redshift, S3
-- SPICE (in-memory engine) for fast visuals
-- ML-powered insights
-- Embedded analytics for applications
-- Pricing: $5/author/month, $0.30/reader/session
+- Servicio de **BI** sin servidor.
+- Conexión a **Athena**, **Redshift**, **S3**.
+- **SPICE** (motor en memoria) para visualizaciones rápidas.
+- Información impulsada por **ML** (**ML-powered insights**).
+- Analítica integrada para aplicaciones.
+- Precios: $5/autor/mes, $0.30/lector/sesión.
 
-**Dashboards**:
-1. **Executive Dashboard**:
-   - Daily sales trends
-   - Revenue by region
-   - Top products
-   - Customer acquisition cost
+**Cuadros de Mando (Dashboards)**:
+1. **Cuadro de Mando Ejecutivo**:
+   - Tendencias de ventas diarias.
+   - Ingresos por región.
+   - Productos más vendidos.
+   - Costo de adquisición de clientes.
 
-2. **Operations Dashboard**:
-   - Real-time store foot traffic
-   - Inventory levels
-   - Stockout alerts
-   - Supply chain metrics
+2. **Cuadro de Mando de Operaciones**:
+   - Tráfico peatonal en tiendas en tiempo real.
+   - Niveles de inventario.
+   - Alertas de falta de stock (**stockout**).
+   - Métricas de la cadena de suministro.
 
-3. **Marketing Dashboard**:
-   - Campaign performance
-   - Customer segmentation
-   - Conversion funnels
-   - Social media sentiment
+3. **Cuadro de Mando de Marketing**:
+   - Rendimiento de las campañas.
+   - Segmentación de clientes.
+   - Embudos de conversión.
+   - Sentimiento en redes sociales.
 
-4. **Data Science Dashboard**:
-   - Model performance metrics
-   - A/B test results
-   - Recommendation effectiveness
+4. **Cuadro de Mando de Ciencia de Datos**:
+   - Métricas de rendimiento del modelo.
+   - Resultados de pruebas **A/B**.
+   - Eficacia de las recomendaciones.
 
-#### 7. Machine Learning Pipeline
+#### 7. Pipeline de Aprendizaje Automático (ML)
 
 **Amazon SageMaker**:
-- Train recommendation models
-- Fraud detection
-- Demand forecasting
-- Customer churn prediction
+- Entrenar modelos de recomendación.
+- Detección de fraude.
+- Previsión de la demanda.
+- Predicción de fuga de clientes (**churn**).
 
-**ML Workflow**:
-1. **Data Preparation**: Glue DataBrew or SageMaker Data Wrangler
-2. **Feature Engineering**: SageMaker Processing Jobs
-3. **Model Training**: SageMaker Training Jobs (Spot Instances)
-4. **Model Evaluation**: SageMaker Experiments
-5. **Model Registry**: SageMaker Model Registry
-6. **Deployment**: SageMaker Endpoints (real-time or batch)
-7. **Monitoring**: SageMaker Model Monitor
+**Flujo de Trabajo de ML**:
+1. **Preparación de Datos**: **Glue DataBrew** o **SageMaker Data Wrangler**.
+2. **Ingeniería de Características**: Trabajos de procesamiento de **SageMaker**.
+3. **Entrenamiento del Modelo**: Trabajos de entrenamiento de **SageMaker** (**Instancias Spot**).
+4. **Evaluación del Modelo**: **SageMaker Experiments**.
+5. **Registro de Modelos**: **SageMaker Model Registry**.
+6. **Despliegue**: Endpoints de **SageMaker** (en tiempo real o por lotes).
+7. **Monitoreo**: **SageMaker Model Monitor**.
 
 **Amazon Personalize**:
-- Pre-built recommendation engine
-- No ML expertise required
-- Real-time and batch recommendations
-- Use cases:
-  - Product recommendations
-  - Personalized rankings
-  - Similar items
+- Motor de recomendaciones pre-construido.
+- No se requiere experiencia en **ML**.
+- Recomendaciones en tiempo real y por lotes.
+- Casos de uso:
+  - Recomendaciones de productos.
+  - Clasificaciones personalizadas.
+  - Artículos similares.
 
-#### 8. Orchestration and Workflow
+#### 8. Orquestación y Flujo de Trabajo
 
 **AWS Step Functions**:
-- Coordinate multi-step data pipelines
-- Visual workflow designer
-- Error handling and retry logic
-- Integration with Lambda, Glue, EMR, SageMaker
+- Coordinar pipelines de datos de múltiples pasos.
+- Diseñador visual de flujos de trabajo.
+- Manejo de errores y lógica de reintento.
+- Integración con **Lambda**, **Glue**, **EMR**, **SageMaker**.
 
-**Example Daily Pipeline**:
+**Ejemplo de Pipeline Diario**:
 ```
-1. Ingest data (Lambda, Glue)
+1. Ingerir datos (Lambda, Glue)
    ↓
-2. Data quality checks (Lambda)
+2. Verificaciones de calidad de datos (Lambda)
    ↓
-3. ETL processing (Glue or EMR)
+3. Procesamiento ETL (Glue o EMR)
    ↓
-4. Load to Redshift (Glue)
+4. Cargar en Redshift (Glue)
    ↓
-5. Refresh materialized views (Redshift)
+5. Actualizar vistas materializadas (Redshift)
    ↓
-6. Update ML models (SageMaker)
+6. Actualizar modelos de ML (SageMaker)
    ↓
-7. Refresh QuickSight datasets
+7. Actualizar conjuntos de datos de QuickSight
    ↓
-8. Send completion notification (SNS)
+8. Enviar notificación de finalización (SNS)
 ```
 
 **Amazon Managed Workflows for Apache Airflow (MWAA)**:
-- Alternative to Step Functions
-- For complex DAGs (Directed Acyclic Graphs)
-- Python-based workflow definitions
-- Better for data engineering teams familiar with Airflow
+- Alternativa a **Step Functions**.
+- Para **DAGs** (Grafos Acíclicos Dirigidos) complejos.
+- Definiciones de flujo de trabajo basadas en **Python**.
+- Mejor para equipos de ingeniería de datos familiarizados con **Airflow**.
 
-#### 9. Monitoring and Optimization
+#### 9. Monitoreo y Optimización
 
 **Amazon CloudWatch**:
-- Glue job metrics
-- EMR cluster utilization
-- Kinesis stream metrics
-- Athena query performance
-- Custom business metrics
+- Métricas de trabajos de **Glue**.
+- Utilización del clúster de **EMR**.
+- Métricas de transmisiones de **Kinesis**.
+- Rendimiento de consultas de **Athena**.
+- Métricas de negocio personalizadas.
 
 **AWS Cost Explorer**:
-- Analyze spending by service
-- Identify optimization opportunities
-- Reserved Instance recommendations
+- Analizar el gasto por servicio.
+- Identificar oportunidades de optimización.
+- Recomendaciones de instancias reservadas.
 
 **AWS Trusted Advisor**:
-- Cost optimization checks
-- Security best practices
+- Verificaciones de optimización de costos.
+- Mejores prácticas de seguridad.
 
-**Step-by-Step Implementation**:
+**Implementación Paso a Paso**:
 
-**Phase 1: Foundation (Months 1-2)**
-1. Set up AWS accounts and networking
-2. Create S3 data lake structure
-3. Deploy AWS Glue Data Catalog
-4. Set up Lake Formation permissions
-5. Implement data governance policies
+**Fase 1: Fundación (Meses 1-2)**
+1. Configurar cuentas de AWS y redes.
+2. Crear la estructura del lago de datos de **S3**.
+3. Desplegar el **AWS Glue Data Catalog**.
+4. Configurar permisos de **Lake Formation**.
+5. Implementar políticas de gobernanza de datos.
 
-**Phase 2: Ingestion (Month 3)**
-1. Deploy Kinesis streams for real-time data
-2. Set up Glue ETL jobs for batch data
-3. Implement Lambda for API ingestion
-4. Test data flow end-to-end
-5. Monitor data quality
+**Fase 2: Ingesta (Mes 3)**
+1. Desplegar transmisiones de **Kinesis** para datos en tiempo real.
+2. Configurar trabajos de **Glue ETL** para datos por lotes.
+3. Implementar **Lambda** para la ingesta de **APIs**.
+4. Probar el flujo de datos de extremo a extremo.
+5. Monitorear la calidad de los datos.
 
-**Phase 3: Processing (Months 4-5)**
-1. Build Glue ETL pipelines
-2. Deploy EMR clusters for complex processing
-3. Implement data quality checks
-4. Set up Step Functions orchestration
-5. Optimize job performance
+**Fase 3: Procesamiento (Meses 4-5)**
+1. Construir pipelines de **Glue ETL**.
+2. Desplegar clústeres de **EMR** para procesamiento complejo.
+3. Implementar verificaciones de calidad de datos.
+4. Configurar la orquestación con **Step Functions**.
+5. Optimizar el rendimiento de los trabajos.
 
-**Phase 4: Analytics (Month 6)**
-1. Create Athena tables
-2. Deploy Redshift cluster
-3. Build initial dashboards in QuickSight
-4. Train business users on self-service
-5. Gather feedback and iterate
+**Fase 4: Analítica (Mes 6)**
+1. Crear tablas de **Athena**.
+2. Desplegar el clúster de **Redshift**.
+3. Construir los cuadros de mando iniciales en **QuickSight**.
+4. Capacitar a los usuarios de negocio en el autoservicio.
+5. Recopilar comentarios e iterar.
 
-**Phase 5: ML (Months 7-8)**
-1. Set up SageMaker environment
-2. Build recommendation model
-3. Deploy fraud detection
-4. Implement demand forecasting
-5. Monitor model performance
+**Fase 5: ML (Meses 7-8)**
+1. Configurar el entorno de **SageMaker**.
+2. Construir el modelo de recomendación.
+3. Desplegar la detección de fraude.
+4. Implementar la previsión de la demanda.
+5. Monitorear el rendimiento del modelo.
 
-**Phase 6: Optimization (Ongoing)**
-1. Right-size resources
-2. Implement caching strategies
-3. Optimize data formats
-4. Use Spot Instances
-5. Continuous cost monitoring
+**Fase 6: Optimización (Continuo)**
+1. Ajustar el tamaño de los recursos (**right-size**).
+2. Implementar estrategias de almacenamiento en caché.
+3. Optimizar los formatos de datos.
+4. Usar **Instancias Spot**.
+5. Monitoreo continuo de costos.
 
-**Cost Breakdown (Monthly)**:
+**Desglose de Costos (Mensual)**:
 
-| Service | Configuration | Monthly Cost |
-|---------|--------------|--------------|
-| Kinesis Data Streams | 50 shards, 5TB ingestion | $1,200 |
-| Kinesis Firehose | 5TB delivery | $125 |
-| S3 Storage | 100TB (tiered) | $2,000 |
-| AWS Glue | 200 DPU-hours ETL | $880 |
-| Amazon EMR | 25 nodes, 8 hrs/day, 70% Spot | $2,400 |
-| Redshift | 5 ra3.4xlarge nodes | $12,000 |
-| Athena | 10TB scanned/month | $50 |
-| QuickSight | 50 authors, 500 readers | $400 |
-| SageMaker | Training + endpoints | $1,500 |
-| Lambda | 50M invocations | $100 |
-| Data Transfer | Outbound | $500 |
-| CloudWatch | Logs and metrics | $300 |
-| **Total** | | **~$21,455/month** |
+| Servicio | Configuración | Costo Mensual |
+|----------|---------------|---------------|
+| **Kinesis Data Streams** | 50 fragmentos, 5TB de ingesta | $1,200 |
+| **Kinesis Firehose** | 5TB de entrega | $125 |
+| **S3 Storage** | 100TB (por niveles) | $2,000 |
+| **AWS Glue** | 200 horas-DPU de **ETL** | $880 |
+| **Amazon EMR** | 25 nodos, 8 hrs/día, 70% **Spot** | $2,400 |
+| **Redshift** | 5 nodos **ra3.4xlarge** | $12,000 |
+| **Athena** | 10TB escaneados/mes | $50 |
+| **QuickSight** | 50 autores, 500 lectores | $400 |
+| **SageMaker** | Entrenamiento + endpoints | $1,500 |
+| **Lambda** | 50M de invocaciones | $100 |
+| **Transferencia de Datos** | Salida (**Outbound**) | $500 |
+| **CloudWatch** | Registros y métricas | $300 |
+| **Total** | | **~$21,455/mes** |
 
-**Cost Optimization Strategies**:
-1. Use Spot Instances for EMR (70% savings)
-2. Convert data to Parquet (90% storage reduction)
-3. Partition data effectively (80% query cost reduction)
-4. Use S3 Intelligent-Tiering
-5. Right-size Redshift with pause/resume
-6. Use Athena for infrequent queries vs. Redshift
-7. Implement S3 lifecycle policies
+**Estrategias de Optimización de Costos**:
+1. Usar **Instancias Spot** para **EMR** (70% de ahorro).
+2. Convertir los datos a **Parquet** (90% de reducción de almacenamiento).
+3. Particionar los datos de forma eficaz (80% de reducción de costos de consulta).
+4. Usar **S3 Intelligent-Tiering**.
+5. Ajustar el tamaño de **Redshift** con pausa/reanudación.
+6. Usar **Athena** para consultas poco frecuentes vs. **Redshift**.
+7. Implementar políticas de ciclo de vida de **S3**.
 
-**Optimized Cost**: ~$14,000/month (35% reduction)
+**Costo Optimizado**: ~$14,000/mes (reducción del 35%).
 
-**Benefits**:
-- **Real-Time Insights**: <1 minute latency for operational decisions
-- **Cost Savings**: $500K/year (third-party tools) → $168K/year (50% savings)
-- **Scalability**: Handle 10x data growth without architectural changes
-- **Self-Service**: Business users run their own queries
-- **Data-Driven Decisions**: ML-powered recommendations increase revenue 15%
-- **Time to Insight**: 2-3 days → <1 hour for reports
-- **Compliance**: Fine-grained access control and audit trails
+**Beneficios**:
+- **Información en Tiempo Real**: Latencia de <1 minuto para decisiones operativas.
+- **Ahorro de Costos**: $500,000/año (herramientas de terceros) → $168,000/año (50% de ahorro).
+- **Escalabilidad**: Maneja un crecimiento de datos de 10 veces sin cambios arquitectónicos.
+- **Autoservicio**: Los usuarios de negocio ejecutan sus propias consultas.
+- **Decisiones Basadas en Datos**: Las recomendaciones impulsadas por **ML** aumentan los ingresos en un 15%.
+- **Tiempo para Obtener Información**: 2-3 días → <1 hora para los informes.
+- **Cumplimiento**: Control de acceso de grano fino y pistas de auditoría.
 
-**Trade-offs**:
-- **Complexity**: Distributed systems require skilled team
-- **Learning Curve**: Training required for Spark, SQL, ML
-- **Initial Cost**: Higher upfront investment
-- **Data Quality**: Garbage in, garbage out - need robust quality checks
+**Compromisos (Trade-offs)**:
+- **Complejidad**: Los sistemas distribuidos requieren un equipo capacitado.
+- **Curva de Aprendizaje**: Se requiere capacitación para **Spark**, **SQL**, **ML**.
+- **Costo Inicial**: Mayor inversión inicial.
+- **Calidad de los Datos**: Si entra basura, sale basura; se necesitan verificaciones de calidad sólidas.
 
-**Alternative Approaches**:
+**Enfoques Alternativos**:
 
-**Option 1: Redshift-Centric**
-- Load all data into Redshift
-- Simpler architecture
-- Higher cost for storage
-- Best for: Smaller datasets (<10TB)
+**Opción 1: Centrado en Redshift**
+- Cargar todos los datos en **Redshift**.
+- Arquitectura más simple.
+- Mayor costo de almacenamiento.
+- El mejor para: Conjuntos de datos más pequeños (<10TB).
 
-**Option 2: EMR-Centric**
-- Use EMR for all processing
-- More control and flexibility
-- More operational overhead
-- Best for: Teams with Hadoop/Spark expertise
+**Opción 2: Centrado en EMR**
+- Usar **EMR** para todo el procesamiento.
+- Más control y flexibilidad.
+- Mayor gasto operativo.
+- El mejor para: Equipos con experiencia en **Hadoop**/**Spark**.
 
-**Option 3: Third-Party (Snowflake, Databricks)**
-- Managed services
-- Excellent performance
-- Higher cost
-- Less control
-- Best for: Teams wanting minimal operational burden
+**Opción 3: Terceros (Snowflake, Databricks)**
+- Servicios administrados.
+- Excelente rendimiento.
+- Costo más alto.
+- Menos control.
+- El mejor para: Equipos que deseen una carga operativa mínima.
 
-**Common Pitfalls to Avoid**:
-1. **Not Partitioning Data**: Results in slow queries and high costs
-2. **Ignoring Data Formats**: CSV vs. Parquet makes 10x difference
-3. **Over-Provisioning**: Start small, scale as needed
-4. **No Data Governance**: Implement access controls from day one
-5. **Ignoring Data Quality**: Build validation into pipelines
-6. **Not Using Spot Instances**: 70% cost savings for EMR
-7. **Storing Everything in Redshift**: Use S3 data lake + Redshift Spectrum
-8. **No Monitoring**: Implement CloudWatch alarms and dashboards early
+**Errores Comunes a Evitar**:
+1. **No particionar los datos**: Da como resultado consultas lentas y costos elevados.
+2. **Ignorar los formatos de datos**: **CSV** vs. **Parquet** marca una diferencia de 10 veces.
+3. **Sobre-aprovisionamiento**: Comience pequeño, escale según sea necesario.
+4. **Sin gobernanza de datos**: Implemente controles de acceso desde el primer día.
+5. **Ignorar la calidad de los datos**: Integre la validación en los pipelines.
+6. **No usar Instancias Spot**: 70% de ahorro de costos para **EMR**.
+7. **Almacenar todo en Redshift**: Use el lago de datos de **S3** + **Redshift Spectrum**.
+8. **Sin monitoreo**: Implemente alarmas y cuadros de mando de **CloudWatch** desde el principio.
 
 ---
 
-### Scenario 12: DevOps CI/CD Pipeline Implementation
+### Escenario 12: Implementación de Pipeline CI/CD de DevOps
 
-**Situation**: A SaaS company with 20 developers is struggling with manual deployment processes. Code is deployed to production once a month, with frequent rollbacks due to bugs. Deployments take 4-6 hours and require manual steps. The team wants to implement modern DevOps practices with automated CI/CD pipelines.
+**Situación**: Una empresa de **SaaS** con 20 desarrolladores tiene problemas con los procesos de despliegue manuales. El código se despliega en producción una vez al mes, con frecuentes reversiones (**rollbacks**) debido a errores. Los despliegues tardan entre 4 y 6 horas y requieren pasos manuales. El equipo quiere implementar prácticas modernas de **DevOps** con pipelines de **CI/CD** automatizados.
 
-**Current State**:
-- Manual deployments via SSH and scripts
-- No automated testing
-- Deployment frequency: Monthly
-- Deployment duration: 4-6 hours
-- Rollback rate: 30%
-- Production incidents: 2-3 per month
-- Developer frustration: High
-- Time to market: 4-6 weeks for features
+**Estado Actual**:
+- Despliegues manuales a través de **SSH** y scripts.
+- Sin pruebas automatizadas.
+- Frecuencia de despliegue: Mensual.
+- Duración del despliegue: 4-6 horas.
+- Tasa de reversión: 30%.
+- Incidentes en producción: 2-3 por mes.
+- Frustración de los desarrolladores: Alta.
+- Tiempo de comercialización (**Time to market**): 4-6 semanas para las funciones.
 
-**Current Process**:
-1. Developers commit to shared Git branch
-2. Manual code review (informal)
-3. QA team tests for 1 week
-4. Operations team deploys on weekends
-5. Frequent production issues on Monday
+**Proceso Actual**:
+1. Los desarrolladores envían cambios (**commit**) a una rama de Git compartida.
+2. Revisión de código manual (informal).
+3. El equipo de **QA** realiza pruebas durante 1 semana.
+4. El equipo de operaciones despliega los fines de semana.
+5. Frecuentes problemas en producción los lunes.
 
-**Problems**:
-- Long feedback loops
-- Manual error-prone deployments
-- No deployment consistency
-- Difficult rollbacks
-- Fear of deploying
-- Bottleneck at operations team
+**Problemas**:
+- Bucles de retroalimentación largos.
+- Despliegues manuales propensos a errores.
+- Sin consistencia en el despliegue.
+- Reversiones difíciles.
+- Miedo a desplegar.
+- Cuello de botella en el equipo de operaciones.
 
-**Requirements**:
+**Requisitos**:
 
-**Functional Requirements**:
-- Automated build and test on every commit
-- Automated deployment to dev/staging/prod
-- Code quality checks (linting, security scanning)
-- Automated rollback capability
-- Infrastructure as Code
-- Secrets management
-- Multi-environment support
+**Requisitos Funcionales**:
+- Construcción (**build**) y pruebas automatizadas en cada **commit**.
+- Despliegue automatizado a **Dev**/**Staging**/**Prod**.
+- Verificaciones de calidad de código (**linting**, escaneo de seguridad).
+- Capacidad de reversión automatizada.
+- Infraestructura como Código (**IaC**).
+- Gestión de secretos.
+- Soporte para múltiples entornos.
 
-**Non-Functional Requirements**:
-- Deployment frequency: Multiple times per day
-- Deployment duration: <15 minutes
-- Automated rollback: <5 minutes
-- Rollback rate: <5%
-- Zero-downtime deployments
-- Audit trail for compliance
-- Cost-effective
+**Requisitos No Funcionales**:
+- Frecuencia de despliegue: Varias veces al día.
+- Duración del despliegue: <15 minutos.
+- Reversión automatizada: <5 minutos.
+- Tasa de reversión: <5%.
+- Despliegues sin tiempo de inactividad (**zero-downtime**).
+- Pista de auditoría para el cumplimiento normativo.
+- Rentable.
 
-**Question**: How should they implement a modern CI/CD pipeline?
+**Pregunta**: ¿Cómo deberían implementar un pipeline de **CI/CD** moderno?
 
-**Recommended CI/CD Architecture**:
+**Arquitectura de CI/CD Recomendada**:
 
-#### 1. Source Control and Branching Strategy
+#### 1. Control de Origen y Estrategia de Ramificación
 
 **AWS CodeCommit**:
-- Git-based source control
-- Integration with AWS services
-- Encryption at rest and in transit
-- IAM-based access control
-- Supports Git LFS for large files
-- Pull request workflows
+- Control de origen basado en Git.
+- Integración con los servicios de AWS.
+- Cifrado en reposo y en tránsito.
+- Control de acceso basado en **IAM**.
+- Soporta **Git LFS** para archivos grandes.
+- Flujos de trabajo de solicitudes de extracción (**Pull Requests**).
 
-**Alternative**: GitHub, GitLab, Bitbucket
-- If already using these platforms
-- CodePipeline integrates with all
+**Alternativa**: **GitHub**, **GitLab**, **Bitbucket**.
+- Si ya están usando estas plataformas.
+- **CodePipeline** se integra con todas ellas.
 
-**Branching Strategy (Trunk-Based Development)**:
+**Estrategia de Ramificación (Desarrollo Basado en el Tronco - Trunk-Based Development)**:
 ```
-main (production)
-  ├── feature/user-auth (short-lived)
-  ├── feature/payment-integration (short-lived)
-  └── hotfix/critical-bug (short-lived)
+main (producción)
+  ├── feature/user-auth (vida corta)
+  ├── feature/payment-integration (vida corta)
+  └── hotfix/critical-bug (vida corta)
 ```
 
-**Trunk-Based Guidelines**:
-- Small, frequent commits to main
-- Feature flags for incomplete features
-- Short-lived feature branches (<2 days)
-- Pull requests with automated checks
-- Merge only if tests pass
+**Directrices de Trunk-Based**:
+- **Commits** pequeños y frecuentes a la rama **main**.
+- Marcadores de funciones (**feature flags**) para funciones incompletas.
+- Ramas de funciones de vida corta (<2 días).
+- Solicitudes de extracción con verificaciones automatizadas.
+- Fusionar (**merge**) solo si las pruebas pasan.
 
-#### 2. Continuous Integration Pipeline
+#### 2. Pipeline de Integración Continua (CI)
 
 **AWS CodeBuild**:
-- Fully managed build service
-- Docker-based build environments
-- Pay per build minute
-- Scales automatically
-- Integration with security scanning tools
+- Servicio de construcción totalmente administrado.
+- Entornos de construcción basados en **Docker**.
+- Pago por minuto de construcción.
+- Escala automáticamente.
+- Integración con herramientas de escaneo de seguridad.
 
-**Build Specification (buildspec.yml)**:
+**Especificación de Construcción (buildspec.yml)**:
 ```yaml
 version: 0.2
 
@@ -2048,36 +2043,36 @@ phases:
       nodejs: 18
       docker: 20
     commands:
-      - echo Installing dependencies...
+      - echo Instalando dependencias...
       - npm install
 
   pre_build:
     commands:
-      - echo Running pre-build checks...
+      - echo Ejecutando verificaciones previas a la construcción...
       - npm run lint
       - npm run security-check
-      - echo Logging in to Amazon ECR...
+      - echo Iniciando sesión en Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
 
   build:
     commands:
-      - echo Build started on `date`
-      - echo Running unit tests...
+      - echo La compilación comenzó el `date`
+      - echo Ejecutando pruebas unitarias...
       - npm test -- --coverage
-      - echo Building application...
+      - echo Construyendo la aplicación...
       - npm run build
-      - echo Building Docker image...
+      - echo Construyendo la imagen de Docker...
       - docker build -t $IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION .
       - docker tag $IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
       - docker tag $IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest
 
   post_build:
     commands:
-      - echo Build completed on `date`
-      - echo Pushing Docker image...
+      - echo La compilación se completó el `date`
+      - echo Enviando la imagen de Docker...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest
-      - echo Generating build artifacts...
+      - echo Generando artefactos de construcción...
       - printf '[{"name":"app-container","imageUri":"%s"}]' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION > imagedefinitions.json
 
 artifacts:
@@ -2104,94 +2099,94 @@ cache:
     - 'node_modules/**/*'
 ```
 
-**Automated Checks in CI**:
-1. **Unit Tests**: Jest, Mocha, pytest
-2. **Code Coverage**: Minimum 80% threshold
-3. **Linting**: ESLint, Prettier, Black
-4. **Security Scanning**:
-   - Snyk for dependency vulnerabilities
-   - OWASP Dependency-Check
-   - SonarQube for code quality
-5. **Container Scanning**: Amazon ECR image scanning
-6. **Infrastructure Validation**: cfn-lint, terraform validate
+**Verificaciones Automatizadas en CI**:
+1. **Pruebas Unitarias**: **Jest**, **Mocha**, **pytest**.
+2. **Cobertura de Código**: Umbral mínimo del 80%.
+3. **Linting**: **ESLint**, **Prettier**, **Black**.
+4. **Escaneo de Seguridad**:
+   - **Snyk** para vulnerabilidades de dependencias.
+   - **OWASP Dependency-Check**.
+   - **SonarQube** para la calidad del código.
+5. **Escaneo de Contenedores**: Escaneo de imágenes de **Amazon ECR**.
+6. **Validación de Infraestructura**: **cfn-lint**, **terraform validate**.
 
-#### 3. Continuous Deployment Pipeline
+#### 3. Pipeline de Despliegue Continuo (CD)
 
 **AWS CodePipeline**:
-- Orchestrates CI/CD workflow
-- Visual pipeline editor
-- Integration with third-party tools
-- Parallel and sequential stages
-- Approval gates
-- Automated rollback
+- Orquesta el flujo de trabajo de **CI/CD**.
+- Editor visual de pipelines.
+- Integración con herramientas de terceros.
+- Etapas paralelas y secuenciales.
+- Puertas de aprobación (**approval gates**).
+- Reversión automatizada.
 
-**Pipeline Stages**:
+**Etapas del Pipeline**:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                           SOURCE STAGE                          │
-│  - CodeCommit/GitHub trigger on push to main                    │
-│  - Fetch source code                                            │
+│                       ETAPA DE ORIGEN                           │
+│  - Activador de CodeCommit/GitHub al enviar a main              │
+│  - Obtener el código fuente                                     │
 └────────────────────┬────────────────────────────────────────────┘
                      │
                      ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                           BUILD STAGE                           │
-│  - CodeBuild compiles, tests, builds Docker image              │
-│  - Push to ECR                                                  │
-│  - Generate artifacts                                           │
+│                    ETAPA DE CONSTRUCCIÓN                        │
+│  - CodeBuild compila, prueba y construye la imagen de Docker    │
+│  - Enviar a ECR                                                 │
+│  - Generar artefactos                                           │
 └────────────────────┬────────────────────────────────────────────┘
                      │
                      ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                       TEST STAGE (Dev)                          │
-│  - Deploy to Dev environment (ECS/EKS)                          │
-│  - CodeBuild: Integration tests                                │
-│  - CodeBuild: API tests (Postman/Newman)                        │
-│  - CodeBuild: Performance tests (k6, JMeter)                    │
+│                      ETAPA DE PRUEBA (Dev)                      │
+│  - Desplegar en el entorno de Dev (ECS/EKS)                     │
+│  - CodeBuild: Pruebas de integración                            │
+│  - CodeBuild: Pruebas de API (Postman/Newman)                   │
+│  - CodeBuild: Pruebas de rendimiento (k6, JMeter)               │
 └────────────────────┬────────────────────────────────────────────┘
                      │
                      ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                     DEPLOY STAGE (Staging)                      │
-│  - CodeDeploy to Staging environment                            │
-│  - Blue/green deployment                                        │
-│  - Smoke tests                                                  │
+│                  ETAPA DE DESPLIEGUE (Staging)                  │
+│  - CodeDeploy al entorno de Staging                             │
+│  - Despliegue Blue/green                                        │
+│  - Pruebas de humo (Smoke tests)                                │
 └────────────────────┬────────────────────────────────────────────┘
                      │
                      ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                      MANUAL APPROVAL                            │
-│  - SNS notification to approvers                                │
-│  - Review test results                                          │
-│  - Approve or reject production deployment                      │
+│                        APROBACIÓN MANUAL                        │
+│  - Notificación por SNS a los aprobadores                       │
+│  - Revisar los resultados de las pruebas                        │
+│  - Aprobar o rechazar el despliegue a producción                │
 └────────────────────┬────────────────────────────────────────────┘
                      │
                      ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                  DEPLOY STAGE (Production)                      │
-│  - CodeDeploy to Production                                     │
-│  - Blue/green deployment                                        │
-│  - Traffic shifting: 10% → 50% → 100%                          │
-│  - Automatic rollback on CloudWatch alarms                      │
+│                 ETAPA DE DESPLIEGUE (Production)                │
+│  - CodeDeploy a producción                                      │
+│  - Despliegue Blue/green                                        │
+│  - Cambio de tráfico: 10% → 50% → 100%                          │
+│  - Reversión automática ante alarmas de CloudWatch              │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-#### 4. Deployment Strategy
+#### 4. Estrategia de Despliegue
 
 **AWS CodeDeploy**:
-- Automated deployments
-- Multiple deployment types:
-  - In-place
-  - Blue/green
-  - Canary
-  - Linear
-- Automatic rollback
-- Integration with ECS, Lambda, EC2, on-premises
+- Despliegues automatizados.
+- Múltiples tipos de despliegue:
+  - En el sitio (**In-place**).
+  - Azul/Verde (**Blue/green**).
+  - Canario (**Canary**).
+  - Lineal.
+- Reversión automática.
+- Integración con **ECS**, **Lambda**, **EC2**, instalaciones locales (**on-premises**).
 
-**Blue/Green Deployment (ECS)**:
+**Despliegue Blue/Green (ECS)**:
 
-**AppSpec File (appspec.yml)**:
+**Archivo AppSpec (appspec.yml)**:
 ```yaml
 version: 0.0
 Resources:
@@ -2220,32 +2215,32 @@ Hooks:
   - AfterAllowTraffic: "LambdaFunctionToValidateProduction"
 ```
 
-**Traffic Shifting Strategy**:
-- **Canary**: 10% of traffic for 5 minutes, then 100%
-- **Linear**: Increase by 10% every 5 minutes
-- **All-at-once**: Immediate switch (not recommended for prod)
+**Estrategia de Cambio de Tráfico**:
+- **Canary**: 10% del tráfico durante 5 minutos, luego el 100%.
+- **Linear**: Aumento del 10% cada 5 minutos.
+- **All-at-once**: Cambio inmediato (no recomendado para producción).
 
-**Automatic Rollback Triggers**:
-- CloudWatch Alarm: Error rate >5%
-- CloudWatch Alarm: Response time >2 seconds
-- CloudWatch Alarm: CPU utilization >80%
-- Deployment failure
+**Activadores de Reversión Automática**:
+- Alarma de **CloudWatch**: Tasa de error >5%.
+- Alarma de **CloudWatch**: Tiempo de respuesta >2 segundos.
+- Alarma de **CloudWatch**: Utilización de CPU >80%.
+- Fallo en el despliegue.
 
-#### 5. Infrastructure as Code
+#### 5. Infraestructura como Código (IaC)
 
 **AWS CloudFormation**:
-- Define infrastructure in YAML/JSON
-- Version control infrastructure
-- Stack updates with rollback
-- Drift detection
+- Definir la infraestructura en **YAML**/**JSON**.
+- Control de versiones de la infraestructura.
+- Actualizaciones de la pila con reversión.
+- Detección de desviaciones (**Drift detection**).
 
-**Alternative: AWS CDK (Cloud Development Kit)**:
-- Define infrastructure in programming languages
-- Python, TypeScript, Java, C#
-- Higher level abstractions
-- Synthesizes to CloudFormation
+**Alternativa: AWS CDK (Cloud Development Kit)**:
+- Definir la infraestructura en lenguajes de programación.
+- **Python**, **TypeScript**, **Java**, **C#**.
+- Abstracciones de nivel superior.
+- Sintetiza a **CloudFormation**.
 
-**Example CDK Stack (TypeScript)**:
+**Ejemplo de Pila de CDK (TypeScript)**:
 ```typescript
 import * as cdk from 'aws-cdk-lib';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
@@ -2263,7 +2258,7 @@ export class AppInfraStack extends cdk.Stack {
       natGateways: 2
     });
 
-    // ECS Cluster
+    // Clúster de ECS
     const cluster = new ecs.Cluster(this, 'AppCluster', {
       vpc: vpc,
       containerInsights: true
@@ -2353,8 +2348,7 @@ export class AppInfraStack extends cdk.Stack {
 - Hierarchical storage
 - No automatic rotation
 - Good for configuration values
-
-**Example Usage in ECS Task**:
+**Ejemplo de Uso en una Tarea de ECS**:
 ```json
 {
   "containerDefinitions": [
@@ -2375,28 +2369,28 @@ export class AppInfraStack extends cdk.Stack {
 }
 ```
 
-#### 7. Monitoring and Observability
+#### 7. Monitoreo y Observabilidad
 
 **Amazon CloudWatch**:
-- Unified logging from all environments
-- Custom metrics
-- Dashboards for pipeline health
-- Alarms for deployment failures
+- Registro de logs unificado desde todos los entornos.
+- Métricas personalizadas.
+- Cuadros de mando para el estado del pipeline.
+- Alarmas para fallos en el despliegue.
 
 **AWS X-Ray**:
-- Distributed tracing
-- Identify performance bottlenecks
-- Request flow visualization
+- Rastreo distribuido (**Distributed tracing**).
+- Identificar cuellos de botella en el rendimiento.
+- Visualización del flujo de solicitudes.
 
-**Key Metrics to Monitor**:
-- **Deployment Frequency**: Deploys per day
-- **Lead Time**: Commit to production time
-- **Mean Time to Recovery (MTTR)**: Time to fix production issue
-- **Change Failure Rate**: % of deployments causing failure
-- **Build Duration**: Time for build pipeline
-- **Test Coverage**: % of code covered by tests
+**Métricas Clave a Monitorear**:
+- **Frecuencia de Despliegue**: Despliegues por día.
+- **Tiempo de Espera (Lead Time)**: Tiempo desde el **commit** hasta producción.
+- **Tiempo Medio de Recuperación (MTTR)**: Tiempo para solucionar un problema en producción.
+- **Tasa de Fallos por Cambio**: % de despliegues que causan fallos.
+- **Duración de la Construcción**: Tiempo del pipeline de construcción.
+- **Cobertura de Pruebas**: % de código cubierto por pruebas.
 
-**CloudWatch Dashboard**:
+**Cuadro de Mando de CloudWatch**:
 ```json
 {
   "widgets": [
@@ -2410,7 +2404,7 @@ export class AppInfraStack extends cdk.Stack {
         "period": 300,
         "stat": "Sum",
         "region": "us-east-1",
-        "title": "Pipeline Executions"
+        "title": "Ejecuciones del Pipeline"
       }
     },
     {
@@ -2423,21 +2417,21 @@ export class AppInfraStack extends cdk.Stack {
         "period": 300,
         "stat": "Average",
         "region": "us-east-1",
-        "title": "ECS Resource Utilization"
+        "title": "Utilización de Recursos de ECS"
       }
     }
   ]
 }
 ```
 
-#### 8. Multi-Environment Strategy
+#### 8. Estrategia Multientorno
 
-**Account Structure**:
-- Dev Account: Frequent deployments, lower-cost resources
-- Staging Account: Production-like environment
-- Production Account: Strict change control
+**Estructura de Cuentas**:
+- Cuenta de **Dev**: Despliegues frecuentes, recursos de menor costo.
+- Cuenta de **Staging**: Entorno similar al de producción.
+- Cuenta de **Production**: Control de cambios estricto.
 
-**Environment-Specific Configuration**:
+**Configuración Específica del Entorno**:
 ```
 config/
   ├── dev.json
@@ -2445,7 +2439,7 @@ config/
   └── production.json
 ```
 
-**Parameter Store Hierarchy**:
+**Jerarquía del Parameter Store**:
 ```
 /app/dev/database/host
 /app/dev/database/port
@@ -2455,293 +2449,295 @@ config/
 /app/production/database/port
 ```
 
-#### 9. Testing Strategy
+#### 9. Estrategia de Pruebas
 
-**Test Pyramid**:
+**Pirámide de Pruebas**:
 ```
          ┌─────────────┐
-         │  E2E Tests  │  ← Fewer, slower, expensive
-         │   (Cypress) │
+         │ Pruebas E2E │  ← Pocas, lentas, costosas
+         │  (Cypress)  │
          └─────────────┘
        ┌─────────────────┐
-       │Integration Tests│
-       │  (API, Database)│
+       │   Pruebas de    │
+       │   integración   │
+       │ (API, Base de   │
+       │     datos)      │
        └─────────────────┘
     ┌──────────────────────┐
-    │     Unit Tests       │  ← Many, fast, cheap
+    │  Pruebas unitarias   │  ← Muchas, rápidas, baratas
     │ (Jest, pytest, JUnit)│
     └──────────────────────┘
 ```
 
-**Test Types**:
-1. **Unit Tests**: 80% of tests, <100ms each
-2. **Integration Tests**: 15% of tests, <5s each
-3. **E2E Tests**: 5% of tests, <30s each
+**Tipos de Pruebas**:
+1. **Pruebas Unitarias**: 80% de las pruebas, <100ms cada una.
+2. **Pruebas de Integración**: 15% de las pruebas, <5s cada una.
+3. **Pruebas E2E**: 5% de las pruebas, <30s cada una.
 
-**CodeBuild Test Stage**:
+**Etapa de Prueba de CodeBuild**:
 ```yaml
 phases:
   build:
     commands:
-      - echo Running unit tests...
+      - echo Ejecutando pruebas unitarias...
       - npm test -- --coverage --maxWorkers=4
-      - echo Running integration tests...
+      - echo Ejecutando pruebas de integración...
       - npm run test:integration
-      - echo Running E2E tests...
+      - echo Ejecutando pruebas E2E...
       - npm run test:e2e
 
   post_build:
     commands:
-      - echo Checking test coverage threshold...
+      - echo Comprobando el umbral de cobertura de pruebas...
       - npm run coverage:check -- --lines 80 --functions 80 --branches 75
 ```
 
-#### 10. Rollback Strategy
+#### 10. Estrategia de Reversión (Rollback)
 
-**Automatic Rollback**:
-- CloudWatch alarms trigger rollback
-- CodeDeploy automatically reverts to previous version
-- <5 minutes to rollback
+**Reversión Automática**:
+- Las alarmas de **CloudWatch** activan la reversión.
+- **CodeDeploy** vuelve automáticamente a la versión anterior.
+- <5 minutos para revertir.
 
-**Manual Rollback**:
+**Reversión Manual**:
 ```bash
-# Rollback to previous deployment
+# Revertir al despliegue anterior
 aws deploy stop-deployment \
   --deployment-id d-1234567890 \
   --auto-rollback-enabled
 
-# Or redeploy previous version
+# O volver a desplegar la versión anterior
 aws ecs update-service \
   --cluster my-cluster \
   --service my-service \
-  --task-definition my-task:42  # Previous version
+  --task-definition my-task:42  # Versión anterior
 ```
 
-**Feature Flags**:
-- Use AWS AppConfig or Launch Darkly
-- Toggle features without redeployment
-- Gradual rollout to users
-- Quick disable if issues arise
+**Marcadores de Funciones (Feature Flags)**:
+- Usar **AWS AppConfig** o **Launch Darkly**.
+- Alternar funciones sin necesidad de volver a desplegar.
+- Despliegue gradual para los usuarios.
+- Desactivación rápida si surgen problemas.
 
-**Step-by-Step Implementation**:
+**Implementación Paso a Paso**:
 
-**Phase 1: Source Control (Week 1)**
-1. Migrate code to CodeCommit/GitHub
-2. Define branching strategy
-3. Set up pull request workflows
-4. Configure branch protection rules
-5. Train team on Git best practices
+**Fase 1: Control de Origen (Semana 1)**
+1. Migrar el código a **CodeCommit**/**GitHub**.
+2. Definir la estrategia de ramificación.
+3. Configurar los flujos de trabajo de solicitudes de extracción.
+4. Configurar las reglas de protección de ramas.
+5. Capacitar al equipo en las mejores prácticas de **Git**.
 
-**Phase 2: CI Pipeline (Week 2)**
-1. Create buildspec.yml
-2. Set up CodeBuild project
-3. Integrate linting and testing
-4. Add security scanning
-5. Configure build notifications
+**Fase 2: Pipeline de CI (Semana 2)**
+1. Crear el archivo `buildspec.yml`.
+2. Configurar el proyecto de **CodeBuild**.
+3. Integrar el **linting** y las pruebas.
+4. Añadir escaneo de seguridad.
+5. Configurar las notificaciones de construcción.
 
-**Phase 3: Containerization (Week 3)**
-1. Create Dockerfile
-2. Set up Amazon ECR
-3. Build container images in pipeline
-4. Test locally with Docker Compose
-5. Document container configuration
+**Fase 3: Contenerización (Semana 3)**
+1. Crear el `Dockerfile`.
+2. Configurar **Amazon ECR**.
+3. Construir las imágenes de contenedor en el pipeline.
+4. Probar localmente con **Docker Compose**.
+5. Documentar la configuración del contenedor.
 
-**Phase 4: Infrastructure as Code (Week 4)**
-1. Define infrastructure in CloudFormation/CDK
-2. Create VPC, subnets, security groups
-3. Deploy ECS cluster and services
-4. Set up Application Load Balancer
-5. Test infrastructure provisioning
+**Fase 4: Infraestructura como Código (Semana 4)**
+1. Definir la infraestructura en **CloudFormation**/**CDK**.
+2. Crear **VPC**, subredes y grupos de seguridad.
+3. Desplegar el clúster de **ECS** y los servicios.
+4. Configurar el **Application Load Balancer**.
+5. Probar el aprovisionamiento de la infraestructura.
 
-**Phase 5: CD Pipeline (Week 5)**
-1. Create CodePipeline
-2. Add deployment stages (Dev, Staging, Prod)
-3. Configure CodeDeploy
-4. Set up approval gates
-5. Test end-to-end deployment
+**Fase 5: Pipeline de CD (Semana 5)**
+1. Crear el **CodePipeline**.
+2. Añadir etapas de despliegue (**Dev**, **Staging**, **Prod**).
+3. Configurar **CodeDeploy**.
+4. Configurar las puertas de aprobación.
+5. Probar el despliegue de extremo a extremo.
 
-**Phase 6: Monitoring (Week 6)**
-1. Set up CloudWatch dashboards
-2. Configure alarms
-3. Integrate X-Ray tracing
-4. Set up log aggregation
-5. Define KPIs and metrics
+**Fase 6: Monitoreo (Semana 6)**
+1. Configurar los cuadros de mando de **CloudWatch**.
+2. Configurar las alarmas.
+3. Integrar el rastreo con **X-Ray**.
+4. Configurar la agregación de registros (**logs**).
+5. Definir **KPIs** y métricas.
 
-**Phase 7: Testing and Optimization (Weeks 7-8)**
-1. Test failure scenarios
-2. Practice rollback procedures
-3. Optimize build times
-4. Tune auto-scaling parameters
-5. Document runbooks
+**Fase 7: Pruebas y Optimización (Semanas 7-8)**
+1. Probar escenarios de fallo.
+2. Practicar los procedimientos de reversión.
+3. Optimizar los tiempos de construcción.
+4. Ajustar los parámetros de escalado automático.
+5. Documentar los manuales de procedimientos (**runbooks**).
 
-**Cost Breakdown (Monthly)**:
+**Desglose de Costos (Mensual)**:
 
-| Service | Configuration | Monthly Cost |
-|---------|--------------|--------------|
-| CodeCommit | 5 active users, 10 GB | $2 |
-| CodeBuild | 500 build minutes (general1.small) | $25 |
-| CodePipeline | 10 pipelines, 200 executions | $10 |
-| CodeDeploy | Free for ECS, Lambda | $0 |
-| ECR | 50 GB storage | $5 |
-| ECS Fargate | 6 tasks (0.5 vCPU, 1 GB) | $140 |
-| ALB | 2 load balancers | $40 |
-| S3 | Artifact storage | $5 |
-| CloudWatch | Logs, metrics, dashboards | $50 |
-| Secrets Manager | 20 secrets | $8 |
-| **Total** | | **~$285/month** |
+| Servicio | Configuración | Costo Mensual |
+|----------|---------------|---------------|
+| **CodeCommit** | 5 usuarios activos, 10 GB | $2 |
+| **CodeBuild** | 500 minutos de construcción (**general1.small**) | $25 |
+| **CodePipeline** | 10 pipelines, 200 ejecuciones | $10 |
+| **CodeDeploy** | Gratuito para **ECS**, **Lambda** | $0 |
+| **ECR** | 50 GB de almacenamiento | $5 |
+| **ECS Fargate** | 6 tareas (0.5 vCPU, 1 GB) | $140 |
+| **ALB** | 2 equilibradores de carga | $40 |
+| **S3** | Almacenamiento de artefactos | $5 |
+| **CloudWatch** | Registros, métricas, cuadros de mando | $50 |
+| **Secrets Manager** | 20 secretos | $8 |
+| **Total** | | **~$285/mes** |
 
-**Benefits**:
-- **Deployment Frequency**: Monthly → Multiple times per day
-- **Deployment Duration**: 4-6 hours → <15 minutes
-- **Rollback Time**: Hours → <5 minutes
-- **Rollback Rate**: 30% → <5%
-- **Developer Productivity**: +40% (less time on deployments)
-- **Mean Time to Recovery**: 4 hours → <30 minutes
-- **Production Incidents**: 2-3/month → <1/month
-- **Time to Market**: 4-6 weeks → 1-2 weeks
-- **Developer Satisfaction**: Significantly improved
+**Beneficios**:
+- **Frecuencia de Despliegue**: Mensual → Varias veces al día.
+- **Duración del Despliegue**: 4-6 horas → <15 minutos.
+- **Tiempo de Reversión**: Horas → <5 minutos.
+- **Tasa de Reversión**: 30% → <5%.
+- **Productividad de los Desarrolladores**: +40% (menos tiempo en despliegues).
+- **Tiempo Medio de Recuperación**: 4 horas → <30 minutos.
+- **Incidentes en Producción**: 2-3/mes → <1/mes.
+- **Tiempo de Comercialización**: 4-6 semanas → 1-2 semanas.
+- **Satisfacción de los Desarrolladores**: Significativamente mejorada.
 
-**Trade-offs**:
-- **Initial Setup**: 6-8 weeks for full implementation
-- **Learning Curve**: Team must learn new tools and practices
-- **Cultural Change**: Shift from manual to automated processes
-- **Responsibility Shift**: Developers more involved in operations
+**Compromisos (Trade-offs)**:
+- **Configuración Inicial**: De 6 a 8 semanas para la implementación completa.
+- **Curva de Aprendizaje**: El equipo debe aprender nuevas herramientas y prácticas.
+- **Cambio Cultural**: Transición de procesos manuales a automatizados.
+- **Cambio de Responsabilidades**: Los desarrolladores están más involucrados en las operaciones.
 
-**Alternative Approaches**:
+**Enfoques Alternativos**:
 
-**Option 1: Jenkins on EC2**
-- Open-source CI/CD
-- More plugins and flexibility
-- Requires server management
-- Higher operational overhead
-- Best for: Teams with existing Jenkins expertise
+**Opción 1: Jenkins en EC2**
+- **CI/CD** de código abierto.
+- Más complementos (**plugins**) y flexibilidad.
+- Requiere la gestión de servidores.
+- Mayor gasto operativo.
+- El mejor para: Equipos con experiencia previa en **Jenkins**.
 
-**Option 2: GitHub Actions**
-- Native GitHub integration
-- Easy to set up
-- Limited AWS integration compared to CodePipeline
-- Best for: GitHub-centric workflows
+**Opción 2: GitHub Actions**
+- Integración nativa con **GitHub**.
+- Fácil de configurar.
+- Integración limitada con AWS en comparación con **CodePipeline**.
+- El mejor para: Flujos de trabajo centrados en **GitHub**.
 
-**Option 3: GitLab CI/CD**
-- All-in-one DevOps platform
-- Built-in container registry
-- Requires separate hosting
-- Best for: Teams wanting single platform
+**Opción 3: GitLab CI/CD**
+- Plataforma de **DevOps** todo en uno.
+- Registro de contenedores integrado.
+- Requiere alojamiento independiente.
+- El mejor para: Equipos que deseen una única plataforma.
 
-**Option 4: Third-Party (CircleCI, Travis CI)**
-- Easy to set up
-- Great developer experience
-- Additional cost
-- Limited control
-- Best for: Startups wanting quick setup
+**Opción 4: Terceros (CircleCI, Travis CI)**
+- Fácil de configurar.
+- Gran experiencia para el desarrollador.
+- Costo adicional.
+- Control limitado.
+- El mejor para: Startups que buscan una configuración rápida.
 
-**Common Pitfalls to Avoid**:
-1. **No Rollback Testing**: Practice rollbacks regularly
-2. **Skipping Integration Tests**: Catch issues before production
-3. **Manual Steps in Pipeline**: Automate everything
-4. **Ignoring Build Times**: Optimize for <10 minute builds
-5. **No Monitoring**: Implement comprehensive monitoring early
-6. **Over-Engineering**: Start simple, add complexity as needed
-7. **Ignoring Security**: Scan for vulnerabilities in pipeline
-8. **No Documentation**: Document architecture and runbooks
-9. **Forgetting Notifications**: Alert team on pipeline failures
-10. **Not Measuring**: Track DORA metrics (deployment frequency, lead time, MTTR, change failure rate)
-
----
-
-## Common Troubleshooting Scenarios
-
-### Cannot Connect to EC2 Instance
-
-**Symptoms**: SSH or RDP connection times out or refused
-
-**Troubleshooting Steps**:
-
-#### 1. Verify Instance Status
-- Check instance state is "running"
-- Check status checks are passing
-- View system log for boot errors
-
-#### 2. Check Security Group
-- Ensure inbound rule allows SSH (22) or RDP (3389)
-- Verify source IP is allowed (0.0.0.0/0 or your IP)
-- Check if security group changed recently
-
-#### 3. Check Network ACL
-- Ensure NACL allows inbound traffic on port
-- Ensure NACL allows ephemeral outbound ports (1024-65535)
-- **Important**: NACLs are stateless!
-
-#### 4. Verify Network Configuration
-- Instance has public IP (if connecting from internet)
-- Instance in public subnet (has IGW route)
-- Or using bastion host for private subnet
-
-#### 5. Check Key Pair
-- Using correct .pem/.ppk file
-- File permissions correct (`chmod 400` for .pem)
-- Key pair matches instance
-
-#### 6. Check Route Table
-- Subnet has route to IGW (0.0.0.0/0 → igw-xxx)
-- Or route to NAT Gateway for private subnet
-
-> **Tip**: Use EC2 Instance Connect or Systems Manager Session Manager as alternatives to SSH/RDP when troubleshooting connectivity issues.
+**Errores Comunes a Evitar**:
+1. **Sin pruebas de reversión**: Practique las reversiones con regularidad.
+2. **Omitir las pruebas de integración**: Detecte problemas antes de llegar a producción.
+3. **Pasos manuales en el pipeline**: Automatice todo.
+4. **Ignorar los tiempos de construcción**: Optimice para construcciones de menos de 10 minutos.
+5. **Sin monitoreo**: Implemente un monitoreo integral desde el principio.
+6. **Sobre-ingeniería**: Empiece de forma sencilla y añada complejidad según sea necesario.
+7. **Ignorar la seguridad**: Busque vulnerabilidades en el pipeline.
+8. **Sin documentación**: Documente la arquitectura y los manuales de procedimientos (**runbooks**).
+9. **Olvidar las notificaciones**: Alerte al equipo sobre fallos en el pipeline.
+10. **No medir**: Realice un seguimiento de las métricas **DORA** (frecuencia de despliegue, tiempo de espera, **MTTR**, tasa de fallos por cambio).
 
 ---
 
-### S3 Access Denied Errors
+## Escenarios Comunes de Resolución de Problemas
 
-**Common Causes and Solutions**:
+### No se puede conectar a la instancia de EC2
 
-#### 1. IAM Permissions
-- Verify IAM policy grants `s3:GetObject`, `s3:PutObject`
-- Check for explicit Deny statements
-- Verify resource ARN in policy matches bucket
+**Síntomas**: El tiempo de espera de la conexión **SSH** o **RDP** se agota o la conexión es rechazada.
 
-#### 2. Bucket Policy
-- Check bucket policy doesn't deny access
-- Verify Principal in policy
-- Check for IP-based restrictions
+**Pasos de Resolución de Problemas**:
 
-#### 3. Block Public Access
-- If public access needed, disable Block Public Access
-- Check both bucket-level and account-level settings
+#### 1. Verificar el Estado de la Instancia
+- Compruebe que el estado de la instancia sea "running" (en ejecución).
+- Compruebe que las comprobaciones de estado (**status checks**) se estén superando.
+- Vea el registro del sistema en busca de errores de arranque.
 
-#### 4. Encryption
-- If using SSE-KMS, verify KMS key policy
-- Ensure user has `kms:Decrypt` permission
+#### 2. Comprobar el Grupo de Seguridad (Security Group)
+- Asegúrese de que la regla de entrada permita **SSH** (puerto 22) o **RDP** (puerto 3389).
+- Verifique que la **IP** de origen esté permitida (0.0.0.0/0 o su **IP** específica).
+- Compruebe si el grupo de seguridad cambió recientemente.
 
-#### 5. Cross-Account Access
-- Bucket policy must allow cross-account access
-- Assume role with correct permissions
+#### 3. Comprobar la ACL de Red (NACL)
+- Asegúrese de que la **NACL** permita el tráfico de entrada en el puerto correspondiente.
+- Asegúrese de que la **NACL** permita los puertos de salida efímeros (1024-65535).
+- **Importante**: ¡Las **NACLs** no tienen estado (**stateless**)!
 
-> **Debugging Tip**: Use AWS CloudTrail to review the API call and see the exact reason for access denial. Look for the `errorCode` and `errorMessage` fields in the CloudTrail logs.
+#### 4. Verificar la Configuración de Red
+- La instancia tiene una **IP** pública (si se conecta desde Internet).
+- La instancia está en una subred pública (tiene una ruta hacia un **IGW**).
+- O se está utilizando un **bastion host** para la subred privada.
+
+#### 5. Comprobar el Par de Claves (Key Pair)
+- Está utilizando el archivo `.pem`/`.ppk` correcto.
+- Los permisos del archivo son correctos (`chmod 400` para `.pem`).
+- El par de claves coincide con el de la instancia.
+
+#### 6. Comprobar la Tabla de Rutas (Route Table)
+- La subred tiene una ruta hacia el **IGW** (0.0.0.0/0 → **igw-xxx**).
+- O una ruta hacia un **NAT Gateway** para la subred privada.
+
+> **Consejo**: Utilice **EC2 Instance Connect** o **Systems Manager Session Manager** como alternativas a **SSH**/**RDP** cuando solucione problemas de conectividad.
 
 ---
 
-### Lambda Function Issues
+### Errores de "Acceso Denegado" (Access Denied) en S3
 
-#### Issue 1: Function Timing Out
+**Causas y Soluciones Comunes**:
 
-**Solutions**:
-- Increase timeout (default 3 sec, max 15 min)
-- Optimize code performance
-- Check VPC configuration (can add latency)
-- Increase memory (also increases CPU)
-- Investigate cold start delays
+#### 1. Permisos de IAM
+- Verifique que la política de **IAM** otorgue permisos como `s3:GetObject` o `s3:PutObject`.
+- Compruebe si hay declaraciones de denegación explícita (**explicit Deny**).
+- Verifique que el **ARN** del recurso en la política coincida con el del bucket.
 
-> **Best Practice**: Set the timeout to slightly higher than your expected execution time, but not unnecessarily high to avoid long-running failed executions.
+#### 2. Política de Bucket (Bucket Policy)
+- Compruebe que la política del bucket no deniegue el acceso.
+- Verifique el **Principal** en la política.
+- Compruebe si hay restricciones basadas en la **IP**.
 
-#### Issue 2: Insufficient Permissions
+#### 3. Bloqueo de Acceso Público (Block Public Access)
+- Si se necesita acceso público, desactive el **Block Public Access**.
+- Verifique la configuración tanto a nivel de bucket como a nivel de cuenta.
 
-**Solutions**:
-- Check Lambda execution role has required permissions
-- Review CloudWatch Logs for permission errors
-- Add necessary IAM policies to execution role
-- For VPC: Ensure role has VPC execution permissions
+#### 4. Cifrado
+- Si utiliza **SSE-KMS**, verifique la política de la clave de **KMS**.
+- Asegúrese de que el usuario tenga el permiso `kms:Decrypt`.
 
-**Common Required Permissions**:
+#### 5. Acceso entre Cuentas (Cross-Account Access)
+- La política del bucket debe permitir el acceso entre cuentas.
+- Asuma el rol con los permisos correctos.
+
+> **Consejo de depuración**: Utilice **AWS CloudTrail** para revisar la llamada a la **API** y ver el motivo exacto de la denegación de acceso. Busque los campos `errorCode` y `errorMessage` en los registros de **CloudTrail**.
+
+---
+
+### Problemas con Funciones Lambda
+
+#### Problema 1: La Función Agota el Tiempo de Espera (Timeout)
+
+**Soluciones**:
+- Aumente el tiempo de espera (por defecto 3 seg, máx 15 min).
+- Optimice el rendimiento del código.
+- Compruebe la configuración de la **VPC** (puede añadir latencia).
+- Aumente la memoria (también aumenta la **CPU**).
+- Investigue los retrasos por inicio en frío (**cold start**).
+
+> **Mejor Práctica**: Establezca el tiempo de espera ligeramente por encima del tiempo de ejecución esperado, pero no innecesariamente alto para evitar ejecuciones fallidas prolongadas.
+
+#### Problema 2: Permisos Insuficientes
+
+**Soluciones**:
+- Compruebe que el rol de ejecución de **Lambda** tenga los permisos necesarios.
+- Revise los registros de **CloudWatch Logs** en busca de errores de permisos.
+- Añada las políticas de **IAM** necesarias al rol de ejecución.
+- Para **VPC**: Asegúrese de que el rol tenga permisos de ejecución en la **VPC**.
+
+**Permisos Comunes Requeridos**:
 ```json
 {
   "Version": "2012-10-17",
@@ -2759,11 +2755,6 @@ aws ecs update-service \
 }
 ```
 
-#### Issue 3: Throttling
-
-**Solutions**:
-- Request concurrency limit increase
-- Implement exponential backoff in calling application
 - Use SQS to buffer requests
 - Consider reserved concurrency for critical functions
 
@@ -2857,6 +2848,7 @@ telnet mydb.abc123.us-east-1.rds.amazonaws.com 3306
 
 **Example IAM Policy**:
 ```json
+```json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -2874,502 +2866,501 @@ telnet mydb.abc123.us-east-1.rds.amazonaws.com 3306
 }
 ```
 
-#### 2. Resource Limits Exceeded
-**Error**: `LimitExceeded` or `ResourceLimitExceeded`
+#### 2. Límites de Recursos Excedidos
+**Error**: `LimitExceeded` o `ResourceLimitExceeded`
 
-**Solutions**:
-- Check service quotas (VPCs, Elastic IPs, EC2 instances)
-- Request limit increase via Service Quotas console
-- Use existing resources instead of creating new ones
-- Deploy to different region with available capacity
+**Soluciones**:
+- Compruebe las cuotas de servicio (**VPCs**, **Elastic IPs**, instancias de **EC2**).
+- Solicite un aumento del límite a través de la consola de **Service Quotas**.
+- Utilice recursos existentes en lugar de crear otros nuevos.
+- Despliegue en una región diferente con capacidad disponible.
 
-#### 3. Parameter Validation Errors
+#### 3. Errores de Validación de Parámetros
 **Error**: `Parameters: [parameter] must match pattern [regex]`
 
-**Solutions**:
-- Verify parameter values match constraints
-- Check AllowedValues, MinLength, MaxLength
-- Ensure CIDR blocks don't overlap
-- Validate AMI IDs exist in target region
+**Soluciones**:
+- Verifique que los valores de los parámetros coincidan con las restricciones.
+- Compruebe `AllowedValues`, `MinLength` y `MaxLength`.
+- Asegúrese de que los bloques **CIDR** no se solapen.
+- Valide que los **IDs** de **AMI** existan en la región de destino.
 
-#### 4. Resource Already Exists
+#### 4. El Recurso ya Existe
 **Error**: `Resource already exists`
 
-**Solutions**:
-- Delete existing resource or import it
-- Use different resource names/logical IDs
-- Check for resources from previous failed stacks
-- Use DeletionPolicy: Retain to keep resources on stack deletion
+**Soluciones**:
+- Elimine el recurso existente o impórtelo.
+- Utilice diferentes nombres de recursos o **IDs** lógicos.
+- Compruebe si hay recursos de pilas fallidas anteriores.
+- Use `DeletionPolicy: Retain` para conservar los recursos al eliminar la pila.
 
-#### 5. Circular Dependencies
+#### 5. Dependencias Circulares
 **Error**: `Circular dependency between resources`
 
-**Solutions**:
-- Review DependsOn attributes
-- Remove unnecessary dependencies
-- Restructure template to break circular references
-- Use nested stacks to separate dependent resources
+**Soluciones**:
+- Revise los atributos `DependsOn`.
+- Elimine dependencias innecesarias.
+- Reestructure la plantilla para romper las referencias circulares.
+- Use pilas anidadas (**nested stacks**) para separar los recursos dependientes.
 
-#### 6. Insufficient Capacity
-**Error**: `Insufficient capacity` for EC2 instances
+#### 6. Capacidad Insuficiente
+**Error**: `Insufficient capacity` para instancias de **EC2**.
 
-**Solutions**:
-- Try different availability zone
-- Use different instance type
-- Try multiple instance types with launch templates
-- Deploy across multiple AZs
+**Soluciones**:
+- Pruebe con una zona de disponibilidad diferente.
+- Use un tipo de instancia diferente.
+- Pruebe con múltiples tipos de instancias con plantillas de lanzamiento (**launch templates**).
+- Despliegue en múltiples **AZs**.
 
-#### 7. Timeout Issues
-**Error**: Resource creation timed out
+#### 7. Problemas de Tiempo de Espera (Timeout)
+**Error**: El tiempo de espera para la creación del recurso se ha agotado.
 
-**Solutions**:
-- Increase CreationPolicy timeout
-- Check resource is actually being created (CloudWatch Logs)
-- For ASG, verify instances can reach metadata service
-- Use cfn-signal from instance user data
+**Soluciones**:
+- Aumente el tiempo de espera en la `CreationPolicy`.
+- Compruebe que el recurso se esté creando realmente (**CloudWatch Logs**).
+- Para un **ASG**, verifique que las instancias puedan llegar al servicio de metadatos.
+- Use `cfn-signal` desde los **user data** de la instancia.
 
-**Troubleshooting Tools**:
+**Herramientas de Resolución de Problemas**:
 
-**CloudFormation Events**:
-- View stack events for detailed error messages
-- Identify which resource failed
-- Check status reason for failure cause
+**Eventos de CloudFormation**:
+- Vea los eventos de la pila para obtener mensajes de error detallados.
+- Identifique qué recurso falló.
+- Compruebe el motivo del estado (**status reason**) para conocer la causa del fallo.
 
-**Change Sets**:
-- Preview changes before executing
-- Identify resources that will be replaced
-- Validate template before stack update
+**Conjuntos de Cambios (Change Sets)**:
+- Previsualice los cambios antes de ejecutarlos.
+- Identifique los recursos que serán reemplazados.
+- Valide la plantilla antes de la actualización de la pila.
 
-**Stack Drift Detection**:
-- Detect if resources were manually modified
-- Compare actual configuration vs. template
-- Resolve drift before updating stack
+**Detección de Desviaciones de la Pila (Stack Drift Detection)**:
+- Detecte si los recursos fueron modificados manualmente.
+- Compare la configuración real con la plantilla.
+- Resuelva la desviación antes de actualizar la pila.
 
-**Template Validation**:
+**Validación de Plantillas**:
 ```bash
-# Validate template syntax
+# Validar la sintaxis de la plantilla
 aws cloudformation validate-template --template-body file://template.yaml
 
-# Use cfn-lint for advanced validation
+# Usar cfn-lint para una validación avanzada
 pip install cfn-lint
 cfn-lint template.yaml
 ```
 
-**Best Practices**:
-1. Always validate templates before deployment
-2. Use change sets for stack updates
-3. Implement rollback triggers with CloudWatch alarms
-4. Set appropriate timeouts for resource creation
-5. Use DeletionPolicy: Retain for critical resources
-6. Test templates in dev environment first
-7. Use nested stacks for complex infrastructure
-8. Enable termination protection for production stacks
+**Mejores Prácticas**:
+1. Valide siempre las plantillas antes del despliegue.
+2. Use conjuntos de cambios para las actualizaciones de la pila.
+3. Implemente activadores de reversión con alarmas de **CloudWatch**.
+4. Establezca tiempos de espera adecuados para la creación de recursos.
+5. Use `DeletionPolicy: Retain` para recursos críticos.
+6. Pruebe primero las plantillas en el entorno de desarrollo.
+7. Use pilas anidadas para infraestructuras complejas.
+8. Habilite la protección contra la eliminación para las pilas de producción.
 
 ---
 
-### Auto Scaling Not Working
+### El Escalado Automático (Auto Scaling) no Funciona
 
-**Symptoms**: Auto Scaling Group not launching or terminating instances as expected
+**Síntomas**: El **Auto Scaling Group** no lanza ni termina las instancias como se esperaba.
 
-**Troubleshooting Steps**:
+**Pasos de Resolución de Problemas**:
 
-#### 1. Verify Scaling Policies
+#### 1. Verificar las Políticas de Escalado
 
-**Check Policy Configuration**:
-- Target tracking vs. step scaling vs. simple scaling
-- Metric being monitored (CPU, memory, custom)
-- Target value or step adjustments
-- Cooldown periods preventing rapid scaling
+**Comprobar la Configuración de la Política**:
+- Escalado por seguimiento de objetivos (**target tracking**) vs. escalado por pasos (**step scaling**) vs. escalado simple.
+- Métrica monitoreada (**CPU**, memoria, personalizada).
+- Valor del objetivo o ajustes de los pasos.
+- Períodos de enfriamiento (**cooldown**) que impiden un escalado rápido.
 
-**Example Issue**:
-- Target: 70% CPU utilization
-- Current: 85% CPU
-- But no scale-out occurring
+**Ejemplo de Problema**:
+- Objetivo: 70% de utilización de **CPU**.
+- Actual: 85% de **CPU**.
+- Pero no se produce el escalado de salida (**scale-out**).
 
-**Solutions**:
-- Check if in cooldown period (default 300 seconds)
-- Verify CloudWatch alarm state is ALARM
-- Check alarm has datapoints exceeding threshold
-- Ensure policy is enabled
+**Soluciones**:
+- Compruebe si se encuentra en un período de enfriamiento (por defecto 300 segundos).
+- Verifique que el estado de la alarma de **CloudWatch** sea `ALARM`.
+- Compruebe que la alarma tenga puntos de datos que superen el umbral.
+- Asegúrese de que la política esté habilitada.
 
-#### 2. Check Auto Scaling Group Configuration
+#### 2. Comprobar la Configuración del Auto Scaling Group
 
-**Capacity Limits**:
-- Minimum capacity: Can't scale below this
-- Maximum capacity: Can't scale above this
-- Desired capacity: Current target
+**Límites de Capacidad**:
+- Capacidad mínima: No puede escalar por debajo de esto.
+- Capacidad máxima: No puede escalar por encima de esto.
+- Capacidad deseada: Objetivo actual.
 
-**Common Issue**: Max capacity reached
+**Problema Común**: Capacidad máxima alcanzada.
 ```
-Current: 10 instances
-Max capacity: 10
-Result: Cannot scale out, even if CPU is high
+Actual: 10 instancias
+Capacidad máxima: 10
+Resultado: No se puede escalar hacia fuera, incluso si la CPU es alta.
 ```
 
-**Solutions**:
-- Increase max capacity
-- Review if capacity limits are appropriate
-- Check service quotas for EC2 instances
+**Soluciones**:
+- Aumente la capacidad máxima.
+- Revise si los límites de capacidad son apropiados.
+- Compruebe las cuotas de servicio para las instancias de **EC2**.
 
-#### 3. Launch Template/Configuration Issues
+#### 3. Problemas en la Plantilla/Configuración de Lanzamiento
 
-**Invalid AMI**:
-- AMI deleted or not available in region
-- AMI shared from another account no longer accessible
+**AMI Inválida**:
+- **AMI** eliminada o no disponible en la región.
+- **AMI** compartida desde otra cuenta que ya no es accesible.
 
-**Insufficient IAM Permissions**:
-- Instance profile missing required permissions
-- Cannot access S3, Parameter Store, Secrets Manager
+**Permisos de IAM Insuficientes**:
+- El perfil de instancia no tiene los permisos requeridos.
+- No se puede acceder a **S3**, **Parameter Store** o **Secrets Manager**.
 
-**Invalid User Data**:
-- Syntax errors in user data script
-- Script fails causing instance initialization to fail
+**User Data Inválido**:
+- Errores de sintaxis en el script de **user data**.
+- El script falla, lo que provoca que falle la inicialización de la instancia.
 
-**Solutions**:
-- Check AMI exists: `aws ec2 describe-images --image-ids ami-xxx`
-- Review CloudWatch Logs for user data script output
-- Test launch template manually by launching instance
-- Verify security groups and key pairs are valid
+**Soluciones**:
+- Compruebe que la **AMI** exista: `aws ec2 describe-images --image-ids ami-xxx`.
+- Revise los registros de **CloudWatch Logs** para ver la salida del script de **user data**.
+- Pruebe la plantilla de lanzamiento manualmente lanzando una instancia.
+- Verifique que los grupos de seguridad y los pares de claves sean válidos.
 
-#### 4. Availability Zone Issues
+#### 4. Problemas en la Zona de Disponibilidad (AZ)
 
-**No Capacity**:
-- EC2 capacity not available in specified AZs
-- Only some AZs have capacity
+**Sin Capacidad**:
+- Capacidad de **EC2** no disponible en las **AZs** especificadas.
+- Solo algunas **AZs** tienen capacidad.
 
-**Solutions**:
-- Distribute across multiple AZs
-- Use multiple instance types (mixed instances policy)
-- Enable capacity rebalancing
+**Soluciones**:
+- Distribuya entre múltiples **AZs**.
+- Use múltiples tipos de instancias (política de instancias mixtas).
+- Habilite el reequilibrio de capacidad.
 
-#### 5. Health Check Failures
+#### 5. Fallos en las Comprobaciones de Estado (Health Checks)
 
-**Instances Terminating Immediately**:
-- Health check type: EC2 vs. ELB
-- Health check grace period too short
-- Instances failing health checks
+**Instancias que Terminan Inmediatamente**:
+- Tipo de comprobación de estado: **EC2** vs. **ELB**.
+- Período de gracia de la comprobación de estado demasiado corto.
+- Instancias que fallan las comprobaciones de estado.
 
-**Symptoms**:
-- Instances launch, then terminate repeatedly
-- CloudWatch shows instances unhealthy
+**Síntomas**:
+- Las instancias se lanzan y luego se terminan repetidamente.
+- **CloudWatch** muestra las instancias como no saludables (**unhealthy**).
 
-**Solutions**:
-- Increase health check grace period (300-600 seconds)
-- Fix application issues causing health check failures
-- Verify ELB target group health check settings
-- Check security groups allow health check traffic
+**Soluciones**:
+- Aumente el período de gracia de la comprobación de estado (300-600 segundos).
+- Corrija los problemas de la aplicación que provocan los fallos en las comprobaciones de estado.
+- Verifique la configuración de la comprobación de estado del **target group** del **ELB**.
+- Compruebe que los grupos de seguridad permitan el tráfico de las comprobaciones de estado.
 
-#### 6. Service Quotas
+#### 6. Cuotas de Servicio
 
-**EC2 Instance Limits**:
-- On-Demand vCPU limits
-- Spot Instance limits
-- Per-region limits
+**Límites de Instancias de EC2**:
+- Límites de **vCPU** bajo demanda.
+- Límites de instancias **Spot**.
+- Límites por región.
 
-**Check Current Usage**:
+**Comprobar el Uso Actual**:
 ```bash
-# Check service quotas
+# Comprobar las cuotas de servicio
 aws service-quotas get-service-quota \
   --service-code ec2 \
   --quota-code L-1216C47A  # Running On-Demand Standard instances
 ```
 
-**Solutions**:
-- Request quota increase
-- Use different instance types
-- Deploy to different region
+**Soluciones**:
+- Solicite un aumento de la cuota.
+- Use diferentes tipos de instancias.
+- Despliegue en una región diferente.
 
-#### 7. Scaling Suspended
+#### 7. Escalado Suspendido
 
-**Check Suspended Processes**:
-- ReplaceUnhealthy
-- Launch
-- Terminate
-- AddToLoadBalancer
+**Comprobar Procesos Suspendidos**:
+- `ReplaceUnhealthy`.
+- `Launch`.
+- `Terminate`.
+- `AddToLoadBalancer`.
 
-**Resume Processes**:
+**Reanudar Procesos**:
 ```bash
 aws autoscaling resume-processes \
   --auto-scaling-group-name my-asg
 ```
 
-#### 8. CloudWatch Alarm Issues
+#### 8. Problemas con las Alarmas de CloudWatch
 
-**Alarm Not Triggering**:
-- Insufficient data
-- Metric not published
-- Threshold not exceeded for required evaluation periods
-- Alarm in INSUFFICIENT_DATA state
+**La Alarma no se Activa**:
+- Datos insuficientes.
+- Métrica no publicada.
+- El umbral no se ha superado durante los períodos de evaluación requeridos.
+- Alarma en estado `INSUFFICIENT_DATA`.
 
-**Solutions**:
-- Check CloudWatch metrics are being published
-- Verify alarm configuration (threshold, periods)
-- Review alarm history
-- Test with lower threshold temporarily
-
-**Debugging Commands**:
+**Soluciones**:
+- Compruebe que las métricas de **CloudWatch** se estén publicando.
+- Verifique la configuración de la alarma (umbral, períodos).
+- Revise el historial de la alarma.
+- Pruebe temporalmente con un umbral más bajo.
+**Comandos de Depuración**:
 ```bash
-# Describe Auto Scaling Group
+# Describir el Auto Scaling Group
 aws autoscaling describe-auto-scaling-groups \
   --auto-scaling-group-names my-asg
 
-# View scaling activities
+# Ver las actividades de escalado
 aws autoscaling describe-scaling-activities \
   --auto-scaling-group-name my-asg \
   --max-records 20
 
-# Check scaling policies
+# Comprobar las políticas de escalado
 aws autoscaling describe-policies \
   --auto-scaling-group-name my-asg
 
-# View CloudWatch alarms
+# Ver las alarmas de CloudWatch
 aws cloudwatch describe-alarms \
   --alarm-names my-cpu-alarm
 ```
 
-**Common Solutions**:
-1. Ensure min/max/desired capacity are appropriate
-2. Verify CloudWatch alarms are in ALARM state
-3. Check for suspended processes
-4. Increase health check grace period
-5. Fix launch template issues (AMI, security groups, user data)
-6. Distribute across multiple AZs for availability
-7. Use multiple instance types to improve capacity availability
-8. Monitor with CloudWatch and set up alerting
+**Soluciones Comunes**:
+1. Asegúrese de que las capacidades mínima, máxima y deseada sean apropiadas.
+2. Verifique que las alarmas de **CloudWatch** estén en estado `ALARM`.
+3. Compruebe si hay procesos suspendidos.
+4. Aumente el período de gracia de la comprobación de estado.
+5. Corrija los problemas de la plantilla de lanzamiento (**AMI**, grupos de seguridad, **user data**).
+6. Distribuya entre múltiples **AZs** para mejorar la disponibilidad.
+7. Use múltiples tipos de instancias para mejorar la disponibilidad de la capacidad.
+8. Monitoree con **CloudWatch** y configure alertas.
 
 ---
 
-### High AWS Bill Unexpectedly
+### Factura de AWS Inesperadamente Alta
 
-**Symptoms**: AWS bill significantly higher than expected or usual
+**Síntomas**: La factura de AWS es significativamente más alta de lo esperado o de lo habitual.
 
-**Common Cost Culprits**:
+**Principales Causas de los Costos**:
 
-#### 1. Untagged or Orphaned Resources
+#### 1. Recursos sin Etiquetas o Huérfanos
 
-**EC2 Instances Running**:
-- Instances left running after testing
-- Auto Scaling not scaling down
-- Spot requests creating instances
+**Instancias de EC2 en Ejecución**:
+- Instancias que se dejaron ejecutándose después de las pruebas.
+- El **Auto Scaling** no reduce la escala (**scale-down**).
+- Solicitudes **Spot** que crean instancias.
 
-**Check**:
+**Comprobación**:
 ```bash
-# List all running instances
+# Listar todas las instancias en ejecución
 aws ec2 describe-instances \
   --filters "Name=instance-state-name,Values=running" \
   --query 'Reservations[].Instances[].[InstanceId,InstanceType,Tags[?Key==`Name`].Value|[0]]'
 ```
 
-**EBS Volumes**:
-- Volumes detached from terminated instances
-- Snapshots accumulating over time
-- Volumes larger than needed
+**Volúmenes de EBS**:
+- Volúmenes desconectados de instancias terminadas.
+- **Snapshots** que se acumulan con el tiempo.
+- Volúmenes más grandes de lo necesario.
 
-**Check**:
+**Comprobación**:
 ```bash
-# Find unattached volumes
+# Encontrar volúmenes no conectados
 aws ec2 describe-volumes \
   --filters "Name=status,Values=available" \
   --query 'Volumes[].[VolumeId,Size,CreateTime]'
 ```
 
-**Solutions**:
-- Terminate unused EC2 instances
-- Delete unattached EBS volumes
-- Set up lifecycle policies for snapshots
-- Use AWS Resource Groups Tag Editor to find untagged resources
+**Soluciones**:
+- Termine las instancias de **EC2** que no utilice.
+- Elimine los volúmenes de **EBS** desconectados.
+- Configure políticas de ciclo de vida para los **snapshots**.
+- Use el **Tag Editor** de **AWS Resource Groups** para encontrar recursos sin etiquetas.
 
-#### 2. Data Transfer Costs
+#### 2. Costos de Transferencia de Datos
 
-**Cross-Region Transfer**:
-- Data transfer between regions ($0.02/GB)
-- Not using same-region resources
+**Transferencia entre Regiones**:
+- Transferencia de datos entre regiones ($0.02/GB).
+- No utilizar recursos de la misma región.
 
-**Internet Data Transfer**:
-- Data transfer out to internet ($0.09/GB for first 10TB)
-- Large file downloads
-- Streaming video/audio
+**Transferencia de Datos por Internet**:
+- Transferencia de datos de salida hacia Internet ($0.09/GB para los primeros 10TB).
+- Descargas de archivos grandes.
+- Streaming de vídeo o audio.
 
-**Solutions**:
-- Keep resources in same region
-- Use CloudFront for content delivery (cheaper egress)
-- Compress data before transfer
-- Use VPC endpoints to avoid NAT Gateway data processing charges
-- Review CloudFront, S3, and EC2 data transfer in Cost Explorer
+**Soluciones**:
+- Mantenga los recursos en la misma región.
+- Use **CloudFront** para la entrega de contenido (salida o **egress** más barata).
+- Comprima los datos antes de la transferencia.
+- Use **VPC endpoints** para evitar los cargos por procesamiento de datos del **NAT Gateway**.
+- Revise la transferencia de datos de **CloudFront**, **S3** y **EC2** en el **Cost Explorer**.
 
-#### 3. NAT Gateway Costs
+#### 3. Costos del NAT Gateway
 
-**High Data Processing**:
-- NAT Gateway charges for data processed ($0.045/GB)
-- Instances in private subnets accessing internet frequently
+**Alto Procesamiento de Datos**:
+- El **NAT Gateway** cobra por los datos procesados ($0.045/GB).
+- Instancias en subredes privadas que acceden a Internet con frecuencia.
 
-**Solutions**:
-- Use VPC endpoints for AWS services (S3, DynamoDB)
-- Consolidate NAT Gateways (one per AZ sufficient)
-- Review what traffic is going through NAT Gateway
-- Consider switching to NAT instances for high-volume use cases
+**Soluciones**:
+- Use **VPC endpoints** para los servicios de AWS (**S3**, **DynamoDB**).
+- Consolide los **NAT Gateways** (uno por **AZ** es suficiente).
+- Revise qué tráfico está pasando a través del **NAT Gateway**.
+- Considere cambiar a instancias **NAT** para casos de uso de gran volumen.
 
 #### 4. CloudWatch Logs
 
-**Large Log Ingestion**:
-- Application logging too verbosely
-- Retention period too long
-- Many log groups
+**Alta Ingesta de Registros**:
+- La aplicación registra demasiada información (**verbose**).
+- Período de retención demasiado largo.
+- Muchos grupos de registros.
 
-**Check Costs**:
-- Ingestion: $0.50/GB
-- Storage: $0.03/GB/month
-- Insights queries: $0.005/GB scanned
+**Comprobar Costos**:
+- Ingesta: $0.50/GB.
+- Almacenamiento: $0.03/GB al mes.
+- Consultas de **Insights**: $0.005/GB escaneado.
 
-**Solutions**:
-- Reduce log verbosity
-- Set retention policies (7-30 days typical)
-- Export old logs to S3 (cheaper storage)
-- Use sampling for high-volume logs
-- Delete unnecessary log groups
+**Soluciones**:
+- Reduzca el nivel de detalle de los registros.
+- Establezca políticas de retención (lo típico es de 7 a 30 días).
+- Exporte los registros antiguos a **S3** (almacenamiento más barato).
+- Use el muestreo (**sampling**) para registros de gran volumen.
+- Elimine los grupos de registros innecesarios.
 
-#### 5. Elastic Load Balancers
+#### 5. Elastic Load Balancers (ELB)
 
-**Idle Load Balancers**:
-- Load balancer running with no traffic
-- Using multiple load balancers when one suffices
+**Equilibradores de Carga Inactivos**:
+- Equilibrador de carga funcionando sin tráfico.
+- Utilizar múltiples equilibradores de carga cuando uno solo es suficiente.
 
-**Costs**:
-- ALB/NLB: ~$0.0225/hour (~$16/month) + data processing
-- Classic LB: ~$0.025/hour (~$18/month)
+**Costos**:
+- **ALB**/**NLB**: ~$0.0225/hora (~$16/mes) + procesamiento de datos.
+- **Classic LB**: ~$0.025/hora (~$18/mes).
 
-**Solutions**:
-- Delete unused load balancers
-- Consolidate applications behind fewer load balancers
-- Use path-based routing on ALB
+**Soluciones**:
+- Elimine los equilibradores de carga que no utilice.
+- Consolide las aplicaciones detrás de menos equilibradores de carga.
+- Use el enrutamiento basado en rutas en el **ALB**.
 
-#### 6. RDS Instances
+#### 6. Instancias de RDS
 
-**Over-Provisioned**:
-- Database instance too large
-- Multi-AZ when not needed for dev/test
-- Not using Reserved Instances
+**Sobre-aprovisionamiento**:
+- Instancia de base de datos demasiado grande.
+- **Multi-AZ** cuando no es necesario para desarrollo o pruebas.
+- No utilizar **Instancias Reservadas**.
 
-**Solutions**:
-- Right-size instance based on CloudWatch metrics
-- Use Single-AZ for non-production
-- Stop RDS instances when not in use (dev/test)
-- Purchase Reserved Instances for production (save up to 72%)
+**Soluciones**:
+- Ajuste el tamaño de la instancia basándose en las métricas de **CloudWatch**.
+- Use **Single-AZ** para entornos que no sean de producción.
+- Detenga las instancias de **RDS** cuando no estén en uso (desarrollo/pruebas).
+- Adquiera **Instancias Reservadas** para producción (ahorre hasta un 72%).
 
-#### 7. S3 Storage Costs
+#### 7. Costos de Almacenamiento en S3
 
-**Incorrect Storage Class**:
-- Using Standard for infrequently accessed data
-- Not using Intelligent-Tiering
+**Clase de Almacenamiento Incorrecta**:
+- Usar **Standard** para datos a los que se accede con poca frecuencia.
+- No utilizar **Intelligent-Tiering**.
 
-**Many Small Objects**:
-- S3 charges per request
-- Millions of tiny files more expensive
+**Muchos Objetos Pequeños**:
+- **S3** cobra por cada solicitud.
+- Millones de archivos diminutos son más costosos.
 
-**Solutions**:
-- Use lifecycle policies to transition to cheaper storage classes
-- Enable S3 Intelligent-Tiering for unknown access patterns
-- Consolidate small objects
-- Delete incomplete multipart uploads
-- Use S3 Storage Lens for insights
+**Soluciones**:
+- Use políticas de ciclo de vida para realizar la transición a clases de almacenamiento más baratas.
+- Habilite **S3 Intelligent-Tiering** para patrones de acceso desconocidos.
+- Consolide los objetos pequeños.
+- Elimine las cargas multiparte (**multipart uploads**) incompletas.
+- Use **S3 Storage Lens** para obtener información.
 
-#### 8. Lambda Costs
+#### 8. Costos de Lambda
 
-**High Invocations**:
-- Infinite loop or recursive calls
-- Too frequent CloudWatch Events triggers
-- Over-allocated memory
+**Altas Invocaciones**:
+- Bucle infinito o llamadas recursivas.
+- Activadores de **CloudWatch Events** demasiado frecuentes.
+- Memoria asignada en exceso.
 
-**Solutions**:
-- Review CloudWatch Logs for errors causing retries
-- Optimize function execution time
-- Right-size memory allocation
-- Use reserved concurrency to limit costs
-- Implement exponential backoff for retries
+**Soluciones**:
+- Revise los registros de **CloudWatch Logs** en busca de errores que provoquen reintentos.
+- Optimice el tiempo de ejecución de la función.
+- Ajuste la asignación de memoria.
+- Use la concurrencia reservada para limitar los costos.
+- Implemente un retroceso exponencial para los reintentos.
 
-**Cost Analysis Tools**:
+**Herramientas de Análisis de Costos**:
 
 **AWS Cost Explorer**:
-- View costs by service, region, tag
-- Identify trends and anomalies
-- Filter by time period
+- Vea los costos por servicio, región y etiqueta.
+- Identifique tendencias y anomalías.
+- Filtre por período de tiempo.
 
 **AWS Budgets**:
-- Set budget alerts
-- Get notified when exceeding threshold
-- Forecast spending
+- Configure alertas de presupuesto.
+- Reciba notificaciones al superar un umbral.
+- Pronostique el gasto.
 
 **AWS Cost Anomaly Detection**:
-- ML-based anomaly detection
-- Automatic alerts for unusual spending
-- Root cause analysis
+- Detección de anomalías basada en **ML**.
+- Alertas automáticas para gastos inusuales.
+- Análisis de la causa raíz.
 
 **AWS Trusted Advisor**:
-- Cost optimization recommendations
-- Identify idle resources
-- Right-sizing suggestions (with Business/Enterprise support)
+- Recomendaciones de optimización de costos.
+- Identifique recursos inactivos.
+- Sugerencias para ajustar el tamaño (**right-sizing**) (con soporte Business o Enterprise).
 
-**Tag-Based Cost Allocation**:
-- Tag resources by: Project, Environment, Owner
-- Enable tag-based cost allocation reports
-- Identify costs by business unit
+**Asignación de Costos Basada en Etiquetas**:
+- Etiquete los recursos por: Proyecto, Entorno, Propietario.
+- Habilite los informes de asignación de costos basados en etiquetas.
+- Identifique los costos por unidad de negocio.
 
-**Investigation Steps**:
+**Pasos de Investigación**:
 
-1. **Open Cost Explorer**:
-   - Group by service
-   - Identify top cost services
-   - Compare to previous month
+1. **Abrir el Cost Explorer**:
+   - Agrupar por servicio.
+   - Identificar los servicios con mayores costos.
+   - Comparar con el mes anterior.
 
-2. **Check for Anomalies**:
-   - Look for sudden spikes
-   - Identify specific days/hours
+2. **Comprobar si hay Anomalías**:
+   - Buscar picos repentinos.
+   - Identificar días u horas específicos.
 
-3. **Review Top Services**:
-   - EC2: Running instances, EBS volumes
-   - S3: Storage, requests, data transfer
-   - Data Transfer: Cross-region, internet egress
-   - RDS: Running databases
+3. **Revisar los Servicios Principales**:
+   - **EC2**: Instancias en ejecución, volúmenes de **EBS**.
+   - **S3**: Almacenamiento, solicitudes, transferencia de datos.
+   - **Transferencia de Datos**: Entre regiones, salida a Internet.
+   - **RDS**: Bases de datos en ejecución.
 
-4. **Tag Analysis**:
-   - Identify untagged resources
-   - Track costs by project/team
+4. **Análisis de Etiquetas**:
+   - Identificar recursos sin etiquetas.
+   - Realizar un seguimiento de los costos por proyecto o equipo.
 
-5. **Enable Detailed Billing**:
-   - Resource-level granularity
-   - Understand what's driving costs
+5. **Habilitar Facturación Detallada**:
+   - Granularidad a nivel de recurso.
+   - Entender qué es lo que está impulsando los costos.
 
-**Prevention**:
-1. Set up AWS Budgets with email alerts
-2. Tag all resources appropriately
-3. Set up Cost Anomaly Detection
-4. Review Cost Explorer monthly
-5. Implement least-privilege IAM policies (prevent accidental expensive resource creation)
-6. Use CloudFormation with budget constraints
-7. Enable AWS Cost Optimization Hub
-8. Regular cost review meetings with stakeholders
+**Prevención**:
+1. Configure **AWS Budgets** con alertas por correo electrónico.
+2. Etiquete todos los recursos de forma adecuada.
+3. Configure la detección de anomalías de costos (**Cost Anomaly Detection**).
+4. Revise el **Cost Explorer** mensualmente.
+5. Implemente políticas de **IAM** de mínimo privilegio (para evitar la creación accidental de recursos costosos).
+6. Use **CloudFormation** con restricciones de presupuesto.
+7. Habilite el **AWS Cost Optimization Hub**.
+8. Reuniones periódicas de revisión de costos con las partes interesadas.
 
 ---
 
-### API Gateway 502/504 Errors
+### Errores 502/504 en API Gateway
 
-**Symptoms**: API Gateway returns 502 Bad Gateway or 504 Gateway Timeout
+**Síntomas**: **API Gateway** devuelve `502 Bad Gateway` o `504 Gateway Timeout`.
 
-**Error Types**:
+**Tipos de Error**:
 
 #### 1. 502 Bad Gateway
 
-**Causes**:
-- Backend endpoint (Lambda, HTTP) returning invalid response
-- Lambda function error/exception
-- Malformed response from integration
-- Certificate validation failure (for HTTP integration)
+**Causas**:
+- El **endpoint** de backend (**Lambda**, **HTTP**) devuelve una respuesta inválida.
+- Error/excepción en la función **Lambda**.
+- Respuesta malformada de la integración.
+- Fallo en la validación del certificado (para integración **HTTP**).
 
-**Solutions**:
+**Soluciones**:
 
-**Lambda Integration**:
-- Check CloudWatch Logs for Lambda errors
-- Ensure Lambda returns proper response format:
+**Integración con Lambda**:
+- Revise los registros de **CloudWatch Logs** en busca de errores en **Lambda**.
+- Asegúrese de que **Lambda** devuelva el formato de respuesta adecuado:
 ```json
 {
   "statusCode": 200,
@@ -3379,90 +3370,90 @@ aws ec2 describe-volumes \
   "body": "{\"message\":\"Success\"}"
 }
 ```
-- Verify Lambda execution role has required permissions
-- Check if Lambda is in VPC and can reach required resources
+- Verifique que el rol de ejecución de **Lambda** tenga los permisos necesarios.
+- Compruebe si la función **Lambda** está en una **VPC** y puede llegar a los recursos requeridos.
 
-**HTTP Integration**:
-- Verify backend endpoint is accessible
-- Check SSL certificate is valid
-- Test endpoint directly from EC2 in same VPC
-- Verify security groups allow API Gateway to reach backend
-- Check if using correct HTTP method
+**Integración HTTP**:
+- Verifique que el **endpoint** de backend sea accesible.
+- Compruebe que el certificado **SSL** sea válido.
+- Pruebe el **endpoint** directamente desde una **EC2** en la misma **VPC**.
+- Verifique que los grupos de seguridad permitan que **API Gateway** llegue al backend.
+- Compruebe si se está utilizando el método **HTTP** correcto.
 
-**VPC Link Issues**:
-- Network Load Balancer health checks failing
-- Security groups blocking traffic
-- Target group has no healthy targets
+**Problemas con VPC Link**:
+- Las comprobaciones de estado del **Network Load Balancer** están fallando.
+- Los grupos de seguridad están bloqueando el tráfico.
+- El **target group** no tiene objetivos saludables (**healthy targets**).
 
 #### 2. 504 Gateway Timeout
 
-**Causes**:
-- Backend taking longer than API Gateway timeout (29 seconds maximum)
-- Lambda function timeout
-- HTTP endpoint not responding
-- Network connectivity issues
+**Causas**:
+- El backend tarda más que el tiempo de espera de **API Gateway** (máximo 29 segundos).
+- Tiempo de espera agotado en la función **Lambda**.
+- El **endpoint HTTP** no responde.
+- Problemas de conectividad de red.
 
-**Solutions**:
+**Soluciones**:
 
-**Lambda Timeout**:
-- Check Lambda timeout setting (max 15 minutes, but API Gateway limit is 29 seconds)
-- Set Lambda timeout to <29 seconds for synchronous invocations
-- For long-running tasks, use asynchronous invocation or Step Functions
-- Optimize Lambda performance
+**Tiempo de Espera de Lambda**:
+- Compruebe el ajuste de tiempo de espera de **Lambda** (máximo 15 minutos, pero el límite de **API Gateway** es de 29 segundos).
+- Establezca el tiempo de espera de **Lambda** en menos de 29 segundos para invocaciones síncronas.
+- Para tareas de larga duración, use la invocación asíncrona o **Step Functions**.
+- Optimice el rendimiento de **Lambda**.
 
-**HTTP Endpoint Timeout**:
-- Reduce backend processing time
-- Implement caching at backend
-- Use asynchronous processing for long operations
-- Return immediate response, process in background
+**Tiempo de Espera del Endpoint HTTP**:
+- Reduzca el tiempo de procesamiento del backend.
+- Implemente el almacenamiento en caché en el backend.
+- Use el procesamiento asíncrono para operaciones largas.
+- Devuelva una respuesta inmediata y procese en segundo plano.
 
-**VPC Configuration**:
-- If Lambda in VPC, check it can reach endpoints (NAT Gateway for internet)
-- Verify DNS resolution working
-- Check VPC Flow Logs for dropped packets
+**Configuración de la VPC**:
+- Si la función **Lambda** está en una **VPC**, compruebe que pueda llegar a los **endpoints** (usar **NAT Gateway** para Internet).
+- Verifique que la resolución de **DNS** esté funcionando.
+- Compruebe los registros de **VPC Flow Logs** en busca de paquetes descartados.
 
-#### 3. Integration Response Issues
+#### 3. Problemas en la Respuesta de Integración
 
-**Invalid Response Transformation**:
-- VTL (Velocity Template Language) mapping error
-- Headers not properly formatted
-- Response body invalid JSON
+**Transformación de Respuesta Inválida**:
+- Error en el mapeo de **VTL** (**Velocity Template Language**).
+- Cabeceras no formateadas correctamente.
+- El cuerpo de la respuesta no es un **JSON** válido.
 
-**Solutions**:
-- Test mapping templates in API Gateway console
-- Verify response structure matches defined model
-- Check for syntax errors in VTL templates
-- Enable CloudWatch logging for API Gateway
+**Soluciones**:
+- Pruebe las plantillas de mapeo en la consola de **API Gateway**.
+- Verifique que la estructura de la respuesta coincida con el modelo definido.
+- Busque errores de sintaxis en las plantillas **VTL**.
+- Habilite el registro en **CloudWatch** para **API Gateway**.
 
-#### 4. Resource Policy or Authorization
+#### 4. Política de Recursos o Autorización
 
-**403 Forbidden disguised as 502**:
-- Resource policy denying request
-- Lambda authorizer denying access but not returning proper response
+**Error 403 Forbidden disfrazado de 502**:
+- La política de recursos deniega la solicitud.
+- El autorizador de **Lambda** deniega el acceso pero no devuelve la respuesta adecuada.
 
-**Solutions**:
-- Review resource policy
-- Check Lambda authorizer CloudWatch Logs
-- Ensure authorizer returns proper policy document
+**Soluciones**:
+- Revise la política de recursos.
+- Compruebe los registros de **CloudWatch Logs** del autorizador de **Lambda**.
+- Asegúrese de que el autorizador devuelva el documento de política adecuado.
 
-#### 5. Throttling
+#### 5. Estrangulamiento (Throttling)
 
 **TooManyRequestsException**:
-- Account-level throttle (10,000 RPS default)
-- Burst limit exceeded (5,000 default)
-- Stage-level or method-level throttles
+- Estrangulamiento a nivel de cuenta (10,000 **RPS** por defecto).
+- Límite de ráfaga superado (5,000 por defecto).
+- Estrangulamientos a nivel de etapa (**stage**) o de método.
 
-**Solutions**:
-- Implement client-side retry with exponential backoff
-- Request limit increase
-- Use usage plans to control access
-- Implement caching to reduce backend calls
+**Soluciones**:
+- Implemente reintentos en el lado del cliente con retroceso exponencial.
+- Solicite un aumento del límite.
+- Use planes de uso (**usage plans**) para controlar el acceso.
+- Implemente el almacenamiento en caché para reducir las llamadas al backend.
 
-**Debugging Steps**:
+**Pasos de Depuración**:
 
-**1. Enable CloudWatch Logs**:
+**1. Habilitar CloudWatch Logs**:
 ```bash
-# Enable execution logging
+# Habilitar el registro de ejecución
 aws apigateway update-stage \
   --rest-api-id abc123 \
   --stage-name prod \
@@ -3471,104 +3462,104 @@ aws apigateway update-stage \
     op=replace,path=/*/logging/dataTrace,value=true
 ```
 
-**2. Check CloudWatch Metrics**:
-- 4XXError: Client errors
-- 5XXError: Server errors
-- IntegrationLatency: Backend response time
-- Latency: Total request latency
-- Count: Number of requests
+**2. Comprobar las Métricas de CloudWatch**:
+- `4XXError`: Errores del cliente.
+- `5XXError`: Errores del servidor.
+- `IntegrationLatency`: Tiempo de respuesta del backend.
+- `Latency`: Latencia total de la solicitud.
+- `Count`: Número de solicitudes.
 
-**3. Test Endpoint**:
+**3. Probar el Endpoint**:
 ```bash
-# Test API directly
+# Probar la API directamente
 curl -X POST https://api-id.execute-api.region.amazonaws.com/stage/path \
   -H "Content-Type: application/json" \
   -d '{"key":"value"}' \
   -v
 
-# Check for specific error codes
-# 502: Bad Gateway (integration error)
-# 504: Gateway Timeout (backend timeout)
+# Buscar códigos de error específicos
+# 502: Bad Gateway (error de integración)
+# 504: Gateway Timeout (tiempo de espera del backend agotado)
 ```
 
-**4. Review Lambda Logs** (if Lambda integration):
+**4. Revisar los Registros de Lambda** (si se usa la integración con **Lambda**):
 ```bash
-# Get latest log stream
+# Obtener el flujo de registros más reciente
 aws logs describe-log-streams \
   --log-group-name /aws/lambda/my-function \
   --order-by LastEventTime \
   --descending \
   --max-items 1
 
-# View logs
+# Ver los registros
 aws logs tail /aws/lambda/my-function --follow
 ```
 
-**5. Test Lambda Directly**:
+**5. Probar Lambda Directamente**:
 ```bash
-# Invoke Lambda with test event
+# Invocar Lambda con un evento de prueba
 aws lambda invoke \
   --function-name my-function \
   --payload '{"key":"value"}' \
   response.json
 ```
 
-**Common Solutions**:
+**Soluciones Comunes**:
 
-1. **Lambda Response Format**:
-   - Use proxy integration for simple cases
-   - Ensure statusCode, headers, body are properly formatted
-   - Stringify JSON body
+1. **Formato de Respuesta de Lambda**:
+   - Use la integración de tipo **proxy** para casos sencillos.
+   - Asegúrese de que `statusCode`, `headers` y `body` estén formateados correctamente.
+   - Convierta el cuerpo **JSON** a una cadena (**string**).
 
-2. **Timeout Configuration**:
-   - Lambda timeout: <29 seconds
-   - Use async invocation for long-running tasks
-   - Implement caching
+2. **Configuración del Tiempo de Espera**:
+   - Tiempo de espera de **Lambda**: < 29 segundos.
+   - Use la invocación asíncrona para tareas de larga duración.
+   - Implemente el almacenamiento en caché.
 
-3. **VPC Configuration**:
-   - Add NAT Gateway for internet access
-   - Use VPC endpoints for AWS services
-   - Verify security groups
+3. **Configuración de la VPC**:
+   - Añada un **NAT Gateway** para el acceso a Internet.
+   - Use **VPC endpoints** para los servicios de AWS.
+   - Verifique los grupos de seguridad.
 
-4. **Error Handling**:
-   - Implement try-catch in Lambda
-   - Return proper error responses
-   - Log errors to CloudWatch
+4. **Gestión de Errores**:
+   - Implemente `try-catch` en **Lambda**.
+   - Devuelva respuestas de error adecuadas.
+   - Registre los errores en **CloudWatch**.
 
-5. **Monitoring**:
-   - Set up CloudWatch alarms for 5XX errors
-   - Enable X-Ray tracing for detailed analysis
-   - Regular review of CloudWatch Logs
+5. **Monitoreo**:
+   - Configure alarmas de **CloudWatch** para errores **5XX**.
+   - Habilite el rastreo con **X-Ray** para un análisis detallado.
+   - Revisión periódica de los registros de **CloudWatch Logs**.
 
-**Best Practices**:
-1. Always enable CloudWatch Logs (at least for errors)
-2. Implement proper error handling in backend
-3. Set appropriate timeouts (Lambda < 29 seconds)
-4. Use X-Ray for distributed tracing
-5. Test API thoroughly before production
-6. Monitor latency and error rates
-7. Implement caching to reduce backend load
-8. Use usage plans to control access and prevent abuse
-
----
-
-## Key Takeaways
-
-1. **Cost Optimization**: Combine Reserved Instances, Spot Instances, and On-Demand based on workload patterns
-2. **High Availability**: Always design across multiple Availability Zones
-3. **Data Migration**: Use AWS physical devices (Snowball/Snowmobile) for large datasets
-4. **Serverless**: Ideal for unpredictable workloads and minimal operational overhead
-5. **Compliance**: Use AWS Organizations, SCPs, and AWS Config for governance at scale
-6. **Disaster Recovery**: Choose DR strategy based on RPO/RTO requirements and budget
-7. **Hybrid Connectivity**: Direct Connect for production, VPN for dev/test
-8. **Multi-Region**: Use Global Tables, CloudFront, and Route 53 for low-latency global access
-9. **Security**: Implement defense in depth with GuardDuty, Security Hub, Config, and automated remediation
-10. **Modernization**: Use strangler fig pattern for incremental migration from monoliths
-11. **Big Data**: Build data lakes with S3, process with Glue/EMR, analyze with Athena/Redshift
-12. **CI/CD**: Automate deployments with CodePipeline, implement blue/green deployments, enable fast rollbacks
-13. **Troubleshooting**: Follow systematic approaches for connectivity, security, and performance issues
-14. **Cost Management**: Use Cost Explorer, Budgets, and tagging to track and optimize spending
+**Mejores Prácticas**:
+1. Habilite siempre los registros de **CloudWatch Logs** (al menos para los errores).
+2. Implemente una gestión de errores adecuada en el backend.
+3. Establezca tiempos de espera apropiados (**Lambda** < 29 segundos).
+4. Use **X-Ray** para el rastreo distribuido.
+5. Pruebe la **API** a fondo antes de pasar a producción.
+6. Monitoree la latencia y las tasas de error.
+7. Implemente el almacenamiento en caché para reducir la carga del backend.
+8. Use planes de uso para controlar el acceso y evitar abusos.
 
 ---
 
-[← Previous: Exam Preparation](08-exam-preparation.md) | [Next: Additional Resources →](10-additional-resources.md)
+## Puntos Clave a Recordar
+
+1. **Optimización de Costos**: Combine **Instancias Reservadas**, **Instancias Spot** e **Instancias bajo demanda** basándose en los patrones de carga de trabajo.
+2. **Alta Disponibilidad**: Diseñe siempre a través de múltiples Zonas de Disponibilidad (**Availability Zones**).
+3. **Migración de Datos**: Utilice dispositivos físicos de AWS (**Snowball**/**Snowmobile**) para grandes conjuntos de datos.
+4. **Serverless**: Ideal para cargas de trabajo impredecibles y un gasto operativo mínimo.
+5. **Cumplimiento**: Use **AWS Organizations**, **SCPs** y **AWS Config** para la gobernanza a escala.
+6. **Recuperación ante Desastres (DR)**: Elija la estrategia de **DR** basándose en los requisitos de **RPO**/**RTO** y el presupuesto.
+7. **Conectividad Híbrida**: **Direct Connect** para producción, **VPN** para desarrollo/pruebas.
+8. **Multi-Región**: Use **Global Tables**, **CloudFront** y **Route 53** para un acceso global de baja latencia.
+9. **Seguridad**: Implemente defensa en profundidad con **GuardDuty**, **Security Hub**, **Config** y remediación automatizada.
+10. **Modernización**: Use el patrón **Strangler Fig** para una migración incremental desde monolitos.
+11. **Big Data**: Construya lagos de datos con **S3**, procéselos con **Glue**/**EMR** y analícelos con **Athena**/**Redshift**.
+12. **CI/CD**: Automatice los despliegues con **CodePipeline**, implemente despliegues **blue/green** y habilite reversiones rápidas.
+13. **Resolución de Problemas**: Siga enfoques sistemáticos para problemas de conectividad, seguridad y rendimiento.
+14. **Gestión de Costos**: Use el **Cost Explorer**, **Budgets** y el etiquetado para realizar un seguimiento y optimizar el gasto.
+
+---
+
+[← Anterior: Preparación para el Examen](08-exam-preparation.md) | [Siguiente: Recursos Adicionales →](10-additional-resources.md)

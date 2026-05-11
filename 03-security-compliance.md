@@ -1,140 +1,140 @@
-# Domain 2: Security and Compliance (30%)
+# Dominio 2: Seguridad y Cumplimiento (30%)
 
-[← Previous: Cloud Concepts](02-cloud-concepts.md) | [Back to Main](README.md) | [Next: Cloud Technology and Services →](04-technology-services.md)
+[← Anterior: Conceptos de la Nube](02-cloud-concepts.md) | [Volver al Inicio](README.md) | [Siguiente: Tecnología y Servicios en la Nube →](04-technology-services.md)
 
 ---
 
-## AWS Shared Responsibility Model
+## Modelo de Responsabilidad Compartida de AWS (AWS Shared Responsibility Model)
 
-> **EXAM CRITICAL:** This is one of the most critical concepts for the exam. Understand what AWS manages versus what the customer manages.
+> **CRÍTICO PARA EL EXAMEN:** Este es uno de los conceptos más importantes. Comprende qué gestiona AWS frente a lo que gestiona el cliente.
 
-The Shared Responsibility Model divides security responsibilities between AWS and the customer. Think of it as "Security OF the Cloud" (AWS) vs "Security IN the Cloud" (Customer).
+El **Shared Responsibility Model** divide las responsabilidades de seguridad entre AWS y el cliente. Piénsalo como "**Security OF the Cloud**" (AWS) frente a "**Security IN the Cloud**" (Cliente).
 
-### AWS Responsibility: Security OF the Cloud
+### Responsabilidad de AWS: Seguridad de la Nube (Security OF the Cloud)
 
-AWS is responsible for protecting the infrastructure that runs all services:
+AWS es responsable de proteger la infraestructura que ejecuta todos los servicios:
 
-- **Physical security of data centers**
-  - Building access controls
-  - Security personnel
-  - Environmental safeguards
+- **Seguridad física de los centros de datos**
+  - Controles de acceso a los edificios
+  - Personal de seguridad
+  - Salvaguardas ambientales (climatización, incendios)
 
-- **Hardware and networking components**
-  - Physical servers
-  - Storage devices
-  - Network equipment
+- **Hardware y componentes de red**
+  - Servidores físicos
+  - Dispositivos de almacenamiento
+  - Equipos de red (routers, switches)
 
-- **Compute, storage, database, and networking infrastructure**
-  - Hypervisor layer
-  - Managed service infrastructure
+- **Infraestructura de cómputo, almacenamiento, bases de datos y redes**
+  - Capa del hipervisor (Virtualización)
+  - Infraestructura de servicios gestionados
 
-- **AWS global infrastructure**
-  - Regions
-  - Availability Zones
-  - Edge Locations
+- **Infraestructura global de AWS (AWS global infrastructure)**
+  - **Regions**
+  - **Availability Zones**
+  - **Edge Locations**
 
-- **Managed services**
-  - RDS, DynamoDB, Lambda, etc.
-  - AWS handles OS patching and maintenance for these services
+- **Servicios gestionados**
+  - **RDS**, **DynamoDB**, **Lambda**, etc.
+  - AWS se encarga del parcheo del sistema operativo (**OS**) y el mantenimiento de estos servicios.
 
-### Customer Responsibility: Security IN the Cloud
+### Responsabilidad del Cliente: Seguridad en la Nube (Security IN the Cloud)
 
-Customers are responsible for:
+Los clientes son responsables de:
 
-- **Customer data**
-  - All data you store in AWS
-  - Classification and protection
+- **Datos del cliente (Customer data)**
+  - Todos los datos que almacenas en AWS
+  - Clasificación y protección de los mismos
 
-- **Platform, applications, Identity and Access Management (IAM)**
-  - Application code
-  - IAM users, groups, roles, and policies
+- **Plataforma, aplicaciones, gestión de identidad y acceso (Identity and Access Management - IAM)**
+  - Código de la aplicación
+  - Usuarios, grupos, roles y políticas de **IAM**
 
-- **Operating system, network, and firewall configuration**
-  - OS patches and updates (for EC2)
-  - Security group rules
-  - Network ACLs
+- **Configuración del sistema operativo, red y firewall**
+  - Parches y actualizaciones del **OS** (para **EC2**)
+  - Reglas de **Security Groups**
+  - **Network ACLs** (**NACLs**)
 
-- **Client-side data encryption and data integrity authentication**
-  - Encrypting data before upload
-  - Data validation
+- **Client-side data encryption e integridad de datos**
+  - Cifrar los datos antes de subirlos
+  - Validación de datos
 
-- **Server-side encryption (file system and/or data)**
-  - Encryption at rest
-  - Key management choices
+- **Cifrado del lado del servidor (Server-side encryption - sistema de archivos y/o datos)**
+  - Cifrado en reposo (**at rest**)
+  - Elección de la gestión de claves
 
-- **Network traffic protection**
-  - Encryption in transit (HTTPS, TLS)
-  - Network security
+- **Protección del tráfico de red (Network traffic protection)**
+  - Cifrado en tránsito (HTTPS, TLS)
+  - Seguridad de la red
 
-- **Security group configuration**
-  - Firewall rules
-  - Access controls
+- **Configuración de Security Groups**
+  - Reglas de firewall
+  - Controles de acceso
 
-- **User access management**
-  - Creating and managing users
-  - Password policies
-  - MFA enforcement
+- **Gestión de acceso de usuarios (User access management)**
+  - Creación y gestión de usuarios
+  - Políticas de contraseñas
+  - Aplicación de **MFA**
 
-### Shared Controls
+### Controles Compartidos (Shared Controls)
 
-Both AWS and customers have responsibilities for:
+Tanto AWS como los clientes tienen responsabilidades sobre:
 
-| Control | AWS Responsibility | Customer Responsibility |
+| Control | Responsabilidad de AWS | Responsabilidad del Cliente |
 |---------|-------------------|------------------------|
-| **Patch Management** | Patches infrastructure components | Patches guest OS and applications |
-| **Configuration Management** | Configures infrastructure devices | Configures databases and applications |
-| **Awareness and Training** | Trains AWS employees | Trains their own staff |
+| **Patch Management** | Parchea los componentes de la infraestructura | Parchea el **guest OS** y las aplicaciones |
+| **Configuration Management** | Configura los dispositivos de infraestructura | Configura las bases de datos y aplicaciones |
+| **Awareness and Training** | Entrena a los empleados de AWS | Entrena a su propio personal |
 
-> **Exam Tip:** For any security question, ask: "Who is responsible?" AWS handles the infrastructure; you handle what you put in the cloud.
+> **Consejo para el Examen:** Para cualquier pregunta de seguridad, pregunta: "¿Quién es el responsable?". AWS maneja la infraestructura; tú manejas lo que pones en la nube.
 
 ---
 
-## AWS Identity and Access Management (IAM)
+## Gestión de Identidad y Acceso de AWS (AWS Identity and Access Management - IAM)
 
-IAM enables you to securely control access to AWS services and resources. It's a **global service** (not region-specific) and is **free** to use.
+**IAM** te permite controlar de forma segura el acceso a los servicios y recursos de AWS. Es un **global service** (no depende de una región) y su uso es **gratuito**.
 
-### Core Components
+### Componentes Principales
 
-#### Users
+#### Usuarios (Users)
 
-- **Individual people or services**
-- Permanent named operators
-- Can have long-term credentials:
-  - Password (for console access)
-  - Access keys (for programmatic access)
-- Should represent a physical person or application
-- By default, new users have NO permissions
+- **Personas o servicios individuales**
+- Operadores con nombre permanente
+- Pueden tener credenciales a largo plazo:
+  - Contraseña (para acceso a la consola)
+  - **Access keys** (para acceso programático/CLI)
+- Debe representar a una persona física o una aplicación
+- Por defecto, los nuevos usuarios NO tienen permisos
 
-#### Groups
+#### Grupos (Groups)
 
-- **Collection of users**
-- Simplifies permission management
-- Key characteristics:
-  - Groups cannot be nested
-  - Users can belong to multiple groups
-  - Apply policies to groups for easier management
-  - No default groups
+- **Colección de usuarios**
+- Simplifica la gestión de permisos
+- Características clave:
+  - Los grupos no pueden anidarse
+  - Los usuarios pueden pertenecer a múltiples grupos
+  - Aplicar políticas a grupos para una gestión más fácil
+  - No hay grupos por defecto
 
-#### Roles
+#### Roles de IAM (IAM Roles)
 
-- **Temporary credentials** for users, applications, or services
-- No username/password or access keys
-- Can be assumed by anyone who needs it
-- **Best practice** for EC2 instances accessing AWS services
-- Can be used for cross-account access
-- Temporary security credentials are automatically rotated
+- **Credenciales temporales** para usuarios, aplicaciones o servicios
+- Sin nombre de usuario/contraseña ni **access keys**
+- Pueden ser asumidos por cualquiera que lo necesite
+- **Best practice** para instancias **EC2** que acceden a servicios de AWS
+- Se pueden usar para acceso entre cuentas (**cross-account**)
+- Las credenciales de seguridad temporales se rotan automáticamente
 
-#### Policies
+#### Políticas (Policies)
 
-- **JSON documents** defining permissions
-- Attached to users, groups, or roles
-- Define what actions are allowed or denied on which resources
-- Follow **principle of least privilege**
-- Two main types:
-  - **AWS Managed Policies:** Created and maintained by AWS
-  - **Customer Managed Policies:** Created and maintained by you
+- **Documentos JSON** que definen permisos
+- Se adjuntan a usuarios, grupos o roles
+- Definen qué acciones están permitidas o denegadas en qué recursos
+- Siguen el **principle of least privilege** (mínimo privilegio)
+- Dos tipos principales:
+  - **AWS Managed Policies:** Creadas y mantenidas por AWS
+  - **Customer Managed Policies:** Creadas y mantenidas por ti
 
-**Example Policy Structure:**
+**Ejemplo de Estructura de Política:**
 ```json
 {
   "Version": "2012-10-17",
@@ -148,13 +148,13 @@ IAM enables you to securely control access to AWS services and resources. It's a
 }
 ```
 
-### Detailed IAM Policy Examples
+### Ejemplos Detallados de Políticas IAM
 
-Understanding IAM policies is critical for the exam. Here are common policy scenarios you should know.
+Comprender las políticas de IAM es fundamental para el examen. Aquí tienes escenarios comunes.
 
-#### Example 1: S3 Read-Only Access to Specific Bucket
+#### Ejemplo 1: Acceso de Solo Lectura a un Bucket de S3 Específico
 
-This policy grants read-only access to objects in a specific S3 bucket.
+Esta política otorga acceso de solo lectura a los objetos en un bucket de S3 específico.
 
 ```json
 {
@@ -177,15 +177,15 @@ This policy grants read-only access to objects in a specific S3 bucket.
 }
 ```
 
-**Key Points:**
-- `Sid`: Statement ID (optional, for documentation)
-- `Effect`: Can be "Allow" or "Deny"
-- `Action`: What operations are permitted
-- `Resource`: Which AWS resources the policy applies to
+**Puntos Clave:**
+- `Sid`: ID de la declaración (opcional, para documentación)
+- `Effect`: Puede ser "Allow" (Permitir) o "Deny" (Denegar)
+- `Action`: Qué operaciones están permitidas
+- `Resource`: A qué recursos de AWS se aplica la política
 
-#### Example 2: EC2 Instance Management with Conditions
+#### Ejemplo 2: Gestión de Instancias EC2 con Condiciones
 
-This policy allows starting and stopping EC2 instances only during business hours.
+Esta política permite iniciar y detener instancias **EC2** solo durante el horario comercial.
 
 ```json
 {
@@ -218,15 +218,15 @@ This policy allows starting and stopping EC2 instances only during business hour
 }
 ```
 
-**Condition Elements:**
-- Time-based restrictions
-- IP address restrictions
-- MFA requirements
-- Source VPC restrictions
+**Elementos de Condición:**
+- Restricciones basadas en el tiempo
+- Restricciones de dirección IP
+- Requisitos de **MFA**
+- Restricciones de la **VPC** de origen
 
-#### Example 3: Deny Policy for Sensitive Actions
+#### Ejemplo 3: Política de Denegación para Acciones Sensibles
 
-This policy explicitly denies deletion of production resources (deny always overrides allow).
+Esta política deniega explícitamente la eliminación de recursos de producción (Deny siempre anula Allow).
 
 ```json
 {
@@ -250,11 +250,11 @@ This policy explicitly denies deletion of production resources (deny always over
 }
 ```
 
-**Important:** Explicit Deny always wins over Allow in IAM policy evaluation.
+**Importante:** Un Denegar explícito siempre gana sobre un Permitir en la evaluación de políticas de IAM.
 
-#### Example 4: MFA-Required Policy
+#### Ejemplo 4: Política con Requisito de MFA
 
-This policy requires MFA for sensitive operations.
+Esta política requiere **MFA** para operaciones sensibles.
 
 ```json
 {
@@ -277,9 +277,9 @@ This policy requires MFA for sensitive operations.
 }
 ```
 
-#### Example 5: Cross-Account Access Policy
+#### Ejemplo 5: Política de Acceso entre Cuentas (Cross-Account)
 
-This policy allows assuming a role from another AWS account.
+Esta política permite asumir un rol desde otra cuenta de AWS.
 
 ```json
 {
@@ -301,11 +301,11 @@ This policy allows assuming a role from another AWS account.
 }
 ```
 
-**Use Case:** Allow users from Account A to access resources in Account B.
+**Caso de Uso:** Permitir que los usuarios de la Cuenta A accedan a recursos en la Cuenta B.
 
-#### Example 6: Full Administrator Access
+#### Ejemplo 6: Acceso de Administrador Completo
 
-This policy grants full access to all AWS services (use with extreme caution).
+Esta política otorga acceso total a todos los servicios de AWS (usar con precaución extrema).
 
 ```json
 {
@@ -320,11 +320,11 @@ This policy grants full access to all AWS services (use with extreme caution).
 }
 ```
 
-**Warning:** Only assign to trusted administrators. This is equivalent to root access.
+**Advertencia:** Solo asignar a administradores de confianza. Esto es equivalente al acceso **root**.
 
-#### Example 7: Read-Only Access Across All Services
+#### Ejemplo 7: Acceso de Solo Lectura en Todos los Servicios
 
-This policy provides read-only access for auditing purposes.
+Esta política proporciona acceso de solo lectura con fines de auditoría.
 
 ```json
 {
@@ -347,9 +347,9 @@ This policy provides read-only access for auditing purposes.
 }
 ```
 
-#### Example 8: S3 Bucket Policy for Public Read Access
+#### Ejemplo 8: S3 Bucket Policy para Acceso de Lectura Público
 
-This is a resource-based policy attached to an S3 bucket.
+Esta es una política basada en recursos adjunta a un bucket de S3.
 
 ```json
 {
@@ -366,11 +366,11 @@ This is a resource-based policy attached to an S3 bucket.
 }
 ```
 
-**Use Case:** Hosting a static website or public content.
+**Caso de Uso:** Alojamiento de un sitio web estático o contenido público.
 
-#### Example 9: Service Control Policy (SCP)
+#### Ejemplo 9: Service Control Policy (SCP)
 
-This SCP prevents anyone in an OU from leaving the organization.
+Esta **SCP** evita que cualquier persona en una **OU** abandone la organización.
 
 ```json
 {
@@ -387,11 +387,11 @@ This SCP prevents anyone in an OU from leaving the organization.
 }
 ```
 
-**Important:** SCPs affect all users and roles, including the account root user.
+**Importante:** Las **SCPs** afectan a todos los usuarios y roles, incluido el usuario **root** de la cuenta.
 
-#### Example 10: Tag-Based Access Control
+#### Ejemplo 10: Control de Acceso Basado en Etiquetas (Tag-Based)
 
-This policy allows actions only on resources with specific tags.
+Esta política permite acciones solo en recursos con etiquetas específicas.
 
 ```json
 {
@@ -415,3413 +415,765 @@ This policy allows actions only on resources with specific tags.
 }
 ```
 
-**Use Case:** Users can only manage their own resources in their department.
+**Caso de Uso:** Los usuarios solo pueden gestionar sus propios recursos dentro de su departamento.
 
-### IAM Best Practices
+### Mejores Prácticas de IAM
 
-1. **Root account protection**
-   - Use only for initial setup, then lock it away
-   - Enable MFA on root account
-   - Do not create access keys for root
-   - Create individual IAM users instead
+1. **Protección de la cuenta root**
+   - Úsala solo para la configuración inicial, luego guárdala bajo llave.
+   - Habilita **MFA** en la cuenta **root**.
+   - No crees **access keys** para **root**.
+   - Crea usuarios de IAM individuales en su lugar.
 
-2. **Principle of Least Privilege**
-   - Grant only the permissions required to perform a task
-   - Start with minimum permissions and add as needed
-   - Regularly review and remove unnecessary permissions
+2. **Principle of Least Privilege** (Mínimo Privilegio)
+   - Otorga solo los permisos requeridos para realizar una tarea.
+   - Comienza con permisos mínimos y añade según sea necesario.
+   - Revisa y elimina regularmente los permisos innecesarios.
 
-3. **Use Groups for permission management**
-   - Assign permissions to groups, not individual users
-   - Add users to appropriate groups
-   - Easier to manage and audit
+3. **Usa Grupos para la gestión de permisos**
+   - Asigna permisos a grupos, no a usuarios individuales.
+   - Añade usuarios a los grupos apropiados.
+   - Es más fácil de gestionar y auditar.
 
-4. **Enable MFA (Multi-Factor Authentication)**
-   - Especially for privileged users
-   - Required for root account
-   - Add extra layer of security
+4. **Habilita MFA (Multi-Factor Authentication)**
+   - Especialmente para usuarios privilegiados.
+   - Obligatorio para la cuenta **root**.
+   - Añade una capa extra de seguridad.
 
-5. **Use Roles for applications**
-   - For applications running on EC2
-   - Better than embedding credentials
-   - Automatic credential rotation
+5. **Usa Roles para aplicaciones**
+   - Para aplicaciones que se ejecutan en **EC2**.
+   - Mejor que incrustar credenciales.
+   - Rotación automática de credenciales.
 
-6. **Rotate Credentials regularly**
-   - Change passwords periodically
-   - Rotate access keys
-   - Set password expiration policies
+6. **Rota las credenciales regularmente**
+   - Cambia las contraseñas periódicamente.
+   - Rota las **access keys**.
+   - Establece políticas de expiración de contraseñas.
 
-7. **Remove Unnecessary Credentials**
-   - Delete unused users
-   - Remove unused roles
-   - Deactivate old access keys
+7. **Elimina credenciales innecesarias**
+   - Elimina usuarios no utilizados.
+   - Elimina roles no utilizados.
+   - Desactiva las **access keys** antiguas.
 
-8. **Use Policy Conditions for extra security**
-   - IP address restrictions
-   - Time-based access
-   - MFA requirements
-   - Source VPC restrictions
+8. **Usa condiciones de política para seguridad extra**
+   - Restricciones de dirección IP.
+   - Acceso basado en el tiempo.
+   - Requisitos de **MFA**.
+   - Restricciones de la **VPC** de origen.
 
 ---
 
-## Security Best Practices - Deep Dive
+## Análisis Profundo de las Mejores Prácticas de Seguridad (Security Best Practices)
 
-Comprehensive security best practices you must know for the exam and real-world AWS usage.
+Mejores prácticas de seguridad integrales que debes conocer para el examen y el uso real de AWS.
 
-### 1. Identity and Access Management Security
+### 1. Seguridad en la Gestión de Identidad y Acceso (IAM Security)
 
-#### Implement Least Privilege Access
+#### Implementar el Acceso de Mínimo Privilegio (Least Privilege)
 
-**What it means:** Grant only the permissions necessary to perform required tasks, nothing more.
+**Qué significa:** Otorgar solo los permisos necesarios para realizar las tareas requeridas, nada más.
 
-**How to implement:**
-- Start with zero permissions and add what's needed
-- Use AWS managed policies as a starting point, then customize
-- Regularly review and audit permissions
-- Use IAM Access Analyzer to identify unused permissions
-- Remove permissions that haven't been used in 90+ days
+**Cómo implementarlo:**
+- Comienza con cero permisos y añade lo que sea necesario.
+- Usa las políticas gestionadas de AWS como punto de partida y luego personaliza.
+- Revisa y audita regularmente los permisos.
+- Usa **IAM Access Analyzer** para identificar permisos no utilizados.
+- Elimina permisos que no se hayan usado en más de 90 días.
 
-**Example Scenario:** A developer needs to read application logs from S3. Give them `s3:GetObject` on the specific bucket, not full S3 access or administrator rights.
+**Escenario de Ejemplo:** Un desarrollador necesita leer los logs de una aplicación desde S3. Dale `s3:GetObject` en el bucket específico, no acceso total a S3 ni derechos de administrador.
 
-**Exam Tip:** Questions will test whether you can identify overly permissive policies.
+**Consejo para el Examen:** Las preguntas evaluarán si puedes identificar políticas excesivamente permisivas.
 
-#### Implement Strong Password Policies
+#### Implementar Políticas de Contraseñas Fuertes
 
-**Requirements:**
-- Minimum length: 14+ characters (AWS allows 8-128)
-- Require uppercase, lowercase, numbers, and symbols
-- Prevent password reuse (remember at least 24 previous passwords)
-- Enforce password expiration (60-90 days recommended)
-- Prevent users from changing their password too frequently
+**Requisitos:**
+- Longitud mínima: 14+ caracteres (AWS permite de 8 a 128).
+- Requerir mayúsculas, minúsculas, números y símbolos.
+- Evitar la reutilización de contraseñas (recordar al menos 24 contraseñas anteriores).
+- Imponer la expiración de contraseñas (se recomiendan 60-90 días).
+- Evitar que los usuarios cambien su contraseña con demasiada frecuencia.
 
-**AWS Password Policy Settings:**
+**Configuraciones de Política de Contraseñas de AWS:**
 ```
-- Minimum password length: 14 characters
-- Require at least one uppercase letter: Yes
-- Require at least one lowercase letter: Yes
-- Require at least one number: Yes
-- Require at least one non-alphanumeric character: Yes
-- Allow users to change their own password: Yes
-- Enable password expiration: Yes (90 days)
-- Password expiration requires administrator reset: No
-- Number of passwords to remember: 24
+- Longitud mínima de la contraseña: 14 caracteres
+- Requerir al menos una letra mayúscula: Sí
+- Requerir al menos una letra minúscula: Sí
+- Requerir al menos un número: Sí
+- Requerir al menos un carácter no alfanumérico: Sí
+- Permitir que los usuarios cambien su propia contraseña: Sí
+- Habilitar la expiración de la contraseña: Sí (90 días)
+- La expiración de la contraseña requiere reinicio por administrador: No
+- Número de contraseñas a recordar: 24
 ```
 
-#### Credential Management Best Practices
+#### Mejores Prácticas de Gestión de Credenciales
 
-**Never do this:**
-- Hard-code credentials in application code
-- Store credentials in version control (Git)
-- Share credentials between users or applications
-- Email or message credentials
-- Use long-term credentials when temporary ones are available
+**Nunca hagas esto:**
+- Incrustar credenciales en el código de la aplicación (**hard-coding**).
+- Almacenar credenciales en el control de versiones (**Git**).
+- Compartir credenciales entre usuarios o aplicaciones.
+- Enviar credenciales por correo electrónico o mensajería.
+- Usar credenciales a largo plazo cuando hay credenciales temporales disponibles.
 
-**Always do this:**
-- Use IAM roles for EC2 instances and Lambda functions
-- Use AWS Secrets Manager or Systems Manager Parameter Store for secrets
-- Rotate credentials regularly (access keys every 90 days)
-- Use temporary credentials via AWS STS
-- Delete unused credentials immediately
+**Haz siempre esto:**
+- Usa **IAM Roles** para instancias **EC2** y funciones **Lambda**.
+- Usa **AWS Secrets Manager** o **Systems Manager Parameter Store** para secretos.
+- Rota las credenciales regularmente (**access keys** cada 90 días).
+- Usa credenciales temporales a través de **AWS STS**.
+- Elimina las credenciales no utilizadas inmediatamente.
 
-#### Enable AWS CloudTrail in All Regions
+#### Habilitar AWS CloudTrail en todas las regiones
 
-**Why it's critical:**
-- Provides audit trail of all API calls
-- Helps with compliance requirements
-- Enables security analysis and troubleshooting
-- Detects unauthorized access attempts
-- Required for incident response
+**Por qué es crítico:**
+- Proporciona un rastro de auditoría de todas las llamadas a la API.
+- Ayuda con los requisitos de cumplimiento.
+- Permite el análisis de seguridad y la resolución de problemas.
+- Detecta intentos de acceso no autorizados.
+- Necesario para la respuesta ante incidentes.
 
-**Configuration:**
-- Enable in all regions (even ones you don't use)
-- Enable log file validation for integrity
-- Store logs in a separate, secured S3 bucket
-- Enable S3 bucket versioning for log storage
-- Restrict access to CloudTrail logs
-- Set up CloudWatch Logs integration for real-time monitoring
+**Configuración:**
+- Habilítalo en todas las regiones (incluso en las que no usas).
+- Habilita la validación de archivos de log para integridad.
+- Almacena los logs en un bucket de S3 separado y seguro.
+- Habilita el control de versiones en el bucket de S3 de almacenamiento de logs.
+- Restringe el acceso a los logs de **CloudTrail**.
+- Configura la integración con **CloudWatch Logs** para monitoreo en tiempo real.
 
-### 2. Network Security Best Practices
+### 2. Mejores Prácticas de Seguridad de Red (Network Security)
 
-#### Use Security Groups Properly
+#### Usar los Security Groups Correctamente
 
-**Key Principles:**
-- Security groups are stateful (return traffic automatically allowed)
-- Default deny: Allow only what's needed
-- Use descriptive names and tags
-- Reference other security groups instead of IP addresses when possible
-- Separate security groups by tier (web, application, database)
+**Principios Clave:**
+- Los **Security Groups** tienen estado (**stateful**): el tráfico de retorno se permite automáticamente.
+- Denegación por defecto: Permite solo lo que sea necesario.
+- Usa nombres descriptivos y etiquetas (**tags**).
+- Referencia a otros **Security Groups** en lugar de direcciones IP cuando sea posible.
+- Separa los **Security Groups** por capa (**tier**): web, aplicación, base de datos.
 
-**Common Patterns:**
+**Patrones Comunes:**
 
 **Web Tier Security Group:**
 ```
-Inbound:
-- Port 80 (HTTP) from 0.0.0.0/0
-- Port 443 (HTTPS) from 0.0.0.0/0
-- Port 22 (SSH) from Bastion-SG only
+Entrada:
+- Puerto 80 (HTTP) desde 0.0.0.0/0
+- Puerto 443 (HTTPS) desde 0.0.0.0/0
+- Puerto 22 (SSH) solo desde Bastion-SG
 
-Outbound:
-- All traffic (default)
+Salida:
+- Todo el tráfico (por defecto)
 ```
 
 **Application Tier Security Group:**
 ```
-Inbound:
-- Port 8080 from Web-Tier-SG
-- Port 22 from Bastion-SG only
+Entrada:
+- Puerto 8080 desde Web-Tier-SG
+- Puerto 22 solo desde Bastion-SG
 
-Outbound:
-- Port 3306 to Database-SG
-- Port 443 to 0.0.0.0/0 (for API calls)
+Salida:
+- Puerto 3306 hacia Database-SG
+- Puerto 443 hacia 0.0.0.0/0 (para llamadas a la API)
 ```
 
 **Database Tier Security Group:**
 ```
-Inbound:
-- Port 3306 (MySQL) from App-Tier-SG only
-- Port 22 from Bastion-SG only
+Entrada:
+- Puerto 3306 (MySQL) solo desde App-Tier-SG
+- Puerto 22 solo desde Bastion-SG
 
-Outbound:
-- None (most restrictive)
+Salida:
+- Ninguna (lo más restrictivo)
 ```
 
-#### Network ACL (NACL) Best Practices
+#### Mejores Prácticas de Network ACL (NACL)
 
-**Differences from Security Groups:**
-- Stateless (must allow return traffic explicitly)
-- Applies at subnet level
-- Rules are processed in numerical order
-- Can have explicit DENY rules
+**Diferencias con los Security Groups:**
+- Sin estado (**stateless**): debes permitir el tráfico de retorno explícitamente.
+- Se aplica a nivel de subred.
+- Las reglas se procesan en orden numérico.
+- Puede tener reglas de DENEGACIÓN explícitas.
 
-**When to use NACLs:**
-- Block specific IP addresses (security groups can't deny)
-- Add an additional layer of defense
-- Comply with regulatory requirements for network segmentation
+**Cuándo usar NACLs:**
+- Bloquear direcciones IP específicas (los **Security Groups** no pueden denegar).
+- Añadir una capa adicional de defensa.
+- Cumplir con requisitos regulatorios de segmentación de red.
 
-**Best Practice:**
-- Use security groups as primary defense
-- Use NACLs for additional subnet-level protection
-- Leave room between rule numbers (100, 200, 300) for insertions
-- Document all custom NACL rules
+**Mejor Práctica:**
+- Usa los **Security Groups** como defensa principal.
+- Usa las **NACLs** para protección adicional a nivel de subred.
+- Deja espacio entre los números de las reglas (100, 200, 300) para inserciones.
+- Documenta todas las reglas personalizadas de las **NACLs**.
 
-#### Implement VPC Flow Logs
+#### Implementar VPC Flow Logs
 
-**What they capture:**
-- Accepted and rejected traffic
-- Source and destination IP addresses
-- Ports and protocols
-- Packet and byte counts
+**Qué capturan:**
+- Tráfico aceptado y rechazado.
+- Direcciones IP de origen y destino.
+- Puertos y protocolos.
+- Recuentos de paquetes y bytes.
 
-**Use cases:**
-- Troubleshoot connectivity issues
-- Monitor traffic patterns
-- Detect anomalous behavior
-- Meet compliance requirements
-- Security forensics
+**Casos de uso:**
+- Resolución de problemas de conectividad.
+- Monitoreo de patrones de tráfico.
+- Detección de comportamiento anómalo.
+- Cumplir con requisitos de cumplimiento.
+- Forense de seguridad.
 
-**Configuration:**
-- Enable at VPC, subnet, or ENI level
-- Publish to CloudWatch Logs or S3
-- Use for analysis with Amazon Athena
-- Integrate with security tools
+**Configuración:**
+- Habilítalo a nivel de **VPC**, subred o **ENI**.
+- Publícalo en **CloudWatch Logs** o **S3**.
+- Úsalo para análisis con **Amazon Athena**.
+- Intégralo con herramientas de seguridad.
 
-### 3. Data Protection Best Practices
+### 3. Mejores Prácticas de Protección de Datos (Data Protection)
 
-#### Encrypt Data at Rest
+#### Cifrar Datos en Reposo (at rest)
 
-**Services with encryption:**
-- S3: SSE-S3, SSE-KMS, SSE-C
-- EBS: Encrypted volumes
-- RDS: Encrypted databases
-- DynamoDB: Encryption at rest
-- Redshift: Encrypted clusters
+**Servicios con cifrado:**
+- **S3**: SSE-S3, SSE-KMS, SSE-C
+- **EBS**: Volúmenes cifrados
+- **RDS**: Bases de datos cifradas
+- **DynamoDB**: Cifrado en reposo
+- **Redshift**: Clusters cifrados
 
-**Best practices:**
-- Enable encryption by default for all new resources
-- Use AWS KMS for key management
-- Implement automatic key rotation
-- Separate keys for different data classifications
-- Grant minimal permissions to decrypt
+**Mejores prácticas:**
+- Habilita el cifrado por defecto para todos los nuevos recursos.
+- Usa **AWS KMS** para la gestión de claves.
+- Implementa la rotación automática de claves.
+- Separa las claves para diferentes clasificaciones de datos.
+- Otorga permisos mínimos para descifrar.
 
-#### Encrypt Data in Transit
+#### Cifrar Datos en Tránsito (in transit)
 
-**How to implement:**
-- Use HTTPS/TLS for all web traffic
-- Use SSL/TLS for database connections
-- Use VPN or Direct Connect for hybrid connectivity
-- Enable encryption for all data transfers
-- Use AWS Certificate Manager for SSL/TLS certificates
+**Cómo implementarlo:**
+- Usa HTTPS/TLS para todo el tráfico web.
+- Usa SSL/TLS para las conexiones a bases de datos.
+- Usa **VPN** o **Direct Connect** para la conectividad híbrida.
+- Habilita el cifrado para todas las transferencias de datos.
+- Usa **AWS Certificate Manager** (**ACM**) para certificados SSL/TLS.
 
-**Services that enforce encryption in transit:**
-- CloudFront (can require HTTPS)
-- API Gateway (HTTPS only)
-- Application Load Balancer (SSL/TLS termination)
-- S3 Transfer Acceleration (HTTPS)
+**Servicios que imponen el cifrado en tránsito:**
+- **CloudFront** (puede requerir HTTPS)
+- **API Gateway** (solo HTTPS)
+- **Application Load Balancer** (terminación SSL/TLS)
+- **S3 Transfer Acceleration** (HTTPS)
 
-#### Implement Backup and Recovery
+#### Implementar Copia de Seguridad y Recuperación (Backup and Recovery)
 
-**Best practices:**
-- Enable automated backups for databases
-- Use AWS Backup for centralized backup management
-- Store backups in different region for disaster recovery
-- Test restore procedures regularly
-- Implement versioning for S3 objects
-- Use lifecycle policies to manage backup retention
+**Mejores prácticas:**
+- Habilita las copias de seguridad automatizadas para las bases de datos.
+- Usa **AWS Backup** para la gestión centralizada de copias de seguridad.
+- Almacena copias de seguridad en una región diferente para recuperación ante desastres (**DR**).
+- Prueba los procedimientos de restauración regularmente.
+- Implementa el control de versiones para los objetos de **S3**.
+- Usa políticas de ciclo de vida para gestionar la retención de copias de seguridad.
 
-### 4. Monitoring and Logging Best Practices
+### 4. Mejores Prácticas de Monitorización y Registro (Monitoring and Logging)
 
-#### Implement Comprehensive Logging
+#### Implementar Logging Integral
 
-**Essential logs to enable:**
-- CloudTrail: API activity
-- VPC Flow Logs: Network traffic
-- S3 Server Access Logs: S3 bucket access
-- ELB Access Logs: Load balancer requests
-- CloudFront Access Logs: CDN requests
-- RDS Logs: Database queries and errors
+**Logs esenciales para habilitar:**
+- **CloudTrail**: Actividad de la API
+- **VPC Flow Logs**: Tráfico de red
+- **S3 Server Access Logs**: Acceso al bucket de S3
+- **ELB Access Logs**: Solicitudes del equilibrador de carga
+- **CloudFront Access Logs**: Solicitudes de la CDN
+- **RDS Logs**: Consultas y errores de base de datos
 
-**Log management:**
-- Centralize logs in a dedicated account
-- Enable log file integrity validation
-- Implement log retention policies
-- Protect logs from deletion or modification
-- Use CloudWatch Logs Insights for analysis
+**Gestión de logs:**
+- Centraliza los logs en una cuenta dedicada.
+- Habilita la validación de integridad de los archivos de log.
+- Implementa políticas de retención de logs.
+- Protege los logs contra la eliminación o modificación.
+- Usa **CloudWatch Logs Insights** para el análisis.
 
-#### Set Up Security Alerts
+#### Configurar Alertas de Seguridad
 
-**Critical alerts to configure:**
-- Root account usage
-- IAM policy changes
-- Security group changes
-- Network ACL changes
-- Failed login attempts (multiple)
-- Unauthorized API calls
-- Changes to CloudTrail configuration
-- S3 bucket policy changes
-- Encryption key deletions
+**Alertas críticas para configurar:**
+- Uso de la cuenta **root**.
+- Cambios en las políticas de **IAM**.
+- Cambios en los **Security Groups**.
+- Cambios en las **Network ACLs**.
+- Intentos fallidos de inicio de sesión (múltiples).
+- Llamadas a la API no autorizadas.
+- Cambios en la configuración de **CloudTrail**.
+- Cambios en la política del bucket de **S3**.
+- Eliminaciones de claves de cifrado.
 
-**Alerting mechanisms:**
-- CloudWatch Alarms
-- SNS notifications
-- EventBridge rules
-- GuardDuty findings
-- Security Hub alerts
+**Mecanismos de alerta:**
+- Alarmas de **CloudWatch**.
+- Notificaciones de **SNS**.
+- Reglas de **EventBridge**.
+- Hallazgos de **GuardDuty**.
+- Alertas de **Security Hub**.
 
-### 5. Compliance and Governance Best Practices
+### 5. Mejores Prácticas de Cumplimiento y Gobernanza (Compliance and Governance)
 
-#### Implement Automated Compliance Checking
+#### Implementar Verificación Automática de Cumplimiento
 
-**Tools to use:**
-- AWS Config Rules for continuous compliance
-- AWS Security Hub for centralized security view
-- AWS Systems Manager for patch compliance
-- Trusted Advisor for best practice checks
+**Herramientas para usar:**
+- **AWS Config Rules** para cumplimiento continuo.
+- **AWS Security Hub** para una vista de seguridad centralizada.
+- **AWS Systems Manager** para el cumplimiento de parches.
+- **Trusted Advisor** para verificaciones de mejores prácticas.
 
-**Common compliance rules:**
-- Ensure S3 buckets are not publicly accessible
-- Ensure encryption is enabled on all volumes
-- Ensure MFA is enabled for root account
-- Ensure CloudTrail is enabled in all regions
-- Ensure unused IAM credentials are removed
+**Reglas de cumplimiento comunes:**
+- Asegurar que los buckets de **S3** no sean accesibles públicamente.
+- Asegurar que el cifrado esté habilitado en todos los volúmenes.
+- Asegurar que **MFA** esté habilitado para la cuenta **root**.
+- Asegurar que **CloudTrail** esté habilitado en todas las regiones.
+- Asegurar que se eliminen las credenciales de **IAM** no utilizadas.
 
-#### Tag Everything for Governance
+#### Etiquetar Todo para la Gobernanza (Tagging)
 
-**Essential tags:**
-- Environment (Production, Staging, Dev)
-- Owner (team or individual)
-- Cost Center (for billing)
-- Project (application or project name)
-- Compliance (required compliance programs)
-- Data Classification (Public, Internal, Confidential)
+**Etiquetas esenciales:**
+- **Environment** (Producción, Staging, Dev)
+- **Owner** (equipo o individuo)
+- **Cost Center** (para facturación)
+- **Project** (nombre de la aplicación o proyecto)
+- **Compliance** (programas de cumplimiento requeridos)
+- **Data Classification** (Público, Interno, Confidencial)
 
-**Benefits:**
-- Cost allocation and tracking
-- Automated policy enforcement
-- Resource organization
-- Compliance reporting
-- Lifecycle management
+**Beneficios:**
+- Asignación y seguimiento de costes.
+- Aplicación de políticas automatizada.
+- Organización de recursos.
+- Informes de cumplimiento.
+- Gestión del ciclo de vida.
 
-### 6. Incident Response Best Practices
+### 6. Mejores Prácticas de Respuesta ante Incidentes (Incident Response)
 
-#### Prepare for Security Incidents
+#### Prepararse para Incidentes de Seguridad
 
-**Have a plan:**
-- Document incident response procedures
-- Define roles and responsibilities
-- Maintain contact lists
-- Establish communication channels
-- Practice with simulation exercises
+**Ten un plan:**
+- Documenta los procedimientos de respuesta a incidentes.
+- Define roles y responsabilidades.
+- Mantén listas de contacto.
+- Establece canales de comunicación.
+- Practica con ejercicios de simulación.
 
-**AWS tools for incident response:**
-- CloudWatch for monitoring and alerts
-- CloudTrail for forensic analysis
-- VPC Flow Logs for network analysis
-- AWS Systems Manager for automated remediation
-- EC2 snapshot for forensic investigation
+**Herramientas de AWS para respuesta a incidentes:**
+- **CloudWatch** para monitoreo y alertas.
+- **CloudTrail** para análisis forense.
+- **VPC Flow Logs** para análisis de red.
+- **AWS Systems Manager** para remediación automatizada.
+- Instantánea de **EC2** (**snapshot**) para investigación forense.
 
-**Isolation procedures:**
-- Change security group to deny all traffic
-- Snapshot affected resources before investigation
-- Isolate in separate VPC or subnet
-- Preserve logs and evidence
-- Follow chain of custody procedures
+**Procedimientos de aislamiento:**
+- Cambiar el **Security Group** para denegar todo el tráfico.
+- Crear una instantánea de los recursos afectados antes de la investigación.
+- Aislar en una **VPC** o subred separada.
+- Preservar los logs y las evidencias.
+- Seguir los procedimientos de cadena de custodia.
 
-### 7. Application Security Best Practices
+### 7. Mejores Prácticas de Seguridad de Aplicaciones (Application Security)
 
-#### Implement Defense in Depth
+#### Implementar Defensa en Profundidad (Defense in Depth)
 
-**Multiple layers of security:**
-1. Edge security: CloudFront, AWS WAF, Shield
-2. Network security: VPC, Security Groups, NACLs
-3. Application security: IAM roles, encryption
-4. Data security: Encryption at rest, access controls
-5. Monitoring: CloudTrail, GuardDuty, CloudWatch
+**Múltiples capas de seguridad:**
+1. Seguridad en el borde (**Edge security**): **CloudFront**, **AWS WAF**, **Shield**.
+2. Seguridad de red: **VPC**, **Security Groups**, **NACLs**.
+3. Seguridad de la aplicación: **IAM Roles**, cifrado.
+4. Seguridad de los datos: Cifrado en reposo, controles de acceso.
+5. Monitoreo: **CloudTrail**, **GuardDuty**, **CloudWatch**.
 
-**Benefits:**
-- No single point of failure
-- Multiple chances to detect and stop attacks
-- Reduces blast radius of breaches
-- Compliance requirement for many frameworks
+**Beneficios:**
+- Sin punto único de fallo.
+- Múltiples oportunidades para detectar y detener ataques.
+- Reduce el radio de explosión de las brechas.
+- Requisito de cumplimiento para muchos marcos de trabajo.
 
-#### Secure API Endpoints
+#### Asegurar los Endpoints de la API
 
-**API Gateway security:**
-- Use API keys for identification
-- Implement throttling and rate limiting
-- Enable AWS WAF for protection
-- Use Lambda authorizers for custom authentication
-- Implement request validation
-- Enable CloudWatch Logs for monitoring
+**Seguridad de API Gateway:**
+- Usa **API keys** para identificación.
+- Implementa **throttling** (estrangulamiento) y limitación de tasa.
+- Habilita **AWS WAF** para protección.
+- Usa autorizadores de **Lambda** para autenticación personalizada.
+- Implementa validación de solicitudes.
+- Habilita **CloudWatch Logs** para el monitoreo.
 
-**Best practices:**
-- Use HTTPS only
-- Implement proper authentication and authorization
-- Validate all inputs
-- Use least privilege for Lambda execution roles
-- Enable CORS correctly (don't use *)
-- Implement API versioning
+**Mejores prácticas:**
+- Usa solo HTTPS.
+- Implementa autenticación y autorización adecuadas.
+- Valida todas las entradas.
+- Usa el mínimo privilegio para los roles de ejecución de **Lambda**.
+- Habilita **CORS** correctamente (no uses *).
+- Implementa el versionado de la API.
 
-### 8. Third-Party Security Best Practices
+### 8. Mejores Prácticas de Seguridad de Terceros (Third-Party Security)
 
-#### Manage Third-Party Access Securely
+#### Gestionar el Acceso de Terceros de Forma Segura
 
-**Use external IDs for cross-account access:**
-- Prevents confused deputy problem
-- Unique identifier per customer
-- Include in AssumeRole policy condition
+**Usa IDs externos para el acceso entre cuentas:**
+- Evita el problema del "confused deputy".
+- Identificador único por cliente.
+- Incluir en la condición de la política de **AssumeRole**.
 
-**Best practices:**
-- Use IAM roles instead of sharing credentials
-- Implement least privilege access
-- Require MFA for sensitive operations
-- Monitor third-party access with CloudTrail
-- Regularly audit and review access
-- Remove access when no longer needed
+**Mejores prácticas:**
+- Usa **IAM Roles** en lugar de compartir credenciales.
+- Implementa el acceso de mínimo privilegio.
+- Requiere **MFA** para operaciones sensibles.
+- Monitorea el acceso de terceros con **CloudTrail**.
+- Audita y revisa el acceso regularmente.
+- Elimina el acceso cuando ya no sea necesario.
 
-#### Secure Container and Serverless Workloads
+#### Asegurar Cargas de Trabajo de Contenedores y Serverless
 
-**Container security:**
-- Scan images for vulnerabilities (Amazon ECR scanning)
-- Use minimal base images
-- Don't run containers as root
-- Implement least privilege for task roles
-- Use secrets management for credentials
-- Enable CloudTrail logging for ECR
+**Seguridad de contenedores:**
+- Escanea las imágenes en busca de vulnerabilidades (**Amazon ECR scanning**).
+- Usa imágenes base mínimas.
+- No ejecutes contenedores como **root**.
+- Implementa el mínimo privilegio para los roles de las tareas (**task roles**).
+- Usa la gestión de secretos para las credenciales.
+- Habilita el registro de **CloudTrail** para **ECR**.
 
-**Lambda security:**
-- Use separate execution roles per function
-- Store secrets in Secrets Manager or Parameter Store
-- Enable VPC access only when needed
-- Implement function-level encryption
-- Use environment variables for configuration
-- Monitor with CloudWatch and X-Ray
+**Seguridad de Lambda:**
+- Usa roles de ejecución separados por función.
+- Almacena secretos en **Secrets Manager** o **Parameter Store**.
+- Habilita el acceso a la **VPC** solo cuando sea necesario.
+- Implementa el cifrado a nivel de función.
+- Usa variables de entorno para la configuración.
+- Monitorea con **CloudWatch** y **X-Ray**.
 
-### Multi-Factor Authentication (MFA)
+### Autenticación de Múltiples Factores (Multi-Factor Authentication - MFA)
 
-MFA adds an extra layer of protection beyond username and password.
+**MFA** añade una capa extra de protección más allá del nombre de usuario y la contraseña.
 
-**Authentication Factors:**
-- **Something you know:** Password
-- **Something you have:** MFA device
+**Factores de Autenticación:**
+- **Algo que sabes:** Contraseña.
+- **Algo que tienes:** Dispositivo **MFA**.
 
-**MFA Device Options:**
+**Opciones de Dispositivos MFA:**
 
-| Type | Description | Use Case |
+| Tipo | Descripción | Caso de Uso |
 |------|-------------|----------|
-| **Virtual MFA Device** | Mobile app (Google Authenticator, Authy) | Most common, convenient |
-| **Hardware MFA Device** | Physical token (YubiKey) | High security environments |
-| **SMS Text Message** | Code sent via SMS | Not recommended for root account |
+| **Virtual MFA Device** | Aplicación móvil (Google Authenticator, Authy) | Más común, conveniente |
+| **Hardware MFA Device** | Token físico (YubiKey) | Entornos de alta seguridad |
+| **SMS Text Message** | Código enviado vía SMS | No recomendado para cuenta **root** |
 
-> **Best Practice:** Always enable MFA on the root account and for all users with console access, especially those with administrative privileges.
+> **Mejor Práctica:** Habilita siempre **MFA** en la cuenta **root** y para todos los usuarios con acceso a la consola, especialmente aquellos con privilegios administrativos.
 
 ---
 
-## Data Encryption Best Practices
+## Mejores Prácticas de Cifrado de Datos
 
-### Encryption at Rest
+### Cifrado en Reposo (Encryption at Rest)
 
-Encryption at rest protects data stored on disk from unauthorized access.
+El cifrado en reposo protege los datos almacenados en disco contra accesos no autorizados.
 
-#### Amazon S3 Encryption Options
+#### Opciones de Cifrado de Amazon S3
 
-**Server-Side Encryption with S3-Managed Keys (SSE-S3):**
-- AWS manages encryption keys
-- AES-256 encryption
-- Enabled with one click
-- No additional cost
-- Each object encrypted with unique key
-- Best for: Simple encryption requirements
+**Server-Side Encryption con S3-Managed Keys (SSE-S3):**
+- AWS gestiona las claves de cifrado.
+- Cifrado AES-256.
+- Se habilita con un solo clic.
+- Sin coste adicional.
+- Cada objeto se cifra con una clave única.
+- Ideal para: Requisitos de cifrado simples.
 
-**Server-Side Encryption with KMS (SSE-KMS):**
-- AWS KMS manages encryption keys
-- You control key policies and rotation
-- Audit trail via CloudTrail
-- Additional cost per request
-- Envelope encryption for large files
-- Best for: Compliance requirements, audit needs
+**Server-Side Encryption con KMS (SSE-KMS):**
+- **AWS KMS** gestiona las claves de cifrado.
+- Tú controlas las políticas de claves y la rotación.
+- Rastro de auditoría vía **CloudTrail**.
+- Coste adicional por solicitud.
+- Cifrado de sobre (**envelope encryption**) para archivos grandes.
+- Ideal para: Requisitos de cumplimiento, necesidades de auditoría.
 
-**Server-Side Encryption with Customer-Provided Keys (SSE-C):**
-- You manage encryption keys outside AWS
-- AWS performs encryption but doesn't store keys
-- You must provide key with each request
-- Best for: When you must control keys outside AWS
+**Server-Side Encryption con Customer-Provided Keys (SSE-C):**
+- Tú gestionas las claves de cifrado fuera de AWS.
+- AWS realiza el cifrado pero no almacena las claves.
+- Debes proporcionar la clave con cada solicitud.
+- Ideal para: Cuando debes controlar las claves fuera de AWS.
 
 **Client-Side Encryption:**
-- Encrypt data before uploading to S3
-- You manage entire encryption process
-- AWS stores encrypted data
-- Best for: Maximum control over encryption
+- Cifras los datos antes de subirlos a **S3**.
+- Tú gestionas todo el proceso de cifrado.
+- AWS almacena los datos ya cifrados.
+- Ideal para: Máximo control sobre el cifrado.
 
-**Configuration Example:**
-```json
-{
-  "Rules": [
-    {
-      "ApplyServerSideEncryptionByDefault": {
-        "SSEAlgorithm": "aws:kms",
-        "KMSMasterKeyID": "arn:aws:kms:region:account:key/key-id"
-      },
-      "BucketKeyEnabled": true
-    }
-  ]
-}
-```
+#### Cifrado de EBS
 
-#### EBS Encryption
+**Características:**
+- Cifra los datos en reposo dentro del volumen.
+- Cifra los datos en tránsito entre la instancia y el volumen.
+- Cifra todas las instantáneas (**snapshots**) creadas a partir del volumen.
+- Usa **AWS KMS** para la gestión de claves.
+- Impacto mínimo en el rendimiento.
+- No se puede cifrar el volumen raíz de una instancia existente (debe crearse una **AMI**).
 
-**Features:**
-- Encrypts data at rest inside volume
-- Encrypts data in transit between instance and volume
-- Encrypts all snapshots created from volume
-- Uses AWS KMS for key management
-- Minimal performance impact
-- Can't encrypt root volume of existing instance (must create AMI)
+#### Cifrado de RDS
 
-**How to enable:**
-- Enable during volume creation
-- Enable account-level encryption by default
-- Copy unencrypted snapshot and enable encryption
-- Create encrypted AMI from unencrypted instance
+**Qué se cifra:**
+- Almacenamiento de la base de datos.
+- Copias de seguridad automatizadas.
+- Réplicas de lectura.
+- Instantáneas (**snapshots**).
+- Logs.
 
-#### RDS Encryption
+**Notas importantes:**
+- Debe habilitarse al momento de crear la base de datos.
+- No se puede cifrar una base de datos existente no cifrada.
+- Solución: Crear instantánea, copiar con cifrado, restaurar.
 
-**What gets encrypted:**
-- Database storage
-- Automated backups
-- Read replicas
-- Snapshots
-- Logs
+#### Cifrado de DynamoDB
 
-**Important notes:**
-- Must enable at database creation time
-- Cannot encrypt existing unencrypted database
-- Workaround: Create snapshot, copy with encryption, restore
-- Same key used for instance and snapshots in same region
-- Cross-region snapshots use different key
+**Características:**
+- Cifrado en reposo habilitado por defecto.
+- Usa claves propiedad de AWS (por defecto, sin coste).
+- Puede usar una clave gestionada por AWS (aws/dynamodb).
+- Puede usar una clave **KMS** gestionada por el cliente.
 
-#### DynamoDB Encryption
+### Cifrado en Tránsito (Encryption in Transit)
 
-**Features:**
-- Encryption at rest enabled by default
-- Uses AWS owned keys (default, no cost)
-- Can use AWS managed key (aws/dynamodb)
-- Can use customer managed KMS key
-- Encrypts tables, indexes, streams, backups
+El cifrado en tránsito protege los datos que se mueven entre sistemas.
 
-**Encryption types:**
-- AWS owned CMK: Default, no cost, no CloudTrail logs
-- AWS managed CMK: Free, CloudTrail logs available
-- Customer managed CMK: You control, costs apply, full audit trail
+#### Mejores Prácticas de TLS/SSL
 
-### Encryption in Transit
-
-Encryption in transit protects data moving between systems.
-
-#### TLS/SSL Best Practices
-
-**Use TLS 1.2 or higher:**
-- TLS 1.0 and 1.1 are deprecated
-- Configure minimum TLS version
-- Use strong cipher suites
-- Regularly update SSL/TLS certificates
+**Usar TLS 1.2 o superior:**
+- TLS 1.0 y 1.1 están obsoletos.
+- Configurar la versión mínima de TLS.
+- Usar suites de cifrado fuertes.
+- Actualizar regularmente los certificados SSL/TLS.
 
 **AWS Certificate Manager (ACM):**
-- Free SSL/TLS certificates
-- Automatic renewal
-- Integration with CloudFront, ALB, API Gateway
-- Easy deployment
-- No certificate management overhead
+- Certificados SSL/TLS gratuitos.
+- Renovación automática.
+- Integración con **CloudFront**, **ALB**, **API Gateway**.
+- Despliegue fácil y sin sobrecarga de gestión.
 
-**Use cases:**
-- HTTPS for websites (CloudFront, ALB)
-- Secure API endpoints (API Gateway)
-- Database connections (RDS with SSL)
-- Email encryption (SES)
-
-#### VPN Encryption
+#### Cifrado de VPN
 
 **AWS Site-to-Site VPN:**
-- IPsec VPN connection
-- Encrypted tunnel over internet
-- Uses Internet Key Exchange (IKE)
-- Supports multiple encryption algorithms
-- Dead Peer Detection for availability
+- Conexión **IPsec VPN**.
+- Túnel cifrado sobre Internet.
+- Soporta múltiples algoritmos de cifrado.
 
 **AWS Client VPN:**
-- Managed client-based VPN
-- OpenVPN-based
-- TLS encryption
-- Integration with Active Directory
-- Multi-factor authentication support
+- **VPN** basada en cliente gestionada.
+- Basada en **OpenVPN** con cifrado TLS.
 
-#### Direct Connect Encryption
+#### Cifrado de Direct Connect
 
-**MACsec for Direct Connect:**
-- Layer 2 encryption
-- Point-to-point encryption
-- 10 Gbps and 100 Gbps connections
-- Minimal latency impact
+**MACsec para Direct Connect:**
+- Cifrado de Capa 2 punto a punto.
+- Conexiones de 10 Gbps y 100 Gbps.
 
-**VPN over Direct Connect:**
-- IPsec VPN over DX connection
-- End-to-end encryption
-- Combines DX reliability with VPN security
-- Industry-standard encryption
+**VPN sobre Direct Connect:**
+- **IPsec VPN** sobre una conexión **DX**.
+- Cifrado de extremo a extremo.
 
-### Key Management with AWS KMS
+### Gestión de Claves con AWS KMS
 
-#### KMS Key Types
+#### Tipos de Claves de KMS
 
-**Symmetric Keys (default):**
-- Same key for encryption and decryption
-- 256-bit keys
-- Never leaves KMS unencrypted
-- Used for most AWS services
-- Envelope encryption for large data
+**Symmetric Keys (Simétricas):**
+- Misma clave para cifrar y descifrar (AES-256).
+- Nunca sale de **KMS** sin cifrar.
+- Usada por la mayoría de los servicios de AWS.
 
-**Asymmetric Keys:**
-- Public and private key pair
-- RSA or Elliptic Curve keys
-- Public key can be downloaded
-- Private key never leaves KMS
-- Used for signing and verification
+**Asymmetric Keys (Asimétricas):**
+- Par de claves pública y privada (RSA o Curva Elíptica).
+- La clave privada nunca sale de **KMS**.
+- Usada para firma y verificación.
 
 #### Customer Master Keys (CMKs)
 
 **AWS Managed CMK:**
-- Created and managed by AWS
-- Used by AWS services
-- Automatic rotation every year
-- Cannot delete
-- No cost for the key (only usage)
-- Key alias: aws/service-name
+- Creada y gestionada por AWS.
+- Rotación automática cada año. No se puede eliminar.
+- Sin coste por la clave (solo uso).
 
 **Customer Managed CMK:**
-- You create and manage
-- Full control over key policies
-- Optional automatic rotation (annual)
-- Can enable/disable
-- Can delete (with 7-30 day waiting period)
-- Cost: $1/month plus usage
+- Tú la creas y gestionas. Control total sobre las políticas.
+- Rotación automática opcional (anual).
+- Se puede habilitar/deshabilitar o eliminar (periodo de espera de 7-30 días).
+- Coste: $1/mes más uso.
 
 **AWS Owned CMK:**
-- AWS owns and manages
-- Used across multiple accounts
-- No visibility or control
-- No cost
-- No CloudTrail logs
-
-#### KMS Key Policies
-
-**Default key policy:**
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "Enable IAM policies",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::123456789012:root"
-      },
-      "Action": "kms:*",
-      "Resource": "*"
-    }
-  ]
-}
-```
-
-**Custom key policy with specific permissions:**
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "Allow encryption",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::123456789012:role/EncryptionRole"
-      },
-      "Action": [
-        "kms:Encrypt",
-        "kms:Decrypt",
-        "kms:GenerateDataKey"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "Allow key management",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::123456789012:user/KeyAdmin"
-      },
-      "Action": [
-        "kms:Create*",
-        "kms:Describe*",
-        "kms:Enable*",
-        "kms:List*",
-        "kms:Put*",
-        "kms:Update*",
-        "kms:Revoke*",
-        "kms:Disable*",
-        "kms:Get*",
-        "kms:Delete*",
-        "kms:ScheduleKeyDeletion",
-        "kms:CancelKeyDeletion"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-```
-
-#### Key Rotation Best Practices
-
-**Automatic rotation:**
-- Enable for customer managed keys
-- Rotates every 365 days
-- Old key versions retained for decryption
-- Transparent to applications
-- No need to re-encrypt data
-
-**Manual rotation:**
-- Create new CMK
-- Update applications to use new key
-- Re-encrypt data with new key
-- Maintain old key for decrypting old data
-- More control but more complex
+- AWS la posee y gestiona. Sin visibilidad ni control por parte del cliente. Sin coste.
 
 ---
 
-## Network Security Deep Dive
+## Análisis Profundo de Network Security
 
-### VPC Security Architecture
+### Arquitectura de Seguridad de la VPC
 
-#### Multi-Tier Architecture Example
+#### Ejemplo de Arquitectura Multi-Capa (Multi-Tier)
 
 **Public Subnet (DMZ):**
-- Internet Gateway attached
-- Public IP addresses
-- Bastion hosts / Jump boxes
-- NAT Gateways
-- Load balancers
-- Route to Internet Gateway
+- **Internet Gateway** adjunto. Direcciones IP públicas.
+- **Bastion hosts** (servidores de salto).
+- **NAT Gateways**.
+- **Load balancers**.
 
 **Private Subnet (Application Tier):**
-- No direct internet access
-- EC2 instances for applications
-- Auto Scaling groups
-- Route to NAT Gateway for outbound
-- Access via load balancer only
+- Sin acceso directo a Internet. Instancias **EC2** para aplicaciones.
+- Ruta hacia el **NAT Gateway** para salida.
+- Acceso solo vía el equilibrador de carga.
 
 **Private Subnet (Database Tier):**
-- Most restrictive security
-- RDS, DynamoDB endpoints
-- No internet access (inbound or outbound)
-- Access from application tier only
-- Multi-AZ for high availability
+- Seguridad más restrictiva. **RDS**, endpoints de **DynamoDB**.
+- Sin acceso a Internet (ni entrada ni salida).
+- Acceso solo desde la capa de aplicación.
 
-#### Network Segmentation Best Practices
+#### Mejores Prácticas de Segmentación de Red
 
-**Subnet Strategy:**
-- Separate subnets by tier (web, app, data)
-- Separate subnets by environment (prod, staging, dev)
-- Separate subnets by compliance requirements
-- Use at least 2 AZs for high availability
-- Plan IP address ranges carefully
+**Estrategia de Subredes:**
+- Separa las subredes por capa (web, app, data).
+- Separa las subredes por entorno (prod, staging, dev).
+- Usa al menos 2 **AZs** para alta disponibilidad (**HA**).
 
-**Example CIDR allocation:**
-```
-VPC: 10.0.0.0/16
-
-Availability Zone A:
-- Public Subnet:  10.0.1.0/24
-- Private Subnet: 10.0.2.0/24
-- Data Subnet:    10.0.3.0/24
-
-Availability Zone B:
-- Public Subnet:  10.0.11.0/24
-- Private Subnet: 10.0.12.0/24
-- Data Subnet:    10.0.13.0/24
-```
-
-#### VPC Endpoints for Security
+#### VPC Endpoints para Seguridad
 
 **Interface Endpoints (PrivateLink):**
-- Private IP addresses in your VPC
-- Elastic Network Interface (ENI)
-- Supports many AWS services
-- No internet gateway needed
-- Charged per hour + data processed
+- Direcciones IP privadas en tu **VPC**.
+- Soporta muchos servicios de AWS. Sin necesidad de **Internet Gateway**.
 
 **Gateway Endpoints:**
-- Route table entry
-- Free of charge
-- Supports S3 and DynamoDB
-- No ENI required
-- Scalable
+- Entrada en la tabla de rutas. Gratuito.
+- Soporta **S3** y **DynamoDB**.
 
-**Benefits:**
-- Keep traffic within AWS network
-- No internet exposure
-- Better performance
-- Lower data transfer costs
-- Enhanced security
-
-**Example use case:**
-```
-S3 Gateway Endpoint:
-- Application accesses S3 privately
-- No internet gateway required
-- No NAT gateway charges
-- Traffic stays on AWS network
-```
-
-#### Network Access Control
-
-**Security Group Best Practices:**
-
-**Layered security groups:**
-```
-ALB Security Group:
-- Inbound: 80, 443 from 0.0.0.0/0
-- Outbound: 8080 to App-SG
-
-App Security Group:
-- Inbound: 8080 from ALB-SG
-- Outbound: 3306 to DB-SG, 443 to 0.0.0.0/0
-
-DB Security Group:
-- Inbound: 3306 from App-SG
-- Outbound: None
-```
-
-**NACL Configuration Example:**
-
-**Public Subnet NACL:**
-```
-Inbound Rules:
-100 - HTTP (80) - 0.0.0.0/0 - ALLOW
-110 - HTTPS (443) - 0.0.0.0/0 - ALLOW
-120 - SSH (22) - YOUR_IP/32 - ALLOW
-130 - Ephemeral (1024-65535) - 0.0.0.0/0 - ALLOW
-* - ALL - 0.0.0.0/0 - DENY
-
-Outbound Rules:
-100 - HTTP (80) - 0.0.0.0/0 - ALLOW
-110 - HTTPS (443) - 0.0.0.0/0 - ALLOW
-120 - Ephemeral (1024-65535) - 0.0.0.0/0 - ALLOW
-* - ALL - 0.0.0.0/0 - DENY
-```
-
-**Private Subnet NACL:**
-```
-Inbound Rules:
-100 - Custom (8080) - 10.0.1.0/24 - ALLOW
-110 - SSH (22) - 10.0.1.0/24 - ALLOW
-120 - Ephemeral (1024-65535) - 0.0.0.0/0 - ALLOW
-* - ALL - 0.0.0.0/0 - DENY
-
-Outbound Rules:
-100 - HTTPS (443) - 0.0.0.0/0 - ALLOW
-110 - MySQL (3306) - 10.0.3.0/24 - ALLOW
-120 - Ephemeral (1024-65535) - 10.0.1.0/24 - ALLOW
-* - ALL - 0.0.0.0/0 - DENY
-```
+**Beneficios:**
+- El tráfico se mantiene dentro de la red de AWS.
+- Sin exposición a Internet. Mejor rendimiento.
 
 #### AWS PrivateLink
 
-**What it is:**
-- Private connectivity to services
-- No internet gateway, NAT, VPN
-- Traffic stays on AWS network
-- Powered by interface VPC endpoints
-
-**Use cases:**
-- Access SaaS applications privately
-- Share services across VPCs
-- Hybrid cloud connectivity
-- Compliance requirements
-
-**Architecture:**
-```
-Service Provider VPC (Your Service)
-    ↓
-Network Load Balancer
-    ↓
-VPC Endpoint Service
-    ↓
-Interface Endpoint (Consumer VPC)
-    ↓
-Consumer Application
-```
-
-#### VPN and Direct Connect Security
-
-**Site-to-Site VPN Security:**
-- IPsec encryption
-- Pre-shared keys or certificates
-- Perfect Forward Secrecy (PFS)
-- Dead Peer Detection
-- IKEv2 support
-
-**VPN Configuration Best Practices:**
-- Use strong encryption (AES-256)
-- Enable Perfect Forward Secrecy
-- Configure health checks
-- Use BGP for dynamic routing
-- Monitor tunnel status
-
-**Direct Connect Security:**
-- Dedicated network connection
-- Not encrypted by default
-- Options for encryption:
-  - MACsec (Layer 2)
-  - VPN over DX (Layer 3)
-  - Application-level encryption
-- Physical security at co-location
-- Redundancy with multiple connections
+**Qué es:**
+- Conectividad privada a servicios.
+- El tráfico se mantiene en la red de AWS.
+- Impulsado por los **Interface VPC Endpoints**.
 
 ---
 
-## Identity Federation and SSO
+## Identity Federation y SSO
 
-### AWS IAM Identity Center (formerly AWS SSO)
+### AWS IAM Identity Center (anteriormente AWS SSO)
 
-**What it provides:**
-- Single sign-on to multiple AWS accounts
-- Single sign-on to business applications
-- Centralized user management
-- Multi-factor authentication
-- Integration with external identity providers
+**Qué proporciona:**
+- **Single sign-on** a múltiples cuentas de AWS y aplicaciones de negocio.
+- Gestión de usuarios centralizada y soporte de **MFA**.
 
-**Key Features:**
-- One set of credentials for all accounts
-- Temporary credentials for AWS access
-- Built-in MFA support
-- Integration with AWS Organizations
-- Permission sets for access control
+### Federation con SAML 2.0
 
-**Setup Process:**
-
-1. Enable IAM Identity Center
-2. Connect identity source (built-in directory or external)
-3. Create permission sets
-4. Assign users to AWS accounts
-5. Users access via SSO portal
-
-**Permission Set Example:**
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ec2:Describe*",
-        "s3:List*",
-        "cloudwatch:Get*"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
+**Arquitectura de Federación SAML:**
 ```
-
-### Federation with SAML 2.0
-
-**SAML Federation Architecture:**
+Usuario → Identity Provider (IdP) → AWS STS → Credenciales Temporales → Recursos de AWS
 ```
-User → Identity Provider (IdP) → AWS STS → Temporary Credentials → AWS Resources
-```
+**Proveedores de Identidad (IdP):** Okta, Azure AD, Ping Identity, etc.
 
-**Identity Providers:**
-- Microsoft Active Directory Federation Services (ADFS)
-- Okta
-- Azure AD
-- Google Workspace
-- Auth0
-- OneLogin
+### Amazon Cognito
 
-**How it works:**
-1. User authenticates with corporate IdP
-2. IdP returns SAML assertion
-3. User presents SAML assertion to AWS STS
-4. STS returns temporary security credentials
-5. User accesses AWS resources
-
-**Trust Relationship Policy:**
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Federated": "arn:aws:iam::123456789012:saml-provider/MyIdP"
-      },
-      "Action": "sts:AssumeRoleWithSAML",
-      "Condition": {
-        "StringEquals": {
-          "SAML:aud": "https://signin.aws.amazon.com/saml"
-        }
-      }
-    }
-  ]
-}
-```
-
-### Web Identity Federation
-
-**For mobile and web applications:**
-- Users authenticate with Web IdP (Google, Facebook, Amazon)
-- Application receives ID token
-- Token exchanged for AWS credentials via STS
-- Used with Amazon Cognito
-
-**Amazon Cognito:**
-- User pools for authentication
-- Identity pools for AWS credentials
-- Support for social identity providers
-- Support for SAML providers
-- Custom authentication flows
-
-**Cognito Architecture:**
-```
-Mobile App → Cognito User Pool → Cognito Identity Pool → AWS STS → Temporary Credentials
-```
-
-**Benefits:**
-- No AWS credentials in application
-- Fine-grained access control
-- Scales automatically
-- Built-in security features
-
-### Active Directory Integration
-
-**AWS Directory Service Options:**
-
-**AWS Managed Microsoft AD:**
-- Full Microsoft AD in AWS cloud
-- Multi-AZ deployment
-- Patch and monitoring by AWS
-- Trust relationships with on-premises AD
-- Best for: Lift-and-shift scenarios
-
-**AD Connector:**
-- Proxy to on-premises AD
-- No caching, always redirects to AD
-- Users authenticate against on-premises AD
-- No data stored in AWS
-- Best for: Using existing on-premises AD
-
-**Simple AD:**
-- Standalone directory powered by Samba 4
-- Basic AD features
-- Small and large sizes
-- Cannot join to on-premises AD
-- Best for: Simple LDAP needs
-
-### Cross-Account Access Strategies
-
-**Method 1: IAM Roles (Recommended):**
-```
-Account A (Trusting) creates role
-Account B (Trusted) assumes role
-No credentials to manage
-Temporary credentials only
-```
-
-**Trust Policy Example:**
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::111122223333:root"
-      },
-      "Action": "sts:AssumeRole",
-      "Condition": {
-        "StringEquals": {
-          "sts:ExternalId": "UniqueSecretString"
-        }
-      }
-    }
-  ]
-}
-```
-
-**Method 2: Resource-based Policies:**
-- S3 bucket policies
-- SNS topic policies
-- SQS queue policies
-- Lambda function policies
-
-**Best Practices:**
-- Always use IAM roles over shared credentials
-- Use external IDs for third-party access
-- Implement MFA for sensitive cross-account access
-- Monitor with CloudTrail
-- Use least privilege permissions
+- **User pools** para autenticación.
+- **Identity pools** para obtener credenciales de AWS.
+- Soporte para proveedores sociales (Google, Facebook).
 
 ---
 
-## Security Incident Response Procedures
+## Procedimientos de Respuesta ante Incidentes de Seguridad
 
-### Incident Response Framework
+#### 1. Fase de Preparación
+- Crear un plan de respuesta a incidentes y definir niveles de severidad.
+- Configurar herramientas: **CloudTrail**, **VPC Flow Logs**, **GuardDuty**, **Security Hub**.
 
-#### 1. Preparation Phase
+#### 2. Detección y Análisis
+- Hallazgos de **GuardDuty**, alarmas de **CloudWatch**, alertas de **Security Hub**.
+- Confirmar si el incidente es real e identificar los recursos afectados.
 
-**Before an incident occurs:**
+#### 3. Estrategias de Contención
+- Aislar instancias comprometidas (cambiar **Security Group** a denegar todo).
+- Revocar credenciales comprometidas y bloquear IPs maliciosas en las **NACLs**.
+- Crear instantáneas (**snapshots**) para el análisis forense.
 
-**Document procedures:**
-- Create incident response plan
-- Define severity levels
-- Establish communication protocols
-- Document escalation paths
-- Identify team members and roles
+#### 4. Erradicación
+- Eliminar malware, cerrar puertas traseras y parchear vulnerabilidades.
 
-**Setup tools and access:**
-- Configure CloudTrail in all regions
-- Enable VPC Flow Logs
-- Setup GuardDuty
-- Configure Security Hub
-- Prepare forensics tools
+#### 5. Recuperación
+- Restaurar operaciones desde copias de seguridad limpias.
 
-**Establish baselines:**
-- Normal traffic patterns
-- Typical API usage
-- Standard configurations
-- Regular user behavior
-
-**Training:**
-- Regular tabletop exercises
-- Simulate attack scenarios
-- Test response procedures
-- Update runbooks
-
-#### 2. Detection and Analysis
-
-**Detection methods:**
-- GuardDuty findings
-- CloudWatch alarms
-- Security Hub alerts
-- Config rule violations
-- Unusual CloudTrail activity
-- VPC Flow Log anomalies
-
-**Initial analysis:**
-- Confirm the incident is real (not false positive)
-- Determine scope and severity
-- Identify affected resources
-- Document timeline
-- Collect evidence
-
-**Severity Classification:**
-
-**Critical (P1):**
-- Data breach confirmed
-- Production systems compromised
-- Ongoing active attack
-- Wide-scale service disruption
-- Response time: Immediate
-
-**High (P2):**
-- Suspected data access
-- System compromise detected
-- Compliance violation
-- Response time: 1 hour
-
-**Medium (P3):**
-- Policy violations
-- Suspicious activity detected
-- Non-production compromise
-- Response time: 4 hours
-
-**Low (P4):**
-- Security alerts to investigate
-- Anomalous but benign activity
-- Response time: 24 hours
-
-#### 3. Containment Strategies
-
-**Short-term containment:**
-
-**Isolate compromised instances:**
-```bash
-# Change security group to deny all traffic
-aws ec2 modify-instance-attribute \
-  --instance-id i-1234567890abcdef0 \
-  --groups sg-isolation-group
-```
-
-**Revoke compromised credentials:**
-```bash
-# Deactivate access key
-aws iam update-access-key \
-  --access-key-id AKIAIOSFODNN7EXAMPLE \
-  --status Inactive \
-  --user-name CompromisedUser
-```
-
-**Block malicious IP addresses:**
-```bash
-# Add NACL deny rule
-aws ec2 create-network-acl-entry \
-  --network-acl-id acl-12345678 \
-  --ingress \
-  --rule-number 50 \
-  --protocol -1 \
-  --port-range From=0,To=65535 \
-  --cidr-block 198.51.100.5/32 \
-  --rule-action deny
-```
-
-**Snapshot for forensics:**
-```bash
-# Create snapshot of compromised instance
-aws ec2 create-snapshot \
-  --volume-id vol-1234567890abcdef0 \
-  --description "Forensic snapshot - Incident 2024-001"
-```
-
-**Long-term containment:**
-- Patch vulnerabilities
-- Change all passwords
-- Rotate all access keys
-- Update security group rules
-- Apply least privilege policies
-- Enable additional monitoring
-
-#### 4. Eradication
-
-**Remove the threat:**
-- Delete malware
-- Close backdoors
-- Remove unauthorized access
-- Patch vulnerabilities
-- Update configurations
-
-**Rebuild compromised systems:**
-- Launch from known-good AMIs
-- Apply all security patches
-- Harden configurations
-- Implement additional controls
-
-**Verify clean state:**
-- Scan for malware
-- Review configurations
-- Check for persistence mechanisms
-- Validate logs show no malicious activity
-
-#### 5. Recovery
-
-**Restore operations:**
-- Restore from clean backups
-- Gradually bring systems online
-- Monitor closely for reinfection
-- Validate functionality
-
-**Enhanced monitoring:**
-- Increased logging verbosity
-- More frequent reviews
-- Additional alerting
-- Closer scrutiny of anomalies
-
-**Communication:**
-- Update stakeholders
-- Provide status reports
-- Document changes made
-- Coordinate with teams
-
-#### 6. Post-Incident Activity
-
-**Lessons learned meeting:**
-- What happened?
-- What was done?
-- What worked well?
-- What needs improvement?
-- How to prevent recurrence?
-
-**Update documentation:**
-- Incident report
-- Timeline of events
-- Actions taken
-- Evidence collected
-- Lessons learned
-
-**Improve defenses:**
-- Implement preventive controls
-- Update detection mechanisms
-- Enhance response procedures
-- Additional training
-- Technology improvements
-
-### AWS Tools for Incident Response
-
-**Amazon GuardDuty:**
-- Automated threat detection
-- ML-powered analysis
-- Continuous monitoring
-- Integration with EventBridge for automated response
-
-**AWS CloudTrail:**
-- Complete audit log of API calls
-- Who did what and when
-- Source IP addresses
-- Request parameters
-- Essential for forensics
-
-**VPC Flow Logs:**
-- Network traffic analysis
-- Source and destination IPs
-- Identify scanning attempts
-- Detect data exfiltration
-
-**AWS Config:**
-- Configuration history
-- Compliance checking
-- Resource relationships
-- Change tracking
-
-**Amazon Detective:**
-- Analyze and investigate security findings
-- Visualize relationships
-- Identify root cause
-- Integrated with GuardDuty
-
-**AWS Systems Manager:**
-- Automated remediation
-- Patch management
-- Run commands across fleet
-- Session Manager for secure access
-
-### Automated Response Examples
-
-**Lambda function for isolation:**
-```python
-import boto3
-
-def lambda_handler(event, context):
-    ec2 = boto3.client('ec2')
-
-    # Extract instance ID from GuardDuty finding
-    instance_id = event['detail']['resource']['instanceDetails']['instanceId']
-
-    # Change to isolation security group
-    ec2.modify_instance_attribute(
-        InstanceId=instance_id,
-        Groups=['sg-isolation']
-    )
-
-    # Create forensic snapshot
-    instance_details = ec2.describe_instances(InstanceIds=[instance_id])
-    volume_id = instance_details['Reservations'][0]['Instances'][0]['BlockDeviceMappings'][0]['Ebs']['VolumeId']
-
-    ec2.create_snapshot(
-        VolumeId=volume_id,
-        Description=f'Forensic snapshot for {instance_id}'
-    )
-
-    # Tag instance as compromised
-    ec2.create_tags(
-        Resources=[instance_id],
-        Tags=[{'Key': 'SecurityStatus', 'Value': 'Isolated'}]
-    )
-
-    return {'statusCode': 200, 'body': f'Instance {instance_id} isolated'}
-```
-
-**EventBridge rule for GuardDuty findings:**
-```json
-{
-  "source": ["aws.guardduty"],
-  "detail-type": ["GuardDuty Finding"],
-  "detail": {
-    "severity": [7, 8, 9]
-  }
-}
-```
-
-### Communication Plan
-
-**Notification hierarchy:**
-1. Security team (immediate)
-2. System administrators (immediate for high severity)
-3. Management (within 1 hour for critical incidents)
-4. Legal/compliance (for data breaches)
-5. Customers (if required by regulations)
-
-**Communication channels:**
-- PagerDuty / Opsgenie for alerting
-- Slack / Teams for coordination
-- Email for formal notifications
-- Status page for customer communication
+#### 6. Actividad Post-Incidente
+- Reunión de lecciones aprendidas y actualización de documentación.
 
 ---
 
-## Security Services
+## Servicios de Seguridad
 
-### AWS Organizations - Detailed
+### AWS Organizations - Detallado
+Gestión centralizada y gobernanza de múltiples cuentas de AWS.
+- **Consolidated Billing:** Una sola factura para toda la organización.
+- **Service Control Policies (SCPs):** Establecen los permisos máximos (barreras de protección) para las cuentas de la organización. No otorgan permisos, solo los limitan.
 
-Centrally manage and govern multiple AWS accounts.
-
-**Key Features:**
-
-- **Centrally manage multiple AWS accounts**
-  - Single pane of glass for all accounts
-  - Organizational hierarchy
-  - Up to 4 levels of nesting for OUs
-
-- **Consolidated billing across all accounts**
-  - One bill for entire organization
-  - Volume discounts apply across all accounts
-  - Easier cost tracking and allocation
-  - Shared volume pricing tiers
-
-- **Hierarchical grouping of accounts (Organizational Units)**
-  - Organize by department, environment, project
-  - Apply policies at different levels
-  - Inherit policies from parent OUs
-
-- **Service Control Policies (SCPs) for governance**
-  - Control maximum available permissions
-  - Even limits account root user
-  - Acts as a permission boundary
-
-- **Automate account creation**
-  - Programmatic account provisioning
-  - Standardized setup
-  - Integration with AWS Control Tower
-
-- **Centralize security and compliance**
-  - Enforce policies across organization
-  - Consistent security posture
-  - Delegated administration for AWS services
-
-**Consolidated Billing Benefits:**
-- One bill for all accounts
-- Volume pricing discounts (S3, EC2, etc.)
-- Reserved Instance sharing across accounts
-- Savings Plans sharing
-- Free tier applies once per organization
-- Combined usage for tiered pricing
-
-**Service Control Policies (SCPs):**
-- Control maximum available permissions
-- Do not grant permissions (only limit them)
-- Affect all users and roles in accounts
-- Do not affect service-linked roles
-- Must enable before use
-- Evaluation logic: explicit deny always wins
-
-**Use Case Examples:**
-
-**Example 1: Multi-Environment Organization**
-```
-Root
-├── Production OU
-│   ├── Prod-App-Account
-│   └── Prod-Data-Account
-├── Development OU
-│   ├── Dev-Account
-│   └── Test-Account
-└── Sandbox OU
-    └── Sandbox-Account
-```
-
-**SCP for Production OU (prevents accidental deletions):**
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Deny",
-      "Action": [
-        "ec2:TerminateInstances",
-        "rds:DeleteDBInstance",
-        "s3:DeleteBucket"
-      ],
-      "Resource": "*",
-      "Condition": {
-        "StringNotEquals": {
-          "aws:PrincipalArn": "arn:aws:iam::*:role/AdminRole"
-        }
-      }
-    }
-  ]
-}
-```
-
-**Example 2: Restricting Regions**
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Deny",
-      "Action": "*",
-      "Resource": "*",
-      "Condition": {
-        "StringNotEquals": {
-          "aws:RequestedRegion": [
-            "us-east-1",
-            "us-west-2",
-            "eu-west-1"
-          ]
-        }
-      }
-    }
-  ]
-}
-```
-
-### AWS Key Management Service (KMS) - Detailed
-
-Create and control cryptographic keys used to encrypt your data.
-
-**Key Features:**
-
-- **Create and manage cryptographic keys**
-  - Symmetric and asymmetric keys
-  - Hardware Security Modules (HSMs) backed
-  - FIPS 140-2 validated
-
-- **Control use of keys across AWS services**
-  - Centralized key management
-  - Integration with CloudTrail
-  - Key policies for fine-grained control
-
-- **Integrated with most AWS services**
-  - S3, EBS, RDS, DynamoDB, and more
-  - Transparent encryption
-  - Over 100 AWS services integrated
-
-- **Customer Master Keys (CMKs)**
-  - **AWS Managed CMKs:** Created and managed by AWS, free
-  - **Customer Managed CMKs:** You create and manage, $1/month
-  - **AWS Owned CMKs:** Used by AWS services, no visibility
-
-- **Automatic key rotation available**
-  - Annual rotation for customer managed keys (optional)
-  - Automatic for AWS managed keys (mandatory)
-  - Old key material retained for decryption
-
-- **Audit key usage via CloudTrail**
-  - Who used which key
-  - When and for what purpose
-  - Complete audit trail
-
-**Use Case Examples:**
-
-**Use Case 1: Encrypt S3 Bucket with Customer Managed Key**
-```
-Scenario: Healthcare company storing patient records
-Requirement: Control encryption keys, audit access, rotate annually
-Solution: Create customer managed KMS key with strict key policy
-
-Benefits:
-- Full control over key lifecycle
-- Audit trail in CloudTrail
-- Can disable key if needed
-- Automatic rotation
-```
-
-**Use Case 2: Cross-Account Data Sharing**
-```
-Scenario: Share encrypted data between AWS accounts
-Setup:
-1. Create KMS key in Account A
-2. Update key policy to allow Account B
-3. Share encrypted S3 objects
-4. Account B can decrypt with permission
-
-Key Policy Addition:
-{
-  "Effect": "Allow",
-  "Principal": {
-    "AWS": "arn:aws:iam::222222222222:root"
-  },
-  "Action": [
-    "kms:Decrypt",
-    "kms:DescribeKey"
-  ],
-  "Resource": "*"
-}
-```
-
-**Use Case 3: Envelope Encryption**
-```
-Large file encryption process:
-1. KMS generates data encryption key (DEK)
-2. DEK encrypts the actual data
-3. KMS encrypts the DEK with CMK
-4. Store encrypted data + encrypted DEK
-5. To decrypt: KMS decrypts DEK, DEK decrypts data
-
-Benefits:
-- Better performance for large files
-- Reduced KMS API calls
-- Data doesn't pass through KMS
-```
-
-**Pricing:**
-- Customer managed CMK: $1/month per key
-- API requests: $0.03 per 10,000 requests
-- Free tier: 20,000 requests/month
-- AWS managed CMKs: No charge for the key
-
-### AWS Shield
-
-DDoS (Distributed Denial of Service) protection service.
-
-#### AWS Shield Standard
-
-- **Automatic protection** for all AWS customers
-- **No additional cost**
-- Protects against **common Layer 3/4 attacks**
-  - SYN/ACK floods
-  - Reflection attacks
-  - UDP floods
-- Always-on detection
-- Automatic inline mitigations
-
-#### AWS Shield Advanced
-
-- **$3,000/month** per organization
-- **Enhanced protection** for:
-  - Amazon EC2
-  - Elastic Load Balancing (ELB)
-  - Amazon CloudFront
-  - Amazon Route 53
-  - AWS Global Accelerator
-
-- **24/7 access to DDoS Response Team (DRT)**
-  - Expert support during attacks
-  - Attack diagnostics
-
-- **Cost protection**
-  - Protection against usage spikes during attacks
-  - Cost reimbursement for scaled resources
-
-- **Real-time attack notifications**
-  - CloudWatch metrics
-  - Health-based detection
-
-### Amazon GuardDuty - Detailed
-
-Intelligent threat detection service using machine learning.
-
-**Key Features:**
-
-- **Intelligent threat detection service**
-  - Continuous monitoring (24/7)
-  - ML-powered analysis
-  - Threat intelligence feeds
-
-- **Uses machine learning**
-  - Anomaly detection
-  - Known threat patterns
-  - Behavioral analysis
-
-- **Monitors multiple data sources**
-  - VPC Flow Logs (network traffic)
-  - CloudTrail event logs (API activity)
-  - DNS logs (DNS queries)
-  - Kubernetes audit logs (EKS protection)
-  - S3 data events (S3 Protection)
-  - RDS login activity (RDS Protection)
-  - EBS volume snapshots (Malware Protection)
-
-- **Identifies unauthorized or malicious activity**
-  - Compromised instances
-  - Reconnaissance attempts
-  - Account compromise
-  - Cryptocurrency mining
-  - Data exfiltration attempts
-
-- **No software to deploy**
-  - Fully managed service
-  - Enable with a few clicks
-  - No impact on performance
-
-- **30-day free trial**
-
-- **Integrates with EventBridge**
-  - Automated responses to findings
-  - Lambda function triggers
-  - SNS notifications
-
-**Common Threat Findings:**
-
-| Finding Type | Description | Example |
-|-------------|-------------|---------|
-| **Backdoor:EC2/...** | Backdoor on EC2 instance | C&C server communication |
-| **Behavior:EC2/...** | Unusual instance behavior | Traffic to unusual port |
-| **CryptoCurrency:EC2/...** | Cryptocurrency mining | Bitcoin mining detected |
-| **Trojan:EC2/...** | Trojan detected | DNS query to known bad domain |
-| **UnauthorizedAccess:EC2/...** | Unauthorized access attempt | SSH brute force attack |
-| **Recon:IAMUser/...** | Reconnaissance by IAM user | Listing resources unusually |
-| **Stealth:IAMUser/...** | Stealth techniques | CloudTrail logging disabled |
-| **CredentialAccess:IAMUser/...** | Credential access attempts | Password policies weakened |
-
-**Use Case Examples:**
-
-**Use Case 1: Detecting Compromised Instance**
-```
-Scenario: EC2 instance starts communicating with known C&C server
-GuardDuty Detection:
-- Finding: Backdoor:EC2/C&CActivity.B
-- Severity: High
-- Details: Instance communicating with command and control server
-
-Automated Response:
-1. EventBridge rule triggers Lambda
-2. Lambda isolates instance (change security group)
-3. Lambda creates snapshot for forensics
-4. SNS notification to security team
-5. Ticket created in ticketing system
-```
-
-**Use Case 2: Unusual API Call Pattern**
-```
-Scenario: IAM user making unusual API calls
-GuardDuty Detection:
-- Finding: Recon:IAMUser/NetworkPermissions
-- Severity: Medium
-- Details: User listing network resources unusually
-
-Response:
-1. Alert security team
-2. Review CloudTrail logs
-3. Interview user about activity
-4. If compromised: rotate credentials
-```
-
-**Use Case 3: Cryptocurrency Mining**
-```
-Scenario: EC2 instance performing DNS queries to mining pools
-GuardDuty Detection:
-- Finding: CryptoCurrency:EC2/BitcoinTool.B
-- Severity: High
-- Details: DNS queries to Bitcoin mining pools
-
-Response:
-1. Immediately isolate instance
-2. Snapshot for investigation
-3. Terminate compromised instance
-4. Launch replacement from clean AMI
-5. Investigate how compromise occurred
-```
-
-**Pricing:**
-- Based on volume of data analyzed
-- CloudTrail events: $4.00 per million events
-- VPC Flow Logs: $1.00 per GB
-- DNS logs: $0.40 per million events
-- First 30 days free
-- No upfront commitment
+### Amazon GuardDuty
+Servicio de detección de amenazas inteligente que usa **Machine Learning**.
+- Monitorea **VPC Flow Logs**, logs de **CloudTrail**, logs de DNS, etc.
 
 ### Amazon Inspector
-
-Automated security assessment service for applications.
-
-**Key Features:**
-
-- **Automated security assessment service**
-  - Continuous scanning
-  - Scheduled assessments
-
-- **Assesses applications for vulnerabilities**
-  - CVE vulnerabilities
-  - Network exposure
-
-- **Checks for:**
-  - Exposure to external threats
-  - Vulnerabilities in applications
-  - Deviations from best practices
-
-- **Generates detailed security findings**
-  - Severity ratings
-  - Remediation recommendations
-
-- **Prioritized list of security findings**
-  - Risk-based prioritization
-  - Context-aware scoring
-
-- **Supports:**
-  - EC2 instances
-  - Container images (ECR)
-  - Lambda functions
-
-**Assessment Types:**
-- Network assessments
-- Host assessments
-- Package vulnerability scanning
+Servicio de evaluación de seguridad automatizado para aplicaciones (**EC2**, imágenes de contenedor en **ECR**, **Lambda**). Busca vulnerabilidades y desviaciones de las mejores prácticas.
 
 ### AWS WAF (Web Application Firewall)
-
-Protects web applications from common web exploits.
-
-**Key Features:**
-
-- **Protects web applications** from common exploits
-
-- **Deployed on:**
-  - Amazon CloudFront
-  - Application Load Balancer (ALB)
-  - Amazon API Gateway
-  - AWS AppSync
-
-- **Create custom rules** to block attack patterns
-  - Define conditions
-  - Action on matches (Allow, Block, Count)
-
-- **Protection against:**
-  - SQL injection
-  - Cross-site scripting (XSS)
-  - Size constraints violations
-  - Geo-blocking
-
-- **IP-based filtering**
-  - IP sets (allow/deny lists)
-  - IP rate limiting
-
-- **Geo-blocking capabilities**
-  - Block traffic from specific countries
-
-- **Rate-based rules**
-  - Prevent DDoS
-  - Limit requests per IP
-
-**Web ACL (Access Control List):**
-- Collection of rules
-- Applies to CloudFront distribution or ALB
-- Rules evaluated in order
+Protege las aplicaciones web de exploits comunes (Inyección SQL, XSS). Se despliega en **CloudFront**, **ALB** o **API Gateway**.
 
 ### Amazon Macie
-
-Data security and privacy service using machine learning.
-
-**Key Features:**
-
-- **Data security and privacy service**
-  - Sensitive data discovery
-  - Data protection
-
-- **Uses machine learning**
-  - Intelligent pattern matching
-  - Anomaly detection
-
-- **Discovers and protects sensitive data**
-  - Personally Identifiable Information (PII)
-  - Financial data
-  - Credentials
-
-- **Identifies PII**
-  - Names, addresses
-  - Credit card numbers
-  - Social Security numbers
-  - Passport numbers
-
-- **Monitors S3 buckets**
-  - Data inventory
-  - Security findings
-  - Bucket policies
-
-- **Provides dashboards and alerts**
-  - Security findings
-  - Data classification
-
-- **Helps meet compliance requirements**
-  - GDPR
-  - HIPAA
-  - PCI DSS
-
-**Use Cases:**
-- Discover sensitive data in S3
-- Monitor for suspicious access patterns
-- Compliance auditing
-- Data classification
+Servicio de seguridad y privacidad de datos que usa **Machine Learning** para descubrir y proteger datos sensibles (**PII**) en **Amazon S3**.
 
 ### AWS Artifact
-
-Self-service portal for on-demand access to AWS compliance reports.
-
-**Key Features:**
-
-- **On-demand access** to AWS compliance reports
-
-- **Self-service portal** for audit artifacts
-
-- **Download AWS security and compliance documents**
-  - Instant access
-  - No waiting for support
-
-- **Examples of available reports:**
-  - ISO certifications (27001, 27017, 27018)
-  - SOC reports (SOC 1, 2, 3)
-  - PCI DSS reports
-  - FedRAMP documentation
-
-- **No cost**
-  - Free to use
-  - Available to all AWS customers
-
-- **Support compliance and regulatory requirements**
-  - Audit evidence
-  - Third-party attestations
-
-**Two Main Sections:**
-1. **Artifact Reports:** Compliance reports and certifications
-2. **Artifact Agreements:** Review and accept agreements (BAA, GDPR DPA)
+Portal de autoservicio para el acceso bajo demanda a los informes de cumplimiento de AWS (ISO, SOC, PCI).
 
 ---
 
-## Compliance
+## Cumplimiento y Normativas (Compliance)
 
-### AWS Compliance Programs
-
-AWS complies with numerous industry-specific compliance programs and regulations:
-
-| Program | Description | Industry |
-|---------|-------------|----------|
-| **HIPAA** | Health Insurance Portability and Accountability Act | Healthcare |
-| **PCI DSS** | Payment Card Industry Data Security Standard | Payment Processing |
-| **SOC 1, 2, 3** | Service Organization Controls | Various |
-| **ISO 27001** | Information Security Management | Various |
-| **FedRAMP** | Federal Risk and Authorization Management Program | US Government |
-| **GDPR** | General Data Protection Regulation | EU Data Privacy |
-
-#### HIPAA (Health Insurance Portability and Accountability Act)
-
-- **Healthcare industry** compliance
-- Protects **Protected Health Information (PHI)**
-- Requires **Business Associate Agreement (BAA)** with AWS
-- HIPAA-eligible services include:
-  - S3, EC2, RDS, DynamoDB
-  - And many others (check AWS documentation)
-
-#### PCI DSS (Payment Card Industry Data Security Standard)
-
-- **Payment card processing** compliance
-- Protects **cardholder data**
-- Multiple compliance levels
-- AWS infrastructure is PCI DSS compliant
-- Customer applications may need separate certification
-
-#### SOC (Service Organization Controls)
-
-- **SOC 1:** Financial reporting controls
-- **SOC 2:** Security, availability, confidentiality controls
-  - Type I: Design of controls
-  - Type II: Operating effectiveness
-- **SOC 3:** General use report (public)
-
-#### ISO 27001
-
-- **International standard** for information security
-- Information Security Management System (ISMS)
-- Risk management framework
-- Demonstrates security commitment
-
-#### FedRAMP (Federal Risk and Authorization Management Program)
-
-- **US Government** cloud compliance
-- Standardized approach to security assessment
-- Authorization levels:
-  - Low Impact
-  - Moderate Impact
-  - High Impact
-
-#### GDPR (General Data Protection Regulation)
-
-- **EU data privacy** regulation
-- Applies to processing of EU residents' data
-- Key requirements:
-  - Data protection by design
-  - Right to erasure
-  - Data portability
-  - Breach notification
-- AWS provides GDPR-compliant services and features
-
-> **Exam Tip:** You don't need to memorize all compliance programs in detail, but know what they stand for and which industries they apply to.
+AWS cumple con numerosos programas de cumplimiento:
+- **HIPAA:** Salud (EE. UU.). Requiere un **BAA** (**Business Associate Agreement**).
+- **PCI DSS:** Procesamiento de tarjetas de pago.
+- **SOC 1, 2, 3:** Informes de auditoría de controles.
+- **ISO 27001:** Estándar internacional de seguridad de la información.
+- **FedRAMP:** Gobierno federal de EE. UU.
+- **GDPR:** Privacidad de datos de la UE.
 
 ---
 
-## Compliance Programs - Deep Dive
+## Errores Comunes de Seguridad y Cómo Evitarlos
 
-### HIPAA Compliance Details
-
-**What is HIPAA?**
-- US legislation protecting patient medical records and PHI
-- Enacted in 1996
-- Applies to covered entities and business associates
-- Requires safeguards for PHI confidentiality, integrity, availability
-
-**AWS and HIPAA:**
-- AWS infrastructure is HIPAA-compliant
-- Must sign Business Associate Agreement (BAA) with AWS
-- BAA is free, request through AWS Artifact
-- Only HIPAA-eligible services can store PHI
-
-**HIPAA-Eligible Services (common ones):**
-- Compute: EC2, Lambda, Elastic Beanstalk
-- Storage: S3, EBS, EFS, Glacier
-- Database: RDS, DynamoDB, Redshift
-- Networking: VPC, Direct Connect, Route 53
-- Analytics: EMR, Kinesis, Athena
-
-**Customer Responsibilities:**
-- Execute BAA before processing PHI
-- Use only HIPAA-eligible services for PHI
-- Implement proper access controls
-- Encrypt PHI at rest and in transit
-- Maintain audit logs
-- Implement breach notification procedures
-- Regular risk assessments
-
-**Technical Safeguards Required:**
-- Access controls (IAM, MFA)
-- Audit controls (CloudTrail, Config)
-- Integrity controls (checksums, versioning)
-- Transmission security (TLS, VPN)
-- Encryption (KMS, SSL/TLS)
-
-### PCI DSS Compliance Details
-
-**What is PCI DSS?**
-- Payment Card Industry Data Security Standard
-- Protects cardholder data
-- Applies to merchants and service providers
-- 12 requirements across 6 control objectives
-
-**Six Control Objectives:**
-1. Build and maintain secure network
-2. Protect cardholder data
-3. Maintain vulnerability management program
-4. Implement strong access control measures
-5. Regularly monitor and test networks
-6. Maintain information security policy
-
-**AWS PCI DSS Compliance:**
-- AWS infrastructure: PCI DSS Level 1 compliant
-- Highest level of compliance
-- Applies to compute, storage, network services
-- Customer applications may need separate validation
-
-**Compliance Levels:**
-- **Level 1:** 6+ million transactions/year
-- **Level 2:** 1-6 million transactions/year
-- **Level 3:** 20,000-1 million e-commerce transactions/year
-- **Level 4:** <20,000 e-commerce transactions/year
-
-**AWS Services for PCI DSS:**
-- Cardholder Data Environment (CDE) can run on EC2
-- Segment CDE in separate VPC or subnet
-- Use encryption for data at rest (KMS)
-- Use TLS for data in transit
-- Implement logging (CloudTrail, VPC Flow Logs)
-- Use AWS WAF for application protection
-
-**Key Requirements:**
-- Network segmentation (VPC, security groups)
-- Access controls (IAM, MFA)
-- Encryption (KMS, TLS)
-- Logging and monitoring (CloudTrail, CloudWatch)
-- Vulnerability management (Inspector)
-- Penetration testing (with AWS permission)
-
-### SOC Reports Details
-
-**SOC 1 (SSAE 18):**
-- Focus: Financial reporting controls
-- Audience: Financial auditors
-- Content: Controls relevant to financial statements
-- AWS provides: SOC 1 Type II report
-
-**SOC 2 (AT-C 105):**
-- Focus: Security, availability, processing integrity, confidentiality, privacy
-- Audience: Management, regulators, stakeholders
-- Two types:
-  - **Type I:** Design of controls at specific point in time
-  - **Type II:** Operating effectiveness over period (usually 6-12 months)
-- AWS provides: SOC 2 Type II report
-
-**SOC 3:**
-- Simplified version of SOC 2
-- General use report
-- Publicly available
-- Does not include detailed testing results
-- Good for marketing and general assurance
-
-**Five Trust Service Principles:**
-1. **Security:** Protection against unauthorized access
-2. **Availability:** System accessibility as agreed
-3. **Processing Integrity:** Complete, valid, accurate processing
-4. **Confidentiality:** Confidential information protection
-5. **Privacy:** Personal information protection per commitments
-
-**How to Access:**
-- AWS Artifact for SOC 1, 2, 3 reports
-- No cost
-- Requires AWS account
-- NDA acceptance required
-
-### ISO 27001 Details
-
-**What is ISO 27001?**
-- International standard for ISMS
-- Published by ISO/IEC
-- Specifies requirements for establishing, implementing, maintaining ISMS
-- Risk-based approach
-
-**Key Components:**
-- 14 control domains
-- 114 controls
-- Continuous improvement cycle (Plan-Do-Check-Act)
-
-**14 Control Domains:**
-1. Information security policies
-2. Organization of information security
-3. Human resource security
-4. Asset management
-5. Access control
-6. Cryptography
-7. Physical and environmental security
-8. Operations security
-9. Communications security
-10. System acquisition, development, maintenance
-11. Supplier relationships
-12. Incident management
-13. Business continuity
-14. Compliance
-
-**AWS ISO Certifications:**
-- ISO 27001 (Information Security Management)
-- ISO 27017 (Cloud Security)
-- ISO 27018 (Cloud Privacy)
-- ISO 27701 (Privacy Information Management)
-- ISO 9001 (Quality Management)
-- ISO 22301 (Business Continuity)
-
-**Access Reports:**
-- Download from AWS Artifact
-- Available to all AWS customers
-- Updated annually
-
-### FedRAMP Details
-
-**What is FedRAMP?**
-- Federal Risk and Authorization Management Program
-- US Government cloud security standard
-- Standardizes security assessment and authorization
-- Mandatory for federal agencies
-
-**Authorization Levels:**
-
-**Low Impact:**
-- Data loss: Limited impact
-- Examples: Static websites, public information
-- Controls: 125 security controls
-
-**Moderate Impact:**
-- Data loss: Serious impact
-- Examples: Most federal applications
-- Controls: 325 security controls
-- Most common baseline
-
-**High Impact:**
-- Data loss: Severe/catastrophic impact
-- Examples: National security systems
-- Controls: 421 security controls
-- Highest security requirements
-
-**AWS FedRAMP Compliance:**
-- FedRAMP Authorized at High impact level
-- Covers AWS GovCloud (US) regions
-- Covers select services in commercial regions
-- Continuous monitoring required
-
-**FedRAMP Authorization Process:**
-1. Preparation (package development)
-2. Assessment by 3PAO (Third Party Assessment Organization)
-3. Authorization by JAB or Agency
-4. Continuous monitoring
-
-**AWS Services FedRAMP Authorized:**
-- 100+ services authorized
-- Check FedRAMP Marketplace for current list
-- New services regularly added
-
-### GDPR Details
-
-**What is GDPR?**
-- General Data Protection Regulation
-- EU regulation effective May 2018
-- Applies to processing of EU residents' data
-- Extraterritorial scope (applies globally)
-- Heavy fines for non-compliance (up to 4% of revenue or €20M)
-
-**Key Principles:**
-1. **Lawfulness, fairness, transparency**
-2. **Purpose limitation**
-3. **Data minimization**
-4. **Accuracy**
-5. **Storage limitation**
-6. **Integrity and confidentiality**
-7. **Accountability**
-
-**Data Subject Rights:**
-- Right to access
-- Right to rectification
-- Right to erasure ("right to be forgotten")
-- Right to restrict processing
-- Right to data portability
-- Right to object
-- Rights related to automated decision-making
-
-**AWS GDPR Compliance:**
-- AWS Data Processing Addendum (DPA) available
-- Supports customer GDPR compliance
-- Data residency options (choose regions)
-- Encryption capabilities
-- Access controls and logging
-- Data portability features
-
-**Technical Measures for GDPR:**
-- **Encryption:** KMS, SSL/TLS for data protection
-- **Access Control:** IAM for limiting data access
-- **Logging:** CloudTrail for accountability
-- **Data Residency:** Region selection for data location
-- **Deletion:** S3 lifecycle policies for right to erasure
-- **Portability:** Data export capabilities
-- **Anonymization:** Services for de-identification
-
-**Breach Notification:**
-- Must notify supervisory authority within 72 hours
-- Must notify affected individuals without undue delay
-- AWS notifies customers of breaches affecting them
-- Customer responsible for notifying authorities/individuals
-
-**AWS Tools for GDPR:**
-- IAM for access control
-- KMS for encryption
-- CloudTrail for audit logs
-- Config for compliance monitoring
-- Macie for PII discovery
-- S3 versioning and lifecycle for data retention
+1. **Usar la cuenta Root para tareas diarias:** Crea usuarios de **IAM** individuales y habilita **MFA** en **root**.
+2. **Políticas IAM excesivamente permisivas:** Sigue el **Least Privilege**.
+3. **Incrustar credenciales en el código:** Usa **IAM Roles** y **Secrets Manager**.
+4. **Dejar buckets de S3 públicos:** Habilita **S3 Block Public Access**.
+5. **No habilitar MFA:** Obligatorio para **root** y usuarios privilegiados.
+6. **Ignorar los logs de CloudTrail:** Habilítalo en todas las regiones para auditoría.
 
 ---
 
-## Common Security Mistakes and How to Avoid Them
+## Preguntas de Repaso
 
-### Mistake 1: Using Root Account for Daily Tasks
+**1. Según el Shared Responsibility Model, ¿de qué aspecto de seguridad es responsable AWS?**
+   - A. Configuración de **Security Groups**.
+   - B. Seguridad física de los centros de datos.
+   - C. Cifrado de los datos del cliente.
+   - D. Gestión de usuarios de **IAM**.
+   *(Respuesta: B)*
 
-**Why it's dangerous:**
-- Root account has unrestricted access
-- Cannot limit permissions
-- If compromised, entire account at risk
-- Difficult to track who did what
+**2. ¿Qué servicio proporciona protección contra DDoS sin coste adicional?**
+   - A. **AWS WAF**.
+   - B. **AWS Shield Advanced**.
+   - C. **AWS Shield Standard**.
+   - D. **Amazon GuardDuty**.
+   *(Respuesta: C)*
 
-**How to avoid:**
-- Create IAM users for daily tasks
-- Use root account only for initial setup
-- Enable MFA on root account
-- Never create access keys for root account
-- Lock away root account credentials
-- Set up billing alerts on root account
+**3. ¿Qué servicio usa Machine Learning para descubrir y proteger datos sensibles en S3?**
+   - A. **Amazon GuardDuty**.
+   - B. **Amazon Inspector**.
+   - C. **Amazon Macie**.
+   - D. **AWS Config**.
+   *(Respuesta: C)*
 
-**Best practice:**
-```
-1. Create IAM admin user immediately after account creation
-2. Enable MFA on root account
-3. Store root credentials in secure location (password manager)
-4. Use IAM admin user for all tasks
-5. Monitor root account usage with CloudWatch alarm
-```
-
-### Mistake 2: Overly Permissive IAM Policies
-
-**Common patterns:**
-```json
-{
-  "Effect": "Allow",
-  "Action": "*",
-  "Resource": "*"
-}
-```
-**Why it's dangerous:**
-- Grants unlimited access
-- Violates least privilege
-- Increases blast radius of compromise
-- Hard to audit what's actually used
-
-**How to avoid:**
-- Start with minimal permissions
-- Add permissions as needed
-- Use AWS managed policies as starting point
-- Regularly review and remove unused permissions
-- Use IAM Access Analyzer
-- Implement permission boundaries
-
-**Better approach:**
-```json
-{
-  "Effect": "Allow",
-  "Action": [
-    "s3:GetObject",
-    "s3:PutObject"
-  ],
-  "Resource": "arn:aws:s3:::specific-bucket/*"
-}
-```
-
-### Mistake 3: Hardcoding Credentials in Code
-
-**Examples of what NOT to do:**
-```python
-# NEVER DO THIS
-aws_access_key = "AKIAIOSFODNN7EXAMPLE"
-aws_secret_key = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-```
-
-**Why it's dangerous:**
-- Credentials exposed in version control
-- Difficult to rotate
-- Can be discovered by attackers
-- Violates security best practices
-
-**How to avoid:**
-- Use IAM roles for EC2 instances
-- Use environment variables
-- Use AWS Secrets Manager
-- Use Systems Manager Parameter Store
-- Use temporary credentials via STS
-
-**Better approach:**
-```python
-# Use IAM role (credentials automatically provided)
-import boto3
-s3 = boto3.client('s3')  # Credentials from instance role
-
-# Or use Secrets Manager
-import json
-secretsmanager = boto3.client('secretsmanager')
-secret = secretsmanager.get_secret_value(SecretId='MySecret')
-credentials = json.loads(secret['SecretString'])
-```
-
-### Mistake 4: Leaving S3 Buckets Publicly Accessible
-
-**Why it's dangerous:**
-- Data exposed to internet
-- Source of many data breaches
-- Compliance violations
-- Potential for data loss or ransomware
-
-**How to avoid:**
-- Enable S3 Block Public Access (account-level)
-- Use bucket policies to restrict access
-- Enable S3 server access logging
-- Use AWS Macie to find sensitive data
-- Regular audits with AWS Config
-- Use VPC endpoints for private access
-
-**Configuration:**
-```
-Enable S3 Block Public Access Settings:
-✓ Block public access to buckets through new ACLs
-✓ Block public access to buckets through any ACLs
-✓ Block public access to buckets through new public bucket policies
-✓ Block public and cross-account access through any public bucket policies
-```
-
-### Mistake 5: Not Enabling MFA
-
-**Why it's dangerous:**
-- Password-only authentication is weak
-- Vulnerable to phishing
-- Credential stuffing attacks
-- Account takeover
-
-**How to avoid:**
-- Enable MFA on root account (mandatory)
-- Enable MFA for all IAM users
-- Require MFA for sensitive operations
-- Use hardware MFA for high-privilege users
-- Enforce MFA with IAM policies
-
-**MFA enforcement policy:**
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Deny",
-      "Action": "*",
-      "Resource": "*",
-      "Condition": {
-        "BoolIfExists": {
-          "aws:MultiFactorAuthPresent": "false"
-        }
-      }
-    }
-  ]
-}
-```
-
-### Mistake 6: Ignoring CloudTrail Logs
-
-**Why it's dangerous:**
-- No audit trail
-- Can't investigate incidents
-- Compliance violations
-- Unable to detect unauthorized access
-
-**How to avoid:**
-- Enable CloudTrail in all regions
-- Send logs to S3 bucket
-- Enable log file validation
-- Set up CloudWatch Logs integration
-- Create alarms for suspicious activity
-- Restrict access to CloudTrail logs
-- Enable in separate security account
-
-**Critical events to monitor:**
-- Root account usage
-- IAM policy changes
-- Security group changes
-- CloudTrail being disabled
-- Unauthorized API calls
-- Failed login attempts
-
-### Mistake 7: Poor Security Group Configuration
-
-**Common mistakes:**
-- Opening 0.0.0.0/0 on all ports
-- Allowing RDP/SSH from anywhere
-- Overly permissive outbound rules
-- Not using security group references
-
-**Why it's dangerous:**
-- Exposes resources to internet
-- Increases attack surface
-- Brute force attacks
-- Lateral movement if compromised
-
-**How to avoid:**
-- Use principle of least privilege
-- Restrict SSH/RDP to specific IPs
-- Use security group references
-- Regular audits
-- Use AWS Config rules
-- Implement bastion hosts
-
-**Bad configuration:**
-```
-Inbound: 0.0.0.0/0 on port 22 (SSH)
-```
-
-**Good configuration:**
-```
-Inbound: YOUR_IP/32 on port 22 (SSH)
-Or better: Bastion-SG on port 22
-```
-
-### Mistake 8: Not Encrypting Data
-
-**Why it's dangerous:**
-- Data exposed if storage compromised
-- Compliance violations
-- Data breaches
-- Regulatory fines
-
-**How to avoid:**
-- Enable encryption by default
-- Use KMS for key management
-- Encrypt data in transit (TLS/SSL)
-- Encrypt data at rest
-- Use S3 bucket encryption
-- Enable EBS encryption by default
-- Use RDS encryption
-
-**Enable encryption by default:**
-```
-Account Settings:
-✓ EBS encryption enabled by default
-✓ S3 default encryption enabled
-✓ RDS encryption required
-
-✓ TLS 1.2+ enforced
-✓ HTTPS required for CloudFront
-```
-
-### Mistake 9: Sharing IAM Credentials
-
-**Examples:**
-- Multiple people using same IAM user
-- Sharing access keys
-- Using one "service account" for everything
-
-**Why it's dangerous:**
-- No accountability
-- Can't track who did what
-- Difficult to rotate
-- Violates compliance requirements
-
-**How to avoid:**
-- Create individual IAM users
-- Use IAM roles for services
-- Implement federation for user access
-- No shared credentials ever
-- Use temporary credentials
-- Monitor and alert on concurrent logins
-
-### Mistake 10: Neglecting Security Updates
-
-**What's neglected:**
-- OS patches
-- Application updates
-- Security patches
-- AMI updates
-
-**Why it's dangerous:**
-- Known vulnerabilities exploited
-- Malware infections
-- Compliance violations
-- Security breaches
-
-**How to avoid:**
-- Use AWS Systems Manager Patch Manager
-- Enable automatic security updates
-- Regularly update AMIs
-- Use Amazon Inspector
-- Implement patch compliance monitoring
-- Schedule regular maintenance windows
-
-**Patch management strategy:**
-```
-1. Test patches in dev environment
-2. Schedule maintenance windows
-3. Use Systems Manager for patching
-4. Monitor patch compliance with Config
-5. Automate where possible
-6. Maintain patch documentation
-```
-
-### Mistake 11: Not Using Least Privilege
-
-**Common patterns:**
-- Giving admin access to everyone
-- Using wildcard (*) in policies
-- Not reviewing permissions
-- Adding permissions but never removing
-
-**How to avoid:**
-- Start with zero permissions
-- Add only what's needed
-- Regular access reviews
-- Use IAM Access Analyzer
-- Remove unused permissions
-- Use permission boundaries
-
-### Mistake 12: Poor Network Segmentation
-
-**Mistakes:**
-- All resources in public subnet
-- No separation between tiers
-- Flat network architecture
-
-**How to avoid:**
-- Use multiple subnets
-- Separate by tier (web, app, data)
-- Use private subnets for databases
-- Implement defense in depth
-- Use NACLs and security groups
-- Follow well-architected principles
-
-**Proper architecture:**
-```
-Public Subnet: Load balancers, bastion hosts
-Private Subnet: Application servers
-Private Subnet: Databases (no internet access)
-```
+**4. ¿Dónde puedes descargar los informes de cumplimiento y certificaciones de AWS?**
+   - A. **AWS Config**.
+   - B. **AWS Artifact**.
+   - C. **AWS Inspector**.
+   - D. **AWS Organizations**.
+   *(Respuesta: B)*
 
 ---
 
-## Security Checklist for Exam Preparation
-
-### IAM Security Checklist
-
-- [ ] Root account has MFA enabled
-- [ ] Root account has no access keys
-- [ ] Individual IAM users created (no sharing)
-- [ ] IAM users have MFA enabled
-- [ ] IAM password policy is strong
-- [ ] IAM users grouped by role
-- [ ] Policies attached to groups, not users
-- [ ] Least privilege principle applied
-- [ ] Unused credentials removed
-- [ ] Access keys rotated every 90 days
-- [ ] IAM roles used for EC2 instances
-- [ ] Cross-account access uses roles
-- [ ] Service Control Policies implemented (Organizations)
-- [ ] Permission boundaries used where appropriate
-
-### Data Protection Checklist
-
-- [ ] S3 buckets have encryption enabled
-- [ ] S3 Block Public Access enabled
-- [ ] S3 versioning enabled for important data
-- [ ] EBS encryption enabled by default
-- [ ] RDS databases encrypted
-- [ ] Data encrypted in transit (TLS/SSL)
-- [ ] KMS used for key management
-- [ ] Automatic key rotation enabled
-- [ ] Sensitive data classified
-- [ ] DLP policies implemented (Macie)
-- [ ] Backup strategy defined
-- [ ] Backup testing performed regularly
-
-### Network Security Checklist
-
-- [ ] VPC created for resources
-- [ ] Public/private subnets separated
-- [ ] Security groups follow least privilege
-- [ ] NACLs configured for subnet protection
-- [ ] VPC Flow Logs enabled
-- [ ] No 0.0.0.0/0 on SSH/RDP
-- [ ] Bastion hosts used for access
-- [ ] VPC endpoints used for AWS services
-- [ ] Network segmentation implemented
-- [ ] WAF enabled for web applications
-- [ ] Shield Standard active (automatic)
-- [ ] DDoS response plan documented
-
-### Monitoring and Logging Checklist
-
-- [ ] CloudTrail enabled in all regions
-- [ ] CloudTrail log file validation enabled
-- [ ] CloudTrail logs in separate account
-- [ ] VPC Flow Logs enabled
-- [ ] S3 access logging enabled
-- [ ] ELB access logs enabled
-- [ ] CloudWatch alarms configured
-- [ ] GuardDuty enabled
-- [ ] Security Hub enabled
-- [ ] Config rules enabled
-- [ ] Automated remediation configured
-- [ ] Incident response plan documented
-
-### Compliance Checklist
-
-- [ ] Compliance requirements identified
-- [ ] AWS Artifact reports reviewed
-- [ ] BAA signed (if HIPAA required)
-- [ ] Compliance documentation maintained
-- [ ] Regular compliance audits performed
-- [ ] Config rules for compliance checking
-- [ ] Tags applied for governance
-- [ ] Resource inventory maintained
-
-### Exam Readiness Checklist
-
-- [ ] Understand Shared Responsibility Model
-- [ ] Know IAM components (users, groups, roles, policies)
-- [ ] Understand difference between authentication and authorization
-- [ ] Know when to use each security service
-- [ ] Understand compliance programs and industries
-- [ ] Know security best practices
-- [ ] Understand encryption (at rest and in transit)
-- [ ] Know network security concepts
-- [ ] Understand monitoring and logging services
-- [ ] Know incident response basics
-
-### AWS Config
-
-Assess, audit, and evaluate AWS resource configurations.
-
-**Key Features:**
-
-- **Assess, audit, and evaluate configurations**
-  - Configuration history
-  - Configuration snapshots
-
-- **Continuous monitoring** of resource configurations
-  - Real-time tracking
-  - Change detection
-
-- **Track configuration changes over time**
-  - Who made changes
-  - When changes occurred
-  - What changed
-
-- **Compliance auditing and security analysis**
-  - Configuration compliance
-  - Security posture assessment
-
-- **Config Rules** define desired configurations
-  - AWS managed rules
-  - Custom rules (Lambda)
-  - Automatic or triggered evaluation
-
-- **Automated remediation** of non-compliant resources
-  - SSM Automation documents
-  - Automatic or manual remediation
-
-**Use Cases:**
-- Continuous compliance monitoring
-- Security analysis
-- Change management
-- Troubleshooting
-- Configuration history
-
-**How It Works:**
-1. Enable AWS Config in your account
-2. Select resources to monitor
-3. Define Config Rules
-4. Review compliance dashboard
-5. Set up automated remediation (optional)
-
-**Integration:**
-- CloudTrail (who made the change)
-- SNS (notifications)
-- S3 (configuration snapshots)
-- Systems Manager (remediation)
-
----
-
-## Review Questions
-
-Test your knowledge of Domain 2: Security and Compliance.
-
-### Question 1
-
-**According to the Shared Responsibility Model, which security aspect is AWS responsible for?**
-
-A. Security group configuration
-B. Physical security of data centers
-C. Customer data encryption
-D. IAM user management
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: B**
-
-**Explanation:** AWS is responsible for security OF the cloud, which includes physical security of data centers, hardware, and infrastructure. The customer is responsible for security IN the cloud, including security groups (A), data encryption (C), and IAM user management (D).
-
-</details>
-
----
-
-### Question 2
-
-**Which service provides DDoS protection at no additional cost?**
-
-A. AWS WAF
-B. AWS Shield Advanced
-C. AWS Shield Standard
-D. Amazon GuardDuty
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: C**
-
-**Explanation:** AWS Shield Standard provides automatic DDoS protection for all AWS customers at no additional cost. Shield Advanced (B) costs $3,000/month, WAF (A) has its own pricing, and GuardDuty (D) is for threat detection, not DDoS protection.
-
-</details>
-
----
-
-### Question 3
-
-**What is the best practice for granting permissions to a group of developers?**
-
-A. Attach policies directly to each user
-B. Create an IAM group, attach policies to the group, add users to the group
-C. Share the root account credentials
-D. Create one IAM user that everyone shares
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: B**
-
-**Explanation:** The best practice is to create IAM groups, attach policies to the groups, and then add users to appropriate groups. This simplifies management and follows security best practices. Sharing credentials (C and D) is never recommended, and attaching policies to individual users (A) is harder to manage.
-
-</details>
-
----
-
-### Question 4
-
-**Which service uses machine learning to discover and protect sensitive data in S3?**
-
-A. Amazon GuardDuty
-B. Amazon Inspector
-C. Amazon Macie
-D. AWS Config
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: C**
-
-**Explanation:** Amazon Macie uses machine learning to discover, classify, and protect sensitive data (like PII) in Amazon S3. GuardDuty (A) is for threat detection, Inspector (B) is for vulnerability assessment, and Config (D) is for configuration compliance.
-
-</details>
-
----
-
-### Question 5
-
-**Which IAM entity provides temporary security credentials?**
-
-A. IAM User
-B. IAM Group
-C. IAM Role
-D. IAM Policy
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: C**
-
-**Explanation:** IAM Roles provide temporary security credentials that are automatically rotated. Users (A) have long-term credentials, Groups (B) are collections of users, and Policies (D) define permissions but don't provide credentials.
-
-</details>
-
----
-
-### Question 6
-
-**Where can you download AWS compliance reports and certifications?**
-
-A. AWS Config
-B. AWS Artifact
-C. AWS Inspector
-D. AWS Organizations
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: B**
-
-**Explanation:** AWS Artifact is the self-service portal where you can download AWS compliance reports, certifications (ISO, SOC, PCI), and agreements. It's available at no cost to all AWS customers.
-
-</details>
-
----
-
-### Question 7
-
-**What is the primary purpose of AWS Config?**
-
-A. Encrypt data at rest
-B. Track configuration changes and compliance
-C. Detect threats using machine learning
-D. Protect against DDoS attacks
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: B**
-
-**Explanation:** AWS Config tracks configuration changes over time and evaluates compliance against desired configurations. KMS handles encryption (A), GuardDuty detects threats (C), and Shield protects against DDoS (D).
-
-</details>
-
----
-
-### Question 8
-
-**Which authentication factor does MFA add to username/password?**
-
-A. Something you know
-B. Something you have
-C. Something you are
-D. Somewhere you are
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: B**
-
-**Explanation:** MFA adds "something you have" (the MFA device) to "something you know" (the password), providing two-factor authentication. The password is "something you know" (A), biometrics would be "something you are" (C), and location would be "somewhere you are" (D).
-
-</details>
-
----
-
-### Question 9
-
-**Which service would you use to centrally manage multiple AWS accounts and apply governance policies?**
-
-A. IAM
-B. AWS Organizations
-C. AWS Config
-D. AWS Control Tower
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: B**
-
-**Explanation:** AWS Organizations allows you to centrally manage multiple AWS accounts, provide consolidated billing, and apply Service Control Policies (SCPs) for governance. IAM (A) manages access within a single account, Config (C) tracks configurations, and while Control Tower (D) can also manage accounts, Organizations is the core service tested at the Cloud Practitioner level.
-
-</details>
-
----
-
-### Question 10
-
-**Which compliance program is specifically for healthcare data in the United States?**
-
-A. PCI DSS
-B. GDPR
-C. HIPAA
-D. SOC 2
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: C**
-
-**Explanation:** HIPAA (Health Insurance Portability and Accountability Act) is the US regulation for protecting healthcare data and PHI (Protected Health Information). PCI DSS (A) is for payment cards, GDPR (B) is EU data privacy, and SOC 2 (D) is for general security controls.
-
-</details>
-
----
-
-### Question 11
-
-**Which AWS service should you use to discover and protect sensitive data like credit card numbers in S3?**
-
-A. AWS Config
-B. Amazon Macie
-C. AWS WAF
-D. Amazon Inspector
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: B**
-
-**Explanation:** Amazon Macie uses machine learning to discover, classify, and protect sensitive data like PII, credit card numbers, and other confidential information in S3 buckets. Config (A) tracks configurations, WAF (C) protects web applications, and Inspector (D) assesses vulnerabilities.
-
-</details>
-
----
-
-### Question 12
-
-**Your company needs to encrypt data at rest in S3 with full control over the encryption keys, including rotation. Which solution should you use?**
-
-A. SSE-S3 (Server-Side Encryption with S3-Managed Keys)
-B. SSE-KMS with customer managed CMK
-C. SSE-C (Server-Side Encryption with Customer-Provided Keys)
-D. Client-side encryption
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: B**
-
-**Explanation:** SSE-KMS with customer managed CMK gives you full control over encryption keys, including rotation, while AWS handles the encryption process. SSE-S3 (A) doesn't give you control over keys, SSE-C (C) requires you to provide keys with each request, and client-side encryption (D) requires you to manage the entire encryption process.
-
-</details>
-
----
-
-### Question 13
-
-**Which service provides automated vulnerability assessment for EC2 instances and container images?**
-
-A. Amazon GuardDuty
-B. AWS Security Hub
-C. Amazon Inspector
-D. AWS Systems Manager
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: C**
-
-**Explanation:** Amazon Inspector is an automated security assessment service that checks for vulnerabilities in EC2 instances, container images in ECR, and Lambda functions. GuardDuty (A) is for threat detection, Security Hub (B) is a centralized security view, and Systems Manager (D) is for operational management.
-
-</details>
-
----
-
-### Question 14
-
-**According to the Shared Responsibility Model, who is responsible for patching the guest operating system on an EC2 instance?**
-
-A. AWS
-B. Customer
-C. Both AWS and Customer
-D. Neither, it's automated
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: B**
-
-**Explanation:** The customer is responsible for patching the guest OS on EC2 instances. This falls under "security IN the cloud." AWS is responsible for patching the hypervisor and infrastructure (security OF the cloud). For managed services like RDS, AWS handles the patching.
-
-</details>
-
----
-
-### Question 15
-
-**Which feature of AWS Organizations allows you to restrict actions across all accounts in your organization?**
-
-A. IAM Policies
-B. Resource Access Manager
-C. Service Control Policies (SCPs)
-D. Permission Boundaries
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: C**
-
-**Explanation:** Service Control Policies (SCPs) allow you to set maximum available permissions across accounts in AWS Organizations. They act as guardrails and can even restrict the root user. IAM policies (A) work within a single account, RAM (B) is for resource sharing, and permission boundaries (D) set maximum permissions for IAM entities.
-
-</details>
-
----
-
-### Question 16
-
-**What is the primary purpose of AWS CloudTrail?**
-
-A. Monitor resource utilization
-B. Log API activity for auditing
-C. Detect security threats
-D. Track configuration changes
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: B**
-
-**Explanation:** CloudTrail logs API activity in your AWS account, providing an audit trail of who did what, when, and from where. CloudWatch (A) monitors resource utilization, GuardDuty (C) detects threats, and Config (D) tracks configuration changes.
-
-</details>
-
----
-
-### Question 17
-
-**Which of the following is NOT a valid MFA device option for AWS?**
-
-A. Virtual MFA device (smartphone app)
-B. Hardware MFA device (YubiKey)
-C. SMS text message
-D. Fingerprint scanner
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: D**
-
-**Explanation:** AWS does not support fingerprint scanners or other biometric authentication for MFA. Valid options include virtual MFA devices (A), hardware MFA devices (B), and SMS text messages (C), although SMS is not recommended for root accounts.
-
-</details>
-
----
-
-### Question 18
-
-**A startup is building a web application that needs to authenticate users via Facebook and Google. Which AWS service should they use?**
-
-A. AWS IAM
-B. Amazon Cognito
-C. AWS Directory Service
-D. AWS Single Sign-On
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: B**
-
-**Explanation:** Amazon Cognito supports web identity federation, allowing users to authenticate with social identity providers like Facebook, Google, and Amazon. IAM (A) is for AWS resource access, Directory Service (C) is for Microsoft AD integration, and SSO (D) is for AWS account and business application access.
-
-</details>
-
----
-
-### Question 19
-
-**Which encryption option for S3 provides an audit trail of when keys were used and by whom?**
-
-A. SSE-S3
-B. SSE-KMS
-C. SSE-C
-D. Client-side encryption
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: B**
-
-**Explanation:** SSE-KMS integrates with CloudTrail, providing an audit trail of when encryption keys were used and by whom. SSE-S3 (A) doesn't provide this visibility, SSE-C (C) means you manage keys outside AWS, and client-side encryption (D) is entirely managed by you.
-
-</details>
-
----
-
-### Question 20
-
-**What is the purpose of VPC Flow Logs?**
-
-A. Log API calls in your VPC
-B. Capture network traffic information
-C. Monitor VPC configuration changes
-D. Detect malware in network traffic
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: B**
-
-**Explanation:** VPC Flow Logs capture information about IP traffic going to and from network interfaces in your VPC, including source/destination IPs, ports, and protocols. CloudTrail (A) logs API calls, Config (C) monitors configuration changes, and while flow logs can help security analysis, they don't directly detect malware (D).
-
-</details>
-
----
-
-### Question 21
-
-**Which compliance program is specifically designed for US federal government agencies?**
-
-A. HIPAA
-B. PCI DSS
-C. FedRAMP
-D. SOC 2
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: C**
-
-**Explanation:** FedRAMP (Federal Risk and Authorization Management Program) is the US government's cloud security standard. HIPAA (A) is for healthcare, PCI DSS (B) is for payment cards, and SOC 2 (D) is a general security audit framework.
-
-</details>
-
----
-
-### Question 22
-
-**A company wants to share an encrypted S3 bucket with another AWS account. What must be configured?**
-
-A. S3 bucket policy only
-B. KMS key policy and S3 bucket policy
-C. IAM role only
-D. VPC peering
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: B**
-
-**Explanation:** To share an encrypted S3 bucket cross-account, you need to update both the KMS key policy (to allow the other account to decrypt) and the S3 bucket policy (to allow access to objects). Just one or the other won't work. VPC peering (D) is not required for S3 access.
-
-</details>
-
----
-
-### Question 23
-
-**Which AWS service protects against DDoS attacks at no additional cost?**
-
-A. AWS WAF
-B. AWS Shield Advanced
-C. AWS Shield Standard
-D. Amazon GuardDuty
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: C**
-
-**Explanation:** AWS Shield Standard provides DDoS protection at no additional cost and is automatically enabled for all AWS customers. Shield Advanced (B) costs $3,000/month, WAF (A) has its own pricing for rule complexity and requests, and GuardDuty (D) is for threat detection, not DDoS protection.
-
-</details>
-
----
-
-### Question 24
-
-**What is the difference between security groups and Network ACLs?**
-
-A. Security groups are stateful; NACLs are stateless
-B. Security groups are stateless; NACLs are stateful
-C. Both are stateful
-D. Both are stateless
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: A**
-
-**Explanation:** Security groups are stateful (return traffic is automatically allowed), while Network ACLs are stateless (you must explicitly allow both inbound and outbound traffic). This is a critical difference for the exam.
-
-</details>
-
----
-
-### Question 25
-
-**A company must ensure that all data stored in AWS is encrypted at rest and in transit. Which services should they use? (Choose TWO)**
-
-A. AWS KMS for encryption at rest
-B. AWS CloudHSM for encryption in transit
-C. TLS/SSL for encryption in transit
-D. AWS Certificate Manager for encryption at rest
-
-<details>
-<summary>Click to reveal answer</summary>
-
-**Answer: A and C**
-
-**Explanation:** AWS KMS provides encryption at rest for services like S3, EBS, and RDS (A). TLS/SSL provides encryption in transit for data moving between systems (C). CloudHSM (B) is for hardware-based key storage but not specifically for transit encryption, and ACM (D) provides certificates for TLS/SSL but doesn't encrypt at rest.
-
-</details>
-
----
-
-## Advanced Exam Tips and Scenarios
-
-### Exam Tip 1: Shared Responsibility Model Questions
-
-**How to identify:** Questions ask "who is responsible for..."
-
-**Decision tree:**
-1. Is it infrastructure (physical, network hardware, data centers)? → **AWS**
-2. Is it a managed service (RDS, Lambda, DynamoDB)? → **AWS manages infrastructure, you manage data and access**
-3. Is it EC2? → **AWS manages hypervisor, you manage OS, applications, data**
-4. Is it customer data, encryption, or IAM? → **Always customer**
-
-**Common tricky scenarios:**
-- "Who patches RDS database engine?" → **AWS**
-- "Who patches EC2 operating system?" → **Customer**
-- "Who configures security groups?" → **Customer**
-- "Who secures AWS data centers?" → **AWS**
-
-### Exam Tip 2: IAM Policy Evaluation Logic
-
-**Order of evaluation:**
-1. Explicit DENY → Always wins
-2. Explicit ALLOW → If no deny exists
-3. Implicit DENY → Default if no allow
-
-**Remember:** One explicit deny overrules all allows!
-
-**Example scenario:**
-```
-User has policy: Allow s3:*
-Group has policy: Deny s3:DeleteBucket
-Result: User can do everything EXCEPT delete buckets
-```
-
-### Exam Tip 3: Encryption Service Selection
-
-**Question type:** "Which encryption service should you use when..."
-
-**Decision matrix:**
-
-| Requirement | Solution |
-|------------|----------|
-| Simple S3 encryption | SSE-S3 |
-| Need audit trail of key usage | SSE-KMS |
-| Must control keys outside AWS | SSE-C or Client-side |
-| Encrypt EBS volumes | KMS (default) |
-| Encrypt in transit | TLS/SSL, ACM |
-| Meet compliance requirements | KMS with customer managed CMK |
-| Hardware-based key storage | CloudHSM |
-
-### Exam Tip 4: Security Service Selection
-
-**Question type:** "Which service detects/protects/monitors..."
-
-**Quick reference:**
-
-| Need | Service |
-|------|---------|
-| Detect threats with ML | GuardDuty |
-| Find vulnerabilities | Inspector |
-| Discover sensitive data | Macie |
-| Protect against DDoS | Shield |
-| Protect web applications | WAF |
-| Manage encryption keys | KMS |
-| Audit API calls | CloudTrail |
-| Track configurations | Config |
-| Compliance reports | Artifact |
-| Centralized security view | Security Hub |
-
-### Exam Tip 5: Compliance Program Matching
-
-**Pattern recognition for exam:**
-- "Healthcare data" or "PHI" → **HIPAA**
-- "Credit card" or "payment data" → **PCI DSS**
-- "Government" or "federal agency" → **FedRAMP**
-- "EU residents" or "data privacy" → **GDPR**
-- "Audit report" or "financial controls" → **SOC reports**
-- "International security standard" → **ISO 27001**
-
-### Exam Tip 6: MFA Scenarios
-
-**When MFA is the answer:**
-- Question mentions "additional layer of security"
-- Scenario involves privileged users or root account
-- Compliance requirement for sensitive operations
-- "Something you have" factor is mentioned
-
-**MFA is NOT the answer for:**
-- Service-to-service authentication (use roles)
-- Programmatic access from applications (use roles)
-- Long-term credential storage (use IAM roles)
-
-### Exam Tip 7: Network Security Scenarios
-
-**Security Group vs NACL:**
-
-| Scenario | Use |
-|----------|-----|
-| Need to explicitly deny an IP | NACL |
-| Need stateful filtering | Security Group |
-| Subnet-level protection | NACL |
-| Instance-level protection | Security Group |
-| Process rules in order | NACL |
-| Simple allow rules | Security Group |
-
-### Exam Tip 8: Identity Federation
-
-**Scenario patterns:**
-- "Corporate users need AWS access" → **SAML federation or IAM Identity Center**
-- "Mobile app users" → **Cognito**
-- "Social login (Facebook, Google)" → **Cognito**
-- "Active Directory integration" → **Directory Service or IAM Identity Center**
-- "Multiple AWS accounts, single login" → **IAM Identity Center**
-
-### Exam Tip 9: Data Protection Scenarios
-
-**Pattern matching:**
-- "Prevent public access to S3" → **S3 Block Public Access**
-- "Track who accesses S3 objects" → **S3 Server Access Logging + CloudTrail**
-- "Find sensitive data in S3" → **Macie**
-- "Encrypt data before upload" → **Client-side encryption**
-- "AWS manages encryption" → **SSE-S3 or SSE-KMS**
-
-### Exam Tip 10: Cost Considerations
-
-**Free services/features:**
-- IAM (completely free)
-- CloudTrail (first trail free)
-- Shield Standard (free DDoS protection)
-- S3 SSE-S3 encryption (no extra cost)
-- VPC (core features free)
-- AWS managed CMKs (free, pay for API calls only)
-
-**Paid services:**
-- Shield Advanced ($3,000/month)
-- GuardDuty (pay per GB analyzed)
-- Macie (pay per GB scanned)
-- Inspector (pay per assessment)
-- WAF (pay per rule and requests)
-- Customer managed CMKs ($1/month + API calls)
-
-### Exam Tip 11: Incident Response Questions
-
-**Scenario:** "What should you do first when..."
-1. Isolate affected resources
-2. Preserve evidence (snapshots, logs)
-3. Investigate and analyze
-4. Remediate
-5. Document lessons learned
-
-**Key services:**
-- CloudTrail for forensics
-- VPC Flow Logs for network analysis
-- GuardDuty for threat detection
-- Systems Manager for remediation
-
-### Exam Tip 12: Common Exam Traps
-
-**Watch out for:**
-1. "Most cost-effective" → Usually the simpler, managed option
-2. "Least operational overhead" → Usually the fully managed service
-3. "Most secure" → Usually involves encryption, MFA, least privilege
-4. "Best practice" → Follow AWS recommendations (IAM roles, not keys)
-
-**Red flags:**
-- Hardcoding credentials → ❌ Never correct
-- Root account for daily tasks → ❌ Never correct
-- Wildcard (*) permissions → ❌ Usually incorrect
-- Public access to production data → ❌ Usually incorrect
-
----
-
-## Key Takeaways
-
-> **Remember for the Exam:**
->
-> - **Shared Responsibility Model:** AWS = infrastructure; Customer = data and configuration
-> - **IAM Best Practices:** Root account protection, least privilege, use groups and roles, enable MFA
-> - **Shield Standard:** Free DDoS protection for everyone
-> - **GuardDuty:** Threat detection with ML
-> - **Macie:** Sensitive data discovery in S3
-> - **Artifact:** Download compliance reports
-> - **Config:** Track configuration changes and compliance
-> - **Organizations:** Multi-account management with consolidated billing and SCPs
-
----
-
-[← Previous: Cloud Concepts](02-cloud-concepts.md) | [Back to Main](README.md) | [Next: Cloud Technology and Services →](04-technology-services.md)
+[← Anterior: Conceptos de la Nube](02-cloud-concepts.md) | [Volver al Inicio](README.md) | [Siguiente: Tecnología y Servicios en la Nube →](04-technology-services.md)

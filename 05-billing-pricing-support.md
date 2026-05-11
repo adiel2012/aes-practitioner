@@ -1,1433 +1,1421 @@
-# Domain 4: Billing, Pricing, and Support
+# Dominio 4: Facturación, Precios y Soporte
 
-[Previous: Technology and Services](./04-technology-services.md) | [Table of Contents](./README.md) | [Next: Practice Questions](./06-practice-questions.md)
+[Anterior: Tecnología y Servicios](./04-technology-services.md) | [Tabla de Contenidos](./README.md) | [Siguiente: Preguntas de Práctica](./06-practice-questions.md)
 
 ---
 
-## Table of Contents
+## Tabla de Contenidos
 
-- [AWS Pricing Fundamentals](#aws-pricing-fundamentals)
-  - [Core Principles](#core-principles)
-  - [AWS Free Tier](#aws-free-tier)
-- [Pricing Models by Service Category](#pricing-models-by-service-category)
-  - [Compute Pricing](#compute-pricing)
-  - [Storage Pricing](#storage-pricing)
-  - [Database Pricing](#database-pricing)
-  - [Network Pricing](#network-pricing)
-- [Detailed Pricing Examples and Calculations](#detailed-pricing-examples-and-calculations)
-  - [EC2 Pricing Scenario](#ec2-pricing-scenario)
-  - [S3 Storage Cost Analysis](#s3-storage-cost-analysis)
-  - [Multi-Tier Application Cost Breakdown](#multi-tier-application-cost-breakdown)
-  - [Data Transfer Cost Calculations](#data-transfer-cost-calculations)
+- [Fundamentos de Precios de AWS](#fundamentos-de-precios-de-aws)
+  - [Principios Relevantes](#principios-relevantes)
+  - [Capa Gratuita de AWS (AWS Free Tier)](#capa-gratuita-de-aws-aws-free-tier)
+- [Modelos de Precios por Categoría de Servicio](#modelos-de-precios-por-categoria-de-servicio)
+  - [Precios de Cómputo (Compute Pricing)](#precios-de-computo-compute-pricing)
+  - [Precios de Almacenamiento (Storage Pricing)](#precios-de-almacenamiento-storage-pricing)
+  - [Precios de Bases de Datos (Database Pricing)](#precios-de-bases-de-datos-database-pricing)
+  - [Precios de Red (Network Pricing)](#precios-de-red-network-pricing)
+- [Ejemplos Detallados de Precios y Cálculos](#ejemplos-detallados-de-precios-y-calculos)
+  - [Escenario de Precios de EC2](#escenario-de-precios-de-ec2)
+  - [Análisis de Costes de Almacenamiento en S3](#analisis-de-costes-de-almacenamiento-en-s3)
+  - [Desglose de Costes de Aplicación Multi-Nivel](#desglose-de-costes-de-aplicacion-multi-nivel)
+  - [Cálculos de Costes de Transferencia de Datos](#calculos-de-costes-de-transferencia-de-datos)
 - [Reserved Instances vs Savings Plans](#reserved-instances-vs-savings-plans)
-  - [Detailed Comparison](#detailed-comparison)
-  - [ROI Calculations](#roi-calculations)
-  - [When to Use Each Option](#when-to-use-each-option)
-- [Cost Optimization Case Studies](#cost-optimization-case-studies)
-  - [Case Study 1: E-Commerce Platform](#case-study-1-e-commerce-platform)
-  - [Case Study 2: Data Analytics Workload](#case-study-2-data-analytics-workload)
-  - [Case Study 3: Development Environment](#case-study-3-development-environment)
-- [Cost Management Tools](#cost-management-tools)
+  - [Comparación Detallada](#comparacion-detallada)
+  - [Cálculos de ROI](#calculos-de-roi)
+  - [Cuándo Usar Cada Opción](#cuando-usar-cada-opcion)
+- [Casos de Estudio de Optimización de Costes](#casos-de-estudio-de-optimizacion-de-costes)
+  - [Caso de Estudio 1: Plataforma de Comercio Electrónico](#caso-de-estudio-1-plataforma-de-comercio-electronico)
+  - [Caso de Estudio 2: Carga de Trabajo de Análisis de Datos](#caso-de-estudio-2-carga-de-trabajo-de-analisis-de-datos)
+  - [Caso de Estudio 3: Entorno de Desarrollo](#caso-de-estudio-3-entorno-de-desarrollo)
+- [Herramientas de Gestión de Costes](#herramientas-de-gestion-de-costes)
   - [AWS Pricing Calculator](#aws-pricing-calculator)
   - [AWS Cost Explorer](#aws-cost-explorer)
   - [AWS Budgets](#aws-budgets)
   - [AWS Cost and Usage Report](#aws-cost-and-usage-report)
   - [AWS Cost Anomaly Detection](#aws-cost-anomaly-detection)
   - [TCO Calculator Walkthrough](#tco-calculator-walkthrough)
-- [Tagging Strategies for Cost Allocation](#tagging-strategies-for-cost-allocation)
-  - [Tag Best Practices](#tag-best-practices)
-  - [Common Tagging Schemas](#common-tagging-schemas)
-  - [Tag Enforcement](#tag-enforcement)
-- [Multi-Account Billing Setup](#multi-account-billing-setup)
-  - [Organization Structure](#organization-structure)
-  - [Best Practices](#best-practices)
-  - [Cost Allocation](#cost-allocation)
-- [Consolidated Billing and AWS Organizations](#consolidated-billing-and-aws-organizations)
-- [Cost Anomaly Detection Deep Dive](#cost-anomaly-detection-deep-dive)
-  - [Setup and Configuration](#setup-and-configuration)
-  - [Alert Examples](#alert-examples)
-  - [Response Workflows](#response-workflows)
-- [AWS Support Plans](#aws-support-plans)
-  - [Support Plan Comparison](#support-plan-comparison)
-  - [Support Plan Decision Matrix](#support-plan-decision-matrix)
-  - [Detailed Feature Comparison](#detailed-feature-comparison)
-  - [Additional Support Resources](#additional-support-resources)
-- [Cost Optimization Strategies](#cost-optimization-strategies)
-  - [Service-Specific Optimization](#service-specific-optimization)
-- [Cost Governance and FinOps](#cost-governance-and-finops)
-  - [FinOps Framework](#finops-framework)
-  - [Governance Policies](#governance-policies)
-  - [Accountability and Ownership](#accountability-and-ownership)
-- [Billing Troubleshooting](#billing-troubleshooting)
-  - [Common Issues](#common-issues)
-  - [Resolution Steps](#resolution-steps)
-- [Review Questions](#review-questions)
+- [Estrategias de Etiquetado para la Asignación de Costes](#estrategias-de-etiquetado-para-la-asignacion-de-costes)
+  - [Mejores Prácticas de Etiquetado (Tag Best Practices)](#mejores-practicas-de-etiquetado-tag-best-practices)
+  - [Esquemas de Etiquetado Comunes](#esquemas-de-etiquetado-comunes)
+  - [Aplicación de Etiquetas](#aplicacion-de-etiquetas)
+- [Configuración de Facturación Multi-Cuenta](#configuracion-de-facturacion-multi-cuenta)
+  - [Estructura de la Organización](#estructura-de-la-organizacion)
+  - [Mejores Prácticas](#mejores-practicas)
+  - [Asignación de Costes](#asignacion-de-costes)
+- [Facturación Consolidada y AWS Organizations](#facturacion-consolidada-y-aws-organizations)
+- [Profundización en Cost Anomaly Detection](#profundizacion-en-cost-anomaly-detection)
+  - [Instalación y Configuración](#instalacion-y-configuracion)
+  - [Ejemplos de Alertas](#ejemplos-de-alertas)
+  - [Flujos de Trabajo de Respuesta](#flujos-de-trabajo-de-respuesta)
+- [Planes de Soporte de AWS (AWS Support Plans)](#planes-de-soporte-de-aws-aws-support-plans)
+  - [Comparación de Planes de Soporte](#comparacion-de-planes-de-soporte)
+  - [Matriz de Decisión de Planes de Soporte](#matriz-de-decision-de-planes-de-soporte)
+  - [Comparación Detallada de Funciones](#comparacion-detallada-de-funciones)
+  - [Recursos de Soporte Adicionales](#recursos-de-soporte-adicionales)
+- [Estrategias de Optimización de Costes](#estrategias-de-optimizacion-de-costes)
+  - [Optimización Específica del Servicio](#optimizacion-especifica-del-servicio)
+- [Gobernanza de Costes y FinOps](#gobernanza-de-costes-y-finops)
+  - [Marco de FinOps (FinOps Framework)](#marco-de-finops-finops-framework)
+  - [Políticas de Gobernanza](#politicas-de-gobernanza)
+  - [Responsabilidad y Propiedad](#responsabilidad-y-propiedad)
+- [Resolución de Problemas de Facturación](#resolucion-de-problemas-de-facturacion)
+  - [Problemas Comunes](#problemas-comunes)
+  - [Pasos de Resolución](#pasos-de-resolucion)
+- [Preguntas de Repaso](#preguntas-de-repaso)
 
 ---
 
-## AWS Pricing Fundamentals
+## Fundamentos de Precios de AWS
 
-### Core Principles
+### Principios Relevantes
 
-AWS pricing is built on several foundational principles that differentiate cloud computing from traditional on-premises infrastructure:
+Los precios de AWS se basan en varios principios fundamentales que diferencian el cómputo en la nube de la infraestructura tradicional en las instalaciones (on-premises):
 
-1. **Pay-as-you-go**: Pay only for what you use
-   - No upfront commitments required
-   - Start and stop resources at any time
-   - Only charged for actual consumption
+1. **Pago por uso (Pay-as-you-go)**: Paga solo por lo que utilizas.
+   - Sin compromisos iniciales requeridos.
+   - Inicia y detén recursos en cualquier momento.
+   - Solo se cobra por el consumo real.
 
-2. **Pay less when you reserve**: Reserved capacity discounts
-   - Commit to usage for 1 or 3 years
-   - Receive significant discounts (up to 75%)
-   - Available for EC2, RDS, ElastiCache, Redshift, and more
+2. **Paga menos cuando reservas (Pay less when you reserve)**: Descuentos por capacidad reservada.
+   - Comprométete al uso durante 1 o 3 años.
+   - Recibe descuentos significativos (hasta el 75%).
+   - Disponible para **EC2**, **RDS**, **ElastiCache**, **Redshift** y más.
 
-3. **Pay less with volume-based discounts**: Use more, pay less per unit
-   - Tiered pricing automatically applies as usage increases
-   - Data transfer and storage pricing decreases with volume
-   - No negotiations required
+3. **Paga menos con descuentos por volumen (Pay less with volume-based discounts)**: Cuanto más usas, menos pagas por unidad.
+   - Los precios por niveles se aplican automáticamente a medida que aumenta el uso.
+   - Los precios de transferencia de datos y almacenamiento disminuyen con el volumen.
+   - No se requieren negociaciones.
 
-4. **No upfront costs**: No capital expenditure
-   - Trade capital expense (CAPEX) for variable expense (OPEX)
-   - No infrastructure to purchase upfront
-   - Start with zero investment
+4. **Sin costes iniciales (No upfront costs)**: Sin gastos de capital.
+   - Cambia el gasto de capital (**CAPEX**) por gasto variable (**OPEX**).
+   - Sin infraestructura que comprar por adelantado.
+   - Comienza con inversión cero.
 
-5. **No termination fees**: Stop anytime
-   - No contracts or long-term commitments (unless you choose Reserved Instances)
-   - Delete resources when no longer needed
-   - Stop paying immediately
-
----
-
-### AWS Free Tier
-
-AWS offers three types of free tier offerings to help new customers get started and experiment with services:
-
-#### 1. Always Free
-
-Services that never expire and are available to all AWS customers:
-
-- **DynamoDB**: 25 GB of storage
-- **Lambda**: 1 million requests per month
-- **SNS**: 1 million publishes
-- **CloudWatch**: 10 custom metrics and alarms
-- **AWS Free Tier dashboard**: Monitor usage
-
-#### 2. 12 Months Free
-
-Services available for 12 months starting from account creation date:
-
-- **EC2**: 750 hours/month of t2.micro or t3.micro instances
-- **S3**: 5 GB of standard storage
-- **RDS**: 750 hours/month of db.t2.micro database instances
-- **CloudFront**: 50 GB data transfer out
-- **Elastic Load Balancing**: 750 hours per month
-
-> **Note**: The 750 hours of EC2 is enough to run one t2.micro instance continuously for a full month.
-
-#### 3. Trials
-
-Short-term free trials for specific services:
-
-- **SageMaker**: 2 months free
-- **Inspector**: 90 days free
-- **Lightsail**: 1 month free (first month)
-- **Amazon Comprehend Medical**: Various trial periods
-
-> **Important**: Always set up billing alerts when using Free Tier to avoid unexpected charges if you exceed limits.
+5. **Sin cargos por terminación**: Detén el servicio en cualquier momento.
+   - Sin contratos ni compromisos a largo plazo (a menos que elijas **Reserved Instances**).
+   - Elimina recursos cuando ya no sean necesarios.
+   - Deja de pagar inmediatamente.
 
 ---
 
-## Pricing Models by Service Category
+### Capa Gratuita de AWS (AWS Free Tier)
 
-### Compute Pricing
+AWS ofrece tres tipos de ofertas de capa gratuita para ayudar a los nuevos clientes a comenzar y experimentar con los servicios:
+
+#### 1. Siempre Gratis (Always Free)
+
+Servicios que nunca caducan y están disponibles para todos los clientes de AWS:
+
+- **DynamoDB**: 25 GB de almacenamiento.
+- **Lambda**: 1 millón de solicitudes al mes.
+- **SNS**: 1 millón de publicaciones.
+- **CloudWatch**: 10 métricas personalizadas y alarmas.
+- **Panel de control de la Capa Gratuita de AWS (AWS Free Tier dashboard)**: Monitoriza el uso.
+
+#### 2. 12 Meses Gratis (12 Months Free)
+
+Servicios disponibles durante 12 meses a partir de la fecha de creación de la cuenta:
+
+- **EC2**: 750 horas/mes de instancias **t2.micro** o **t3.micro**.
+- **S3**: 5 GB de almacenamiento estándar (**Standard storage**).
+- **RDS**: 750 horas/mes de instancias de base de datos **db.t2.micro**.
+- **CloudFront**: 50 GB de transferencia de datos de salida (**data transfer out**).
+- **Elastic Load Balancing**: 750 horas al mes.
+
+> **Nota**: Las 750 horas de **EC2** son suficientes para ejecutar una instancia **t2.micro** de forma continua durante un mes completo.
+
+#### 3. Pruebas (Trials)
+
+Pruebas gratuitas a corto plazo para servicios específicos:
+
+- **SageMaker**: 2 meses gratis.
+- **Inspector**: 90 días gratis.
+- **Lightsail**: 1 mes gratis (primer mes).
+- **Amazon Comprehend Medical**: Varios periodos de prueba.
+
+> **Importante**: Configura siempre alertas de facturación (**billing alerts**) cuando uses la Capa Gratuita para evitar cargos inesperados si superas los límites.
+
+---
+
+## Modelos de Precios por Categoría de Servicio
+
+### Precios de Cómputo (Compute Pricing)
 
 #### Amazon EC2
 
-- **Instance Hours**: Pay for running instances (charged per second with 60-second minimum)
-- **Pricing varies by**:
-  - Instance type (t2.micro, m5.large, etc.)
-  - Region (us-east-1 vs. eu-west-1)
-  - Operating system (Linux, Windows, RHEL)
-  - Tenancy (Shared vs. Dedicated)
-- **Additional charges**:
-  - Data transfer out
-  - EBS storage volumes
-  - Elastic IP addresses (when not attached)
+- **Horas de Instancia (Instance Hours)**: Paga por las instancias en ejecución (cobrado por segundo con un mínimo de 60 segundos).
+- **Los precios varían según**:
+  - Tipo de instancia (**t2.micro**, **m5.large**, etc.).
+  - Región (**us-east-1** vs. **eu-west-1**).
+  - Sistema operativo (**Linux**, **Windows**, **RHEL**).
+  - Tenencia (**Shared** vs. **Dedicated**).
+- **Cargos adicionales**:
+  - Transferencia de datos de salida (**Data transfer out**).
+  - Volúmenes de almacenamiento **EBS**.
+  - Direcciones **Elastic IP** (cuando no están adjuntas).
 
-**EC2 Purchase Options**:
+**Opciones de Compra de EC2 (EC2 Purchase Options)**:
 
-| Purchase Option | Description | Discount | Use Case |
+| Opción de Compra | Descripción | Descuento | Caso de Uso |
 |----------------|-------------|----------|----------|
-| On-Demand | Pay by the second, no commitment | Baseline | Short-term, unpredictable workloads |
-| Reserved Instances | 1 or 3 year commitment | Up to 75% | Steady-state, predictable workloads |
-| Spot Instances | Bid on unused capacity | Up to 90% | Fault-tolerant, flexible workloads |
-| Savings Plans | Commitment to consistent usage ($/hour) | Up to 72% | Flexible compute usage |
-| Dedicated Hosts | Physical server dedicated to you | Varies | Compliance, licensing requirements |
+| **On-Demand** | Paga por segundo, sin compromiso | Base | Cargas de trabajo de corto plazo e impredecibles |
+| **Reserved Instances** | Compromiso de 1 o 3 años | Hasta 75% | Cargas de trabajo de estado estable y predecibles |
+| **Spot Instances** | Puja por capacidad no utilizada | Hasta 90% | Cargas de trabajo tolerantes a fallos y flexibles |
+| **Savings Plans** | Compromiso de uso constante ($/hora) | Hasta 72% | Uso de cómputo flexible |
+| **Dedicated Hosts** | Servidor físico dedicado para ti | Varía | Requisitos de cumplimiento y licencias |
 
 #### AWS Lambda
 
-- **Requests**: $0.20 per 1 million requests
-- **Compute time**: Charged per GB-second
-  - Duration calculated from code execution start to return/termination
-  - Rounded up to nearest 1ms
-- **Free tier**: 1 million requests/month (always free)
-- **No charges** when code is not running
+- **Solicitudes (Requests)**: $0.20 por cada 1 millón de solicitudes.
+- **Tiempo de Cómputo**: Cobrado por GB-segundo.
+  - La duración se calcula desde el inicio de la ejecución del código hasta el retorno/terminación.
+  - Redondeado al alza al milisegundo más cercano.
+- **Capa Gratuita**: 1 millón de solicitudes/mes (siempre gratis).
+- **Sin cargos** cuando el código no se está ejecutando.
 
 ---
 
-### Storage Pricing
+### Precios de Almacenamiento (Storage Pricing)
 
 #### Amazon S3
 
-Pricing components:
+Componentes de precios:
 
-1. **Storage**: Pay for GB/month stored
-   - Varies by storage class (Standard, Infrequent Access, Glacier, etc.)
-   - Standard: ~$0.023 per GB/month
-   - Standard-IA: ~$0.0125 per GB/month
-   - Glacier: ~$0.004 per GB/month
+1. **Almacenamiento**: Paga por GB/mes almacenado.
+   - Varía según la clase de almacenamiento (**Standard**, **Infrequent Access**, **Glacier**, etc.).
+   - **Standard**: ~$0.023 por GB/mes.
+   - **Standard-IA**: ~$0.0125 por GB/mes.
+   - **Glacier**: ~$0.004 por GB/mes.
 
-2. **Requests**:
-   - PUT, COPY, POST, LIST requests: $0.005 per 1,000
-   - GET, SELECT requests: $0.0004 per 1,000
+2. **Solicitudes (Requests)**:
+   - Solicitudes **PUT**, **COPY**, **POST**, **LIST**: $0.005 por cada 1,000.
+   - Solicitudes **GET**, **SELECT**: $0.0004 por cada 1,000.
 
-3. **Data transfer**:
-   - Transfer IN: Free
-   - Transfer OUT to internet: Tiered pricing (first 10 TB/month at $0.09/GB)
-   - Transfer to CloudFront: Free
+3. **Transferencia de datos**:
+   - Transferencia de entrada (**Transfer IN**): Gratis.
+   - Transferencia de salida a Internet (**Transfer OUT**): Precios por niveles (primeros 10 TB/mes a $0.09/GB).
+   - Transferencia a **CloudFront**: Gratis.
 
-4. **Management features**:
-   - S3 Inventory, Analytics, Object Tagging
+4. **Funciones de gestión**:
+   - **S3 Inventory**, **Analytics**, **Object Tagging**.
 
 #### Amazon EBS
 
-- **Provisioned storage**: Pay for capacity provisioned per GB/month
-  - gp3: $0.08/GB-month
-  - gp2: $0.10/GB-month
-  - io2: $0.125/GB-month + IOPS charges
-- **Snapshots**: Incremental backup storage per GB/month
-- **Varies by volume type**: General Purpose (SSD), Provisioned IOPS (SSD), Throughput Optimized (HDD)
+- **Almacenamiento Aprovisionado (Provisioned storage)**: Paga por la capacidad aprovisionada por GB/mes.
+  - **gp3**: $0.08/GB-mes.
+  - **gp2**: $0.10/GB-mes.
+  - **io2**: $0.125/GB-mes + cargos por **IOPS**.
+- **Snapshots**: Almacenamiento de copias de seguridad incrementales por GB/mes.
+- **Varía según el tipo de volumen**: General Purpose (SSD), Provisioned IOPS (SSD), Throughput Optimized (HDD).
 
-> **Key Difference**: EBS charges for provisioned capacity, not used capacity. A 100 GB volume costs the same whether you store 10 GB or 100 GB.
+> **Diferencia Clave**: **EBS** cobra por la capacidad aprovisionada, no por la capacidad utilizada. Un volumen de 100 GB cuesta lo mismo si almacenas 10 GB o 100 GB.
 
 ---
 
-### Database Pricing
+### Precios de Bases de Datos (Database Pricing)
 
 #### Amazon RDS
 
-Pricing components:
+Componentes de precios:
 
-1. **Instance hours**: Based on instance class (db.t2.micro, db.m5.large)
-2. **Storage**: Per GB/month of provisioned storage
-3. **Backup storage**: Automated backups beyond database size
-4. **Data transfer**: Standard AWS data transfer rates
-5. **Additional features**:
-   - Multi-AZ deployment (doubles cost)
-   - Read replicas (charged as separate instances)
+1. **Horas de Instancia**: Basado en la clase de instancia (**db.t2.micro**, **db.m5.large**).
+2. **Almacenamiento**: Por GB/mes de almacenamiento aprovisionado.
+3. **Almacenamiento de Copia de Seguridad (Backup storage)**: Copias de seguridad automáticas más allá del tamaño de la base de datos.
+4. **Transferencia de Datos**: Tarifas estándar de transferencia de datos de AWS.
+5. **Funciones Adicionales**:
+   - Despliegue **Multi-AZ** (duplica el coste).
+   - Réplicas de lectura (**Read replicas**) (se cobran como instancias separadas).
 
 #### Amazon DynamoDB
 
-Two capacity modes:
+Dos modos de capacidad:
 
-1. **On-Demand**:
-   - Pay per request
-   - No capacity planning required
-   - Good for unpredictable workloads
-   - Write Request Units (WRU) and Read Request Units (RRU)
+1. **Bajo Demanda (On-Demand)**:
+   - Paga por solicitud.
+   - No requiere planificación de capacidad.
+   - Bueno para cargas de trabajo impredecibles.
+   - Unidades de Solicitud de Escritura (**WRU**) y Unidades de Solicitud de Lectura (**RRU**).
 
-2. **Provisioned Capacity**:
-   - Pay for provisioned read/write capacity units
-   - Auto Scaling available
-   - More cost-effective for predictable workloads
-   - Reserve capacity for additional discounts
+2. **Capacidad Aprovisionada (Provisioned Capacity)**:
+   - Paga por las unidades de capacidad de lectura/escritura aprovisionadas.
+   - **Auto Scaling** disponible.
+   - Más rentable para cargas de trabajo predecibles.
+   - Reserva de capacidad para descuentos adicionales.
 
-3. **Storage**: $0.25 per GB/month (first 25 GB free with Always Free tier)
-
----
-
-### Network Pricing
-
-Understanding data transfer costs is crucial for cost optimization:
-
-- **Data transfer IN**: Generally **free** from the internet to AWS
-- **Data transfer OUT to internet**: **Charged** with tiered pricing
-  - First 10 TB/month: $0.09/GB
-  - Next 40 TB/month: $0.085/GB
-  - Over 150 TB/month: $0.05/GB
-- **Data transfer between Regions**: **Charged** at inter-region rates
-- **Data transfer within same Region**:
-  - Between AZs: $0.01/GB in each direction
-  - Within same AZ: Free (using private IPs)
-- **CloudFront data transfer out**: Lower cost than direct from services
-- **VPC Endpoints**: Reduce data transfer costs for S3 and DynamoDB
-
-> **Cost Optimization Tip**: Use CloudFront CDN to cache content at edge locations, reducing data transfer costs from origin services.
+3. **Almacenamiento**: $0.25 por GB/mes (primeros 25 GB gratis con la capa **Always Free**).
 
 ---
 
-## Detailed Pricing Examples and Calculations
+### Precios de Red (Network Pricing)
 
-### EC2 Pricing Scenario
+Comprender los costes de transferencia de datos es crucial para la optimización de costes:
 
-Let's calculate the monthly cost for different EC2 purchasing options:
+- **Transferencia de datos de entrada (Data transfer IN)**: Generalmente **gratis** desde Internet hacia AWS.
+- **Transferencia de datos de salida a Internet (Data transfer OUT)**: Se **cobra** con precios por niveles.
+  - Primeros 10 TB/mes: $0.09/GB.
+  - Siguientes 40 TB/mes: $0.085/GB.
+  - Más de 150 TB/mes: $0.05/GB.
+- **Transferencia de datos entre Regiones**: Se **cobra** a tarifas inter-regionales.
+- **Transferencia de datos dentro de la misma Región**:
+  - Entre **AZs**: $0.01/GB en cada dirección.
+  - Dentro de la misma **AZ**: Gratis (usando IPs privadas).
+- **Transferencia de salida de CloudFront**: Coste menor que directo desde los servicios.
+- **VPC Endpoints**: Reducen los costes de transferencia de datos para **S3** y **DynamoDB**.
 
-**Scenario**: Web application requiring 5 x m5.large instances (2 vCPU, 8 GB RAM) running 24/7 in us-east-1
+> **Consejo de Optimización de Costes**: Usa **CloudFront CDN** para almacenar contenido en caché en las ubicaciones de borde (edge locations), reduciendo los costes de transferencia de datos desde los servicios de origen.
 
-#### On-Demand Pricing
+---
+
+## Ejemplos Detallados de Precios y Cálculos
+
+### Escenario de Precios de EC2
+
+Calculemos el coste mensual para diferentes opciones de compra de **EC2**:
+
+**Escenario**: Aplicación web que requiere 5 instancias **m5.large** (2 vCPU, 8 GB RAM) funcionando 24/7 en **us-east-1**.
+
+#### Precios On-Demand
 ```
-Instance: m5.large
-Rate: $0.096 per hour
-Hours per month: 730 hours (average)
-Number of instances: 5
+Instancia: m5.large
+Tarifa: $0.096 por hora
+Horas al mes: 730 horas (promedio)
+Número de instancias: 5
 
-Monthly cost per instance: $0.096 × 730 = $70.08
-Total monthly cost: $70.08 × 5 = $350.40/month
-Annual cost: $350.40 × 12 = $4,204.80/year
-```
-
-#### 1-Year Reserved Instance (Partial Upfront)
-```
-Upfront payment per instance: $335
-Monthly rate per instance: $0.028/hour
-
-Monthly recurring cost per instance: $0.028 × 730 = $20.44
-Total upfront cost: $335 × 5 = $1,675
-Total monthly cost: $20.44 × 5 = $102.20/month
-
-First year total: $1,675 + ($102.20 × 12) = $2,901.40
-Savings vs On-Demand: $4,204.80 - $2,901.40 = $1,303.40 (31% savings)
-```
-
-#### 3-Year Reserved Instance (All Upfront)
-```
-Upfront payment per instance: $2,140
-No monthly charges
-
-Total upfront cost: $2,140 × 5 = $10,700
-Monthly equivalent: $10,700 ÷ 36 = $297.22/month
-
-Three-year total: $10,700
-Three-year On-Demand cost: $4,204.80 × 3 = $12,614.40
-Savings: $12,614.40 - $10,700 = $1,914.40 (15% savings)
-Annual savings: $638.13/year (52% annual savings)
+Coste mensual por instancia: $0.096 × 730 = $70.08
+Coste mensual total: $70.08 × 5 = $350.40/mes
+Coste anual: $350.40 × 12 = $4,204.80/año
 ```
 
-#### Compute Savings Plan (1-Year, Partial Upfront)
+#### Reserved Instance de 1 Año (Partial Upfront)
 ```
-Commitment: $200/month
-Coverage: Provides ~$285 worth of On-Demand compute per month
-Effective discount: ~30%
+Pago inicial por instancia: $335
+Tarifa mensual por instancia: $0.028/hora
 
-Annual cost: $200 × 12 = $2,400 + upfront
-Plus upfront: ~$600
-Total first year: ~$3,000
-Savings: $4,204.80 - $3,000 = $1,204.80 (29% savings)
+Coste mensual recurrente por instancia: $0.028 × 730 = $20.44
+Coste inicial total: $335 × 5 = $1,675
+Coste mensual total: $20.44 × 5 = $102.20/mes
 
-Flexibility advantage: Can change instance types/sizes/regions
-```
-
-#### Spot Instance Pricing
-```
-Average spot price for m5.large: ~$0.030/hour (varies by demand)
-Potential savings: Up to 69% off On-Demand
-
-Monthly cost per instance: $0.030 × 730 = $21.90
-Total monthly cost: $21.90 × 5 = $109.50/month
-Annual cost: $109.50 × 12 = $1,314/year
-Savings: $4,204.80 - $1,314 = $2,890.80 (69% savings)
-
-Risk: Instances can be interrupted with 2-minute notice
-Best for: Stateless applications with auto-restart capability
+Total primer año: $1,675 + ($102.20 × 12) = $2,901.40
+Ahorro frente a On-Demand: $4,204.80 - $2,901.40 = $1,303.40 (31% de ahorro)
 ```
 
-#### Cost Comparison Summary
+#### Reserved Instance de 3 Años (All Upfront)
+```
+Pago inicial por instancia: $2,140
+Sin cargos mensuales
 
-| Purchase Option | Monthly Cost | Annual Cost | 3-Year Cost | Savings vs On-Demand |
+Coste inicial total: $2,140 × 5 = $10,700
+Equivalente mensual: $10,700 ÷ 36 = $297.22/mes
+
+Total tres años: $10,700
+Coste On-Demand de tres años: $4,204.80 × 3 = $12,614.40
+Ahorro: $12,614.40 - $10,700 = $1,914.40 (15% de ahorro)
+Ahorro anual: $638.13/año (52% de ahorro anual)
+```
+
+#### Compute Savings Plan (1 Año, Partial Upfront)
+```
+Compromiso: $200/mes
+Cobertura: Proporciona ~$285 de cómputo On-Demand al mes
+Descuento efectivo: ~30%
+
+Coste anual: $200 × 12 = $2,400 + pago inicial
+Más pago inicial: ~$600
+Total primer año: ~$3,000
+Ahorro: $4,204.80 - $3,000 = $1,204.80 (29% de ahorro)
+
+Ventaja de flexibilidad: Puede cambiar tipos/tamaños de instancia/regiones
+```
+
+#### Precios de Spot Instance
+```
+Precio promedio de Spot para m5.large: ~$0.030/hora (varía según la demanda)
+Ahorro potencial: Hasta un 69% menos que On-Demand
+
+Coste mensual por instancia: $0.030 × 730 = $21.90
+Coste mensual total: $21.90 × 5 = $109.50/mes
+Coste anual: $109.50 × 12 = $1,314/año
+Ahorro: $4,204.80 - $1,314 = $2,890.80 (69% de ahorro)
+
+Riesgo: Las instancias pueden ser interrumpidas con un aviso de 2 minutos
+Ideal para: Aplicaciones sin estado (stateless) con capacidad de auto-reinicio
+```
+
+#### Resumen de Comparación de Costes
+
+| Opción de Compra | Coste Mensual | Coste Anual | Coste de 3 Años | Ahorro vs On-Demand |
 |----------------|--------------|-------------|-------------|----------------------|
-| On-Demand | $350.40 | $4,204.80 | $12,614.40 | Baseline (0%) |
-| 1-Yr RI (Partial) | $102.20 + $1,675 upfront | $2,901.40 | - | 31% |
-| 3-Yr RI (All Up) | $297.22 equiv | $3,566.67 equiv | $10,700 | 52% |
-| Savings Plan | $250.00 | $3,000.00 | - | 29% |
-| Spot Instances | $109.50 | $1,314.00 | $3,942.00 | 69% |
+| **On-Demand** | $350.40 | $4,204.80 | $12,614.40 | Base (0%) |
+| **1-Yr RI (Partial)** | $102.20 + $1,675 inicial | $2,901.40 | - | 31% |
+| **3-Yr RI (All Up)** | $297.22 equiv | $3,566.67 equiv | $10,700 | 52% |
+| **Savings Plan** | $250.00 | $3,000.00 | - | 29% |
+| **Spot Instances** | $109.50 | $1,314.00 | $3,942.00 | 69% |
 
-**Additional Costs to Consider**:
-- EBS volumes: $0.10/GB-month (gp2) × 100 GB × 5 = $50/month
-- Data transfer out: Variable based on usage
-- Elastic Load Balancer: $16.20/month + $0.008/GB processed
-- Total infrastructure estimate: Add 15-25% to compute costs
+**Costes Adicionales a Considerar**:
+- Volúmenes **EBS**: $0.10/GB-mes (**gp2**) × 100 GB × 5 = $50/mes
+- Transferencia de datos de salida: Variable según el uso
+- **Elastic Load Balancer**: $16.20/mes + $0.008/GB procesado
+- Estimación total de infraestructura: Añadir un 15-25% a los costes de cómputo
 
 ---
 
-### S3 Storage Cost Analysis
+### Análisis de Costes de Almacenamiento en S3
 
-**Scenario**: 10 TB of data with different access patterns
+**Escenario**: 10 TB de datos con diferentes patrones de acceso
 
-#### Frequently Accessed Data (40% = 4 TB)
+#### Datos Accedidos Frecuentemente (40% = 4 TB)
 
 **S3 Standard**:
 ```
-Storage: 4,000 GB × $0.023/GB = $92/month
-PUT requests: 100,000 × $0.005/1,000 = $0.50
-GET requests: 1,000,000 × $0.0004/1,000 = $0.40
-Data transfer out: 500 GB × $0.09/GB = $45.00
+Almacenamiento: 4,000 GB × $0.023/GB = $92/mes
+Solicitudes PUT: 100,000 × $0.005/1,000 = $0.50
+Solicitudes GET: 1,000,000 × $0.0004/1,000 = $0.40
+Transferencia de datos de salida: 500 GB × $0.09/GB = $45.00
 
-Total monthly cost: $137.90/month
+Coste mensual total: $137.90/mes
 ```
 
-#### Infrequently Accessed (30% = 3 TB)
+#### Acceso Infrecuente (30% = 3 TB)
 
 **S3 Standard-IA**:
 ```
-Storage: 3,000 GB × $0.0125/GB = $37.50/month
-PUT requests: 10,000 × $0.010/1,000 = $0.10
-GET requests: 50,000 × $0.001/1,000 = $0.05
-Retrieval fee: 50 GB × $0.01/GB = $0.50
-Data transfer out: 50 GB × $0.09/GB = $4.50
+Almacenamiento: 3,000 GB × $0.0125/GB = $37.50/mes
+Solicitudes PUT: 10,000 × $0.010/1,000 = $0.10
+Solicitudes GET: 50,000 × $0.001/1,000 = $0.05
+Tarifa de recuperación: 50 GB × $0.01/GB = $0.50
+Transferencia de datos de salida: 50 GB × $0.09/GB = $4.50
 
-Total monthly cost: $42.65/month
+Coste mensual total: $42.65/mes
 ```
 
-#### Archive Data (30% = 3 TB)
+#### Datos de Archivo (30% = 3 TB)
 
 **S3 Glacier Flexible Retrieval**:
 ```
-Storage: 3,000 GB × $0.0036/GB = $10.80/month
-PUT requests: 1,000 × $0.03/1,000 = $0.03
-Retrieval (occasional): 10 GB × $0.0025/GB = $0.025
+Almacenamiento: 3,000 GB × $0.0036/GB = $10.80/mes
+Solicitudes PUT: 1,000 × $0.03/1,000 = $0.03
+Recuperación (ocasional): 10 GB × $0.0025/GB = $0.025
 
-Total monthly cost: $10.86/month
+Coste mensual total: $10.86/mes
 ```
 
-#### Total S3 Storage Cost Comparison
+#### Comparación de Coste Total de Almacenamiento en S3
 
-| Storage Class Mix | Monthly Cost | Annual Cost | Savings vs All-Standard |
+| Mezcla de Clases de Almacenamiento | Coste Mensual | Coste Anual | Ahorro vs Todo-Standard |
 |------------------|--------------|-------------|-------------------------|
-| All S3 Standard (10 TB) | $230.00 | $2,760.00 | Baseline |
-| Optimized Mix (above) | $191.41 | $2,296.92 | 17% ($463.08) |
-| With Intelligent-Tiering | $185.00 | $2,220.00 | 20% ($540.00) |
-| With Lifecycle Policies | $178.50 | $2,142.00 | 22% ($618.00) |
+| Todo **S3 Standard** (10 TB) | $230.00 | $2,760.00 | Base |
+| Mezcla Optimizada (arriba) | $191.41 | $2,296.92 | 17% ($463.08) |
+| Con **Intelligent-Tiering** | $185.00 | $2,220.00 | 20% ($540.00) |
+| Con Políticas de Ciclo de Vida | $178.50 | $2,142.00 | 22% ($618.00) |
 
-**Lifecycle Policy Optimization**:
+**Optimización con Políticas de Ciclo de Vida (Lifecycle Policy)**:
 ```
-Day 0-30: S3 Standard (active data)
-Day 31-90: S3 Standard-IA (less frequent access)
-Day 91-365: S3 Glacier Flexible Retrieval (archive)
-Day 365+: S3 Glacier Deep Archive (long-term compliance)
+Día 0-30: S3 Standard (datos activos)
+Día 31-90: S3 Standard-IA (acceso menos frecuente)
+Día 91-365: S3 Glacier Flexible Retrieval (archivo)
+Día 365+: S3 Glacier Deep Archive (cumplimiento a largo plazo)
 
-Estimated additional savings: 5-8% through automated transitions
+Ahorro adicional estimado: 5-8% mediante transiciones automatizadas
 ```
 
-**Cost Optimization Insights**:
-- Intelligent-Tiering monitoring fee: $0.0025 per 1,000 objects
-- Minimum storage duration charges apply (Standard-IA: 30 days, Glacier: 90 days)
-- Early deletion fees apply if objects deleted before minimum duration
-- Lifecycle transitions reduce manual management overhead
+**Información sobre Optimización de Costes**:
+- Tarifa de monitorización de **Intelligent-Tiering**: $0.0025 por cada 1,000 objetos
+- Se aplican cargos por duración mínima de almacenamiento (**Standard-IA**: 30 días, **Glacier**: 90 días)
+- Se aplican tarifas por eliminación anticipada si los objetos se eliminan antes de la duración mínima
+- Las transiciones de ciclo de vida reducen la carga de gestión manual
 
 ---
 
-### Multi-Tier Application Cost Breakdown
+### Desglose de Costes de Aplicación Multi-Nivel
 
-**Scenario**: Production three-tier web application in us-east-1
+**Escenario**: Aplicación web de producción de tres niveles en **us-east-1**
 
-#### Architecture Components
+#### Componentes de la Arquitectura
 
-**Web Tier**:
+**Nivel Web (Web Tier)**:
 ```
 - Application Load Balancer:
-  Base: $0.0225/hour × 730 = $16.43
-  LCU charges: ~$15/month (varies by traffic)
-  Total ALB: ~$31.43/month
+  Base: $0.0225/hora × 730 = $16.43
+  Cargos por LCU: ~$15/mes (varía según el tráfico)
+  Total ALB: ~$31.43/mes
 
-- EC2 Auto Scaling (2-6 instances, avg 4):
-  Instance: t3.medium at $0.0416/hour
-  Average cost: 4 × $0.0416 × 730 = $121.47/month
-  With 1-year RI: ~$73.00/month (40% savings)
+- EC2 Auto Scaling (2-6 instancias, promedio 4):
+  Instancia: t3.medium a $0.0416/hora
+  Coste promedio: 4 × $0.0416 × 730 = $121.47/mes
+  Con RI de 1 año: ~$73.00/mes (40% de ahorro)
 
-- EBS volumes: 4 × 50 GB gp3 × $0.08 = $16.00/month
+- Volúmenes EBS: 4 × 50 GB gp3 × $0.08 = $16.00/mes
 
-Web Tier Total: $168.90/month (On-Demand)
-Web Tier Total: $120.43/month (with RIs)
+Total Nivel Web: $168.90/mes (On-Demand)
+Total Nivel Web: $120.43/mes (con RIs)
 ```
 
-**Application Tier**:
+**Nivel de Aplicación (Application Tier)**:
 ```
-- Application Load Balancer: $31.43/month
-- EC2 Auto Scaling (3-8 instances, avg 5):
-  Instance: m5.large at $0.096/hour
-  Average cost: 5 × $0.096 × 730 = $350.40/month
-  With Compute Savings Plan: ~$245.00/month (30% savings)
+- Application Load Balancer: $31.43/mes
+- EC2 Auto Scaling (3-8 instancias, promedio 5):
+  Instancia: m5.large a $0.096/hora
+  Coste promedio: 5 × $0.096 × 730 = $350.40/mes
+  Con Compute Savings Plan: ~$245.00/mes (30% de ahorro)
 
-- EBS volumes: 5 × 100 GB gp3 × $0.08 = $40.00/month
+- Volúmenes EBS: 5 × 100 GB gp3 × $0.08 = $40.00/mes
 
-Application Tier Total: $421.83/month (On-Demand)
-Application Tier Total: $316.43/month (with Savings Plan)
+Total Nivel de Aplicación: $421.83/mes (On-Demand)
+Total Nivel de Aplicación: $316.43/mes (con Savings Plan)
 ```
 
-**Database Tier**:
+**Nivel de Base de Datos (Database Tier)**:
 ```
 - RDS Multi-AZ (db.m5.large):
-  Instance cost: $0.192/hour × 730 = $140.16/month
-  Storage: 500 GB General Purpose SSD × $0.115 = $57.50/month
-  Backup storage (beyond DB size): 200 GB × $0.095 = $19.00/month
-  I/O requests: 1M IOPS × $0.20/1M = $0.20/month
+  Coste de instancia: $0.192/hora × 730 = $140.16/mes
+  Almacenamiento: 500 GB SSD de Uso General × $0.115 = $57.50/mes
+  Almacenamiento de copia de seguridad (más allá del tamaño de la DB): 200 GB × $0.095 = $19.00/mes
+  Solicitudes de E/S: 1M IOPS × $0.20/1M = $0.20/mes
 
-- Read Replica (same region):
-  Instance cost: $0.096/hour × 730 = $70.08/month
-  Storage: 500 GB × $0.115 = $57.50/month
+- Réplica de Lectura (Read Replica) (misma región):
+  Coste de instancia: $0.096/hora × 730 = $70.08/mes
+  Almacenamiento: 500 GB × $0.115 = $57.50/mes
 
-Database Tier Total: $344.44/month (On-Demand)
-Database Tier with 1-Yr RI: ~$229.00/month (33% savings)
+Total Nivel de Base de Datos: $344.44/mes (On-Demand)
+Total Nivel de Base de Datos con RI de 1 año: ~$229.00/mes (33% de ahorro)
 ```
 
-**Additional Services**:
+**Servicios Adicionales**:
 ```
-- S3 for static assets: 100 GB Standard = $2.30/month
+- S3 para activos estáticos: 100 GB Standard = $2.30/mes
 - CloudFront CDN:
-  Data transfer out: 1 TB × $0.085 = $85.00/month
-  HTTP requests: 10M × $0.0075/10,000 = $7.50/month
+  Transferencia de datos de salida: 1 TB × $0.085 = $85.00/mes
+  Solicitudes HTTP: 10M × $0.0075/10,000 = $7.50/mes
 
 - Route 53:
-  Hosted zone: $0.50/month
-  Queries: 100M × $0.40/1M = $40.00/month
+  Zona alojada: $0.50/mes
+  Consultas: 100M × $0.40/1M = $40.00/mes
 
 - CloudWatch:
-  Custom metrics: 50 × $0.30 = $15.00/month
-  Logs ingestion: 10 GB × $0.50 = $5.00/month
+  Métricas personalizadas: 50 × $0.30 = $15.00/mes
+  Ingesta de registros: 10 GB × $0.50 = $5.00/mes
 
 - VPC:
-  NAT Gateway: 2 × ($0.045/hour × 730) = $65.70/month
-  NAT Gateway data: 500 GB × $0.045 = $22.50/month
+  NAT Gateway: 2 × ($0.045/hora × 730) = $65.70/mes
+  Datos de NAT Gateway: 500 GB × $0.045 = $22.50/mes
 
-Additional Services Total: $243.50/month
+Total Servicios Adicionales: $243.50/mes
 ```
 
-#### Complete Application Cost Analysis
+#### Análisis Completo de Costes de la Aplicación
 
-| Component | On-Demand | With Reserved/Savings | Monthly Savings |
+| Componente | On-Demand | Con Reserva/Ahorro | Ahorro Mensual |
 |-----------|-----------|----------------------|-----------------|
-| Web Tier | $168.90 | $120.43 | $48.47 |
-| Application Tier | $421.83 | $316.43 | $105.40 |
-| Database Tier | $344.44 | $229.00 | $115.44 |
-| Additional Services | $243.50 | $243.50 | $0.00 |
-| **Total Monthly** | **$1,178.67** | **$909.36** | **$269.31** |
-| **Annual** | **$14,144.04** | **$10,912.32** | **$3,231.72** |
+| Nivel Web | $168.90 | $120.43 | $48.47 |
+| Nivel de Aplicación | $421.83 | $316.43 | $105.40 |
+| Nivel de Base de Datos | $344.44 | $229.00 | $115.44 |
+| Servicios Adicionales | $243.50 | $243.50 | $0.00 |
+| **Total Mensual** | **$1,178.67** | **$909.36** | **$269.31** |
+| **Anual** | **$14,144.04** | **$10,912.32** | **$3,231.72** |
 
-**Cost Optimization Opportunities**:
-1. Implement Auto Scaling policies (save 20-30% on compute)
-2. Use Spot Instances for non-critical batch jobs (save 60-70%)
-3. Enable S3 Lifecycle policies (save 10-15% on storage)
-4. Optimize CloudFront caching (reduce origin requests by 40%)
-5. Implement RDS storage auto-scaling (pay only for what you use)
+**Oportunidades de Optimización de Costes**:
+1. Implementar políticas de **Auto Scaling** (ahorro del 20-30% en cómputo)
+2. Usar **Spot Instances** para trabajos por lotes no críticos (ahorro del 60-70%)
+3. Habilitar políticas de ciclo de vida de **S3** (ahorro del 10-15% en almacenamiento)
+4. Optimizar el almacenamiento en caché de **CloudFront** (reducir las solicitudes de origen en un 40%)
+5. Implementar el auto-escalado de almacenamiento de **RDS** (paga solo por lo que usas)
 
-**Expected Fully Optimized Cost**: ~$750-850/month (36-42% total savings)
+**Coste Total Esperado Completamente Optimizado**: ~$750-850/mes (36-42% de ahorro total)
 
 ---
 
-### Data Transfer Cost Calculations
+### Cálculos de Costes de Transferencia de Datos
 
-**Scenario**: Global application with users across multiple regions
+**Escenario**: Aplicación global con usuarios en múltiples regiones
 
-#### Inbound Traffic (FREE)
+#### Tráfico Entrante (GRATIS)
 ```
-Traffic from internet to AWS: FREE
-- User uploads to S3: 2 TB/month = $0.00
-- API requests to ALB/API Gateway: FREE
-- Data ingestion to Kinesis: FREE
+Tráfico desde Internet hacia AWS: GRATIS
+- Cargas de usuarios a S3: 2 TB/mes = $0.00
+- Solicitudes de API a ALB/API Gateway: GRATIS
+- Ingesta de datos a Kinesis: GRATIS
 
-Total inbound: $0.00
-```
-
-#### Outbound Traffic (CHARGED)
-
-**Direct from EC2 to Internet**:
-```
-First 10 TB/month: $0.09/GB
-Next 40 TB/month: $0.085/GB
-Next 100 TB/month: $0.070/GB
-Over 150 TB/month: $0.05/GB
-
-Example - 5 TB transfer:
-5,000 GB × $0.09 = $450.00/month
+Total entrante: $0.00
 ```
 
-**Via CloudFront**:
-```
-CloudFront to Internet (US/Europe):
-First 10 TB/month: $0.085/GB
-Next 40 TB/month: $0.080/GB
-Next 100 TB/month: $0.060/GB
-Over 150 TB/month: $0.040/GB
+#### Tráfico Saliente (CON COSTE)
 
-Example - 5 TB transfer via CloudFront:
-5,000 GB × $0.085 = $425.00/month
-Savings: $25.00/month (6% cheaper + performance benefit)
+**Directo desde EC2 a Internet**:
 ```
+Primeros 10 TB/mes: $0.09/GB
+Siguientes 40 TB/mes: $0.085/GB
+Siguientes 100 TB/mes: $0.070/GB
+Más de 150 TB/mes: $0.05/GB
 
-**Cross-Region Data Transfer**:
-```
-us-east-1 to eu-west-1: $0.02/GB
-Transfer: 1 TB/month = 1,000 GB × $0.02 = $20.00/month
-
-Best Practice: Replicate data to target region, serve locally
-Local transfer (same region): Often free or minimal cost
+Ejemplo - transferencia de 5 TB:
+5,000 GB × $0.09 = $450.00/mes
 ```
 
-**Inter-AZ Data Transfer**:
+**Vía CloudFront**:
 ```
-Transfer between AZs: $0.01/GB each direction
-Example: Multi-AZ RDS replication
-500 GB/month × $0.01 = $5.00/month (each direction)
-Total: $10.00/month for bidirectional
+CloudFront a Internet (EE. UU./Europa):
+Primeros 10 TB/mes: $0.085/GB
+Siguientes 40 TB/mes: $0.080/GB
+Siguientes 100 TB/mes: $0.060/GB
+Más de 150 TB/mes: $0.040/GB
 
-Note: Essential for high availability, factor into architecture cost
+Ejemplo - transferencia de 5 TB vía CloudFront:
+5,000 GB × $0.085 = $425.00/mes
+Ahorro: $25.00/mes (6% más barato + beneficio de rendimiento)
+```
+
+**Transferencia de Datos Entre Regiones**:
+```
+us-east-1 a eu-west-1: $0.02/GB
+Transferencia: 1 TB/mes = 1,000 GB × $0.02 = $20.00/mes
+
+Mejor Práctica: Replicar datos a la región de destino, servir localmente
+Transferencia local (misma región): A menudo gratis o con coste mínimo
+```
+
+**Transferencia de Datos Entre AZs**:
+```
+Transferencia entre AZs: $0.01/GB en cada dirección
+Ejemplo: Replicación de RDS Multi-AZ
+500 GB/mes × $0.01 = $5.00/mes (cada dirección)
+Total: $10.00/mes para bidireccional
+
+Nota: Esencial para la alta disponibilidad, factúralo en el coste de la arquitectura
 ```
 
 **VPC Peering**:
 ```
-Same Region: $0.01/GB
-Cross-Region: $0.02/GB (same as standard cross-region)
+Misma Región: $0.01/GB
+Entre Regiones: $0.02/GB (igual que la transferencia estándar entre regiones)
 
-Example: Microservices communication via VPC peering
-1 TB/month between VPCs (same region)
-1,000 GB × $0.01 = $10.00/month
+Ejemplo: Comunicación de microservicios vía VPC peering
+1 TB/mes entre VPCs (misma región)
+1,000 GB × $0.01 = $10.00/mes
 ```
 
-#### Complete Data Transfer Example
+#### Ejemplo Completo de Transferencia de Datos
 
-**Application with 20 TB monthly traffic**:
+**Aplicación con 20 TB de tráfico mensual**:
 ```
-Scenario 1: Direct from EC2
-First 10 TB: 10,000 × $0.09 = $900.00
-Next 10 TB: 10,000 × $0.085 = $850.00
-Total: $1,750.00/month
+Escenario 1: Directo desde EC2
+Primeros 10 TB: 10,000 × $0.09 = $900.00
+Siguientes 10 TB: 10,000 × $0.085 = $850.00
+Total: $1,750.00/mes
 
-Scenario 2: Via CloudFront (optimized)
-First 10 TB: 10,000 × $0.085 = $850.00
-Next 10 TB: 10,000 × $0.080 = $800.00
-Total: $1,650.00/month
-Savings: $100.00/month + improved user experience
+Escenario 2: Vía CloudFront (optimizado)
+Primeros 10 TB: 10,000 × $0.085 = $850.00
+Siguientes 10 TB: 10,000 × $0.080 = $800.00
+Total: $1,650.00/mes
+Ahorro: $100.00/mes + mejor experiencia de usuario
 
-Scenario 3: CloudFront + Regional Caching
-CloudFront traffic: 15 TB (75% cache hit rate)
-Direct from origin: 5 TB
-CloudFront cost: 15,000 × $0.085 = $1,275.00
-Origin cost: 5,000 × $0.09 = $450.00
-Total: $1,725.00/month
+Escenario 3: CloudFront + Caching Regional
+Tráfico de CloudFront: 15 TB (tasa de acierto de caché del 75%)
+Directo desde el origen: 5 TB
+Coste de CloudFront: 15,000 × $0.085 = $1,275.00
+Coste de origen: 5,000 × $0.09 = $450.00
+Total: $1,725.00/mes
 
-Additional benefits:
-- Reduced load on origin servers
-- Faster content delivery
-- Lower latency for end users
-- DDoS protection included
+Beneficios adicionales:
+- Carga reducida en los servidores de origen
+- Entrega de contenido más rápida
+- Menor latencia para los usuarios finales
+- Protección DDoS incluida
 ```
 
-**Data Transfer Optimization Summary**:
+**Resumen de Optimización de Transferencia de Datos**:
 
-| Strategy | Monthly Cost (20 TB) | Savings vs Baseline |
+| Estrategia | Coste Mensual (20 TB) | Ahorro vs Base |
 |----------|---------------------|---------------------|
-| Direct from EC2 | $1,750.00 | Baseline |
-| CloudFront only | $1,650.00 | 6% ($100) |
-| CloudFront + cache optimization | $1,275.00 | 27% ($475) |
-| Multi-region with local serving | $900.00 | 49% ($850) |
+| Directo desde **EC2** | $1,750.00 | Base |
+| Solo **CloudFront** | $1,650.00 | 6% ($100) |
+| **CloudFront** + optimización de caché | $1,275.00 | 27% ($475) |
+| Multi-región con servicio local | $900.00 | 49% ($850) |
 
-**Key Takeaways**:
-1. Always use CloudFront for public-facing content delivery
-2. Implement aggressive caching strategies (target 80%+ hit rate)
-3. Consider multi-region deployment for global applications
-4. Use VPC endpoints to avoid NAT gateway data charges for AWS services
-5. Monitor data transfer costs in Cost Explorer - often overlooked expense
+**Conclusiones Clave**:
+1. Usa siempre **CloudFront** para la entrega de contenido orientado al público
+2. Implementa estrategias de almacenamiento en caché agresivas (objetivo de más del 80% de tasa de acierto)
+3. Considera el despliegue multi-región para aplicaciones globales
+4. Usa **VPC endpoints** para evitar cargos de datos de NAT gateway para servicios de AWS
+5. Monitoriza los costes de transferencia de datos en **Cost Explorer** - un gasto que a menudo se pasa por alto
 
 ---
 
 ## Reserved Instances vs Savings Plans
 
-### Detailed Comparison
+### Comparación Detallada
 
 #### Reserved Instances (RIs)
 
-**Characteristics**:
-- Specific to a service (EC2, RDS, ElastiCache, Redshift, etc.)
-- Tied to instance type, family, size, region, and tenancy
-- Can be modified (some attributes) or exchanged (Convertible RIs)
-- Applied automatically to matching instance usage
-- Can be sold on Reserved Instance Marketplace
+**Características**:
+- Específico para un servicio (**EC2**, **RDS**, **ElastiCache**, **Redshift**, etc.)
+- Vinculado al tipo de instancia, familia, tamaño, región y tenencia
+- Se puede modificar (algunos atributos) o intercambiar (**Convertible RIs**)
+- Se aplica automáticamente al uso de la instancia coincidente
+- Se puede vender en el **Reserved Instance Marketplace**
 
-**Types of RIs**:
+**Tipos de RIs**:
 
 1. **Standard Reserved Instances**:
-   - Highest discount (up to 75% for 3-year All Upfront)
-   - Cannot change instance type
-   - Can change AZ, scope (zonal to regional), network type
-   - Best for: Stable, predictable workloads with no need to change
+   - Mayor descuento (hasta un 75% para 3 años, **All Upfront**)
+   - No se puede cambiar el tipo de instancia
+   - Se puede cambiar la **AZ**, el alcance (de zonal a regional), el tipo de red
+   - Ideal para: Cargas de trabajo estables y predecibles sin necesidad de cambios
 
 2. **Convertible Reserved Instances**:
-   - Lower discount (up to 66% for 3-year)
-   - Can exchange for different instance families, sizes, OS
-   - Cannot sell on RI Marketplace
-   - Best for: Predictable workloads that may need flexibility
+   - Menor descuento (hasta un 66% para 3 años)
+   - Se puede intercambiar por diferentes familias de instancias, tamaños, SO
+   - No se puede vender en el **RI Marketplace**
+   - Ideal para: Cargas de trabajo predecibles que pueden necesitar flexibilidad
 
-**Payment Options**:
-- All Upfront: Highest discount, pay entire amount upfront
-- Partial Upfront: Medium discount, pay ~50% upfront + monthly
-- No Upfront: Lowest discount, pay monthly only
+**Opciones de Pago**:
+- **All Upfront**: Mayor descuento, paga el importe total por adelantado
+- **Partial Upfront**: Descuento medio, paga ~50% por adelantado + mensualidad
+- **No Upfront**: Menor descuento, paga solo mensualmente
 
-**Scope**:
-- **Regional RI**: Applies to instance usage in any AZ within region, includes AZ flexibility
-- **Zonal RI**: Reserves capacity in specific AZ, provides capacity reservation
+**Alcance (Scope)**:
+- **Regional RI**: Se aplica al uso de instancias en cualquier **AZ** dentro de la región, incluye flexibilidad de **AZ**
+- **Zonal RI**: Reserva capacidad en una **AZ** específica, proporciona reserva de capacidad
 
 #### Savings Plans
 
-**Characteristics**:
-- Commitment to consistent usage amount ($/hour) for 1 or 3 years
-- More flexible than Reserved Instances
-- Automatically applies to eligible usage
-- Cannot be sold or transferred
-- Applies across accounts in consolidated billing
+**Características**:
+- Compromiso con un importe de uso constante ($/hora) durante 1 o 3 años
+- Más flexible que las **Reserved Instances**
+- Se aplica automáticamente al uso elegible
+- No se puede vender ni transferir
+- Se aplica a todas las cuentas en la facturación consolidada
 
-**Types of Savings Plans**:
+**Tipos de Savings Plans**:
 
 1. **Compute Savings Plans**:
-   - Most flexible option
-   - Up to 66% discount
-   - Applies to:
-     - EC2 instances (any family, size, AZ, region, OS, tenancy)
-     - Fargate compute
-     - Lambda compute
-   - Automatically adjusts as usage patterns change
-   - Best for: Dynamic workloads, multi-service compute usage
+   - Opción más flexible
+   - Hasta un 66% de descuento
+   - Se aplica a:
+     - Instancias **EC2** (cualquier familia, tamaño, **AZ**, región, SO, tenencia)
+     - Cómputo de **Fargate**
+     - Cómputo de **Lambda**
+   - Se ajusta automáticamente a medida que cambian los patrones de uso
+   - Ideal para: Cargas de trabajo dinámicas, uso de cómputo en múltiples servicios
 
 2. **EC2 Instance Savings Plans**:
-   - Up to 72% discount
-   - Applies to EC2 usage within a specific instance family in chosen region
-   - Flexible across sizes, AZ, OS, tenancy within that family
-   - Example: Commit to m5 family in us-east-1, use any m5.large, m5.xlarge, etc.
-   - Best for: EC2-specific workloads with some flexibility needs
+   - Hasta un 72% de descuento
+   - Se aplica al uso de **EC2** dentro de una familia de instancias específica en la región elegida
+   - Flexible en tamaños, **AZ**, SO, tenencia dentro de esa familia
+   - Ejemplo: Comprométete con la familia **m5** en **us-east-1**, usa cualquier **m5.large**, **m5.xlarge**, etc.
+   - Ideal para: Cargas de trabajo específicas de **EC2** con algunas necesidades de flexibilidad
 
 3. **SageMaker Savings Plans**:
-   - Up to 64% discount
-   - Applies to SageMaker compute usage
-   - Flexible across instance families and sizes
+   - Hasta un 64% de descuento
+   - Se aplica al uso de cómputo de **SageMaker**
+   - Flexible en familias de instancias y tamaños
 
 ---
 
-### ROI Calculations
+### Cálculos de ROI
 
-#### Example 1: Standard RI vs Compute Savings Plan
+#### Ejemplo 1: Standard RI vs Compute Savings Plan
 
-**Baseline Workload**:
-- 10 x m5.xlarge instances (4 vCPU, 16 GB RAM)
-- Running 24/7/365
-- Region: us-east-1
-- On-Demand rate: $0.192/hour per instance
+**Carga de Trabajo Base**:
+- 10 instancias **m5.xlarge** (4 vCPU, 16 GB RAM)
+- Funcionando 24/7/365
+- Región: **us-east-1**
+- Tarifa On-Demand: $0.192/hora por instancia
 
-**On-Demand Annual Cost**:
+**Coste Anual On-Demand**:
 ```
-Per instance: $0.192 × 24 × 365 = $1,681.92/year
-Total (10 instances): $16,819.20/year
+Por instancia: $0.192 × 24 × 365 = $1,681.92/año
+Total (10 instancias): $16,819.20/año
 ```
 
-**Option 1: 3-Year Standard RI (All Upfront)**:
+**Opción 1: Standard RI de 3 Años (All Upfront)**:
 ```
-Upfront cost per instance: $8,280
-Total upfront: $8,280 × 10 = $82,800
-No monthly charges
-
-Annual equivalent: $82,800 ÷ 3 = $27,600/year
-3-year total cost: $82,800
-3-year On-Demand cost: $16,819.20 × 3 = $50,457.60
-
-Total savings: $50,457.60 - $82,800 = -$32,342.40
-Wait, this doesn't look right. Let me recalculate...
-
-Actually, correct calculation:
-3-year RI upfront: $4,140 per instance
+Coste inicial por instancia: $4,140
 Total: $4,140 × 10 = $41,400
-3-year savings: $50,457.60 - $41,400 = $9,057.60 (18% savings)
-Annual savings: $3,019.20/year (58% discount off On-Demand)
+Ahorro en 3 años: $50,457.60 - $41,400 = $9,057.60 (18% de ahorro)
+Ahorro anual: $3,019.20/año (58% de descuento sobre On-Demand)
 ```
 
-**Option 2: 1-Year Compute Savings Plan (Partial Upfront)**:
+**Opción 2: Compute Savings Plan de 1 Año (Partial Upfront)**:
 ```
-Hourly commitment: $1.20/hour (covers ~$1.70 On-Demand value)
-Discount: ~30%
-Upfront payment: ~$3,600
-Monthly payment: ~$100
+Compromiso por hora: $1.20/hora (cubre ~$1.70 de valor On-Demand)
+Descuento: ~30%
+Pago inicial: ~$3,600
+Pago mensual: ~$100
 
-Annual cost: $3,600 + ($100 × 12) = $4,800
-On-Demand annual: $16,819.20
-Savings: $16,819.20 - $4,800 = $12,019.20 (71% savings)
+Coste anual: $3,600 + ($100 × 12) = $4,800
+Anual On-Demand: $16,819.20
+Ahorro: $16,819.20 - $4,800 = $12,019.20 (71% de ahorro)
 
-Flexibility: Can change to m6i.xlarge, c5.2xlarge, etc.
-Can use across EC2, Fargate, Lambda
+Flexibilidad: Puede cambiar a m6i.xlarge, c5.2xlarge, etc.
+Se puede usar en EC2, Fargate, Lambda
 ```
 
-**ROI Analysis**:
+**Análisis de ROI**:
 
-| Option | Upfront Cost | Annual Cost | 3-Year Cost | Discount % | Flexibility |
+| Opción | Coste Inicial | Coste Anual | Coste de 3 Años | % de Descuento | Flexibilidad |
 |--------|--------------|-------------|-------------|------------|-------------|
-| On-Demand | $0 | $16,819 | $50,458 | 0% | Full |
-| 1-Yr Compute SP | $3,600 | $4,800 | N/A | 71% | High |
-| 3-Yr Standard RI | $41,400 | $13,800 | $41,400 | 58% | Low |
-| 3-Yr Compute SP | $8,200 | $11,000 | $33,000 | 65% | High |
+| **On-Demand** | $0 | $16,819 | $50,458 | 0% | Total |
+| **1-Yr Compute SP** | $3,600 | $4,800 | N/A | 71% | Alta |
+| **3-Yr Standard RI** | $41,400 | $13,800 | $41,400 | 58% | Baja |
+| **3-Yr Compute SP** | $8,200 | $11,000 | $33,000 | 65% | Alta |
 
-**Recommendation Decision Tree**:
-- Need flexibility to change instance types? → **Compute Savings Plan**
-- Stable workload, maximum savings? → **Standard Reserved Instance**
-- Uncertain about long-term needs? → **1-Year Savings Plan**
-- High confidence in 3-year usage? → **3-Year Savings Plan or RI**
+**Árbol de Decisión de Recomendación**:
+- ¿Necesitas flexibilidad para cambiar los tipos de instancia? → **Compute Savings Plan**
+- ¿Carga de trabajo estable, ahorro máximo? → **Standard Reserved Instance**
+- ¿Incertidumbre sobre las necesidades a largo plazo? → **Savings Plan de 1 Año**
+- ¿Alta confianza en el uso a 3 años? → **Savings Plan o RI de 3 Años**
 
-#### Example 2: RDS Reserved Instances
+#### Ejemplo 2: RDS Reserved Instances
 
-**Baseline**:
-- db.r5.2xlarge Multi-AZ
-- Region: us-east-1
-- On-Demand: $1.664/hour
-- Annual On-Demand cost: $14,574.40
+**Base**:
+- **db.r5.2xlarge Multi-AZ**
+- Región: **us-east-1**
+- On-Demand: $1.664/hora
+- Coste anual On-Demand: $14,574.40
 
-**1-Year RI (Partial Upfront)**:
+**RI de 1 Año (Partial Upfront)**:
 ```
-Upfront: $4,850
-Monthly: $0.352/hour
-Monthly cost: $0.352 × 730 = $257.00
+Inicial: $4,850
+Mensual: $0.352/hora
+Coste mensual: $0.352 × 730 = $257.00
 
-Annual cost: $4,850 + ($257 × 12) = $7,934.00
-Savings: $14,574.40 - $7,934.00 = $6,640.40 (46% savings)
-Monthly savings: $553.37/month
+Coste anual: $4,850 + ($257 × 12) = $7,934.00
+Ahorro: $14,574.40 - $7,934.00 = $6,640.40 (46% de ahorro)
+Ahorro mensual: $553.37/mes
 
-ROI period: $4,850 upfront ÷ $553.37 monthly savings = 8.8 months
-After 8.8 months, RI becomes profitable
-```
-
-**3-Year RI (All Upfront)**:
-```
-Upfront: $19,780
-No monthly charges
-
-Annual equivalent: $19,780 ÷ 3 = $6,593.33/year
-3-year On-Demand cost: $14,574.40 × 3 = $43,723.20
-3-year savings: $43,723.20 - $19,780 = $23,943.20 (55% savings)
-Annual savings: $7,981.07/year
-
-ROI period: $19,780 ÷ ($14,574.40 - $6,593.33) = 2.48 years
-Must keep for 2.5 years to break even, but committed for 3 years
-Full value realized over entire 3-year term
+Periodo de ROI: $4,850 inicial ÷ $553.37 ahorro mensual = 8.8 meses
+Después de 8.8 meses, la RI se vuelve rentable
 ```
 
-**Break-Even Analysis**:
+**RI de 3 Años (All Upfront)**:
 ```
-1-Year RI: Break-even at 8.8 months (safe, low risk)
-3-Year RI: Break-even at 30 months (requires commitment confidence)
+Pago inicial: $19,780
+Sin cargos mensuales
 
-If workload discontinued early:
-- 1-Year: Maximum loss is ~3.2 months of savings
-- 3-Year: Maximum loss is entire upfront payment if stopped immediately
+Equivalente anual: $19,780 ÷ 3 = $6,593.33/año
+Coste On-Demand de 3 años: $14,574.40 × 3 = $43,723.20
+Ahorro en 3 años: $43,723.20 - $19,780 = $23,943.20 (55% de ahorro)
+Ahorro anual: $7,981.07/año
+
+Periodo de ROI: $19,780 inicial ÷ ($14,574.40 - $6,593.33) = 2.48 años
+Debe mantenerse durante 2.5 años para alcanzar el punto de equilibrio, pero el compromiso es por 3 años
+Valor total realizado durante todo el plazo de 3 años
+```
+
+**Análisis de Punto de Equilibrio (Break-Even Analysis)**:
+```
+RI de 1 Año: Punto de equilibrio a los 8.8 meses (seguro, bajo riesgo)
+RI de 3 Años: Punto de equilibrio a los 30 meses (requiere confianza en el compromiso)
+
+Si la carga de trabajo se interrumpe prematuramente:
+- 1 Año: La pérdida máxima es de ~3.2 meses de ahorro
+- 3 Años: La pérdida máxima es el pago inicial completo si se detiene inmediatamente
 ```
 
 ---
 
-### When to Use Each Option
+### Cuándo usar cada opción
 
-#### Use Standard Reserved Instances When:
+#### Use Standard Reserved Instances cuando:
 
-1. **Workload is stable and predictable**
-   - Database servers running 24/7
-   - Core application infrastructure
-   - Domain controllers, directory services
-   - Monitoring and logging systems
+1. **La carga de trabajo sea estable y predecible**
+   - Servidores de bases de datos funcionando 24/7
+   - Infraestructura central de aplicaciones
+   - Controladores de dominio, servicios de directorio
+   - Sistemas de monitorización y registro (logging)
 
-2. **You want maximum savings**
-   - Budget is tight, need highest discount
-   - Willing to sacrifice flexibility for cost savings
-   - Have strong confidence in long-term usage
+2. **Desees el máximo ahorro**
+   - El presupuesto es ajustado, se necesita el mayor descuento
+   - Disposición a sacrificar flexibilidad por ahorro de costes
+   - Gran confianza en el uso a largo plazo
 
-3. **You need capacity reservation**
-   - Zonal RIs guarantee capacity in specific AZ
-   - Critical for compliance or business requirements
-   - Important during high-demand periods
+3. **Necesites reserva de capacidad**
+   - Las **Zonal RIs** garantizan capacidad en una **AZ** específica
+   - Crítico para requisitos de cumplimiento o de negocio
+   - Importante durante periodos de alta demanda
 
-**Example Use Case**:
+**Ejemplo de caso de uso**:
 ```
-Production RDS database cluster
-- 24/7 operation required
-- Instance type unlikely to change
-- 3-year forecast shows continued growth
-- Decision: 3-year Standard RI for maximum savings
-```
-
-#### Use Convertible Reserved Instances When:
-
-1. **Workload is predictable but may change**
-   - Application may need different instance sizes
-   - May need to change regions
-   - Technology refresh expected during term
-
-2. **You want some flexibility with good savings**
-   - Balance between savings and flexibility
-   - Hedge against infrastructure changes
-   - May need to accommodate new instance types
-
-**Example Use Case**:
-```
-Application servers
-- Running consistently but may need optimization
-- New instance types released regularly
-- May need to migrate to graviton-based instances
-- Decision: 1-year Convertible RI for flexibility
+Cluster de base de datos RDS de producción
+- Operación requerida 24/7
+- Es poco probable que cambie el tipo de instancia
+- El pronóstico de 3 años muestra un crecimiento continuo
+- Decisión: Standard RI de 3 años para el máximo ahorro
 ```
 
-#### Use Compute Savings Plans When:
+#### Use Convertible Reserved Instances cuando:
 
-1. **You have diverse compute workloads**
-   - Mix of EC2, Fargate, Lambda
-   - Multiple instance families and sizes
-   - Dynamic scaling requirements
+1. **La carga de trabajo sea predecible pero pueda cambiar**
+   - La aplicación puede necesitar diferentes tamaños de instancia
+   - Puede ser necesario cambiar de región
+   - Se espera una actualización tecnológica durante el plazo
 
-2. **You value maximum flexibility**
-   - Want to optimize without constraints
-   - May adopt containers or serverless
-   - Uncertain about specific instance types
+2. **Desees cierta flexibilidad con buenos ahorros**
+   - Equilibrio entre ahorro y flexibilidad
+   - Cobertura contra cambios en la infraestructura
+   - Puede ser necesario adaptarse a nuevos tipos de instancias
 
-3. **You have multi-region deployments**
-   - Savings Plans apply across regions
-   - May shift workloads between regions
-   - Need simplified management
-
-**Example Use Case**:
+**Ejemplo de caso de uso**:
 ```
-Microservices architecture
-- Mix of EC2 for stateful services
-- Fargate for containerized microservices
-- Lambda for event-driven functions
-- Dynamic scaling based on demand
-- Decision: Compute Savings Plan for full flexibility
+Servidores de aplicaciones
+- Funcionamiento constante pero puede necesitar optimización
+- Se lanzan nuevos tipos de instancias regularmente
+- Puede ser necesario migrar a instancias basadas en Graviton
+- Decisión: Convertible RI de 1 año para mayor flexibilidad
 ```
 
-#### Use EC2 Instance Savings Plans When:
+#### Use Compute Savings Plans cuando:
 
-1. **All compute is EC2-based**
-   - No Fargate or Lambda usage
-   - Want higher discount than Compute Savings Plan
-   - Comfortable committing to instance family
+1. **Tengas cargas de trabajo de cómputo diversas**
+   - Mezcla de **EC2**, **Fargate**, **Lambda**
+   - Múltiples familias y tamaños de instancia
+   - Requisitos de escalado dinámico
 
-2. **You standardize on specific instance family**
-   - Organization policy uses m5 family
-   - Consistent instance family across deployments
-   - Need flexibility within that family
+2. **Valores la máxima flexibilidad**
+   - Deseas optimizar sin restricciones
+   - Puedes adoptar contenedores o serverless
+   - Incertidumbre sobre tipos de instancias específicos
 
-**Example Use Case**:
+3. **Tengas despliegues multi-región**
+   - Los **Savings Plans** se aplican en todas las regiones
+   - Puedes cambiar las cargas de trabajo entre regiones
+   - Necesitas una gestión simplificada
+
+**Ejemplo de caso de uso**:
 ```
-Company standardizes on m5 instance family
-- Use various m5 sizes (large, xlarge, 2xlarge)
-- Deploy across multiple AZs
-- May change sizes based on optimization
-- Decision: EC2 Instance Savings Plan (m5 family, region)
-```
-
-#### Use On-Demand Instances When:
-
-1. **Workload is unpredictable or temporary**
-   - Development and testing environments
-   - Short-term projects
-   - Proof of concept work
-
-2. **You need maximum flexibility with no commitment**
-   - Start-up exploring AWS
-   - Uncertain about long-term requirements
-   - Prefer operational expense model
-
-3. **Workload has variable usage**
-   - Batch jobs running occasionally
-   - Event-driven processing
-   - Seasonal workloads
-
-**Example Use Case**:
-```
-Development environment
-- Used during business hours only
-- Frequent changes and experimentation
-- May be shut down between projects
-- Decision: On-Demand instances, shut down when not in use
+Arquitectura de microservicios
+- Mezcla de EC2 para servicios con estado (stateful)
+- Fargate para microservicios contenedorizados
+- Lambda para funciones basadas en eventos
+- Escalado dinámico según la demanda
+- Decisión: Compute Savings Plan para una flexibilidad total
 ```
 
-#### Use Spot Instances When:
+#### Use EC2 Instance Savings Plans cuando:
 
-1. **Workload is fault-tolerant**
-   - Can handle interruptions
-   - Implements checkpointing
-   - Can restart automatically
+1. **Todo el cómputo esté basado en EC2**
+   - Sin uso de **Fargate** o **Lambda**
+   - Deseas un descuento mayor que el de **Compute Savings Plan**
+   - Comodidad al comprometerse con una familia de instancias
 
-2. **You want maximum cost savings**
-   - Up to 90% discount
-   - Budget-constrained projects
-   - Cost is priority over availability
+2. **Te estandarices en una familia de instancias específica**
+   - La política de la organización utiliza la familia **m5**
+   - Familia de instancias consistente en todos los despliegues
+   - Necesitas flexibilidad dentro de esa familia
 
-3. **Workload has flexible timing**
-   - Batch processing jobs
-   - Data analysis tasks
-   - CI/CD pipeline runners
-   - Video rendering
-
-**Example Use Case**:
+**Ejemplo de caso de uso**:
 ```
-Big data processing with Apache Spark
-- Jobs can be checkpointed
-- Cluster can handle node failures
-- Not time-sensitive (can take hours/days)
-- Decision: Spot Instances with automated fallback to On-Demand
+La empresa se estandariza en la familia de instancias m5
+- Utiliza varios tamaños de m5 (large, xlarge, 2xlarge)
+- Despliegue en múltiples AZs
+- Puede cambiar los tamaños basándose en la optimización
+- Decisión: EC2 Instance Savings Plan (familia m5, región)
 ```
 
-#### Hybrid Strategy (Most Common in Practice)
+#### Use On-Demand Instances cuando:
 
-**Typical Production Deployment**:
+1. **La carga de trabajo sea impredecible o temporal**
+   - Entornos de desarrollo y pruebas
+   - Proyectos a corto plazo
+   - Trabajo de prueba de concepto (**PoC**)
+
+2. **Necesites la máxima flexibilidad sin compromiso**
+   - Start-up explorando AWS
+   - Incertidumbre sobre los requisitos a largo plazo
+   - Preferencia por el modelo de gastos operativos (**OPEX**)
+
+3. **La carga de trabajo tenga un uso variable**
+   - Trabajos por lotes (batch) que se ejecutan ocasionalmente
+   - Procesamiento basado en eventos
+   - Cargas de trabajo estacionales
+
+**Ejemplo de caso de uso**:
 ```
-Base capacity (60%): Reserved Instances or Savings Plans
-  - Core infrastructure always running
-  - Database servers, critical applications
-  - Maximum cost savings on predictable load
+Entorno de desarrollo
+- Utilizado solo durante el horario laboral
+- Cambios y experimentación frecuentes
+- Puede apagarse entre proyectos
+- Decisión: Instancias On-Demand, apagar cuando no estén en uso
+```
 
-Variable capacity (30%): On-Demand instances
-  - Handle traffic spikes
-  - Auto-scaling groups
-  - Quick response to demand
+#### Use Spot Instances cuando:
 
-Batch processing (10%): Spot instances
-  - Non-critical background jobs
-  - Data processing pipelines
-  - Cost-optimized compute
+1. **La carga de trabajo sea tolerante a fallos**
+   - Puede manejar interrupciones
+   - Implementa puntos de control (checkpointing)
+   - Puede reiniciarse automáticamente
 
-Example monthly compute cost breakdown:
-Base (RI): $3,000 (covering $5,000 On-Demand equivalent)
+2. **Desees el máximo ahorro de costes**
+   - Hasta un 90% de descuento
+   - Proyectos con presupuesto limitado
+   - El coste es prioridad sobre la disponibilidad
+
+3. **La carga de trabajo tenga tiempos flexibles**
+   - Trabajos de procesamiento por lotes (batch)
+   - Tareas de análisis de datos
+   - Ejecutores de canalizaciones CI/CD
+   - Renderizado de vídeo
+
+**Ejemplo de caso de uso**:
+```
+Procesamiento de big data con Apache Spark
+- Los trabajos pueden tener puntos de control
+- El cluster puede manejar fallos de nodos
+- No es sensible al tiempo (puede tardar horas/días)
+- Decisión: Spot Instances con respaldo automático a On-Demand
+```
+
+#### Estrategia Híbrida (La más común en la práctica)
+
+**Despliegue de producción típico**:
+```
+Capacidad base (60%): Reserved Instances o Savings Plans
+  - Infraestructura central siempre en funcionamiento
+  - Servidores de bases de datos, aplicaciones críticas
+  - Máximo ahorro de costes en carga predecible
+
+Capacidad variable (30%): Instancias On-Demand
+  - Manejo de picos de tráfico
+  - Grupos de auto-escalado
+  - Respuesta rápida a la demanda
+
+Procesamiento por lotes (10%): Spot instances
+  - Trabajos en segundo plano no críticos
+  - Canalizaciones de procesamiento de datos
+  - Cómputo optimizado en costes
+
+Ejemplo de desglose de coste de cómputo mensual:
+Base (RI): $3,000 (cubriendo $5,000 de equivalente On-Demand)
 Variable (On-Demand): $1,500
-Batch (Spot): $150 (covering $1,500 On-Demand equivalent)
+Lotes (Spot): $150 (cubriendo $1,500 de equivalente On-Demand)
 Total: $4,650
-Full On-Demand equivalent: $8,000
-Savings: $3,350/month (42% reduction)
+Equivalente On-Demand total: $8,000
+Ahorro: $3,350/mes (reducción del 42%)
 ```
 
-**Decision Matrix**:
+**Matriz de decisión**:
 
-| Criteria | Standard RI | Convertible RI | Compute SP | EC2 Instance SP | On-Demand | Spot |
+| Criterio | Standard RI | Convertible RI | Compute SP | EC2 Instance SP | On-Demand | Spot |
 |----------|------------|----------------|------------|-----------------|-----------|------|
-| Max Savings | ✓✓✓ | ✓✓ | ✓✓ | ✓✓✓ | ✗ | ✓✓✓✓ |
-| Flexibility | ✗ | ✓ | ✓✓✓ | ✓✓ | ✓✓✓✓ | ✓✓ |
-| Capacity Guarantee | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ |
-| Cross-Service | ✗ | ✗ | ✓✓✓ | ✗ | ✓✓✓✓ | ✓ |
-| No Commitment | ✗ | ✗ | ✗ | ✗ | ✓✓✓✓ | ✓✓✓✓ |
-| Sell/Exchange | ✓ | ✗ | ✗ | ✗ | N/A | N/A |
+| Ahorro Máximo | ✓✓✓ | ✓✓ | ✓✓ | ✓✓✓ | ✗ | ✓✓✓✓ |
+| Flexibilidad | ✗ | ✓ | ✓✓✓ | ✓✓ | ✓✓✓✓ | ✓✓ |
+| Garantía de Capacidad | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Entre Servicios | ✗ | ✗ | ✓✓✓ | ✗ | ✓✓✓✓ | ✓ |
+| Sin Compromiso | ✗ | ✗ | ✗ | ✗ | ✓✓✓✓ | ✓✓✓✓ |
+| Venta/Intercambio | ✓ | ✗ | ✗ | ✗ | N/A | N/A |
 
 ---
 
-## Cost Optimization Case Studies
+## Casos de Estudio de Optimización de Costes
 
-### Case Study 1: E-Commerce Platform
+### Caso de Estudio 1: Plataforma de Comercio Electrónico
 
-**Company Profile**:
-- Mid-size e-commerce company
-- 500,000 monthly active users
-- Peak traffic during holidays (3x normal load)
-- Global customer base
+**Perfil de la Empresa**:
+- Empresa de comercio electrónico de tamaño medio
+- 500,000 usuarios activos mensuales
+- Tráfico pico durante las vacaciones (3 veces la carga normal)
+- Base de clientes global
 
-**Initial Architecture (Baseline Costs)**:
+**Arquitectura Inicial (Costes Base)**:
 ```
-Monthly Cost Breakdown:
+Desglose de coste mensual:
 - EC2 (20 x m5.2xlarge On-Demand 24/7): $5,529.60
 - RDS Multi-AZ (db.r5.xlarge): $608.00
 - ElastiCache Redis (cache.m5.large): $182.00
-- S3 (5 TB standard storage): $115.00
-- CloudFront (10 TB transfer): $850.00
+- S3 (5 TB de almacenamiento Standard): $115.00
+- CloudFront (10 TB de transferencia): $850.00
 - Application Load Balancers (2): $62.86
 - NAT Gateways (2): $88.20
-- CloudWatch, VPC, misc: $150.00
+- CloudWatch, VPC, varios: $150.00
 
-Total Monthly Cost: $7,585.66
-Annual Cost: $91,027.92
+Coste mensual total: $7,585.66
+Coste anual: $91,027.92
 ```
 
-**Problems Identified**:
-1. Running maximum capacity 24/7, even during low-traffic periods
-2. No use of Reserved Instances or Savings Plans
-3. All storage in S3 Standard, including old product images
-4. High CloudFront costs due to large media files
-5. Underutilized ElastiCache (60% idle time)
-6. Both NAT Gateways in same AZ (no benefit)
+**Problemas Identificados**:
+1. Funcionamiento a máxima capacidad las 24/7, incluso durante los periodos de bajo tráfico
+2. Ningún uso de **Reserved Instances** o **Savings Plans**
+3. Todo el almacenamiento en **S3 Standard**, incluyendo imágenes de productos antiguas
+4. Altos costes de **CloudFront** debido a archivos multimedia grandes
+5. **ElastiCache** infrautilizado (60% de tiempo de inactividad)
+6. Ambos **NAT Gateways** en la misma **AZ** (sin beneficio)
 
-**Optimization Strategy**:
+**Estrategia de Optimización**:
 
-**Phase 1: Right-Sizing and Auto-Scaling (Month 1)**
+**Fase 1: Ajuste de Tamaño (Right-Sizing) y Auto-Escalado (Mes 1)**
 ```
-Actions:
-1. Implement Auto Scaling:
-   - Minimum: 6 instances (baseline load)
-   - Maximum: 24 instances (peak load)
-   - Average: 10 instances (50% of previous)
+Acciones:
+1. Implementar Auto Scaling:
+   - Mínimo: 6 instancias (carga base)
+   - Máximo: 24 instancias (carga pico)
+   - Promedio: 10 instancias (50% de lo anterior)
 
-2. Right-size EC2 instances:
-   - Analysis showed CPU at 20-30% utilization
-   - Changed from m5.2xlarge to m5.xlarge
-   - 50% cost reduction per instance
+2. Ajustar el tamaño de las instancias EC2:
+   - El análisis mostró que la CPU estaba al 20-30% de utilización
+   - Se cambió de m5.2xlarge a m5.xlarge
+   - Reducción del 50% del coste por instancia
 
-3. Optimize ElastiCache:
-   - Downsize from cache.m5.large to cache.m5.medium
-   - Sufficient for actual cache hit rate
+3. Optimizar ElastiCache:
+   - Reducción de tamaño de cache.m5.large a cache.m5.medium
+   - Suficiente para la tasa real de acierto de caché
 
-Results:
-- EC2: 10 x m5.xlarge avg = $2,189.00 (60% savings)
-- ElastiCache: cache.m5.medium = $91.00 (50% savings)
-- Monthly cost: $5,196.06
-- Monthly savings: $2,389.60 (31% reduction)
-```
-
-**Phase 2: Reserved Capacity (Month 2)**
-```
-Actions:
-1. Purchase 1-year Compute Savings Plan:
-   - Cover baseline 6 instances
-   - Commitment: $300/month ($3,600/year)
-   - Effective discount: 42%
-
-2. Purchase 1-year RDS RI (Partial Upfront):
-   - Upfront: $2,020
-   - Monthly: $128.00
-   - Annual: $3,556 vs $7,296 On-Demand (51% savings)
-
-Results:
-- Compute: $300 (Savings Plan) + $973 (remaining On-Demand)
-- RDS: $128 (monthly portion)
-- Total compute+database: $1,401/month
-- Additional savings: $1,418/month over Phase 1
+Resultados:
+- EC2: 10 x m5.xlarge promedio = $2,189.00 (60% de ahorro)
+- ElastiCache: cache.m5.medium = $91.00 (50% de ahorro)
+- Coste mensual: $5,196.06
+- Ahorro mensual: $2,389.60 (reducción del 31%)
 ```
 
-**Phase 3: Storage Optimization (Month 3)**
+**Fase 2: Capacidad Reservada (Mes 2)**
 ```
-Actions:
-1. Implement S3 Lifecycle Policies:
-   - Day 0-30: S3 Standard (active products)
-   - Day 31-90: S3 Standard-IA (slower-moving products)
-   - Day 91+: S3 Glacier (archived products)
+Acciones:
+1. Comprar Compute Savings Plan de 1 año:
+   - Cubrir la base de 6 instancias
+   - Compromiso: $300/mes ($3,600/año)
+   - Descuento efectivo: 42%
 
-2. Enable S3 Intelligent-Tiering for uncertain access patterns
+2. Comprar RDS RI de 1 año (Partial Upfront):
+   - Pago inicial: $2,020
+   - Pago mensual: $128.00
+   - Anual: $3,556 frente a $7,296 On-Demand (51% de ahorro)
 
-3. Compress images before S3 upload (reduce size by 40%)
+Resultados:
+- Cómputo: $300 (Savings Plan) + $973 (On-Demand restante)
+- RDS: $128 (parte mensual)
+- Total cómputo + base de datos: $1,401/mes
+- Ahorro adicional: $1,418/mes sobre la Fase 1
+```
 
-Results:
-- S3 storage (3 TB after compression + optimization):
+**Fase 3: Optimización del Almacenamiento (Mes 3)**
+```
+Acciones:
+1. Implementar Políticas de Ciclo de Vida de S3:
+   - Día 0-30: S3 Standard (productos activos)
+   - Día 31-90: S3 Standard-IA (productos con movimiento lento)
+   - Día 91+: S3 Glacier (productos archivados)
+
+2. Habilitar S3 Intelligent-Tiering para patrones de acceso inciertos
+
+3. Comprimir imágenes antes de cargarlas en S3 (reducir el tamaño en un 40%)
+
+Resultados:
+- Almacenamiento S3 (3 TB después de la compresión + optimización):
   - 1 TB Standard: $23
   - 1 TB Standard-IA: $12.50
   - 1 TB Glacier: $3.60
-  - Total: $39.10 (66% savings from $115)
+  - Total: $39.10 (66% de ahorro desde $115)
 
-- CloudFront benefits:
-  - Smaller files = less transfer: 6 TB vs 10 TB
-  - Cost: $510 vs $850 (40% savings)
+- Beneficios de CloudFront:
+  - Archivos más pequeños = menos transferencia: 6 TB frente a 10 TB
+  - Coste: $510 frente a $850 (40% de ahorro)
 ```
 
-**Phase 4: Network Optimization (Month 4)**
+**Fase 4: Optimización de Red (Mes 4)**
 ```
-Actions:
-1. Replace one NAT Gateway with VPC Endpoints:
-   - S3 VPC Endpoint: Free
-   - DynamoDB VPC Endpoint: Free
-   - Eliminate NAT Gateway data processing charges
+Acciones:
+1. Reemplazar un NAT Gateway por VPC Endpoints:
+   - S3 VPC Endpoint: Gratis
+   - DynamoDB VPC Endpoint: Gratis
+   - Eliminar los cargos de procesamiento de datos de NAT Gateway
 
-2. Implement CloudFront caching optimizations:
-   - Increase cache TTL for static content
-   - Enable compression
-   - Achieve 85% cache hit rate
+2. Implementar optimizaciones de almacenamiento en caché de CloudFront:
+   - Aumentar el TTL de caché para contenido estático
+   - Habilitar la compresión
+   - Alcanzar una tasa de acierto de caché del 85%
 
-3. Consolidate NAT Gateway to one per region:
-   - Use for non-VPC endpoint services only
+3. Consolidar NAT Gateway a uno por región:
+   - Usar solo para servicios fuera de los VPC endpoints
 
-Results:
-- NAT Gateway: $44.10 (50% savings)
-- Data transfer savings: ~$50/month
-```
-
-**Phase 5: Spot Instances for Background Jobs (Month 4)**
-```
-Actions:
-1. Migrate batch processing jobs to Spot:
-   - Image processing
-   - Search index updates
-   - Analytics jobs
-   - Use Spot Fleet with diverse instance types
-
-2. Implement automated checkpointing:
-   - Jobs can resume if interrupted
-
-Results:
-- Background compute: 4 instances worth of compute
-- On-Demand cost: $437.92
-- Spot cost: $65.00 (85% savings)
+Resultados:
+- NAT Gateway: $44.10 (50% de ahorro)
+- Ahorro en transferencia de datos: ~$50/mes
 ```
 
-**Final Optimized Architecture Costs**:
+**Fase 5: Spot Instances para trabajos en segundo plano (Mes 4)**
 ```
-Monthly Cost Breakdown:
+Acciones:
+1. Migrar trabajos de procesamiento por lotes a Spot:
+   - Procesamiento de imágenes
+   - Actualizaciones del índice de búsqueda
+   - Trabajos de análisis
+   - Usar Spot Fleet con diversos tipos de instancias
+
+2. Implementar puntos de control automatizados:
+   - Los trabajos pueden reanudarse si se interrumpen
+
+Resultados:
+- Cómputo en segundo plano: 4 instancias equivalentes de cómputo
+- Coste On-Demand: $437.92
+- Coste Spot: $65.00 (85% de ahorro)
+```
+
+**Costes Finales de la Arquitectura Optimizada**:
+```
+Desglose de coste mensual:
 - EC2 (Savings Plan + On-Demand + Auto-Scaling): $1,273.00
-- Spot instances (background jobs): $65.00
+- Spot instances (trabajos en segundo plano): $65.00
 - RDS (Reserved Instance): $128.00
-- ElastiCache (right-sized): $91.00
-- S3 (optimized with lifecycle): $39.10
-- CloudFront (optimized caching): $510.00
+- ElastiCache (ajustado de tamaño): $91.00
+- S3 (optimizado con ciclo de vida): $39.10
+- CloudFront (caché optimizada): $510.00
 - Application Load Balancers: $62.86
-- NAT Gateway (1 only): $44.10
+- NAT Gateway (solo 1): $44.10
 - VPC Endpoints: $0.00
-- CloudWatch, misc: $150.00
+- CloudWatch, varios: $150.00
 
-Total Monthly Cost: $2,363.06
-Annual Cost: $28,356.72
-Plus one-time: $2,020 (RDS RI upfront)
+Coste mensual total: $2,363.06
+Coste anual: $28,356.72
+Más pago inicial único: $2,020 (pago inicial de RDS RI)
 ```
 
-**Results Summary**:
+**Resumen de Resultados**:
 
-| Metric | Before | After | Improvement |
+| Métrica | Antes | Después | Mejora |
 |--------|--------|-------|-------------|
-| Monthly Cost | $7,585.66 | $2,363.06 | 69% reduction |
-| Annual Cost | $91,027.92 | $28,356.72 | $62,671.20 savings |
-| Performance | Baseline | Same or better | No degradation |
-| Scalability | Fixed | Auto-scaling | Better peak handling |
+| Coste Mensual | $7,585.66 | $2,363.06 | Reducción del 69% |
+| Coste Anual | $91,027.92 | $28,356.72 | Ahorro de $62,671.20 |
+| Rendimiento | Base | Igual o mejor | Sin degradación |
+| Escalabilidad | Fija | Auto-scaling | Mejor manejo de picos |
 
-**Timeline and Investment**:
-- Implementation time: 4 months
-- Upfront investment: $2,020 (RDS RI)
-- Labor cost: ~40 hours of engineering time
-- ROI period: Less than 1 month
-- Annual savings: $62,671.20
+**Cronograma e Inversión**:
+- Tiempo de implementación: 4 meses
+- Inversión inicial: $2,020 (RDS RI)
+- Coste de mano de obra: ~40 horas de tiempo de ingeniería
+- Periodo de ROI: Menos de 1 mes
+- Ahorro anual: $62,671.20
 
-**Key Learnings**:
-1. Right-sizing before purchasing RIs/SPs (saves 30-40% first)
-2. Auto-scaling eliminates waste during low-traffic periods
-3. Storage lifecycle policies are "set and forget" savings
-4. VPC Endpoints eliminate unnecessary NAT Gateway costs
-5. Spot Instances perfect for fault-tolerant background work
+**Aprendizajes Clave**:
+1. Ajustar el tamaño antes de comprar RIs/SPs (ahorra un 30-40% primero)
+2. El auto-escalado elimina el desperdicio durante los periodos de bajo tráfico
+3. Las políticas de ciclo de vida de almacenamiento son ahorros del tipo "configurar y olvidar"
+4. Los **VPC Endpoints** eliminan costes innecesarios de **NAT Gateway**
+5. Las **Spot Instances** son perfectas para trabajos en segundo plano tolerantes a fallos
 
 ---
 
-### Case Study 2: Data Analytics Workload
+### Caso de Estudio 2: Carga de Trabajo de Análisis de Datos
 
-**Company Profile**:
-- Healthcare analytics company
-- Process 100 TB of medical data monthly
-- Run complex ETL pipelines and ML models
-- Compliance requirements (HIPAA)
+**Perfil de la Empresa**:
+- Empresa de análisis de datos de salud
+- Procesan 100 TB de datos médicos mensualmente
+- Ejecutan canalizaciones ETL complejas y modelos de ML
+- Requisitos de cumplimiento (**HIPAA**)
 
-**Initial Architecture (Baseline Costs)**:
+**Arquitectura Inicial (Costes Base)**:
 ```
-Monthly Cost Breakdown:
+Desglose de coste mensual:
 - EMR Cluster (10 x r5.4xlarge, 24/7): $6,307.20
-- S3 (100 TB Standard storage): $2,300.00
-- S3 requests (billions): $180.00
-- Redshift (dc2.8xlarge, 5 nodes): $12,000.00
-- Data transfer (cross-region replication): $1,200.00
-- Glue ETL jobs: $850.00
-- Athena queries: $450.00
+- S3 (100 TB de almacenamiento Standard): $2,300.00
+- Solicitudes S3 (miles de millones): $180.00
+- Redshift (dc2.8xlarge, 5 nodos): $12,000.00
+- Transferencia de datos (replicación entre regiones): $1,200.00
+- Trabajos de Glue ETL: $850.00
+- Consultas de Athena: $450.00
 - QuickSight Enterprise: $250.00
 
-Total Monthly Cost: $23,537.20
-Annual Cost: $282,446.40
+Coste mensual total: $23,537.20
+Coste anual: $282,446.40
 ```
 
-**Problems Identified**:
-1. EMR cluster running 24/7 despite intermittent job schedule (8 hours/day actual use)
-2. All data in S3 Standard, including old datasets accessed rarely
-3. Redshift cluster over-provisioned (40% average utilization)
-4. Cross-region replication for all data (most doesn't need it)
-5. No use of Spot Instances for EMR task nodes
-6. Expensive Glue jobs could be optimized
+**Problemas Identificados**:
+1. El cluster **EMR** funcionando 24/7 a pesar de un horario de trabajo intermitente (8 horas/día de uso real)
+2. Todo los datos en **S3 Standard**, incluyendo conjuntos de datos antiguos accedidos rara vez
+3. Cluster de **Redshift** sobre-provisionado (40% de utilización promedio)
+4. Replicación entre regiones para todos los datos (la mayoría no lo necesita)
+5. Ningún uso de **Spot Instances** para los nodos de tareas de **EMR**
+6. Los trabajos costosos de **Glue** podrían optimizarse
 
-**Optimization Strategy**:
+**Estrategia de Optimización**:
 
-**Phase 1: EMR Optimization (Month 1)**
+**Fase 1: Optimización de EMR (Mes 1)**
 ```
-Actions:
-1. Convert EMR to on-demand cluster (run only when needed):
-   - Run 8 hours/day, 22 days/month = 176 hours
-   - Instead of 730 hours (24/7)
+Acciones:
+1. Convertir EMR en un cluster bajo demanda (ejecutar solo cuando sea necesario):
+   - Ejecutar 8 horas/día, 22 días/mes = 176 horas
+   - En lugar de 730 horas (24/7)
 
-2. Use Spot Instances for task nodes:
-   - Core nodes (3): On-Demand r5.2xlarge for reliability
-   - Task nodes (10): Spot instances (r5.2xlarge, r5a.2xlarge, r4.2xlarge)
+2. Usar Spot Instances para los nodos de tareas:
+   - Nodos core (3): On-Demand r5.2xlarge para fiabilidad
+   - Nodos de tareas (10): Spot instances (r5.2xlarge, r5a.2xlarge, r4.2xlarge)
 
-3. Right-size to r5.2xlarge (from r5.4xlarge):
-   - Analysis showed excess capacity
+3. Ajustar el tamaño a r5.2xlarge (desde r5.4xlarge):
+   - El análisis mostró exceso de capacidad
 
-Results:
-Core nodes: 3 × r5.2xlarge × $0.504/hr × 176 hrs = $266.11
-Task nodes (Spot): 10 × ~$0.15/hr × 176 hrs = $264.00
-Total EMR: $530.11/month (vs $6,307.20 = 92% savings)
-```
-
-**Phase 2: S3 Storage Optimization (Month 1-2)**
-```
-Actions:
-1. Analyze data access patterns:
-   - Hot data (last 30 days): 5 TB - Keep in Standard
-   - Warm data (31-90 days): 15 TB - Move to Standard-IA
-   - Cold data (91-365 days): 30 TB - Move to Glacier Flexible
-   - Archive (365+ days): 50 TB - Move to Glacier Deep Archive
-
-2. Implement Intelligent-Tiering for uncertain patterns:
-   - Applied to 10 TB of varying access data
-
-3. Enable S3 request optimization:
-   - Batch operations where possible
-   - Use S3 Select to reduce data transfer
-
-Results:
-- Hot (5 TB Standard): $115.00
-- Warm (15 TB Standard-IA): $187.50
-- Cold (30 TB Glacier Flexible): $108.00
-- Archive (50 TB Deep Archive): $50.00
-- Intelligent-Tiering (10 TB avg): $104.00
-- Total storage: $564.50 (vs $2,300 = 75% savings)
-- Request costs: $90.00 (vs $180 = 50% savings through batching)
+Resultados:
+Nodos core: 3 × r5.2xlarge × $0.504/hr × 176 hrs = $266.11
+Nodos de tareas (Spot): 10 × ~$0.15/hr × 176 hrs = $264.00
+Total EMR: $530.11/mes (frente a $6,307.20 = 92% de ahorro)
 ```
 
-**Phase 3: Redshift Optimization (Month 2)**
+**Fase 2: Optimización del Almacenamiento S3 (Mes 1-2)**
 ```
-Actions:
-1. Implement Redshift pause/resume:
-   - Pause during non-business hours (16 hours/day)
-   - Active: 8 hours/day × 22 days = 176 hours vs 730 hours
-   - Savings: 76% reduction in runtime
+Acciones:
+1. Analizar los patrones de acceso a los datos:
+   - Datos calientes (últimos 30 días): 5 TB - Mantener en Standard
+   - Datos templados (31-90 días): 15 TB - Mover a Standard-IA
+   - Datos fríos (91-365 días): 30 TB - Mover a Glacier Flexible
+   - Archivo (365+ días): 50 TB - Mover a Glacier Deep Archive
 
-2. Right-size cluster:
-   - Migrate to RA3.4xlarge (better price/performance)
-   - Reduce from 5 nodes to 3 nodes
-   - RA3 has managed storage (pay for what you use)
+2. Implementar Intelligent-Tiering para patrones inciertos:
+   - Aplicado a 10 TB de datos de acceso variable
 
-3. Enable Concurrency Scaling:
-   - Handle burst queries without cluster resize
-   - First hour free per day
+3. Habilitar la optimización de solicitudes S3:
+   - Operaciones por lotes cuando sea posible
+   - Usar S3 Select para reducir la transferencia de datos
 
-Results:
-- RA3.4xlarge: $3.26/hour per node
-- 3 nodes × $3.26 × 176 hours = $1,721.28/month
-- Storage (RA3): 50 TB × $0.024/GB = $1,200/month
-- Total: $2,921.28 (vs $12,000 = 76% savings)
-```
-
-**Phase 4: Data Transfer Optimization (Month 3)**
-```
-Actions:
-1. Eliminate unnecessary cross-region replication:
-   - Identify data that must be replicated (compliance): 20 TB
-   - Keep remaining 80 TB single-region
-
-2. Use S3 Batch Replication instead of continuous:
-   - Replicate daily instead of real-time
-   - Sufficient for compliance requirements
-
-3. Compress data before transfer:
-   - Reduce transfer volume by 60%
-
-Results:
-- Cross-region transfer: 20 TB × 40% (compressed) = 8 TB
-- Cost: 8,000 GB × $0.02 = $160/month (vs $1,200 = 87% savings)
+Resultados:
+- Caliente (5 TB Standard): $115.00
+- Templado (15 TB Standard-IA): $187.50
+- Frío (30 TB Glacier Flexible): $108.00
+- Archivo (50 TB Deep Archive): $50.00
+- Intelligent-Tiering (10 TB promedio): $104.00
+- Almacenamiento total: $564.50 (frente a $2,300 = 75% de ahorro)
+- Costes de solicitudes: $90.00 (frente a $180 = 50% de ahorro mediante el procesamiento por lotes)
 ```
 
-**Phase 5: ETL and Query Optimization (Month 3-4)**
+**Fase 3: Optimización de Redshift (Mes 2)**
 ```
-Actions:
-1. Replace some Glue jobs with Lambda:
-   - Simple transformations moved to Lambda
-   - Glue reserved for complex ETL
-   - Lambda cheaper for sporadic, small jobs
+Acciones:
+1. Implementar pausa/reanudación de Redshift:
+   - Pausa durante las horas no laborables (16 horas/día)
+   - Activo: 8 horas/día × 22 días = 176 horas frente a 730 horas
+   - Ahorro: 76% de reducción en el tiempo de ejecución
 
-2. Implement Athena query optimization:
-   - Partition data by date
-   - Use Parquet format instead of CSV (5x compression)
-   - Implement result caching
+2. Ajustar el tamaño del cluster:
+   - Migrar a RA3.4xlarge (mejor relación precio/rendimiento)
+   - Reducir de 5 nodos a 3 nodos
+   - RA3 tiene almacenamiento gestionado (paga por lo que usas)
 
-3. Use Glue Data Catalog partitioning:
-   - Reduce data scanned per query
+3. Habilitar Concurrency Scaling:
+   - Manejar ráfagas de consultas sin cambiar el tamaño del cluster
+   - Primera hora gratis por día
 
-Results:
-- Glue ETL: $320/month (vs $850 = 62% savings)
-- Lambda ETL: $45/month (replaces $530 of Glue work)
-- Athena: $85/month (vs $450 = 81% savings from optimized queries)
-```
-
-**Phase 6: Reserved Capacity (Month 4)**
-```
-Actions:
-1. Purchase 1-year Savings Plan for baseline compute:
-   - Covers Lambda, EMR core nodes
-   - Commitment: $150/month
-   - 30% discount
-
-2. Purchase Redshift RI (1-year, Partial Upfront):
-   - Upfront: $5,600
-   - Reduces hourly rate by 42%
-   - Monthly portion: $700
-
-Results:
-- Compute Savings Plan: $150/month
-- Redshift with RI: $700/month + $5,600 upfront
-- Additional annual savings: ~$15,000
+Resultados:
+- RA3.4xlarge: $3.26/hora por nodo
+- 3 nodos × $3.26 × 176 horas = $1,721.28/mes
+- Almacenamiento (RA3): 50 TB × $0.024/GB = $1,200/mes
+- Total: $2,921.28 (frente a $12,000 = 76% de ahorro)
 ```
 
-**Final Optimized Architecture Costs**:
+**Fase 4: Optimización de la Transferencia de Datos (Mes 3)**
 ```
-Monthly Cost Breakdown:
-- EMR Cluster (on-demand + Spot): $530.11
+Acciones:
+1. Eliminar la replicación entre regiones innecesaria:
+   - Identificar los datos que deben replicarse (cumplimiento): 20 TB
+   - Mantener los 80 TB restantes en una sola región
+
+2. Usar S3 Batch Replication en lugar de replicación continua:
+   - Replicar diariamente en lugar de en tiempo real
+   - Suficiente para los requisitos de cumplimiento
+
+3. Comprimir los datos antes de la transferencia:
+   - Reducir el volumen de transferencia en un 60%
+
+Resultados:
+- Transferencia entre regiones: 20 TB × 40% (comprimido) = 8 TB
+- Coste: 8,000 GB × $0.02 = $160/mes (frente a $1,200 = 87% de ahorro)
+```
+
+**Fase 5: Optimización de ETL y Consultas (Mes 3-4)**
+```
+Acciones:
+1. Reemplazar algunos trabajos de Glue con Lambda:
+   - Transformaciones simples movidas a Lambda
+   - Glue reservado para ETL complejo
+   - Lambda es más barato para trabajos pequeños y esporádicos
+
+2. Implementar la optimización de consultas de Athena:
+   - Particionar los datos por fecha
+   - Usar el formato Parquet en lugar de CSV (compresión de 5 veces)
+   - Implementar el almacenamiento en caché de resultados
+
+3. Usar el particionamiento de Glue Data Catalog:
+   - Reducir los datos escaneados por consulta
+
+Resultados:
+- Glue ETL: $320/mes (frente a $850 = 62% de ahorro)
+- Lambda ETL: $45/mes (reemplaza $530 de trabajo de Glue)
+- Athena: $85/mes (frente a $450 = 81% de ahorro mediante consultas optimizadas)
+```
+
+**Fase 6: Capacidad Reservada (Mes 4)**
+```
+Acciones:
+1. Comprar Savings Plan de 1 año para el cómputo base:
+   - Cubre Lambda, nodos core de EMR
+   - Compromiso: $150/mes
+   - 30% de descuento
+
+2. Comprar Redshift RI (1 año, Partial Upfront):
+   - Pago inicial: $5,600
+   - Reduce la tarifa por hora en un 42%
+   - Parte mensual: $700
+
+Resultados:
+- Compute Savings Plan: $150/mes
+- Redshift con RI: $700/mes + $5,600 de pago inicial
+- Ahorro anual adicional: ~$15,000
+```
+
+**Costes Finales de la Arquitectura Optimizada**:
+```
+Desglose de coste mensual:
+- EMR Cluster (bajo demanda + Spot): $530.11
 - Compute Savings Plan: $150.00
-- S3 storage (optimized lifecycle): $564.50
-- S3 requests (optimized): $90.00
-- Redshift (RA3, paused, RI): $700.00
-- RA3 managed storage: $1,200.00
-- Data transfer (reduced): $160.00
-- Glue ETL (optimized): $320.00
-- Lambda ETL (new): $45.00
-- Athena (optimized queries): $85.00
+- Almacenamiento S3 (ciclo de vida optimizado): $564.50
+- Solicitudes S3 (optimizadas): $90.00
+- Redshift (RA3, pausado, RI): $700.00
+- Almacenamiento gestionado RA3: $1,200.00
+- Transferencia de datos (reducida): $160.00
+- Glue ETL (optimizado): $320.00
+- Lambda ETL (nuevo): $45.00
+- Athena (consultas optimizadas): $85.00
 - QuickSight: $250.00
 
-Total Monthly Cost: $4,094.61
-Annual Cost: $49,135.32
-Plus one-time: $5,600 (Redshift RI upfront)
+Coste mensual total: $4,094.61
+Coste anual: $49,135.32
+Más pago inicial único: $5,600 (pago inicial de Redshift RI)
 ```
 
-**Results Summary**:
+**Resumen de Resultados**:
 
-| Metric | Before | After | Improvement |
+| Métrica | Antes | Después | Mejora |
 |--------|--------|-------|-------------|
-| Monthly Cost | $23,537.20 | $4,094.61 | 83% reduction |
-| Annual Cost | $282,446.40 | $49,135.32 | $233,311.08 savings |
-| EMR Cost | $6,307.20 | $530.11 | 92% reduction |
-| Storage Cost | $2,480.00 | $654.50 | 74% reduction |
-| Redshift Cost | $12,000.00 | $1,900.00 | 84% reduction |
-| Query Performance | Baseline | 40% faster | Improved |
+| Coste Mensual | $23,537.20 | $4,094.61 | Reducción del 83% |
+| Coste Anual | $282,446.40 | $49,135.32 | Ahorro de $233,311.08 |
+| Coste de EMR | $6,307.20 | $530.11 | Reducción del 92% |
+| Coste de Almacenamiento | $2,480.00 | $654.50 | Reducción del 74% |
+| Coste de Redshift | $12,000.00 | $1,900.00 | Reducción del 84% |
+| Rendimiento de Consultas | Base | 40% más rápido | Mejorado |
 
-**Timeline and Investment**:
-- Implementation time: 4 months
-- Upfront investment: $5,600 (Redshift RI)
-- Labor cost: ~80 hours of engineering time
-- ROI period: Less than 2 weeks
-- Annual savings: $233,311.08
+**Cronograma e Inversión**:
+- Tiempo de implementación: 4 meses
+- Inversión inicial: $5,600 (Redshift RI)
+- Coste de mano de obra: ~80 horas de tiempo de ingeniería
+- Periodo de ROI: Menos de 2 semanas
+- Ahorro anual: $233,311.08
 
-**Key Learnings**:
-1. Analytics workloads rarely need 24/7 clusters - schedule them
-2. Spot Instances perfect for EMR task nodes (fault-tolerant by design)
-3. Data lifecycle policies on large datasets yield massive savings
-4. Redshift pause/resume is simple but highly effective
-5. Columnar formats (Parquet) dramatically reduce query costs
-6. RA3 instances offer better TCO for growing data warehouses
+**Aprendizajes Clave**:
+1. Las cargas de trabajo de análisis rara vez necesitan clusters las 24/7; prográmalas
+2. Las **Spot Instances** son perfectas para los nodos de tareas de **EMR** (tolerantes a fallos por diseño)
+3. Las políticas de ciclo de vida de datos en grandes conjuntos de datos generan ahorros masivos
+4. La pausa/reanudación de **Redshift** es simple pero altamente efectiva
+5. Los formatos columnares (**Parquet**) reducen drásticamente los costes de las consultas
+6. Las instancias **RA3** ofrecen un mejor TCO para almacenes de datos en crecimiento
 
 ---
 
-### Case Study 3: Development Environment
+### Caso de Estudio 3: Entorno de Desarrollo
 
-**Company Profile**:
-- Software company with 50 developers
-- Multiple development, staging, and test environments
-- Environments used primarily during business hours
-- Need to maintain multiple long-lived environments
+**Perfil de la Empresa**:
+- Empresa de software con 50 desarrolladores
+- Múltiples entornos de desarrollo, staging y pruebas
+- Los entornos se utilizan principalmente durante el horario laboral
+- Necesidad de mantener múltiples entornos de larga duración
 
-**Initial Architecture (Baseline Costs)**:
+**Arquitectura Inicial (Costes Base)**:
 ```
-Monthly Cost Breakdown (per environment × 5 environments):
+Desglose de coste mensual (por entorno × 5 entornos):
 - EC2 (5 x m5.large, 24/7): $350.40
 - RDS (db.t3.medium, Multi-AZ): $101.96
 - ElastiCache (cache.t3.small): $24.00
@@ -1435,433 +1423,358 @@ Monthly Cost Breakdown (per environment × 5 environments):
 - S3 (500 GB Standard): $11.50
 - NAT Gateway: $44.10
 
-Cost per environment: $563.39/month
-Total (5 environments): $2,816.95/month
-Annual Cost: $33,803.40
+Coste por entorno: $563.39/mes
+Total (5 entornos): $2,816.95/mes
+Coste anual: $33,803.40
 ```
 
-**Problems Identified**:
-1. All environments running 24/7, even though only used business hours
-2. Multi-AZ RDS in dev/test environments (unnecessary high availability)
-3. No instance scheduler for automatic start/stop
-4. No differentiation between environments (all same size)
-5. Unnecessary Application Load Balancers (direct EC2 access sufficient)
-6. All storage in S3 Standard (test data doesn't need instant access)
+**Problemas Identificados**:
+1. Todos los entornos funcionando 24/7, a pesar de que solo se usan en horario laboral
+2. **Multi-AZ RDS** en entornos de desarrollo/pruebas (alta disponibilidad innecesaria)
+3. Ningún uso de un programador de instancias para el inicio/parada automáticos
+4. Sin diferenciación entre entornos (todos del mismo tamaño)
+5. **Application Load Balancers** innecesarios (el acceso directo a **EC2** es suficiente)
+6. Todo el almacenamiento en **S3 Standard** (los datos de prueba no necesitan acceso instantáneo)
 
-**Optimization Strategy**:
+**Estrategia de Optimización**:
 
-**Phase 1: Instance Scheduler Implementation (Week 1)**
+**Fase 1: Implementación del Programador de Instancias (Semana 1)**
 ```
-Actions:
-1. Deploy AWS Instance Scheduler:
-   - Configure business hours schedule:
-     Monday-Friday: 8 AM - 7 PM (11 hours)
-     Weekend: Off
-   - Monthly runtime: 11 hrs × 22 days = 242 hrs vs 730 hrs (67% reduction)
+Acciones:
+1. Desplegar AWS Instance Scheduler:
+   - Configurar el horario laboral:
+     Lunes-Viernes: 8 AM - 7 PM (11 horas)
+     Fin de semana: Apagado
+   - Tiempo de ejecución mensual: 11 hrs × 22 días = 242 hrs frente a 730 hrs (67% de reducción)
 
-2. Tag all development resources with:
+2. Etiquetar todos los recursos de desarrollo con:
    - Schedule: dev-business-hours
    - Environment: dev/test/staging
 
-3. Configure automated start/stop:
-   - EC2 instances start at 7:45 AM (pre-warm)
-   - RDS instances start at 7:45 AM
-   - All stop at 7:15 PM
+3. Configurar el inicio/parada automatizados:
+   - Las instancias EC2 se inician a las 7:45 AM (pre-calentamiento)
+   - Las instancias RDS se inician a las 7:45 AM
+   - Todas se detienen a las 7:15 PM
 
-Results:
-- Compute hours reduced from 730 to 242 (67% savings on runtime)
-- EC2 per environment: $116.32 (vs $350.40)
-- Total EC2: $581.60/month (vs $1,752 = 67% savings)
+Resultados:
+- Las horas de cómputo se redujeron de 730 a 242 (67% de ahorro en el tiempo de ejecución)
+- EC2 por entorno: $116.32 (frente a $350.40)
+- Total EC2: $581.60/mes (frente a $1,752 = 67% de ahorro)
 ```
 
-**Phase 2: Right-Size and Remove Unnecessary Services (Week 2)**
+**Fase 2: Ajuste de Tamaño (Right-Size) y Eliminación de Servicios Innecesarios (Semana 2)**
 ```
-Actions:
-1. Differentiate environment sizes:
-   - Production (separate account): Full size, 24/7
-   - Staging: 70% of prod size, business hours
-   - Dev environments (3): 50% of prod size, business hours
-   - Test: 30% of prod size, on-demand only
+Acciones:
+1. Diferenciar los tamaños de los entornos:
+   - Producción (cuenta separada): Tamaño completo, 24/7
+   - Staging: 70% del tamaño de producción, horario laboral
+   - Entornos de desarrollo (3): 50% del tamaño de producción, horario laboral
+   - Pruebas (Test): 30% del tamaño de producción, solo bajo demanda
 
-2. Replace Multi-AZ RDS with Single-AZ:
-   - Dev environments don't need 99.95% availability
-   - Can restore from snapshot if failure occurs
-   - Immediate 50% cost savings on RDS
+2. Reemplazar Multi-AZ RDS por Single-AZ:
+   - Los entornos de desarrollo no necesitan una disponibilidad del 99.95%
+   - Se puede restaurar desde una instantánea (snapshot) si ocurre un fallo
+   - Ahorro inmediato del 50% en los costes de RDS
 
-3. Remove Application Load Balancers:
-   - Direct EC2 access sufficient for dev environments
-   - Use security groups for access control
-   - ALB only needed in production
+3. Eliminar los Application Load Balancers:
+   - El acceso directo a EC2 es suficiente para los entornos de desarrollo
+   - Usar grupos de seguridad para el control de acceso
+   - ALB solo es necesario en producción
 
-4. Replace NAT Gateway with NAT Instances (or remove):
-   - Use smaller t3.nano NAT instances
-   - Only during business hours
-   - Or use VPC Endpoints where possible
+4. Reemplazar NAT Gateway por instancias NAT (o eliminarlas):
+   - Usar instancias NAT t3.nano más pequeñas
+   - Solo durante el horario laboral
+   - O usar VPC Endpoints donde sea posible
 
-Results:
-Staging environment:
+Resultados:
+Entorno de Staging:
 - EC2: 4 × m5.medium × $0.096 × 242 hrs = $93.00
 - RDS: db.t3.small, Single-AZ × 242 hrs = $12.37
 - ElastiCache: cache.t3.micro = $8.00
-- Total staging: $113.37/month (vs $563.39 = 80% savings)
+- Total staging: $113.37/mes (frente a $563.39 = 80% de ahorro)
 
-Dev environment (×3):
+Entorno de desarrollo (×3):
 - EC2: 3 × t3.medium × $0.0416 × 242 hrs = $30.23
 - RDS: db.t3.micro, Single-AZ × 242 hrs = $4.85
 - ElastiCache: cache.t3.micro = $8.00
-- Total per dev: $43.08/month
-- Total for 3 dev: $129.24/month
+- Total por desarrollo: $43.08/mes
+- Total para los 3 de desarrollo: $129.24/mes
 
-Test environment (on-demand, 50 hrs/month):
+Entorno de pruebas (bajo demanda, 50 hrs/mes):
 - EC2: 2 × t3.small × $0.0208 × 50 hrs = $2.08
 - RDS: db.t3.micro × 50 hrs = $1.00
-- Total test: $3.08/month
+- Total pruebas: $3.08/mes
 ```
 
-**Phase 3: Storage and Data Optimization (Week 3)**
+**Fase 3: Optimización del Almacenamiento y los Datos (Semana 3)**
 ```
-Actions:
-1. Implement S3 Lifecycle for test data:
-   - Day 0-7: S3 Standard (active testing)
-   - Day 8-30: S3 Standard-IA (reference if needed)
-   - Day 31+: Delete or move to Glacier
+Acciones:
+1. Implementar ciclo de vida de S3 para datos de prueba:
+   - Día 0-7: S3 Standard (pruebas activas)
+   - Día 8-30: S3 Standard-IA (referencia si es necesario)
+   - Día 31+: Eliminar o mover a Glacier
 
-2. Use EBS snapshots for environment cloning:
-   - Take snapshot of "golden" dev environment
-   - Clone environments from snapshot instead of running continuously
-   - Delete and recreate as needed
+2. Usar instantáneas de EBS para la clonación de entornos:
+   - Tomar una instantánea del entorno de desarrollo "maestro" (golden)
+   - Clonar entornos desde la instantánea en lugar de ejecutarlos continuamente
+   - Eliminar y recrear según sea necesario
 
-3. Use smaller EBS volumes:
-   - Production: 100 GB per instance
-   - Dev/Test: 30 GB per instance (sufficient for most work)
+3. Usar volúmenes EBS más pequeños:
+   - Producción: 100 GB por instancia
+   - Desarrollo/Pruebas: 30 GB por instancia (suficiente para la mayoría del trabajo)
 
-Results:
-- S3 storage optimized: $4.50/month (vs $11.50 = 61% savings)
-- EBS storage reduced: 30 GB × $0.10 × 15 instances = $45.00
-  (vs 100 GB × 30 instances = $300.00)
-- Snapshot storage: $25.00/month (one-time setup)
-```
-
-**Phase 4: Spot Instances for Test Workloads (Week 4)**
-```
-Actions:
-1. Use Spot Instances for:
-   - Automated test runners
-   - CI/CD pipeline agents
-   - Performance testing
-   - Load testing
-
-2. Configure Spot Fleet with diverse instance types:
-   - Request mix of t3, t3a, m5, m5a instance types
-   - Reduce interruption risk
-
-3. Implement automated restart on interruption:
-   - Tests can automatically resume
-   - Save ~70% on test compute costs
-
-Results:
-- Test compute shifted to Spot: $15.00/month
-- CI/CD runners on Spot: $25.00/month
-- Total Spot usage: $40.00/month (vs $150 On-Demand = 73% savings)
+Resultados:
+- Almacenamiento S3 optimizado: $4.50/mes (frente a $11.50 = 61% de ahorro)
+- Almacenamiento EBS reducido: 30 GB × $0.10 × 15 instancias = $45.00
+  (frente a 100 GB × 30 instancias = $300.00)
+- Almacenamiento de instantáneas: $25.00/mes (configuración única)
 ```
 
-**Phase 5: Shared Services Consolidation (Month 2)**
+**Fase 4: Spot Instances para Cargas de Trabajo de Prueba (Semana 4)**
 ```
-Actions:
-1. Consolidate shared services across environments:
-   - Single ElastiCache shared by all dev environments
-   - Single RDS instance with multiple databases
-   - Reduces infrastructure overhead
+Acciones:
+1. Usar Spot Instances para:
+   - Ejecutores de pruebas automatizados
+   - Agentes de canalización CI/CD
+   - Pruebas de rendimiento
+   - Pruebas de carga
 
-2. Use AWS Systems Manager Session Manager:
-   - Eliminate bastion hosts
-   - Free service for secure access
-   - No need for additional EC2 instances
+2. Configurar Spot Fleet con diversos tipos de instancias:
+   - Solicitar una mezcla de tipos de instancias t3, t3a, m5, m5a
+   - Reducir el riesgo de interrupción
 
-3. Use AWS CodeArtifact for package caching:
-   - Reduce egress costs for packages
-   - Faster builds with local caching
+3. Implementar reinicio automático tras interrupción:
+   - Las pruebas pueden reanudarse automáticamente
+   - Ahorro de ~70% en los costes de cómputo de pruebas
 
-Results:
-- ElastiCache: 1 cache.t3.small = $24.00 (vs 5 × $24 = $120)
-- Bastion hosts eliminated: $0 (vs $50/month)
-- CodeArtifact: $10/month (saves $30 in egress)
+Resultados:
+- Cómputo de pruebas movido a Spot: $15.00/mes
+- Ejecutores CI/CD en Spot: $25.00/mes
+- Uso total de Spot: $40.00/mes (frente a $150 On-Demand = 73% de ahorro)
 ```
 
-**Final Optimized Architecture Costs**:
+**Fase 5: Consolidación de Servicios Compartidos (Mes 2)**
 ```
-Monthly Cost Breakdown:
-Staging environment (1):
-- EC2 (business hours, right-sized): $93.00
-- RDS (Single-AZ, business hours): $12.37
-- S3 storage: $4.50
+Acciones:
+1. Consolidar servicios compartidos en todos los entornos:
+   - Un único ElastiCache compartido por todos los entornos de desarrollo
+   - Una única instancia de RDS con múltiples bases de datos
+   - Reduce la sobrecarga de infraestructura
+
+2. Usar **AWS Systems Manager Session Manager**:
+   - Eliminar los hosts bastión (**bastion hosts**)
+   - Servicio gratuito para un acceso seguro
+   - Sin necesidad de instancias **EC2** adicionales
+
+3. Usar **AWS CodeArtifact** para el almacenamiento en caché de paquetes:
+   - Reducir los costes de salida (**egress**) de los paquetes
+   - Compilaciones más rápidas con almacenamiento en caché local
+
+Resultados:
+- **ElastiCache**: 1 cache.t3.small = $24.00 (frente a 5 × $24 = $120)
+- Hosts bastión eliminados: $0 (frente a $50/mes)
+- **CodeArtifact**: $10/mes (ahorra $30 en salida)
+```
+
+**Costes Finales de la Arquitectura Optimizada**:
+```
+Desglose de coste mensual:
+Entorno de Staging (1):
+- EC2 (horario laboral, tamaño ajustado): $93.00
+- RDS (Single-AZ, horario laboral): $12.37
+- Almacenamiento S3: $4.50
 - Subtotal: $109.87
 
-Development environments (3):
-- EC2 (business hours, small): $90.69
-- S3 storage: $13.50
+Entornos de desarrollo (3):
+- EC2 (horario laboral, pequeño): $90.69
+- Almacenamiento S3: $13.50
 - Subtotal: $104.19
 
-Test environment (on-demand):
+Entorno de pruebas (bajo demanda):
 - Spot instances: $40.00
 - Subtotal: $40.00
 
-Shared services:
-- ElastiCache (1 shared): $24.00
-- RDS (1 shared for all dev): $14.85
-- EBS volumes (all environments): $45.00
+Servicios compartidos:
+- ElastiCache (1 compartido): $24.00
+- RDS (1 compartido para todo desarrollo): $14.85
+- Volúmenes EBS (todos los entornos): $45.00
 - CodeArtifact: $10.00
 - Snapshots: $25.00
 - Subtotal: $118.85
 
-Total Monthly Cost: $372.91
-Annual Cost: $4,474.92
+Total Mensual: $372.91
+Coste Anual: $4,474.92
 ```
 
-**Results Summary**:
 
-| Metric | Before | After | Improvement |
+**Resumen de Resultados**:
+
+| Métrica | Antes | Después | Mejora |
 |--------|--------|-------|-------------|
-| Monthly Cost | $2,816.95 | $372.91 | 87% reduction |
-| Annual Cost | $33,803.40 | $4,474.92 | $29,328.48 savings |
-| Per environment | $563.39 | $74.58 avg | 87% reduction |
-| Runtime hours | 24/7 (730 hrs) | Business hrs (242 hrs) | 67% reduction |
-| Uptime required | Always on | Scheduled | Flexible |
+| Coste Mensual | $2,816.95 | $372.91 | Reducción del 87% |
+| Coste Anual | $33,803.40 | $4,474.92 | Ahorro de $29,328.48 |
+| Por entorno | $563.39 | $74.58 promedio | Reducción del 87% |
+| Horas de ejecución | 24/7 (730 hrs) | Horario laboral (242 hrs) | Reducción del 67% |
+| Tiempo de actividad requerido | Siempre encendido | Programado | Flexible |
 
-**Timeline and Investment**:
-- Implementation time: 1 month
-- Upfront investment: $0 (no Reserved Instances needed)
-- Labor cost: ~20 hours of engineering time
-- ROI period: Immediate
-- Annual savings: $29,328.48
+**Cronograma e Inversión**:
+- Tiempo de implementación: 1 mes
+- Inversión inicial: $0 (no se necesitan **Reserved Instances**)
+- Coste de mano de obra: ~20 horas de tiempo de ingeniería
+- Periodo de **ROI**: Inmediato
+- Ahorro anual: $29,328.48
 
-**Additional Benefits**:
-1. Faster environment provisioning from snapshots (15 min vs 2 hours)
-2. Consistent "golden image" reduces configuration drift
-3. Developers more conscious of resource usage
-4. Ability to spin up temporary test environments as needed
-5. Reduced management overhead with shared services
+**Beneficios Adicionales**:
+1. Aprovisionamiento de entornos más rápido desde instantáneas (15 min frente a 2 horas)
+2. La "imagen maestra" (golden image) consistente reduce la desviación de la configuración
+3. Los desarrolladores son más conscientes del uso de recursos
+4. Capacidad de lanzar entornos de prueba temporales según sea necesario
+5. Reducción de la sobrecarga de gestión con servicios compartidos
 
-**Key Learnings**:
-1. Instance Scheduler is simple but incredibly effective for non-production environments
-2. Dev/test environments don't need production-grade availability
-3. Spot Instances perfect for automated testing and CI/CD
-4. Differentiate environment sizes based on actual needs
-5. Shared services model works well for development teams
-6. Regular cleanup of unused resources (forgotten test instances, old snapshots)
+**Aprendizajes Clave**:
+1. **Instance Scheduler** es simple pero increíblemente efectivo para entornos que no son de producción
+2. Los entornos de desarrollo/pruebas no necesitan una disponibilidad de grado de producción
+3. Las **Spot Instances** son perfectas para pruebas automatizadas y **CI/CD**
+4. Diferenciar los tamaños de los entornos basándose en las necesidades reales
+5. El modelo de servicios compartidos funciona bien para los equipos de desarrollo
+6. Limpieza regular de recursos no utilizados (instancias de prueba olvidadas, instantáneas antiguas)
 
-**Best Practices for Development Environments**:
+**Mejores Prácticas para Entornos de Desarrollo**:
 ```
-1. Implement automated start/stop for all non-production resources
-2. Use tags to identify and track environment resources
-3. Implement auto-deletion for temporary test environments
-4. Use Spot Instances for CI/CD and automated testing
-5. Share services across environments where appropriate
-6. Right-size based on actual usage, not perceived needs
-7. Use Single-AZ for databases in non-production
-8. Implement regular cleanup automation (unused EBS, old snapshots)
-9. Use Infrastructure as Code to recreate environments on-demand
-10. Monitor and alert on unused resources (0% CPU for 7+ days = candidate for deletion)
+1. Implementar el inicio/parada automatizados para todos los recursos que no sean de producción
+2. Usar etiquetas (tags) para identificar y rastrear los recursos del entorno
+3. Implementar la eliminación automática para entornos de prueba temporales
+4. Usar **Spot Instances** para **CI/CD** y pruebas automatizadas
+5. Compartir servicios entre entornos cuando sea apropiado
+6. Ajustar el tamaño basándose en el uso real, no en las necesidades percibidas
+7. Usar **Single-AZ** para bases de datos fuera de producción
+8. Implementar la automatización de la limpieza regular (**EBS** no utilizados, instantáneas antiguas)
+9. Usar infraestructura como código (**IaC**) para recrear entornos bajo demanda
+10. Monitorizar y alertar sobre recursos no utilizados (0% de CPU durante 7+ días = candidato para eliminación)
 ```
 
 ---
 
-### AWS Pricing Calculator
+### **AWS Pricing Calculator**
 
-**Purpose**: Estimate monthly AWS costs before deploying infrastructure
+**Propósito**: Estimar los costes mensuales de **AWS** antes de desplegar la infraestructura.
 
-**Features**:
-- Configure service specifications and get price estimates
-- Create cost estimates for complete solutions
-- Share estimates with stakeholders via URL
-- Compare different configurations and pricing models
-- Export estimates to CSV or PDF
-- **Free to use** - no AWS account required
+**Características**:
+- Configurar las especificaciones del servicio y obtener estimaciones de precios
+- Crear estimaciones de costes para soluciones completas
+- Compartir estimaciones con las partes interesadas mediante una **URL**
+- Comparar diferentes configuraciones y modelos de precios
+- Exportar estimaciones a **CSV** o **PDF**
+- **Uso gratuito**: no se requiere una cuenta de **AWS**
 
-**Use Cases**:
-- Planning new workload deployments
-- Comparing Reserved Instance vs. On-Demand pricing
-- Estimating migration costs
-- Budget planning and forecasting
+**Casos de Uso**:
+- Planificación de nuevos despliegues de carga de trabajo
+- Comparación de precios de **Reserved Instance** frente a **On-Demand**
+- Estimación de los costes de migración
+- Planificación y previsión de presupuestos
 
-**Access**: https://calculator.aws
+**Acceso**: https://calculator.aws
 
 ---
 
-### TCO Calculator Walkthrough
+### Recorrido por el **TCO Calculator**
 
-**What is TCO (Total Cost of Ownership)**:
-- Complete cost of owning and operating technology infrastructure
-- Includes visible and hidden costs
-- Compares on-premises vs AWS cloud costs
-- Helps justify cloud migration business case
+**¿Qué es el **TCO** (Total Cost of Ownership)?**:
+- Coste total de poseer y operar la infraestructura tecnológica
+- Incluye costes visibles y ocultos
+- Compara los costes de la infraestructura local (on-premises) frente a la nube de **AWS**
+- Ayuda a justificar el caso de negocio para la migración a la nube
 
-**AWS TCO Calculator**: https://awstcocalculator.com (redirects to Migration Evaluator)
+**AWS TCO Calculator**: https://awstcocalculator.com (redirige a **Migration Evaluator**)
 
-#### Sample TCO Calculation
+#### Ejemplo de Cálculo de **TCO**
 
-**On-Premises Infrastructure (3-Year TCO)**:
+**Infraestructura Local (**TCO** de 3 años)**:
 
 ```
-Hardware Costs:
-- Servers (20 physical servers): $120,000
-- Storage (100 TB): $80,000
-- Network equipment: $30,000
+Costes de Hardware:
+- Servidores (20 servidores físicos): $120,000
+- Almacenamiento (100 TB): $80,000
+- Equipamiento de red: $30,000
 - Total hardware: $230,000
 
-Software Costs:
-- Operating system licenses: $40,000
-- Virtualization licenses: $25,000
-- Database licenses: $60,000
-- Monitoring/management tools: $15,000
+Costes de Software:
+- Licencias de sistema operativo: $40,000
+- Licencias de virtualización: $25,000
+- Licencias de base de datos: $60,000
+- Herramientas de monitorización/gestión: $15,000
 - Total software: $140,000
 
-Facilities Costs:
-- Data center space: $45,000 (3 years)
-- Power and cooling: $75,000 (3 years)
-- Physical security: $20,000 (3 years)
-- Total facilities: $140,000
+Costes de Instalaciones:
+- Espacio en el centro de datos: $45,000 (3 años)
+- Energía y refrigeración: $75,000 (3 años)
+- Seguridad física: $20,000 (3 años)
+- Total instalaciones: $140,000
 
-Personnel Costs:
-- System administrators (2 FTE × 3 years × $80k): $480,000
-- Storage administrators (1 FTE × 3 years × $75k): $225,000
-- Network administrators (1 FTE × 3 years × $80k): $240,000
-- Total personnel: $945,000
+Costes de Personal:
+- Administradores de sistemas (2 FTE × 3 años × $80k): $480,000
+- Administradores de almacenamiento (1 FTE × 3 años × $75k): $225,000
+- Administradores de red (1 FTE × 3 años × $80k): $240,000
+- Total personal: $945,000
 
-Other Costs:
-- Hardware maintenance and support: $90,000
-- Disaster recovery site: $120,000
-- Insurance: $15,000
-- Total other: $225,000
+Otros Costes:
+- Mantenimiento y soporte de hardware: $90,000
+- Sitio de recuperación de desastres (**DR**): $120,000
+- Seguros: $15,000
+- Total otros: $225,000
 
-3-Year On-Premises TCO: $1,680,000
-Average annual cost: $560,000/year
+**TCO** local de 3 años: $1,680,000
+Coste anual promedio: $560,000/año
 ```
 
-**AWS Cloud Equivalent (3-Year TCO)**:
+**Equivalente en la Nube de **AWS** (**TCO** de 3 años)**:
 
 ```
-Compute (EC2 with Savings Plans):
-- 40 virtual instances (equivalent workload)
-- Average cost with Savings Plans: $8,000/month
-- 3-year cost: $288,000
+Cómputo (**EC2** con **Savings Plans**):
+- 40 instancias virtuales (carga de trabajo equivalente)
+- Coste promedio con **Savings Plans**: $8,000/mes
+- Coste de 3 años: $288,000
 
-Storage (S3, EBS, Glacier):
-- S3: 80 TB with lifecycle policies: $1,200/month
-- EBS: 20 TB: $2,000/month
-- Total storage: $3,200/month
-- 3-year cost: $115,200
+Almacenamiento (**S3**, **EBS**, **Glacier**):
+- **S3**: 80 TB con políticas de ciclo de vida: $1,200/mes
+- **EBS**: 20 TB: $2,000/mes
+- Almacenamiento total: $3,200/mes
+- Coste de 3 años: $115,200
 
-Database (RDS with Reserved Instances):
-- RDS Multi-AZ with RIs: $2,500/month
-- 3-year cost: $90,000
+Base de Datos (**RDS** con **Reserved Instances**):
+- **RDS Multi-AZ** con **RIs**: $2,500/mes
+- Coste de 3 años: $90,000
 
-Networking:
-- VPC, Load Balancers, CloudFront: $1,500/month
-- 3-year cost: $54,000
+Redes:
+- **VPC**, **Load Balancers**, **CloudFront**: $1,500/mes
+- Coste de 3 años: $54,000
 
-Monitoring and Management:
-- CloudWatch, Systems Manager, Backup: $500/month
-- 3-year cost: $18,000
+Monitorización y Gestión:
+- **CloudWatch**, **Systems Manager**, **Backup**: $500/mes
+- Coste de 3 años: $18,000
 
-Support (Business Support Plan):
-- Estimated: $1,200/month
-- 3-year cost: $43,200
+Soporte (**Business Support Plan**):
+- Estimado: $1,200/mes
+- Coste de 3 años: $43,200
 
-Personnel (Reduced):
-- DevOps engineers (2 FTE × 3 years × $95k): $570,000
-- No dedicated storage/network admins (managed services)
-- Total personnel: $570,000
+Personal (Reducido):
+- Ingenieros de **DevOps** (2 FTE × 3 años × $95k): $570,000
+- Sin administradores dedicados de almacenamiento/red (servicios gestionados)
+- Total personal: $570,000
 
-Training and Migration:
-- AWS training and certifications: $30,000
-- Migration services and tools: $50,000
-- Total one-time: $80,000
+Formación y Migración:
+- Formación y certificaciones de **AWS**: $30,000
+- Servicios y herramientas de migración: $50,000
+- Total único: $80,000
 
-3-Year AWS TCO: $1,258,400
-Average annual cost: $419,467/year
+**TCO** de **AWS** de 3 años: $1,258,400
+Coste anual promedio: $419,467/año
 ```
 
-**TCO Comparison Summary**:
+**Resumen de Comparación de **TCO***:
 
-| Category | On-Premises (3yr) | AWS Cloud (3yr) | Savings |
+| Categoría | Local (3 años) | Nube de **AWS** (3 años) | Ahorro |
 |----------|------------------|----------------|---------|
-| Infrastructure | $230,000 | $0 | $230,000 |
-| Software Licenses | $140,000 | $0 | $140,000 |
-| Facilities | $140,000 | $0 | $140,000 |
-| Compute & Services | $0 | $608,400 | -$608,400 |
-| Personnel | $945,000 | $570,000 | $375,000 |
-| Other/Support | $225,000 | $80,000 | $145,000 |
-| **Total 3-Year** | **$1,680,000** | **$1,258,400** | **$421,600** |
-| **Annual Average** | **$560,000** | **$419,467** | **$140,533** |
-| **Savings %** | **-** | **-** | **25%** |
-
-**Additional Benefits Not Captured in TCO**:
-1. Faster time to market (deploy in minutes vs months)
-2. Improved agility (scale up/down on demand)
-3. Global reach (deploy in multiple regions instantly)
-4. Enhanced security (AWS invests billions in security)
-5. Disaster recovery built-in (multi-AZ, snapshots, replication)
-6. Innovation access (latest technologies without upfront investment)
-7. Reduced risk (no hardware obsolescence)
-8. Pay-as-you-grow model (align costs with revenue)
-
-**Break-Even Analysis**:
-```
-Migration cost: $80,000
-Annual savings: $140,533
-Break-even period: $80,000 ÷ $140,533 = 0.57 years (7 months)
-
-After 7 months, migration pays for itself
-Cumulative 3-year savings: $421,600
-ROI: ($421,600 - $80,000) / $80,000 = 427% return
-```
-
----
-
-### AWS Cost Explorer
-
-**Purpose**: Visualize, understand, and manage AWS costs and usage over time
-
-**Features**:
-- View up to **12 months** of historical cost data
-- Forecast future costs for up to **12 months**
-- Filter and group costs by:
-  - Service (EC2, S3, RDS, etc.)
-  - Linked account
-  - Region
-  - Tag
-  - Instance type
-  - Usage type
-- Identify cost trends and anomalies
-- **Default reports** (Monthly costs, Daily costs, etc.)
-- **Custom reports** (save and reuse)
-- Recommendations for Reserved Instances and Savings Plans
-
-**Pricing**:
-- UI access: **Free**
-- API access: $0.01 per request
-
-**Best Practices**:
-- Review costs weekly or monthly
-- Set up custom reports for specific projects/teams
-- Use cost allocation tags for granular tracking
-
----
-
-### AWS Budgets
-
-**Purpose**: Set custom cost and usage budgets with automated alerts
-
-**Features**:
-- Create budgets for:
-  - **Cost budgets**: Track spending against a budget
-  - **Usage budgets**: Track usage amounts (EC2 hours, S3 GB)
-  - **Reservation budgets**: Monitor RI/Savings Plans utilization
-  - **Savings Plans budgets**: Track Savings Plans coverage
-- Alert when exceeding (or forecasted to exceed) thresholds
-- Notifications via:
-  - Email (SNS)
   - Amazon Chatbot (Slack/Chime)
 - Set multiple alert thresholds (50%, 80%, 100%)
 - Budget actions: Automated responses (stop instances, etc.)
@@ -1939,38 +1852,41 @@ Alerts:
 ## Tagging Strategies for Cost Allocation
 
 ### Tag Best Practices
+## Estrategias de Etiquetado para la Asignación de Costes
 
-**What are Cost Allocation Tags**:
-- Key-value pairs attached to AWS resources
-- Used to organize, track, and allocate costs
-- Appear in Cost Explorer and Cost and Usage Reports
-- Enable granular cost tracking and chargeback/showback
+### Mejores Prácticas de Etiquetado
 
-**Types of Tags**:
+**¿Qué son las **Cost Allocation Tags**?**:
+- Pares clave-valor vinculados a recursos de **AWS**
+- Utilizados para organizar, rastrear y asignar costes
+- Aparecen en **Cost Explorer** y **Cost and Usage Reports**
+- Permiten un seguimiento granular de costes y facturación interna (chargeback/showback)
+
+**Tipos de Etiquetas**:
 
 1. **AWS-Generated Tags**:
-   - Created automatically by AWS
-   - Examples: `aws:createdBy`, `aws:cloudformation:stack-name`
-   - Cannot be edited or deleted by users
+   - Creadas automáticamente por **AWS**
+   - Ejemplos: `aws:createdBy`, `aws:cloudformation:stack-name`
+   - No pueden ser editadas ni eliminadas por los usuarios
 
 2. **User-Defined Tags**:
-   - Created by users to meet organizational needs
-   - Fully customizable
-   - Must be activated in Billing Console for cost allocation
+   - Creadas por los usuarios para satisfacer necesidades organizativas
+   - Totalmente personalizables
+   - Deben activarse en la **Billing Console** para la asignación de costes
 
-**Tag Activation**:
+**Activación de Etiquetas**:
 ```
-1. Go to AWS Billing Console
-2. Navigate to Cost Allocation Tags
-3. Select user-defined tags to activate
-4. Takes up to 24 hours to appear in Cost Explorer
-5. Only tracks costs from activation date forward
+1. Ir a la AWS Billing Console
+2. Navegar a Cost Allocation Tags
+3. Seleccionar las etiquetas definidas por el usuario para activar
+4. Tarda hasta 24 horas en aparecer en Cost Explorer
+5. Solo rastrea los costes desde la fecha de activación en adelante
 ```
 
-**Tag Naming Conventions**:
+**Convenciones de Nombres de Etiquetas**:
 ```
-Best Practice Format: PascalCase or lowercase with hyphens
-Examples:
+Formato recomendado: PascalCase o minúsculas con guiones
+Ejemplos:
 - Environment
 - CostCenter
 - Project
@@ -1982,29 +1898,29 @@ Examples:
 
 ---
 
-### Common Tagging Schemas
+### Esquemas de Etiquetado Comunes
 
-#### 1. Financial Tagging Schema
+#### 1. Esquema de Etiquetado Financiero
 
-**Purpose**: Cost allocation, chargeback, and financial reporting
+**Propósito**: Asignación de costes, facturación interna (chargeback) e informes financieros.
 
 ```
-Required Tags:
-├── CostCenter: "CC-12345" (department cost code)
-├── Project: "ProjectAlpha" (project name/code)
-├── Owner: "john.doe@company.com" (resource owner)
-├── BillingGroup: "Engineering" (group to charge)
-└── Environment: "Production" (prod, dev, staging, test)
+Etiquetas requeridas:
+├── CostCenter: "CC-12345" (código de coste del departamento)
+├── Project: "ProjectAlpha" (nombre/código del proyecto)
+├── Owner: "john.doe@company.com" (propietario del recurso)
+├── BillingGroup: "Engineering" (grupo al que se le cargará el coste)
+└── Environment: "Production" (producción, desarrollo, staging, pruebas)
 
-Optional Tags:
+Etiquetas opcionales:
 ├── Budget: "Q1-2024-Infrastructure"
-├── Invoice: "Customer-XYZ" (for client billing)
+├── Invoice: "Customer-XYZ" (para facturación a clientes)
 └── PurchaseOrder: "PO-789456"
 ```
 
-**Example Application**:
+**Ejemplo de Aplicación**:
 ```
-EC2 Instance:
+Instancia EC2:
   Name: web-server-01
   CostCenter: CC-12345
   Project: CustomerPortal
@@ -2012,34 +1928,34 @@ EC2 Instance:
   BillingGroup: ProductTeam
   Environment: Production
 
-Cost Explorer View: Filter by CostCenter = CC-12345
-Result: Shows all costs attributed to that cost center
-Monthly Report: Email costs per CostCenter to finance team
+Vista de Cost Explorer: Filtrar por CostCenter = CC-12345
+Resultado: Muestra todos los costes atribuidos a ese centro de costes.
+Informe mensual: Enviar los costes por CostCenter al equipo de finanzas por correo electrónico.
 ```
 
-#### 2. Technical Tagging Schema
+#### 2. Esquema de Etiquetado Técnico
 
-**Purpose**: Resource organization, automation, and operational management
+**Propósito**: Organización de recursos, automatización y gestión operativa.
 
 ```
-Required Tags:
+Etiquetas requeridas:
 ├── Application: "CustomerPortal"
 ├── Component: "WebServer" (DB, API, Frontend, etc.)
 ├── Version: "v2.5.3"
 ├── ManagedBy: "Terraform" (CloudFormation, Manual, etc.)
 └── Environment: "Production"
 
-Optional Tags:
-├── DataClassification: "Confidential" (Public, Internal, Restricted)
+Etiquetas opcionales:
+├── DataClassification: "Confidential" (Público, Interno, Restringido)
 ├── Compliance: "HIPAA,SOC2"
-├── Backup: "Daily" (retention policy)
+├── Backup: "Daily" (política de retención)
 ├── MaintenanceWindow: "Sun-03:00-05:00"
-└── MonitoringLevel: "Critical" (determines alert threshold)
+└── MonitoringLevel: "Critical" (determina el umbral de alerta)
 ```
 
-**Example Application**:
+**Ejemplo de Aplicación**:
 ```
-RDS Database:
+Base de datos RDS:
   Name: customerdb-prod
   Application: CustomerPortal
   Component: Database
@@ -2050,32 +1966,32 @@ RDS Database:
   Compliance: HIPAA,PCI-DSS
   Backup: Hourly
 
-Automation: Stop all resources where Environment=Dev at 7 PM
-Monitoring: Critical alerts for MonitoringLevel=Critical resources
-Compliance Report: List all resources tagged HIPAA
+Automatización: Detener todos los recursos donde Environment=Dev a las 7 PM.
+Monitorización: Alertas críticas para recursos con MonitoringLevel=Critical.
+Informe de cumplimiento: Listar todos los recursos etiquetados como HIPAA.
 ```
 
-#### 3. Business Tagging Schema
+#### 3. Esquema de Etiquetado de Negocio
 
-**Purpose**: Business alignment and strategic tracking
+**Propósito**: Alineación con el negocio y seguimiento estratégico.
 
 ```
-Required Tags:
-├── BusinessUnit: "Sales" (or Engineering, Marketing, etc.)
+Etiquetas requeridas:
+├── BusinessUnit: "Sales" (o Ingeniería, Marketing, etc.)
 ├── Product: "CRM-Suite"
-├── Customer: "Enterprise-Client-A" (for multi-tenant)
-├── ServiceLevel: "Gold" (Gold, Silver, Bronze)
+├── Customer: "Enterprise-Client-A" (para multi-inquilino)
+├── ServiceLevel: "Gold" (Oro, Plata, Bronce)
 └── RevenueStream: "Subscription"
 
-Optional Tags:
-├── Criticality: "Mission-Critical" (High, Medium, Low)
+Etiquetas opcionales:
+├── Criticality: "Mission-Critical" (Alta, Media, Baja)
 ├── Stakeholder: "vp-sales@company.com"
-└── BusinessImpact: "Customer-Facing"
+└── BusinessImpact: "Customer-Facing" (Cara al cliente)
 ```
 
-**Example Application**:
+**Ejemplo de Aplicación**:
 ```
-S3 Bucket:
+Bucket de S3:
   Name: customer-data-bucket
   BusinessUnit: Sales
   Product: CRM-Suite
@@ -2084,46 +2000,46 @@ S3 Bucket:
   RevenueStream: Subscription
   Criticality: Mission-Critical
 
-Reporting: Total AWS costs per Product
-Chargeback: Allocate costs to Customer tags for invoicing
-SLA Monitoring: Mission-Critical resources get 24/7 monitoring
+Informes: Costes totales de AWS por producto.
+Facturación interna: Asignar costes a las etiquetas de Customer para la facturación.
+Monitorización de SLA: Los recursos Mission-Critical obtienen monitorización 24/7.
 ```
 
-#### 4. Comprehensive Enterprise Schema
+#### 4. Esquema Empresarial Integral
 
-**Combined approach for large organizations**:
+**Enfoque combinado para grandes organizaciones**:
 
 ```
-Mandatory Tags (Enforced via AWS Config/SCPs):
+Etiquetas obligatorias (aplicadas mediante AWS Config/SCPs):
 ├── CostCenter: "CC-12345"
 ├── Owner: "email@company.com"
 ├── Environment: "Production|Staging|Development|Test"
 ├── Application: "app-name"
 └── ManagedBy: "Terraform|CloudFormation|Manual"
 
-Financial Tags:
+Etiquetas financieras:
 ├── Project: "project-code"
 ├── BillingGroup: "group-name"
 └── Budget: "budget-id"
 
-Technical Tags:
+Etiquetas técnicas:
 ├── Component: "component-type"
 ├── Version: "version-number"
 ├── Backup: "policy-name"
 └── Compliance: "compliance-frameworks"
 
-Business Tags:
+Etiquetas de negocio:
 ├── BusinessUnit: "unit-name"
 ├── Criticality: "Critical|High|Medium|Low"
 └── DataClassification: "Public|Internal|Confidential|Restricted"
 
-Operational Tags:
+Etiquetas operativas:
 ├── MaintenanceWindow: "schedule"
 ├── MonitoringLevel: "level"
 └── AutoShutdown: "Yes|No"
 ```
 
-**Tag Governance Policy Example**:
+**Ejemplo de Política de Gobernanza de Etiquetas**:
 ```yaml
 TagPolicy:
   MandatoryTags:
@@ -2132,7 +2048,7 @@ TagPolicy:
     - Environment: "^(Production|Staging|Development|Test)$"
     - Application: "^[A-Za-z0-9-]+$"
 
-  EnforcementLevel: "Hard" # Block resource creation if tags missing
+  EnforcementLevel: "Hard" # Bloquear la creación de recursos si faltan etiquetas
 
   ValidValues:
     Environment:
@@ -2149,30 +2065,30 @@ TagPolicy:
 
 ---
 
-### Tag Enforcement
+### Aplicación de Etiquetas (Tag Enforcement)
 
 #### 1. AWS Config Rules
 
-**Purpose**: Automatically detect and alert on non-compliant resources
+**Propósito**: Detectar y alertar automáticamente sobre recursos no conformes.
 
 ```
-Config Rule: required-tags
-Check: All EC2 instances must have tags:
+Regla de Config: required-tags
+Verificación: Todas las instancias EC2 deben tener las etiquetas:
   - CostCenter
   - Owner
   - Environment
 
-Action on Non-Compliance:
-- Send SNS notification
-- Create compliance report
-- Trigger remediation Lambda function
+Acción en caso de incumplimiento:
+- Enviar notificación SNS
+- Crear informe de cumplimiento
+- Activar una función Lambda de corrección
 ```
 
-**Example Config Rule**:
+**Ejemplo de Regla de Config**:
 ```json
 {
   "ConfigRuleName": "required-tags",
-  "Description": "Checks that resources have required tags",
+  "Description": "Verifica que los recursos tengan las etiquetas requeridas",
   "Source": {
     "Owner": "AWS",
     "SourceIdentifier": "REQUIRED_TAGS"
@@ -2194,9 +2110,9 @@ Action on Non-Compliance:
 
 #### 2. Service Control Policies (SCPs)
 
-**Purpose**: Prevent resource creation without required tags
+**Propósito**: Impedir la creación de recursos sin las etiquetas requeridas.
 
-**Example SCP**:
+**Ejemplo de SCP**:
 ```json
 {
   "Version": "2012-10-17",
@@ -2222,11 +2138,11 @@ Action on Non-Compliance:
 }
 ```
 
-**Effect**: Users cannot create EC2 instances without required tags
+**Efecto**: Los usuarios no pueden crear instancias **EC2** sin las etiquetas requeridas.
 
-#### 3. IAM Policies for Tag Enforcement
+#### 3. Políticas IAM para la aplicación de etiquetas
 
-**Example IAM Policy**:
+**Ejemplo de Política IAM**:
 ```json
 {
   "Version": "2012-10-17",
@@ -2267,29 +2183,29 @@ Action on Non-Compliance:
 }
 ```
 
-**Effect**:
-- Prevents resource creation without CostCenter tag
-- Prevents deletion of critical tags
+**Efecto**:
+- Impide la creación de recursos sin la etiqueta **CostCenter**.
+- Impide la eliminación de etiquetas críticas.
 
-#### 4. Automated Tag Remediation
+#### 4. Corrección Automatizada de Etiquetas (Automated Tag Remediation)
 
-**Lambda Function for Auto-Tagging**:
+**Función Lambda para el etiquetado automático**:
 ```python
 import boto3
 import json
 
 def lambda_handler(event, context):
-    """Auto-tag EC2 instances with Owner based on IAM user"""
+    """Etiqueta automáticamente las instancias EC2 con el propietario basado en el usuario IAM"""
     ec2 = boto3.resource('ec2')
 
-    # Get instance ID from CloudWatch Event
+    # Obtener el ID de la instancia del evento de CloudWatch
     instance_id = event['detail']['instance-id']
     instance = ec2.Instance(instance_id)
 
-    # Get IAM user who launched instance
+    # Obtener el usuario IAM que lanzó la instancia
     iam_user = event['detail']['userIdentity']['principalId'].split(':')[1]
 
-    # Apply default tags
+    # Aplicar etiquetas predeterminadas
     instance.create_tags(
         Tags=[
             {'Key': 'Owner', 'Value': f'{iam_user}@company.com'},
@@ -2304,7 +2220,7 @@ def lambda_handler(event, context):
     }
 ```
 
-**CloudWatch Event Rule** (trigger Lambda on EC2 launch):
+**CloudWatch Event Rule** (activa Lambda al lanzar una EC2):
 ```json
 {
   "source": ["aws.ec2"],
@@ -2315,26 +2231,26 @@ def lambda_handler(event, context):
 }
 ```
 
-#### 5. Tag Compliance Dashboard
+#### 5. Panel de Control de Cumplimiento de Etiquetas (Tag Compliance Dashboard)
 
-**Using AWS Tag Editor**:
+**Uso de AWS Tag Editor**:
 ```
-1. Navigate to AWS Resource Groups & Tag Editor
-2. Create search for resources missing required tags
-3. Filter by:
-   - Resource type: All
-   - Tags: CostCenter (does not exist)
-4. Results show all non-compliant resources
-5. Bulk tag application available
+1. Navegar a AWS Resource Groups & Tag Editor.
+2. Crear una búsqueda de recursos a los que les falten las etiquetas requeridas.
+3. Filtrar por:
+   - Tipo de recurso: Todos (All)
+   - Etiquetas: CostCenter (no existe)
+4. Los resultados muestran todos los recursos no conformes.
+5. Aplicación de etiquetas de forma masiva (Bulk tag) disponible.
 ```
 
-**Automated Compliance Report**:
+**Informe de Cumplimiento Automatizado**:
 ```python
 import boto3
 from datetime import datetime
 
 def generate_tag_compliance_report():
-    """Generate report of resources without required tags"""
+    """Genera un informe de recursos sin las etiquetas requeridas"""
     required_tags = ['CostCenter', 'Owner', 'Environment']
 
     ec2 = boto3.client('ec2')
@@ -2357,7 +2273,7 @@ def generate_tag_compliance_report():
                     'LaunchTime': instance['LaunchTime']
                 })
 
-    # Email report to compliance team
+    # Enviar informe al equipo de cumplimiento por correo electrónico
     return {
         'ReportDate': datetime.now().isoformat(),
         'NonCompliantResources': len(non_compliant),
@@ -2367,62 +2283,62 @@ def generate_tag_compliance_report():
 
 ---
 
-## Multi-Account Billing Setup
+## Configuración de Facturación Multi-Cuenta
 
-### Organization Structure
+### Estructura de la Organización
 
-**Recommended Multi-Account Strategy**:
+**Estrategia Multi-Cuenta recomendada**:
 
 ```
-Management Account (Payer Account)
-├── Organizational Units (OUs)
-│   ├── Production OU
+Management Account (Payer Account - Cuenta Pagadora)
+├── Unidades Organizativas (OUs)
+│   ├── Production OU (Producción)
 │   │   ├── Prod-Application-Account
 │   │   ├── Prod-Database-Account
 │   │   └── Prod-Security-Account
-│   ├── Non-Production OU
+│   ├── Non-Production OU (No Producción)
 │   │   ├── Dev-Account
 │   │   ├── Staging-Account
 │   │   └── Test-Account
-│   ├── Infrastructure OU
+│   ├── Infrastructure OU (Infraestructura)
 │   │   ├── Shared-Services-Account
 │   │   ├── Networking-Account
 │   │   └── Logging-Account
-│   └── Security OU
+│   └── Security OU (Seguridad)
 │       ├── Security-Audit-Account
 │       ├── Security-Tools-Account
 │       └── Compliance-Account
 ```
 
-**Account Separation Benefits**:
-1. **Security isolation**: Blast radius containment
-2. **Cost tracking**: Clear cost attribution per account
-3. **Resource limits**: Separate service quotas per account
-4. **Compliance**: Easier to meet regulatory requirements
-5. **Team autonomy**: Independent access control per team
-6. **Simplified billing**: Costs naturally grouped by account
+**Beneficios de la separación de cuentas**:
+1. **Aislamiento de seguridad**: Contención del radio de explosión (**Blast radius**).
+2. **Seguimiento de costes**: Atribución clara de costes por cuenta.
+3. **Límites de recursos**: Cuotas de servicio separadas por cuenta.
+4. **Cumplimiento**: Más fácil cumplir con los requisitos regulatorios.
+5. **Autonomía del equipo**: Control de acceso independiente por equipo.
+6. **Facturación simplificada**: Costes agrupados naturalmente por cuenta.
 
 ---
 
-### Best Practices
+### Mejores Prácticas
 
-#### 1. Management Account Security
+#### 1. Seguridad de la Management Account
 
-**Do's**:
-- Use ONLY for billing and organization management
-- Enable MFA on root account
-- Enable AWS CloudTrail in all regions
-- Set up billing alerts
-- Configure consolidated billing
-- Apply SCPs to OUs
+**Lo que se debe hacer**:
+- Usar ÚNICAMENTE para la facturación y la gestión de la organización.
+- Habilitar **MFA** en la cuenta raíz (**root account**).
+- Habilitar **AWS CloudTrail** en todas las regiones.
+- Configurar alertas de facturación.
+- Configurar la facturación consolidada (**consolidated billing**).
+- Aplicar **SCPs** a las **OUs**.
 
-**Don'ts**:
-- DO NOT run production workloads in management account
-- DO NOT share management account credentials
-- DO NOT create resources unless absolutely necessary
-- DO NOT grant broad IAM permissions
+**Lo que NO se debe hacer**:
+- NO ejecutar cargas de trabajo de producción en la **management account**.
+- NO compartir las credenciales de la **management account**.
+- NO crear recursos a menos que sea absolutamente necesario.
+- NO otorgar permisos **IAM** amplios.
 
-**Example Management Account Policy**:
+**Ejemplo de política para la Management Account**:
 ```json
 {
   "Version": "2012-10-17",
@@ -2446,27 +2362,27 @@ Management Account (Payer Account)
 }
 ```
 
-#### 2. Account Naming and Tagging
+#### 2. Nomenclatura y Etiquetado de Cuentas
 
-**Naming Convention**:
+**Convención de Nomenclatura**:
 ```
-Format: [Environment]-[Purpose]-[Region]
-Examples:
+Formato: [Entorno]-[Propósito]-[Región]
+Ejemplos:
 - prod-webapp-useast1
 - dev-dataplatform-euwest1
 - shared-networking-global
 - security-audit-global
 ```
 
-**Account Tags** (applied to accounts in AWS Organizations):
+**Etiquetas de Cuenta** (aplicadas a las cuentas en **AWS Organizations**):
 ```
-Required:
+Requeridas:
 ├── Environment: Production|Development|Staging|Test
 ├── CostCenter: CC-12345
 ├── Owner: team-email@company.com
 └── Purpose: Application|Infrastructure|Security
 
-Optional:
+Opcionales:
 ├── Compliance: HIPAA|PCI-DSS|SOC2
 ├── DataClassification: Confidential|Internal
 └── BusinessUnit: Engineering|Sales|Marketing
@@ -2474,7 +2390,7 @@ Optional:
 
 #### 3. Service Control Policies (SCPs)
 
-**Example: Prevent Region Usage Outside Approved Regions**:
+**Ejemplo: Impedir el uso de regiones fuera de las regiones aprobadas**:
 ```json
 {
   "Version": "2012-10-17",
@@ -2503,7 +2419,7 @@ Optional:
 }
 ```
 
-**Example: Require Encryption**:
+**Ejemplo: Requerir cifrado**:
 ```json
 {
   "Version": "2012-10-17",
@@ -2526,117 +2442,117 @@ Optional:
 }
 ```
 
-#### 4. Centralized Logging and Monitoring
+#### 4. Registro (Logging) y Monitorización Centralizados
 
-**Architecture**:
+**Arquitectura**:
 ```
-All Member Accounts
-├── CloudTrail logs → S3 in Logging Account
-├── VPC Flow Logs → S3 in Logging Account
-├── CloudWatch Logs → Cross-account subscription
+Todas las cuentas miembros
+├── CloudTrail logs → S3 en la Logging Account
+├── VPC Flow Logs → S3 en la Logging Account
+├── CloudWatch Logs → Suscripción entre cuentas (cross-account)
 ├── GuardDuty findings → Security Account
 └── Config findings → Security Account
 
-Logging Account (Centralized):
+Logging Account (Centralizada):
 ├── S3 Bucket: organization-cloudtrail-logs
 ├── S3 Bucket: organization-flowlogs
-├── Athena: Query logs across all accounts
-└── Lifecycle: Archive logs to Glacier after 90 days
+├── Athena: Consultar logs en todas las cuentas
+└── Lifecycle: Archivar logs en Glacier después de 90 días
 ```
 
-**Benefits**:
-- Single source of truth for all logs
-- Prevents account-level log tampering
-- Simplified compliance auditing
-- Centralized security monitoring
-- Cost optimization (single S3 lifecycle policy)
+**Beneficios**:
+- Única fuente de verdad para todos los logs.
+- Impide la manipulación de logs a nivel de cuenta.
+- Auditoría de cumplimiento simplificada.
+- Monitorización de seguridad centralizada.
+- Optimización de costes (única política de ciclo de vida de **S3**).
 
-#### 5. Cost Allocation Strategy
+#### 5. Estrategia de Asignación de Costes
 
-**Linked Account Strategy**:
+**Estrategia de Cuenta Vinculada (Linked Account Strategy)**:
 ```
-Account Structure:
-├── prod-customer-portal (Customer Portal app)
-├── prod-mobile-api (Mobile API backend)
-├── dev-all-projects (All development work)
-└── shared-services (Shared infrastructure)
+Estructura de Cuentas:
+├── prod-customer-portal (Aplicación de portal del cliente)
+├── prod-mobile-api (Backend de API móvil)
+├── dev-all-projects (Todo el trabajo de desarrollo)
+└── shared-services (Infraestructura compartida)
 
-Cost Allocation:
-1. Each account represents a cost center
-2. Tag resources within accounts for sub-allocation
-3. Use Cost Explorer to group by Account + Tags
-4. Monthly reports automatically sent to account owners
-```
-
-**Tag-Based Sub-Allocation**:
-```
-Within prod-customer-portal account:
-├── Resources tagged: Project=Feature-A → Allocate to Team A
-├── Resources tagged: Project=Feature-B → Allocate to Team B
-└── Untagged resources → Allocate to shared overhead
-
-Monthly Process:
-1. Cost Explorer filters by Account = prod-customer-portal
-2. Group by Tag: Project
-3. Export report to CSV
-4. Finance team allocates costs to respective teams
+Asignación de Costes:
+1. Cada cuenta representa un centro de costes.
+2. Etiquetar recursos dentro de las cuentas para una asignación secundaria.
+3. Usar Cost Explorer para agrupar por Cuenta + Etiquetas.
+4. Informes mensuales enviados automáticamente a los propietarios de las cuentas.
 ```
 
-#### 6. Reserved Instance and Savings Plan Sharing
-
-**Automatic Sharing** (default behavior):
+**Asignación secundaria basada en etiquetas**:
 ```
-Scenario:
-- Production Account: Purchases 10 x m5.large RIs
-- Development Account: Runs 5 x m5.large instances
-- Shared Services: Runs 3 x m5.large instances
+Dentro de la cuenta prod-customer-portal:
+├── Recursos etiquetados: Project=Feature-A → Asignar al Equipo A
+├── Recursos etiquetados: Project=Feature-B → Asignar al Equipo B
+└── Recursos sin etiqueta → Asignar a gastos compartidos (overhead)
 
-Result:
-- Production uses 10 RIs
-- If Production only uses 7, remaining 3 RIs automatically applied to:
-  - Development Account (3 instances get RI pricing)
-- If still unused, applied to other linked accounts
-
-Benefit: Maximizes RI utilization across organization
+Proceso mensual:
+1. Filtros de Cost Explorer por Cuenta = prod-customer-portal.
+2. Agrupar por etiqueta: Project.
+3. Exportar informe a CSV.
+4. El equipo de finanzas asigna los costes a sus respectivos equipos.
 ```
 
-**Disable RI Sharing** (if needed):
+#### 6. Uso compartido de Reserved Instance y Savings Plan
+
+**Uso compartido automático** (comportamiento predeterminado):
 ```
-1. Go to Billing Console > Preferences
-2. Uncheck "RI Sharing"
-3. RIs only apply within purchasing account
+Escenario:
+- Cuenta de Producción: Compra 10 x m5.large RIs.
+- Cuenta de Desarrollo: Ejecuta 5 x m5.large instancias.
+- Servicios Compartidos: Ejecuta 3 x m5.large instancias.
 
-Use case: Want to isolate costs completely per account
-```
+Resultado:
+- Producción utiliza 10 RIs.
+- Si Producción solo utiliza 7, las 3 RIs restantes se aplican automáticamente a:
+  - Cuenta de Desarrollo (3 instancias obtienen el precio de RI).
+- Si aún quedan sin usar, se aplican a otras cuentas vinculadas.
 
-#### 7. Consolidated Billing Reports
-
-**Monthly Reporting Structure**:
-```
-Management Account receives:
-├── Consolidated bill for entire organization
-├── Line items broken down by linked account
-├── RI/SP utilization and coverage reports
-└── Recommendations for cost optimization
-
-Each Linked Account owner receives:
-├── Their account-specific costs
-├── Cost trends and anomalies
-├── Budget alerts (if configured)
-└── Recommendations specific to their resources
+Beneficio: Maximiza la utilización de RI en toda la organización.
 ```
 
-**Automated Report Distribution**:
+**Desactivar el uso compartido de RI** (si es necesario):
+```
+1. Ir a Billing Console > Preferences.
+2. Desmarcar "RI Sharing".
+3. Las RIs solo se aplican dentro de la cuenta que realizó la compra.
+
+Caso de uso: Se desea aislar los costes completamente por cuenta.
+```
+
+#### 7. Informes de Facturación Consolidada
+
+**Estructura de Informes Mensuales**:
+```
+La Management Account recibe:
+├── Factura consolidada para toda la organización.
+├── Desglose de partidas por cuenta vinculada.
+├── Informes de utilización y cobertura de RI/SP.
+└── Recomendaciones para la optimización de costes.
+
+Cada propietario de cuenta vinculada recibe:
+├── Los costes específicos de su cuenta.
+├── Tendencias de costes y anomalías.
+├── Alertas de presupuesto (si están configuradas).
+└── Recomendaciones específicas para sus recursos.
+```
+
+**Distribución de Informes Automatizada**:
 ```python
 import boto3
 from datetime import datetime, timedelta
 
 def distribute_cost_reports():
-    """Send monthly cost reports to account owners"""
+    """Envía informes de costes mensuales a los propietarios de las cuentas"""
     ce = boto3.client('ce')
     sns = boto3.client('sns')
 
-    # Get costs by linked account for last month
+    # Obtener los costes por cuenta vinculada del último mes
     end_date = datetime.now().replace(day=1)
     start_date = (end_date - timedelta(days=1)).replace(day=1)
 
@@ -2659,7 +2575,7 @@ def distribute_cost_reports():
         account_id = group['Keys'][0]
         cost = group['Metrics']['UnblendedCost']['Amount']
 
-        # Send SNS to account owner
+        # Enviar SNS al propietario de la cuenta
         sns.publish(
             TopicArn=f'arn:aws:sns:us-east-1:111111111111:account-{account_id}-billing',
             Subject=f'Monthly AWS Cost Report - {start_date.strftime("%B %Y")}',
@@ -2669,364 +2585,364 @@ def distribute_cost_reports():
 
 ---
 
-### Cost Allocation
+### Asignación de Costes (Cost Allocation)
 
-#### 1. Cost Categories
+#### 1. Categorías de Costes (Cost Categories)
 
-**What are Cost Categories**:
-- Custom groupings of costs that map your organization's structure
-- More flexible than tags alone
-- Can combine multiple rules (tags, accounts, services, charge types)
-- Hierarchical categorization
+**¿Qué son las Categorías de Costes?**:
+- Agrupaciones personalizadas de costes que reflejan la estructura de su organización.
+- Más flexibles que las etiquetas por sí solas.
+- Pueden combinar múltiples reglas (etiquetas, cuentas, servicios, tipos de cargo).
+- Categorización jerárquica.
 
-**Example Cost Category Structure**:
+**Ejemplo de Estructura de Categoría de Costes**:
 ```
-Cost Category: Department
-├── Engineering
-│   ├── Rule 1: Account IDs (111111111111, 222222222222)
-│   ├── Rule 2: Tag CostCenter = CC-ENG-*
-│   └── Rule 3: Tag Team = Backend|Frontend|DevOps
-├── Sales
-│   ├── Rule 1: Account ID (333333333333)
-│   └── Rule 2: Tag CostCenter = CC-SALES-*
+Categoría de Coste: Departamento
+├── Ingeniería
+│   ├── Regla 1: IDs de cuenta (111111111111, 222222222222)
+│   ├── Regla 2: Etiqueta CostCenter = CC-ENG-*
+│   └── Regla 3: Etiqueta Team = Backend|Frontend|DevOps
+├── Ventas
+│   ├── Regla 1: ID de cuenta (333333333333)
+│   └── Regla 2: Etiqueta CostCenter = CC-SALES-*
 └── Marketing
-    ├── Rule 1: Tag CostCenter = CC-MKT-*
-    └── Rule 2: Tag Campaign = *
+    ├── Regla 1: Etiqueta CostCenter = CC-MKT-*
+    └── Regla 2: Etiqueta Campaign = *
 ```
 
-**Creating Cost Categories** (AWS Console):
+**Creación de Categorías de Costes** (Consola de AWS):
 ```
-1. Go to Billing Console > Cost Categories
-2. Create category: "Department"
-3. Define rules:
-   - Engineering: (Account = 111111111111 OR Tag:Team = Backend)
-   - Sales: (Tag:CostCenter starts with CC-SALES)
-   - Marketing: (Tag:BusinessUnit = Marketing)
-4. Set default category for unmatched costs
-5. Save and activate
+1. Ir a Billing Console > Cost Categories.
+2. Crear categoría: "Departamento".
+3. Definir reglas:
+   - Ingeniería: (Cuenta = 111111111111 O Etiqueta:Team = Backend)
+   - Ventas: (Etiqueta:CostCenter empieza por CC-SALES)
+   - Marketing: (Etiqueta:BusinessUnit = Marketing)
+4. Establecer la categoría predeterminada para costes no coincidentes.
+5. Guardar y activar.
 ```
 
-**Benefits**:
-- Automatically categorize costs without manual tagging
-- Combine account-level and tag-level allocations
-- Handle inherited/default categorization
-- Maintain categories even as resources change
+**Beneficios**:
+- Categorización automática de costes sin etiquetado manual.
+- Combinación de asignaciones a nivel de cuenta y a nivel de etiqueta.
+- Manejo de categorización heredada/predeterminada.
+- Mantenimiento de las categorías incluso cuando cambian los recursos.
 
 #### 2. Chargeback vs Showback
 
-**Chargeback**:
-- Actual billing to departments/teams
-- Departments pay for their AWS usage from their budget
-- Requires detailed cost allocation and approval process
-- Often used for profit centers or external customers
+**Chargeback (Facturación Interna)**:
+- Facturación real a los departamentos/equipos.
+- Los departamentos pagan por su uso de **AWS** desde su propio presupuesto.
+- Requiere una asignación de costes detallada y un proceso de aprobación.
+- A menudo se utiliza para centros de beneficios o clientes externos.
 
-**Example Chargeback Process**:
+**Ejemplo de Proceso de Chargeback**:
 ```
-Monthly Process:
-1. Cost and Usage Report generated with tags
-2. Costs allocated per CostCenter tag
-3. Finance creates internal invoices per department
-4. Departments reconcile against their budgets
-5. Costs deducted from department budgets
+Proceso Mensual:
+1. Se genera el **Cost and Usage Report** con etiquetas.
+2. Los costes se asignan por etiqueta de **CostCenter**.
+3. Finanzas crea facturas internas por departamento.
+4. Los departamentos concilian con sus presupuestos.
+5. Los costes se deducen de los presupuestos de los departamentos.
 
-Engineering Department:
-- AWS Costs: $50,000
-- Allocated to Engineering budget
-- Finance deducts $50,000 from Eng budget
-```
-
-**Showback**:
-- Informational only, no actual billing
-- Shows departments what they're consuming
-- Promotes cost awareness without budget impact
-- Often used during cloud adoption phase
-
-**Example Showback Process**:
-```
-Monthly Process:
-1. Cost reports generated per team
-2. Teams receive visibility into their costs
-3. No budget impact or internal billing
-4. Used to promote cost-conscious behavior
-
-Engineering Department:
-- AWS Costs: $50,000
-- Report sent to engineering leadership
-- No budget deduction
-- Awareness of consumption patterns
+Departamento de Ingeniería:
+- Costes de AWS: $50,000
+- Asignado al presupuesto de Ingeniería.
+- Finanzas deduce $50,000 del presupuesto de Ingeniería.
 ```
 
-**Hybrid Approach** (most common):
+**Showback (Visibilidad de Costes)**:
+- Solo con fines informativos, sin facturación real.
+- Muestra a los departamentos lo que están consumiendo.
+- Promueve la conciencia de los costes sin impacto presupuestario.
+- A menudo se utiliza durante la fase de adopción de la nube.
+
+**Ejemplo de Proceso de Showback**:
 ```
-Chargeback for:
-- Production workloads (direct revenue attribution)
-- External customer environments
-- Clear project-based allocations
+Proceso Mensual:
+1. Se generan informes de costes por equipo.
+2. Los equipos reciben visibilidad de sus costes.
+3. Sin impacto presupuestario ni facturación interna.
+4. Se utiliza para promover un comportamiento consciente de los costes.
 
-Showback for:
-- Development and test environments
-- Shared services (hard to allocate precisely)
-- Exploratory/innovation projects
+Departamento de Ingeniería:
+- Costes de AWS: $50,000
+- Informe enviado al liderazgo de ingeniería.
+- Sin deducción de presupuesto.
+- Conciencia de los patrones de consumo.
 ```
 
-#### 3. Split Charge Rules
-
-**Purpose**: Allocate shared costs across multiple teams/projects
-
-**Example: Shared Database**:
+**Enfoque Híbrido** (el más común):
 ```
-Scenario:
-- Shared RDS instance costs $1,000/month
-- Used by 3 applications:
-  - App A: 50% of queries
-  - App B: 30% of queries
-  - App C: 20% of queries
+Chargeback para:
+- Cargas de trabajo de producción (atribución directa de ingresos).
+- Entornos de clientes externos.
+- Asignaciones claras basadas en proyectos.
 
-Split Rule:
-RDS Instance tagged "Shared=true"
-Allocate costs:
+Showback para:
+- Entornos de desarrollo y pruebas.
+- Servicios compartidos (difíciles de asignar con precisión).
+- Proyectos exploratorios/innovación.
+```
+
+#### 3. Reglas de Cargo Dividido (Split Charge Rules)
+
+**Propósito**: Asignar costes compartidos entre múltiples equipos/proyectos.
+
+**Ejemplo: Base de datos compartida**:
+```
+Escenario:
+- Una instancia **RDS** compartida cuesta $1,000/mes.
+- Utilizada por 3 aplicaciones:
+  - App A: 50% de las consultas.
+  - App B: 30% de las consultas.
+  - App C: 20% de las consultas.
+
+Regla de división:
+Instancia **RDS** etiquetada como "Shared=true".
+Asignación de costes:
 - 50% → App A (CostCenter: CC-APP-A)
 - 30% → App B (CostCenter: CC-APP-B)
 - 20% → App C (CostCenter: CC-APP-C)
 
-Result in Cost Explorer:
-- App A sees $500 attributed to them
-- App B sees $300 attributed to them
-- App C sees $200 attributed to them
+Resultado en **Cost Explorer**:
+- App A ve $500 atribuidos a ellos.
+- App B ve $300 atribuidos a ellos.
+- App C ve $200 atribuidos a ellos.
 ```
 
-**AWS Cost Categories Split Rule**:
+**Regla de división de Categorías de Costes de AWS**:
 ```
-Cost Category: Application
-├── App-A (CC-APP-A): 50% of SharedDB costs
-├── App-B (CC-APP-B): 30% of SharedDB costs
-└── App-C (CC-APP-C): 20% of SharedDB costs
+Categoría de Coste: Aplicación
+├── App-A (CC-APP-A): 50% de los costes de SharedDB
+├── App-B (CC-APP-B): 30% de los costes de SharedDB
+└── App-C (CC-APP-C): 20% de los costes de SharedDB
 
-Rule Definition:
-IF Resource has tag "Shared=true" AND Service="Amazon RDS"
-  THEN split cost:
-    - 50% to category App-A
-    - 30% to category App-B
-    - 20% to category App-C
-```
-
-#### 4. Reserved Instance Cost Allocation
-
-**RI Discount Sharing**:
-```
-Scenario:
-- Account A (Production): Purchases 20 RIs
-- Account A only uses 15 RIs
-- Account B (Development): Uses 5 matching instances
-
-Cost Allocation:
-- Account A gets charged for all 20 RIs (upfront + recurring)
-- Account B receives RI discount on 5 instances automatically
-- Account B's bill reflects discounted rate
-- Account A sees RI "unused hours" in utilization report
-
-Option 1: Keep as-is
-- Account B benefits from Account A's purchase
-- No reallocation needed
-
-Option 2: Chargeback RI savings
-- Finance calculates Account B's RI savings
-- Account B charged internally for savings benefit
-- Account A receives credit for providing RIs
+Definición de la regla:
+SI el recurso tiene la etiqueta "Shared=true" Y el servicio="Amazon RDS"
+  ENTONCES dividir el coste:
+    - 50% a la categoría App-A
+    - 30% a la categoría App-B
+    - 20% a la categoría App-C
 ```
 
-**RI Utilization Tracking**:
-```
-Monthly Report includes:
-├── RI Utilization per account
-├── RI Coverage percentage
-├── Wasted RI hours (purchased but unused)
-└── Cost allocation (which account benefited from RIs)
+#### 4. Asignación de Costes de Reserved Instance
 
-Action Items:
-- If Account A has low utilization → Consider selling RIs
-- If Account B frequently benefits → Consider purchasing their own RIs
-- Optimize account-level vs organizational RI strategy
+**Uso compartido de descuentos de RI**:
+```
+Escenario:
+- Cuenta A (Producción): Compra 20 RIs.
+- Cuenta A solo utiliza 15 RIs.
+- Cuenta B (Desarrollo): Utiliza 5 instancias coincidentes.
+
+Asignación de costes:
+- A la Cuenta A se le cobran las 20 RIs (pago inicial + recurrente).
+- La Cuenta B recibe el descuento de RI en 5 instancias automáticamente.
+- La factura de la Cuenta B refleja la tarifa descontada.
+- La Cuenta A ve "horas de RI no utilizadas" en el informe de utilización.
+
+Opción 1: Mantener tal cual
+- La Cuenta B se beneficia de la compra de la Cuenta A.
+- No se necesita reasignación.
+
+Opción 2: Facturación interna del ahorro de RI
+- Finanzas calcula el ahorro de RI de la Cuenta B.
+- A la Cuenta B se le cobra internamente por el beneficio del ahorro.
+- La Cuenta A recibe un crédito por proporcionar las RIs.
+```
+
+**Seguimiento de la utilización de RI**:
+```
+El informe mensual incluye:
+├── Utilización de RI por cuenta.
+├── Porcentaje de cobertura de RI.
+├── Horas de RI desperdiciadas (compradas pero no usadas).
+└── Asignación de costes (qué cuenta se benefició de las RIs).
+
+Acciones a tomar:
+- Si la Cuenta A tiene una utilización baja → Considerar vender las RIs.
+- Si la Cuenta B se beneficia con frecuencia → Considerar comprar sus propias RIs.
+- Optimizar la estrategia de RI a nivel de cuenta frente a la organizacional.
 ```
 
 ---
 
-## Consolidated Billing and AWS Organizations
+## Facturación Consolidada y AWS Organizations
 
-### Consolidated Billing
+### Facturación Consolidada
 
-**What is it**: A feature of AWS Organizations that combines billing across multiple AWS accounts
+**¿Qué es?**: Una característica de **AWS Organizations** que combina la facturación de múltiples cuentas de **AWS**.
 
-**Benefits**:
+**Beneficios**:
 
-1. **Single bill**: One payment method for all accounts in the organization
-2. **Volume discounts**: Combined usage across all accounts for tiered pricing
-   - If Account A uses 8 TB of S3 storage and Account B uses 4 TB, you get pricing for 12 TB total
-3. **Easy tracking**: Track charges per account while paying centrally
-4. **Free tier sharing**: Free tier applies once per organization (not per account)
-5. **Reserved Instance sharing**: RIs can be shared across accounts
-6. **No additional cost**: Free feature of AWS Organizations
+1. **Factura única**: Un único método de pago para todas las cuentas de la organización.
+2. **Descuentos por volumen**: Uso combinado de todas las cuentas para precios por niveles (**tiered pricing**).
+   - Si la Cuenta A usa 8 TB de almacenamiento **S3** y la Cuenta B usa 4 TB, obtiene el precio para un total de 12 TB.
+3. **Seguimiento fácil**: Seguimiento de cargos por cuenta mientras se paga de forma centralizada.
+4. **Uso compartido de la capa gratuita (Free Tier)**: La capa gratuita se aplica una vez por organización (no por cuenta).
+5. **Uso compartido de Reserved Instance**: Las **RIs** se pueden compartir entre cuentas.
+6. **Sin coste adicional**: Característica gratuita de **AWS Organizations**.
 
-**Account Structure**:
+**Estructura de Cuentas**:
 ```
-Management Account (Payer)
+Management Account (Pagadora)
 ├── Production Account
 ├── Development Account
 ├── Testing Account
 └── Security Account
 ```
 
-**Use Cases**:
-- Large organizations with multiple departments
-- Separate environments (prod, dev, test)
-- Cost allocation by team or project
-- Centralized billing management
+**Casos de Uso**:
+- Grandes organizaciones con múltiples departamentos.
+- Entornos separados (producción, desarrollo, pruebas).
+- Asignación de costes por equipo o proyecto.
+- Gestión de facturación centralizada.
 
 ---
 
-## Cost Anomaly Detection Deep Dive
+## Profundización en Cost Anomaly Detection
 
-### Setup and Configuration
+### Configuración
 
-**Step-by-Step Setup**:
+**Configuración paso a paso**:
 
-1. **Navigate to Cost Anomaly Detection**:
+1. **Navegar a Cost Anomaly Detection**:
    ```
-   AWS Console > Billing > Cost Anomaly Detection
-   ```
-
-2. **Create Cost Monitor**:
-   ```
-   Monitor Types:
-   ├── AWS Services: Monitor all AWS services
-   ├── Linked Account: Monitor specific accounts
-   ├── Cost Category: Monitor by cost category
-   ├── Cost Allocation Tag: Monitor by specific tags
+   Consola de AWS > Billing > Cost Anomaly Detection
    ```
 
-3. **Configure Detection Sensitivity**:
+2. **Crear un Monitor de Costes (Cost Monitor)**:
    ```
-   Sensitivity Levels:
-   ├── Low: Only detect significant anomalies (> 50% deviation)
-   ├── Medium: Moderate anomalies (> 25% deviation) [DEFAULT]
-   ├── High: Detect small anomalies (> 10% deviation)
-   ```
-
-4. **Set Up Alert Subscribers**:
-   ```
-   Alert Methods:
-   ├── Email: Direct email notifications
-   ├── SNS Topic: Publish to SNS for automation
-   ├── AWS Chatbot: Send to Slack or Chime
+   Tipos de Monitor:
+   ├── AWS Services: Monitoriza todos los servicios de AWS.
+   ├── Linked Account: Monitoriza cuentas específicas.
+   ├── Cost Category: Monitoriza por categoría de coste.
+   └── Cost Allocation Tag: Monitoriza por etiquetas específicas.
    ```
 
-5. **Configure Alert Thresholds**:
+3. **Configurar la sensibilidad de detección**:
    ```
-   Threshold Options:
-   ├── Dollar amount: Alert if anomaly > $X
-   ├── Percentage: Alert if > X% of total spend
-   ├── Both: Must meet both criteria
+   Niveles de sensibilidad:
+   ├── Low (Baja): Solo detecta anomalías significativas (> 50% de desviación).
+   ├── Medium (Media): Anomalías moderadas (> 25% de desviación) [PREDETERMINADO].
+   ├── High (Alta): Detecta pequeñas anomalías (> 10% de desviación).
    ```
 
-**Example Configuration**:
+4. **Configurar suscriptores de alertas**:
+   ```
+   Métodos de alerta:
+   ├── Correo electrónico: Notificaciones directas por email.
+   ├── SNS Topic: Publicar en SNS para automatización.
+   ├── AWS Chatbot: Enviar a Slack o Chime.
+   ```
+
+5. **Configurar umbrales de alerta**:
+   ```
+   Umbrales disponibles:
+   ├── Monto en dólares: Alerta si la anomalía es > $X.
+   ├── Porcentaje: Alerta si es > X% del gasto total.
+   ├── Ambos: Debe cumplir ambos criterios.
+   ```
+
+**Ejemplo de Configuración**:
 ```
-Monitor Name: Production-Services-Monitor
-Monitor Type: AWS Services
-Services: EC2, RDS, S3, Lambda
-Sensitivity: Medium (>25% deviation)
+Nombre del monitor: Production-Services-Monitor
+Tipo de monitor: AWS Services
+Servicios: EC2, RDS, S3, Lambda
+Sensibilidad: Media (>25% de desviación)
 
-Alert Subscription:
-├── Email: ops-team@company.com
+Suscripción de alerta:
+├── Correo electrónico: ops-team@company.com
 ├── SNS Topic: arn:aws:sns:us-east-1:111111111111:cost-anomalies
-└── Threshold: $100 or 10% of daily spend
+└── Umbral: $100 o 10% del gasto diario
 ```
 
 ---
 
-### Alert Examples
+### Ejemplos de Alertas
 
-#### Example 1: EC2 Cost Spike
+#### Ejemplo 1: Pico de costes de EC2
 
-**Alert Received**:
+**Alerta recibida**:
 ```
-Cost Anomaly Detected
+Anomalía de coste detectada
 
-Service: Amazon EC2
-Region: us-east-1
-Anomaly Period: 2024-01-15
+Servicio: Amazon EC2
+Región: us-east-1
+Periodo de la anomalía: 2024-01-15
 
-Expected Spend: $500/day
-Actual Spend: $2,100/day
-Anomaly Amount: +$1,600 (320% increase)
+Gasto esperado: $500/día
+Gasto real: $2,100/día
+Monto de la anomalía: +$1,600 (320% de aumento)
 
-Root Cause Analysis:
-- 15 new r5.8xlarge instances launched at 02:00 UTC
-- Instances still running (not terminated as expected)
-- Launched by IAM user: john.doe@company.com
-- Associated with AutoScaling group: web-app-asg-prod
+Análisis de la causa raíz:
+- Se lanzaron 15 nuevas instancias r5.8xlarge a las 02:00 UTC.
+- Las instancias siguen en ejecución (no se terminaron como se esperaba).
+- Lanzadas por el usuario IAM: john.doe@company.com.
+- Asociadas con el grupo de AutoScaling: web-app-asg-prod.
 
-Recommended Actions:
-1. Verify if instances are required
-2. Check AutoScaling policies
-3. Terminate unnecessary instances
-4. Review IAM permissions for this user
-```
-
-**Investigation Steps**:
-```
-1. Check EC2 Console:
-   - Filter by launch time: Last 24 hours
-   - Identify unexpected instances
-   - Check instance types and counts
-
-2. Review CloudTrail:
-   - Search for RunInstances API calls
-   - Identify who launched instances and why
-
-3. Take Action:
-   - Terminate or stop unnecessary instances
-   - Fix AutoScaling misconfiguration
-   - Update IAM policies to prevent recurrence
-
-4. Document:
-   - Create post-mortem report
-   - Update runbooks
-   - Add additional monitoring/alerts
+Acciones recomendadas:
+1. Verificar si las instancias son necesarias.
+2. Comprobar las políticas de AutoScaling.
+3. Terminar las instancias innecesarias.
+4. Revisar los permisos IAM de este usuario.
 ```
 
-#### Example 2: S3 Storage Spike
-
-**Alert Received**:
+**Pasos de investigación**:
 ```
-Cost Anomaly Detected
+1. Comprobar la consola de EC2:
+   - Filtrar por hora de lanzamiento: últimas 24 horas.
+   - Identificar instancias inesperadas.
+   - Comprobar tipos y recuentos de instancias.
 
-Service: Amazon S3
-Region: us-west-2
-Anomaly Period: 2024-01-10 to 2024-01-15
+2. Revisar CloudTrail:
+   - Buscar llamadas a la API RunInstances.
+   - Identificar quién lanzó las instancias y por qué.
 
-Expected Spend: $1,200/month
-Actual Spend: $4,800/month
-Anomaly Amount: +$3,600 (300% increase)
+3. Tomar medidas:
+   - Terminar o detener las instancias innecesarias.
+   - Corregir la configuración incorrecta de AutoScaling.
+   - Actualizar las políticas IAM para evitar que se repita.
 
-Root Cause Analysis:
-- Storage increased from 50 TB to 200 TB
-- Growth in bucket: company-data-backup-west2
-- Primarily new PUT requests and data uploads
-- No corresponding DELETE requests (data accumulating)
-
-Top Contributing Factors:
-1. Backup job writing full backups instead of incremental
-2. Old backups not being deleted per retention policy
-3. Lifecycle policies not applied to this bucket
-
-Recommended Actions:
-1. Review backup strategy (implement incremental)
-2. Apply lifecycle policies to delete old backups
-3. Enable S3 Intelligent-Tiering for cost optimization
-4. Set up S3 Storage Lens for ongoing monitoring
+4. Documentar:
+   - Crear un informe post-mortem.
+   - Actualizar los manuales de procedimientos (runbooks).
+   - Añadir monitorización/alertas adicionales.
 ```
 
-**Remediation Actions**:
+#### Ejemplo 2: Pico de almacenamiento de S3
+
+**Alerta recibida**:
+```
+Anomalía de coste detectada
+
+Servicio: Amazon S3
+Región: us-west-2
+Periodo de la anomalía: 2024-01-10 al 2024-01-15
+
+Gasto esperado: $1,200/mes
+Gasto real: $4,800/mes
+Monto de la anomalía: +$3,600 (300% de aumento)
+
+Análisis de la causa raíz:
+- El almacenamiento aumentó de 50 TB a 200 TB.
+- Crecimiento en el bucket: company-data-backup-west2.
+- Principalmente nuevas solicitudes PUT y cargas de datos.
+- Sin solicitudes DELETE correspondientes (acumulación de datos).
+
+Principales factores contribuyentes:
+1. El trabajo de copia de seguridad está realizando copias completas en lugar de incrementales.
+2. Las copias de seguridad antiguas no se eliminan según la política de retención.
+3. No se han aplicado políticas de ciclo de vida a este bucket.
+
+Acciones recomendadas:
+1. Revisar la estrategia de copia de seguridad (implementar incremental).
+2. Aplicar políticas de ciclo de vida para eliminar copias antiguas.
+3. Habilitar S3 Intelligent-Tiering para la optimización de costes.
+4. Configurar S3 Storage Lens para la monitorización continua.
+```
+
+**Acciones de corrección**:
 ```python
 import boto3
 from datetime import datetime, timedelta
@@ -3035,7 +2951,7 @@ def remediate_s3_anomaly():
     s3 = boto3.client('s3')
     bucket = 'company-data-backup-west2'
 
-    # Apply lifecycle policy
+    # Aplicar política de ciclo de vida
     lifecycle_policy = {
         'Rules': [
             {
@@ -3062,7 +2978,7 @@ def remediate_s3_anomaly():
         LifecycleConfiguration=lifecycle_policy
     )
 
-    # Delete backups older than 30 days immediately
+    # Eliminar copias de seguridad de más de 30 días inmediatamente
     paginator = s3.get_paginator('list_objects_v2')
     thirty_days_ago = datetime.now() - timedelta(days=30)
 
@@ -3070,113 +2986,113 @@ def remediate_s3_anomaly():
         for obj in page.get('Contents', []):
             if obj['LastModified'].replace(tzinfo=None) < thirty_days_ago:
                 s3.delete_object(Bucket=bucket, Key=obj['Key'])
-                print(f"Deleted: {obj['Key']}")
+                print(f"Eliminado: {obj['Key']}")
 ```
 
-#### Example 3: Data Transfer Anomaly
+#### Ejemplo 3: Anomalía de transferencia de datos
 
-**Alert Received**:
+**Alerta recibida**:
 ```
-Cost Anomaly Detected
+Anomalía de coste detectada
 
-Service: Data Transfer
-Region: Cross-Region Transfer
-Anomaly Period: 2024-01-12
+Servicio: Transferencia de datos (Data Transfer)
+Región: Transferencia entre regiones
+Periodo de la anomalía: 2024-01-12
 
-Expected Spend: $200/day
-Actual Spend: $1,800/day
-Anomaly Amount: +$1,600 (800% increase)
+Gasto esperado: $200/día
+Gasto real: $1,800/día
+Monto de la anomalía: +$1,600 (800% de aumento)
 
-Root Cause Analysis:
-- 80 TB transferred from us-east-1 to eu-west-1
-- Normal transfer: 10 TB/day
-- Source: RDS database replication
-- New read replica launched in eu-west-1 performing initial sync
+Análisis de la causa raíz:
+- 80 TB transferidos desde us-east-1 a eu-west-1.
+- Transferencia normal: 10 TB/día.
+- Origen: replicación de la base de datos RDS.
+- Nueva réplica de lectura lanzada en eu-west-1 realizando la sincronización inicial.
 
-Cost Impact:
-- 80 TB × $0.02/GB = $1,640
-- Expected cost after initial sync: Back to $200/day
-- One-time anomaly due to new infrastructure
+Impacto en el coste:
+- 80 TB × $0.02/GB = $1,640.
+- Coste esperado tras la sincronización inicial: vuelve a $200/día.
+- Anomalía puntual debido a la nueva infraestructura.
 
-Recommended Actions:
-1. Verify this was planned infrastructure change
-2. No immediate action needed (expected behavior)
-3. Update cost forecasts to account for cross-region replica
-4. Consider using AWS Database Migration Service for future migrations (more cost-effective)
-```
-
-**Investigation Outcome**:
-```
-Status: Anomaly Explained - No Action Required
-
-Context:
-- Planned launch of EU read replica
-- Initial data synchronization expected
-- One-time cost spike
-- Ongoing costs will normalize
-
-Follow-Up:
-- Update capacity planning documentation
-- Add this scenario to runbooks
-- Set up separate budget for infrastructure changes
-- Reduce alerting threshold for planned changes
+Acciones recomendadas:
+1. Verificar si este fue un cambio de infraestructura planificado.
+2. No se requiere acción inmediata (comportamiento esperado).
+3. Actualizar las previsiones de costes para tener en cuenta la réplica entre regiones.
+4. Considerar el uso de AWS Database Migration Service para futuras migraciones (más rentable).
 ```
 
-#### Example 4: Lambda Invocation Spike
-
-**Alert Received**:
+**Resultado de la investigación**:
 ```
-Cost Anomaly Detected
+Estado: Anomalía explicada - No se requiere acción
 
-Service: AWS Lambda
-Region: us-east-1
-Anomaly Period: 2024-01-08 14:00-16:00
+Contexto:
+- Lanzamiento planificado de la réplica de lectura de la UE.
+- Sincronización de datos inicial esperada.
+- Pico de coste puntual.
+- Los costes continuos se normalizarán.
 
-Expected Spend: $50/day
-Actual Spend: $420/day
-Anomaly Amount: +$370 (740% increase)
-
-Root Cause Analysis:
-- Function: image-processing-function
-- Invocations: 50M (vs expected 5M)
-- Cause: Infinite loop triggered by S3 event recursion
-- Function writing output to same S3 bucket that triggers it
-
-Event Chain:
-1. Function processes image → Writes to S3
-2. S3 PUT event triggers same function again
-3. Function processes same image → Writes to S3
-4. Loop continues until manually stopped
-
-Recommended Actions [URGENT]:
-1. IMMEDIATELY disable S3 event trigger
-2. Update function to write to different bucket
-3. Implement idempotency checks
-4. Add circuit breaker logic
-5. Set Lambda reserved concurrency limit
+Seguimiento:
+- Actualizar la documentación de planificación de capacidad.
+- Añadir este escenario a los manuales de procedimientos.
+- Configurar un presupuesto separado para los cambios de infraestructura.
+- Reducir el umbral de alerta para cambios planificados.
 ```
 
-**Emergency Response**:
+#### Ejemplo 4: Pico de invocaciones de Lambda
+
+**Alerta recibida**:
+```
+Anomalía de coste detectada
+
+Servicio: AWS Lambda
+Región: us-east-1
+Periodo de la anomalía: 2024-01-08 14:00-16:00
+
+Gasto esperado: $50/día
+Gasto real: $420/día
+Monto de la anomalía: +$370 (740% de aumento)
+
+Análisis de la causa raíz:
+- Función: image-processing-function.
+- Invocaciones: 50M (frente a los 5M esperados).
+- Causa: bucle infinito activado por la recursividad de eventos de S3.
+- La función escribe la salida en el mismo bucket de S3 que la activa.
+
+Cadena de eventos:
+1. La función procesa la imagen → Escribe en S3.
+2. El evento PUT de S3 activa la misma función de nuevo.
+3. La función procesa la misma imagen → Escribe en S3.
+4. El bucle continúa hasta que se detiene manualmente.
+
+Acciones recomendadas [URGENTE]:
+1. Desactivar INMEDIATAMENTE el activador de eventos de S3.
+2. Actualizar la función para que escriba en un bucket diferente.
+3. Implementar comprobaciones de idempotencia.
+4. Añadir lógica de interruptor automático (circuit breaker).
+5. Establecer un límite de ejecución concurrente reservada para Lambda.
+```
+
+**Respuesta de emergencia**:
 ```bash
-# Disable S3 event notification
+# Desactivar la notificación de eventos de S3
 aws s3api put-bucket-notification-configuration \
   --bucket source-images-bucket \
   --notification-configuration '{}'
 
-# Set Lambda reserved concurrency to 0 (temporarily disable)
+# Establecer la concurrencia reservada de Lambda en 0 (desactivar temporalmente)
 aws lambda put-function-concurrency \
   --function-name image-processing-function \
   --reserved-concurrent-executions 0
 
-# Fix the function code
-# (update to write to different bucket: processed-images-bucket)
+# Corregir el código de la función
+# (actualizar para escribir en un bucket diferente: processed-images-bucket)
 
-# Re-enable with concurrency limit
+# Volver a activar con límite de concurrencia
 aws lambda put-function-concurrency \
   --function-name image-processing-function \
   --reserved-concurrent-executions 100
 
-# Re-enable S3 notification with corrected configuration
+# Volver a activar la notificación de S3 con la configuración corregida
 aws s3api put-bucket-notification-configuration \
   --bucket source-images-bucket \
   --notification-configuration file://correct-notification.json
@@ -3184,52 +3100,52 @@ aws s3api put-bucket-notification-configuration \
 
 ---
 
-### Response Workflows
+### Flujos de Trabajo de Respuesta (Response Workflows)
 
-#### Automated Response Workflow
+#### Flujo de Trabajo de Respuesta Automatizado
 
-**Architecture**:
+**Arquitectura**:
 ```
-Cost Anomaly Detected
+Anomalía de coste detectada
          ↓
-    SNS Topic Published
+   Tema SNS publicado
          ↓
-    Lambda Function Triggered
+   Función Lambda activada
          ↓
    ┌──────────────────┐
-   │  Analyze Anomaly │
+   │ Analizar anomalía│
    └──────────────────┘
          ↓
    ┌──────────────────────────────────┐
-   │  Determine Severity and Category │
+   │ Determinar gravedad y categoría  │
    └──────────────────────────────────┘
          ↓
    ┌─────────────────┬─────────────────┐
-   │  High Severity  │  Low Severity   │
+   │ Gravedad Alta   │  Gravedad Baja  │
    └─────────────────┴─────────────────┘
          ↓                    ↓
    ┌────────────┐      ┌───────────────┐
-   │  PagerDuty │      │  Slack Message│
-   │  Incident  │      │  + Jira Ticket│
+   │ Incidente  │      │ Mensaje Slack │
+   │ PagerDuty  │      │ + Ticket Jira │
    └────────────┘      └───────────────┘
          ↓                    ↓
    ┌────────────────┐  ┌────────────────┐
-   │ Automatic      │  │  Investigation │
-   │ Mitigation     │  │  Queued        │
-   │ (if configured)│  │                │
+   │ Mitigación     │  │ Investigación  │
+   │ Automática     │  │ en cola        │
+   │ (si está conf.)│  │                │
    └────────────────┘  └────────────────┘
 ```
 
-**Lambda Function for Automated Response**:
+**Función Lambda para respuesta automatizada**:
 ```python
 import boto3
 import json
 from datetime import datetime
 
 def lambda_handler(event, context):
-    """Automated response to cost anomalies"""
+    """Respuesta automatizada a anomalías de coste"""
 
-    # Parse SNS message
+    # Analizar mensaje SNS
     message = json.loads(event['Records'][0]['Sns']['Message'])
 
     anomaly = {
@@ -3240,10 +3156,10 @@ def lambda_handler(event, context):
         'region': message['rootCauses'][0]['region']
     }
 
-    # Determine severity
+    # Determinar gravedad
     severity = determine_severity(anomaly)
 
-    # Route based on severity
+    # Enrutar basado en gravedad
     if severity == 'CRITICAL':
         handle_critical_anomaly(anomaly)
     elif severity == 'HIGH':
@@ -3251,10 +3167,10 @@ def lambda_handler(event, context):
     else:
         handle_low_anomaly(anomaly)
 
-    return {'statusCode': 200, 'body': 'Anomaly processed'}
+    return {'statusCode': 200, 'body': 'Anomalía procesada'}
 
 def determine_severity(anomaly):
-    """Classify anomaly severity"""
+    """Clasificar gravedad de la anomalía"""
     amount = float(anomaly['amount'])
     percentage = anomaly['percentage']
 
@@ -3266,44 +3182,44 @@ def determine_severity(anomaly):
         return 'LOW'
 
 def handle_critical_anomaly(anomaly):
-    """Handle critical anomalies"""
-    # Create PagerDuty incident
+    """Manejar anomalías críticas"""
+    # Crear incidente en PagerDuty
     create_pagerduty_incident(anomaly)
 
-    # Send urgent Slack message
+    # Enviar alerta urgente de Slack
     send_slack_alert(anomaly, channel='#critical-alerts', urgent=True)
 
-    # Auto-remediate if possible
+    # Automatizar remediación si es posible
     if anomaly['service'] == 'Amazon EC2':
         check_and_stop_runaway_instances(anomaly)
 
-    # Create high-priority Jira ticket
+    # Crear ticket de Jira de alta prioridad
     create_jira_ticket(anomaly, priority='Critical')
 
 def handle_high_anomaly(anomaly):
-    """Handle high-severity anomalies"""
-    # Send Slack message
+    """Manejar anomalías de gravedad alta"""
+    # Enviar mensaje de Slack
     send_slack_alert(anomaly, channel='#cost-alerts')
 
-    # Create Jira ticket
+    # Crear ticket de Jira
     create_jira_ticket(anomaly, priority='High')
 
-    # Log to CloudWatch for investigation
+    # Registrar en CloudWatch para investigación
     log_to_cloudwatch(anomaly)
 
 def handle_low_anomaly(anomaly):
-    """Handle low-severity anomalies"""
-    # Send summary Slack message
+    """Manejar anomalías de gravedad baja"""
+    # Enviar mensaje de resumen de Slack
     send_slack_alert(anomaly, channel='#cost-alerts', urgent=False)
 
-    # Log only
+    # Solo registrar
     log_to_cloudwatch(anomaly)
 
 def check_and_stop_runaway_instances(anomaly):
-    """Stop EC2 instances if anomaly detected"""
+    """Detener instancias EC2 si se detecta anomalía"""
     ec2 = boto3.client('ec2', region_name=anomaly['region'])
 
-    # Find instances launched in last 2 hours
+    # Buscar instancias lanzadas en las últimas 2 horas
     instances = ec2.describe_instances(
         Filters=[
             {'Name': 'instance-state-name', 'Values': ['running']},
@@ -3314,81 +3230,81 @@ def check_and_stop_runaway_instances(anomaly):
     runaway_instances = []
     for reservation in instances['Reservations']:
         for instance in reservation['Instances']:
-            # Check if instance is unusually large or numerous
+            # Comprobar si la instancia es inusualmente grande o numerosa
             if is_unusual_instance(instance):
                 runaway_instances.append(instance['InstanceId'])
 
     if runaway_instances:
-        # Stop instances (don't terminate - allow for investigation)
+        # Detener instancias (no terminar - permitir investigación)
         ec2.stop_instances(InstanceIds=runaway_instances)
 
         send_slack_alert({
-            'message': f'Stopped {len(runaway_instances)} runaway instances',
+            'message': f'Detenidas {len(runaway_instances)} instancias fuera de control',
             'instances': runaway_instances
         }, channel='#critical-alerts')
 ```
 
-#### Manual Investigation Workflow
+#### Flujo de Trabajo de Investigación Manual
 
-**Playbook for Cost Anomaly Investigation**:
+**Manual de procedimientos (Playbook) para la investigación de anomalías de coste**:
 
 ```
-Step 1: Acknowledge and Assess
-[ ] Acknowledge anomaly alert
-[ ] Note the service, region, and time period
-[ ] Check if this is a known/planned change
-[ ] Determine urgency (is spend still increasing?)
+Paso 1: Reconocer y Evaluar
+[ ] Reconocer la alerta de anomalía.
+[ ] Anotar el servicio, la región y el periodo de tiempo.
+[ ] Comprobar si se trata de un cambio conocido/planificado.
+[ ] Determinar la urgencia (¿sigue aumentando el gasto?).
 
-Step 2: Gather Context
-[ ] Review Cost Explorer for detailed breakdown
-[ ] Check CloudTrail for relevant API calls
-[ ] Review recent deployments or changes
-[ ] Check monitoring dashboards for correlating events
+Paso 2: Recopilar Contexto
+[ ] Revisar Cost Explorer para obtener un desglose detallado.
+[ ] Comprobar CloudTrail para buscar llamadas a la API relevantes.
+[ ] Revisar despliegues o cambios recientes.
+[ ] Comprobar los paneles de control de monitorización para buscar eventos correlacionados.
 
-Step 3: Identify Root Cause
-[ ] Determine what resources caused the spike
-[ ] Identify who made the changes (IAM user/role)
-[ ] Understand the business context (planned vs unplanned)
-[ ] Assess if this is a one-time or ongoing issue
+Paso 3: Identificar la Causa Raíz
+[ ] Determinar qué recursos causaron el pico.
+[ ] Identificar quién realizó los cambios (usuario/rol IAM).
+[ ] Comprender el contexto de negocio (planificado frente a no planificado).
+[ ] Evaluar si se trata de un problema puntual o continuo.
 
-Step 4: Take Immediate Action
-[ ] Stop/terminate unnecessary resources
-[ ] Disable problematic services or features
-[ ] Implement temporary spending limits if needed
-[ ] Document all actions taken
+Paso 4: Tomar Medidas Inmediatas
+[ ] Detener/terminar los recursos innecesarios.
+[ ] Desactivar los servicios o características problemáticos.
+[ ] Implementar límites de gasto temporales si es necesario.
+[ ] Documentar todas las acciones tomadas.
 
-Step 5: Implement Permanent Fix
-[ ] Fix underlying issue (code, configuration, process)
-[ ] Implement preventive controls (SCPs, quotas, alarms)
-[ ] Update IAM policies if permission-related
-[ ] Create runbook for similar future scenarios
+Paso 5: Implementar una Solución Permanente
+[ ] Corregir el problema subyacente (código, configuración, proceso).
+[ ] Implementar controles preventivos (SCPs, cuotas, alarmas).
+[ ] Actualizar las políticas IAM si el problema está relacionado con los permisos.
+[ ] Crear un manual de procedimientos para escenarios futuros similares.
 
-Step 6: Post-Mortem and Prevention
-[ ] Write incident report
-[ ] Share learnings with team
-[ ] Update cost anomaly detection thresholds if needed
-[ ] Implement additional monitoring/alerting
-[ ] Schedule review in 30 days to verify fix holds
+Paso 6: Post-Mortem y Prevención
+[ ] Escribir el informe del incidente.
+[ ] Compartir los aprendizajes con el equipo.
+[ ] Actualizar los umbrales de detección de anomalías de coste si es necesario.
+[ ] Implementar monitorización/alertas adicionales.
+[ ] Programar una revisión en 30 días para verificar que la solución se mantiene.
 ```
 
-**Investigation Tools Checklist**:
+**Lista de verificación de herramientas de investigación**:
 ```
-AWS Console Tools:
-├── Cost Explorer: Detailed cost analysis
-├── CloudTrail: API call history
-├── CloudWatch: Metrics and alarms
-├── AWS Config: Resource configuration changes
-├── Trusted Advisor: Cost optimization checks
-└── Personal Health Dashboard: Service issues
+Herramientas de la consola de AWS:
+├── Cost Explorer: Análisis de costes detallado.
+├── CloudTrail: Historial de llamadas a la API.
+├── CloudWatch: Métricas y alarmas.
+├── AWS Config: Cambios en la configuración de los recursos.
+├── Trusted Advisor: Comprobaciones de optimización de costes.
+└── Personal Health Dashboard: Problemas del servicio.
 
-CLI Commands:
-├── aws ce get-cost-and-usage: Programmatic cost data
-├── aws cloudtrail lookup-events: Find API calls
-├── aws ec2 describe-instances: Check running instances
-├── aws rds describe-db-instances: Check databases
-└── aws s3api list-buckets: Review S3 usage
+Comandos de la CLI:
+├── aws ce get-cost-and-usage: Datos de costes programáticos.
+├── aws cloudtrail lookup-events: Buscar llamadas a la API.
+├── aws ec2 describe-instances: Comprobar instancias en ejecución.
+├── aws rds describe-db-instances: Comprobar bases de datos.
+└── aws s3api list-buckets: Revisar el uso de S3.
 
-Third-Party Tools:
+Herramientas de terceros:
 ├── CloudHealth
 ├── CloudCheckr
 ├── Datadog Cloud Cost Management
@@ -3397,704 +3313,704 @@ Third-Party Tools:
 
 ---
 
-## AWS Support Plans
+## Planes de Soporte de AWS
 
-AWS offers four support plans, each providing different levels of technical support and response times.
+AWS ofrece cuatro planes de soporte, cada uno de los cuales proporciona diferentes niveles de soporte técnico y tiempos de respuesta.
 
-### Support Plan Comparison
+### Comparativa de los Planes de Soporte
 
-| Feature | Basic | Developer | Business | Enterprise |
+| Característica | Basic | Developer | Business | Enterprise |
 |---------|-------|-----------|----------|------------|
-| **Cost** | Free | $29/month or 3% of monthly AWS usage (whichever is greater) | $100/month or 10% (tiered 10%-3%) | $15,000/month or 10% (tiered 10%-3%) |
-| **Use Case** | All customers | Testing and development | Production workloads | Mission-critical workloads |
-| **Technical Support** | None | Business hours via email | 24/7 via email, chat, phone | 24/7 via email, chat, phone |
-| **Response Time - General Guidance** | N/A | < 24 hours | < 24 hours | < 24 hours |
-| **Response Time - System Impaired** | N/A | < 12 hours | < 12 hours | < 12 hours |
-| **Response Time - Production System Down** | N/A | N/A | < 4 hours | < 4 hours |
-| **Response Time - Business-Critical Down** | N/A | N/A | < 1 hour | < 1 hour |
-| **Response Time - Mission-Critical Down** | N/A | N/A | N/A | **< 15 minutes** |
-| **Who Can Open Cases** | N/A | 1 primary contact | **Unlimited contacts** | **Unlimited contacts** |
-| **Trusted Advisor Checks** | 7 core checks | 7 core checks | **All checks** | **All checks** |
-| **Third-Party Software Support** | No | No | **Yes** | **Yes** |
-| **Architectural Guidance** | No | General | Contextual to use case | **Consultative** |
-| **Technical Account Manager (TAM)** | No | No | No | **Yes** |
-| **Proactive Programs** | No | No | No | **Yes** (IEM, Well-Architected Reviews) |
-| **Concierge Support Team** | No | No | No | **Yes** (billing/account) |
+| **Coste** | Gratuito | $29/mes o el 3% del uso mensual de AWS (el que sea mayor) | $100/mes o el 10% (escalonado del 10% al 3%) | $15,000/mes o el 10% (escalonado del 10% al 3%) |
+| **Caso de uso** | Todos los clientes | Pruebas y desarrollo | Cargas de trabajo de producción | Cargas de trabajo críticas para el negocio |
+| **Soporte Técnico** | Ninguno | Horario comercial por correo electrónico | 24/7 por correo electrónico, chat y teléfono | 24/7 por correo electrónico, chat y teléfono |
+| **Tiempo de respuesta - Guía general** | N/A | < 24 horas | < 24 horas | < 24 horas |
+| **Tiempo de respuesta - Sistema deteriorado** | N/A | < 12 horas | < 12 horas | < 12 horas |
+| **Tiempo de respuesta - Sistema de producción caído** | N/A | N/A | < 4 horas | < 4 horas |
+| **Tiempo de respuesta - Negocio crítico caído** | N/A | N/A | < 1 hora | < 1 hora |
+| **Tiempo de respuesta - Misión crítica caída** | N/A | N/A | N/A | **< 15 minutos** |
+| **Quién puede abrir casos** | N/A | 1 contacto principal | **Contactos ilimitados** | **Contactos ilimitados** |
+| **Comprobaciones de Trusted Advisor** | 7 comprobaciones básicas | 7 comprobaciones básicas | **Todas las comprobaciones** | **Todas las comprobaciones** |
+| **Soporte de software de terceros** | No | No | **Sí** | **Sí** |
+| **Orientación arquitectónica** | No | General | Contextual al caso de uso | **Consultiva** |
+| **Technical Account Manager (TAM)** | No | No | No | **Sí** |
+| **Programas proactivos** | No | No | No | **Sí** (IEM, Well-Architected Reviews) |
+| **Equipo de soporte Concierge** | No | No | No | **Sí** (facturación/cuenta) |
 
-### Response Time Summary
+### Resumen de Tiempos de Respuesta
 
-> **Critical for Exam**: Memorize these response times!
+> **Crítico para el examen**: ¡Memoriza estos tiempos de respuesta!
 
 **Developer**:
-- General guidance: < 24 hours
-- System impaired: < 12 hours
+- Guía general: < 24 horas
+- Sistema deteriorado: < 12 horas
 
 **Business**:
-- General guidance: < 24 hours
-- System impaired: < 12 hours
-- Production system down: **< 4 hours**
-- Business-critical down: **< 1 hour**
+- Guía general: < 24 horas
+- Sistema deteriorado: < 12 horas
+- Sistema de producción caído: **< 4 horas**
+- Negocio crítico caído: **< 1 hora**
 
 **Enterprise**:
-- All Business plan response times, PLUS:
-- Mission-critical system down: **< 15 minutes**
+- Todos los tiempos de respuesta del plan Business, ADEMÁS DE:
+- Sistema de misión crítica caído: **< 15 minutos**
 
 ---
 
-### Support Plan Decision Matrix
+### Matriz de Decisión del Plan de Soporte
 
-**Choose the Right Support Plan Based on Your Scenario**:
+**Elige el plan de soporte adecuado según tu escenario**:
 
-| Scenario | Recommended Plan | Reasoning |
+| Escenario | Plan recomendado | Razonamiento |
 |----------|-----------------|-----------|
-| Personal learning/experimenting | **Basic** | Free, sufficient for self-directed learning |
-| Small startup, no production workloads yet | **Basic** or **Developer** | Developer if you need occasional technical guidance |
-| Startup with first production deployment | **Developer** | Low cost, email support during business hours |
-| Small business, production non-critical | **Developer** | Adequate for non-mission-critical applications |
-| Growing company, production is important | **Business** | 24/7 support, < 1 hour response for critical issues |
-| Enterprise with mission-critical systems | **Enterprise** | TAM, 15-min response, proactive guidance |
-| Need to integrate with third-party software | **Business** (minimum) | Third-party software support included |
-| Require architectural consultation | **Business** or **Enterprise** | Contextual or consultative guidance |
-| Need 24/7 phone support | **Business** (minimum) | Phone support starts with Business plan |
-| Running compliance-critical workloads | **Business** or **Enterprise** | Full Trusted Advisor, rapid response times |
-| Multi-account organization (10+ accounts) | **Enterprise** (recommended) | TAM helps coordinate across accounts |
-| Revenue depends on AWS availability | **Enterprise** | 15-minute response + proactive monitoring |
+| Aprendizaje/experimentación personal | **Basic** | Gratuito, suficiente para el autoaprendizaje |
+| Pequeña startup, aún sin cargas de producción | **Basic** o **Developer** | Developer si necesitas orientación técnica ocasional |
+| Startup con primer despliegue en producción | **Developer** | Bajo coste, soporte por email en horario comercial |
+| Pequeña empresa, producción no crítica | **Developer** | Adecuado para aplicaciones que no son críticas para el negocio |
+| Empresa en crecimiento, la producción es importante | **Business** | Soporte 24/7, respuesta en < 1 hora para problemas críticos |
+| Gran empresa con sistemas de misión crítica | **Enterprise** | TAM, respuesta en 15 min, orientación proactiva |
+| Necesidad de integración con software de terceros | **Business** (mínimo) | Soporte para software de terceros incluido |
+| Requiere consulta arquitectónica | **Business** o **Enterprise** | Orientación contextual o consultiva |
+| Necesita soporte telefónico 24/7 | **Business** (mínimo) | El soporte telefónico comienza con el plan Business |
+| Ejecución de cargas de trabajo críticas para el cumplimiento | **Business** o **Enterprise** | Trusted Advisor completo, tiempos de respuesta rápidos |
+| Organización multicuenta (más de 10 cuentas) | **Enterprise** (recomendado) | El TAM ayuda a coordinar entre las cuentas |
+| Los ingresos dependen de la disponibilidad de AWS | **Enterprise** | Respuesta en 15 minutos + monitorización proactiva |
 
-#### Decision Tree
+#### Árbol de Decisión
 
 ```
-Are you generating revenue or running production workloads?
-├── No → Basic Support (free)
-└── Yes → Continue...
+¿Estás generando ingresos o ejecutando cargas de trabajo de producción?
+├── No → Basic Support (gratuito)
+└── Sí → Continuar...
     │
-    Is your application mission-critical (>$100k/hour downtime cost)?
-    ├── Yes → Enterprise Support
-    └── No → Continue...
+    ¿Tu aplicación es de misión crítica (coste de inactividad >100.000 $/hora)?
+    ├── Sí → Enterprise Support
+    └── No → Continuar...
         │
-        Do you need 24/7 phone support?
-        ├── Yes → Business or Enterprise
-        └── No → Continue...
+        ¿Necesitas soporte telefónico 24/7?
+        ├── Sí → Business o Enterprise
+        └── No → Continuar...
             │
-            Monthly AWS spend > $10,000?
-            ├── Yes → Business Support (cost-effective at scale)
+            ¿Gasto mensual de AWS > 10.000 $?
+            ├── Sí → Business Support (rentable a escala)
             └── No → Developer Support
 ```
 
-#### Cost-Benefit Analysis by Monthly Spend
+#### Análisis Coste-Beneficio por Gasto Mensual
 
-| Monthly AWS Spend | Basic Cost | Developer Cost | Business Cost | Enterprise Cost | Best Value |
+| Gasto mensual de AWS | Coste Basic | Coste Developer | Coste Business | Coste Enterprise | Mejor valor |
 |-------------------|------------|----------------|---------------|-----------------|------------|
-| $100 | $0 | $29 | $100 | $15,000 | Developer* |
-| $500 | $0 | $29 | $100 | $15,000 | Business** |
-| $1,000 | $0 | $30 | $100 | $15,000 | Business |
-| $5,000 | $0 | $150 | $500 | $15,000 | Business |
-| $10,000 | $0 | $300 | $1,000 | $15,000 | Business |
-| $50,000 | $0 | $1,500 | $3,500 | $15,000 | Business |
-| $100,000 | $0 | $3,000 | $5,500 | $15,000 | Business/Enterprise*** |
-| $500,000 | $0 | $15,000 | $17,500 | $35,000 | Enterprise |
-| $1,000,000 | $0 | $30,000 | $32,500 | $45,000 | Enterprise |
+| 100 $ | 0 $ | 29 $ | 100 $ | 15.000 $ | Developer* |
+| 500 $ | 0 $ | 29 $ | 100 $ | 15.000 $ | Business** |
+| 1.000 $ | 0 $ | 30 $ | 100 $ | 15.000 $ | Business |
+| 5.000 $ | 0 $ | 150 $ | 500 $ | 15.000 $ | Business |
+| 10.000 $ | 0 $ | 300 $ | 1.000 $ | 15.000 $ | Business |
+| 50.000 $ | 0 $ | 1.500 $ | 3.500 $ | 15.000 $ | Business |
+| 100.000 $ | 0 $ | 3.000 $ | 5.500 $ | 15.000 $ | Business/Enterprise*** |
+| 500.000 $ | 0 $ | 15.000 $ | 17.500 $ | 35.000 $ | Enterprise |
+| 1.000.000 $ | 0 $ | 30.000 $ | 32.500 $ | 45.000 $ | Enterprise |
 
-Notes:
-- *If production is non-critical
-- **If you need 24/7 support or full Trusted Advisor
-- ***Enterprise becomes cost-competitive + adds significant value (TAM, etc.)
+Notas:
+- *Si la producción no es crítica.
+- **Si necesitas soporte 24/7 o el Trusted Advisor completo.
+- ***Enterprise se vuelve competitivo en costes + añade un valor significativo (TAM, etc.).
 
-#### Real-World Scenario Examples
+#### Ejemplos de Escenarios del Mundo Real
 
-**Scenario 1: E-Learning Platform Startup**
+**Escenario 1: Startup de plataforma de e-learning**
 ```
-Company: EdTech startup, 50,000 users
-AWS Spend: $2,000/month
-Workload: Production application, but can tolerate some downtime
-Team: 3 engineers, limited AWS experience
+Empresa: Startup de tecnología educativa, 50.000 usuarios
+Gasto en AWS: 2.000 $/mes
+Carga de trabajo: Aplicación de producción, pero puede tolerar cierto tiempo de inactividad
+Equipo: 3 ingenieros, experiencia limitada en AWS
 
-Recommendation: Business Support Plan ($100/month)
+Recomendación: Business Support Plan (100 $/mes)
 
-Reasoning:
-- 24/7 support important for student exam periods
-- Need architectural guidance for scaling
-- Full Trusted Advisor to optimize costs
-- Cost is justified ($100 on $2,000 spend = 5%)
-- Can escalate critical issues with < 1 hour response
-```
-
-**Scenario 2: Healthcare SaaS Company**
-```
-Company: HIPAA-compliant medical records platform
-AWS Spend: $50,000/month
-Workload: Mission-critical, handles patient data
-Team: 20 engineers, AWS-certified
-Compliance: HIPAA, HITRUST
-
-Recommendation: Enterprise Support Plan ($15,000/month)
-
-Reasoning:
-- Patient care depends on system availability
-- Compliance requires audit support and reviews
-- TAM provides proactive architectural reviews
-- Well-Architected Review helps maintain compliance
-- 15-minute response critical for patient-facing systems
-- Infrastructure Event Management for major deployments
-- Cost is 30% of spend but justified by risk reduction
+Razonamiento:
+- El soporte 24/7 es importante para los periodos de exámenes de los estudiantes.
+- Necesita orientación arquitectónica para el escalado.
+- Trusted Advisor completo para optimizar costes.
+- El coste está justificado (100 $ sobre un gasto de 2.000 $ = 5%).
+- Puede escalar problemas críticos con una respuesta en < 1 hora.
 ```
 
-**Scenario 3: Marketing Agency**
+**Escenario 2: Empresa de SaaS sanitario**
 ```
-Company: Digital marketing agency
-AWS Spend: $800/month
-Workload: Client websites and campaigns
-Team: 2 developers, outsourced support
-Business Hours: 9-5 PM weekdays
+Empresa: Plataforma de registros médicos compatible con HIPAA
+Gasto en AWS: 50.000 $/mes
+Carga de trabajo: Misión crítica, maneja datos de pacientes
+Equipo: 20 ingenieros, certificados en AWS
+Cumplimiento: HIPAA, HITRUST
 
-Recommendation: Developer Support Plan ($29/month)
+Recomendación: Enterprise Support Plan (15.000 $/mes)
 
-Reasoning:
-- Limited production criticality
-- Business hours support sufficient
-- Budget-conscious (startup phase)
-- Can wait 12-24 hours for responses
-- Minimal architectural complexity
+Razonamiento:
+- La atención al paciente depende de la disponibilidad del sistema.
+- El cumplimiento requiere soporte para auditorías y revisiones.
+- El TAM proporciona revisiones arquitectónicas proactivas.
+- Well-Architected Review ayuda a mantener el cumplimiento.
+- Respuesta en 15 minutos crítica para sistemas orientados al paciente.
+- Infrastructure Event Management para despliegues importantes.
+- El coste es el 30% del gasto, pero está justificado por la reducción de riesgos.
 ```
 
-**Scenario 4: Financial Services Firm**
+**Escenario 3: Agencia de marketing**
 ```
-Company: Stock trading platform
-AWS Spend: $200,000/month
-Workload: Real-time trading, zero downtime tolerance
-Team: 50+ engineers, dedicated DevOps
-Regulatory: SOC2, PCI-DSS
+Empresa: Agencia de marketing digital
+Gasto en AWS: 800 $/mes
+Carga de trabajo: Sitios web y campañas de clientes
+Equipo: 2 desarrolladores, soporte subcontratado
+Horario comercial: 9-5 PM de lunes a viernes
 
-Recommendation: Enterprise Support Plan ($20,000/month)
+Recomendación: Developer Support Plan (29 $/mes)
 
-Reasoning:
-- Every minute of downtime = lost trades and reputation
-- TAM coordinates with security and compliance teams
-- Proactive monitoring catches issues before impact
-- Well-Architected Reviews ensure security best practices
-- Infrastructure Event Management for platform updates
-- Cost is 10% of spend, easily justified by risk
+Razonamiento:
+- Criticidad de producción limitada.
+- El soporte en horario comercial es suficiente.
+- Consciente del presupuesto (fase de startup).
+- Puede esperar 12-24 horas para las respuestas.
+- Complejidad arquitectónica mínima.
+```
+
+**Escenario 4: Empresa de servicios financieros**
+```
+Empresa: Plataforma de negociación de acciones
+Gasto en AWS: 200.000 $/mes
+Carga de trabajo: Negociación en tiempo real, tolerancia cero al tiempo de inactividad
+Equipo: Más de 50 ingenieros, DevOps dedicados
+Regulatorio: SOC2, PCI-DSS
+
+Recomendación: Enterprise Support Plan (20.000 $/mes)
+
+Razonamiento:
+- Cada minuto de inactividad = pérdida de operaciones y reputación.
+- El TAM coordina con los equipos de seguridad y cumplimiento.
+- La monitorización proactiva detecta problemas antes del impacto.
+- Las Well-Architected Reviews garantizan las mejores prácticas de seguridad.
+- Infrastructure Event Management para actualizaciones de la plataforma.
+- El coste es el 10% del gasto, fácilmente justificado por el riesgo.
 ```
 
 ---
 
-### Detailed Feature Comparison
+### Comparativa Detallada de Características
 
-#### Support Channels
+#### Canales de Soporte
 
-| Feature | Basic | Developer | Business | Enterprise |
+| Característica | Basic | Developer | Business | Enterprise |
 |---------|-------|-----------|----------|------------|
-| **Email Support** | No (only billing) | Yes (business hours) | Yes (24/7) | Yes (24/7) |
-| **Phone Support** | No | No | **Yes (24/7)** | **Yes (24/7)** |
-| **Chat Support** | No | No | **Yes (24/7)** | **Yes (24/7)** |
-| **Web-Based Support** | Only billing/account | Yes | Yes | Yes |
-| **Number of Support Contacts** | N/A | 1 primary contact | **Unlimited** | **Unlimited** |
-| **Support Language** | English only | English only | English + 8 languages | English + 8 languages |
+| **Soporte por correo electrónico** | No (solo facturación) | Sí (horario comercial) | Sí (24/7) | Sí (24/7) |
+| **Soporte telefónico** | No | No | **Sí (24/7)** | **Sí (24/7)** |
+| **Soporte por chat** | No | No | **Sí (24/7)** | **Sí (24/7)** |
+| **Soporte vía web** | Solo facturación/cuenta | Sí | Sí | Sí |
+| **Número de contactos de soporte** | N/A | 1 contacto principal | **Ilimitados** | **Ilimitados** |
+| **Idioma del soporte** | Solo inglés | Solo inglés | Inglés + 8 idiomas | Inglés + 8 idiomas |
 
-#### Response Time Guarantees
+#### Garantías de Tiempo de Respuesta
 
-| Severity Level | Basic | Developer | Business | Enterprise |
+| Nivel de gravedad | Basic | Developer | Business | Enterprise |
 |----------------|-------|-----------|----------|------------|
-| **General Guidance** | No support | < 24 business hours | < 24 hours | < 24 hours |
-| **System Impaired** | No support | < 12 business hours | < 12 hours | < 12 hours |
-| **Production System Impaired** | No support | No support | **< 4 hours** | **< 4 hours** |
-| **Production System Down** | No support | No support | **< 1 hour** | **< 1 hour** |
-| **Business-Critical System Down** | No support | No support | **< 1 hour** | **< 1 hour** |
-| **Mission-Critical System Down** | No support | No support | No support | **< 15 minutes** |
+| **Orientación general** | Sin soporte | < 24 horas comerciales | < 24 horas | < 24 horas |
+| **Sistema deteriorado** | Sin soporte | < 12 horas comerciales | < 12 horas | < 12 horas |
+| **Sistema de producción deteriorado** | Sin soporte | Sin soporte | **< 4 horas** | **< 4 horas** |
+| **Sistema de producción caído** | Sin soporte | Sin soporte | **< 1 hora** | **< 1 hora** |
+| **Sistema crítico para el negocio caído** | Sin soporte | Sin soporte | **< 1 hora** | **< 1 hora** |
+| **Sistema de misión crítica caído** | Sin soporte | Sin soporte | Sin soporte | **< 15 minutos** |
 
 #### Trusted Advisor
 
-| Check Category | Basic | Developer | Business | Enterprise |
+| Categoría de comprobación | Basic | Developer | Business | Enterprise |
 |----------------|-------|-----------|----------|------------|
-| **Cost Optimization** | 7 core checks only | 7 core checks only | **All checks** | **All checks** |
-| **Performance** | Limited | Limited | **All checks** | **All checks** |
-| **Security** | S3 bucket permissions, Security Groups | Same as Basic | **All checks** | **All checks** |
-| **Fault Tolerance** | EBS snapshots, RDS backups | Same as Basic | **All checks** | **All checks** |
-| **Service Limits** | Yes (core checks) | Yes (core checks) | **All checks** | **All checks** |
-| **Programmatic Access (API)** | No | No | **Yes** | **Yes** |
-| **CloudWatch Integration** | No | No | **Yes** | **Yes** |
-| **Weekly Refresh** | Manual only | Manual only | **Automatic** | **Automatic** |
+| **Optimización de costes** | Solo 7 comprobaciones básicas | Solo 7 comprobaciones básicas | **Todas las comprobaciones** | **Todas las comprobaciones** |
+| **Rendimiento** | Limitado | Limitado | **Todas las comprobaciones** | **Todas las comprobaciones** |
+| **Seguridad** | Permisos de buckets de S3, Grupos de Seguridad | Igual que Basic | **Todas las comprobaciones** | **Todas las comprobaciones** |
+| **Tolerancia a fallos** | Snapshots de EBS, backups de RDS | Igual que Basic | **Todas las comprobaciones** | **Todas las comprobaciones** |
+| **Límites de servicio** | Sí (comprobaciones básicas) | Sí (comprobaciones básicas) | **Todas las comprobaciones** | **Todas las comprobaciones** |
+| **Acceso programático (API)** | No | No | **Sí** | **Sí** |
+| **Integración con CloudWatch** | No | No | **Sí** | **Sí** |
+| **Actualización semanal** | Solo manual | Solo manual | **Automática** | **Automática** |
 
-**7 Core Trusted Advisor Checks** (Basic/Developer):
-1. S3 Bucket Permissions (Security)
-2. Security Groups - Specific Ports Unrestricted (Security)
-3. IAM Use (Security)
-4. MFA on Root Account (Security)
-5. EBS Public Snapshots (Security)
-6. RDS Public Snapshots (Security)
-7. Service Limits (Service Limits)
+**7 Comprobaciones básicas de Trusted Advisor** (Basic/Developer):
+1. Permisos de buckets de S3 (Seguridad)
+2. Grupos de seguridad: puertos específicos sin restringir (Seguridad)
+3. Uso de IAM (Seguridad)
+4. MFA en la cuenta raíz (Seguridad)
+5. Snapshots públicos de EBS (Seguridad)
+6. Snapshots públicos de RDS (Seguridad)
+7. Límites de servicio (Límites de servicio)
 
-#### Architectural Guidance
+#### Orientación Arquitectónica
 
-| Type | Basic | Developer | Business | Enterprise |
+| Tipo | Basic | Developer | Business | Enterprise |
 |------|-------|-----------|----------|------------|
-| **General Best Practices** | Documentation only | **General guidance** | **Contextual guidance** | **Consultative reviews** |
-| **Use-Case Specific** | No | Limited | **Yes** | **Yes (comprehensive)** |
-| **Well-Architected Review** | No | No | Self-service only | **TAM-facilitated** |
-| **Architecture Diagrams Review** | No | No | **Yes** | **Yes (detailed)** |
-| **Capacity Planning** | No | No | Limited | **Yes (proactive)** |
-| **Performance Optimization** | No | No | Reactive | **Proactive** |
+| **Mejores prácticas generales** | Solo documentación | **Orientación general** | **Orientación contextual** | **Revisiones consultivas** |
+| **Específica para el caso de uso** | No | Limitada | **Sí** | **Sí (integral)** |
+| **Well-Architected Review** | No | No | Solo autoservicio | **Facilitada por el TAM** |
+| **Revisión de diagramas de arquitectura** | No | No | **Sí** | **Sí (detallada)** |
+| **Planificación de capacidad** | No | No | Limitada | **Sí (proactiva)** |
+| **Optimización del rendimiento** | No | No | Reactiva | **Proactiva** |
 
-#### Proactive Services
+#### Servicios Proactivos
 
-| Service | Basic | Developer | Business | Enterprise |
+| Servicio | Basic | Developer | Business | Enterprise |
 |---------|-------|-----------|----------|------------|
-| **Technical Account Manager (TAM)** | No | No | No | **Yes (dedicated)** |
-| **Concierge Support Team** | No | No | No | **Yes** |
-| **Infrastructure Event Management** | No | No | No | **Yes** |
-| **Well-Architected Reviews** | No | No | Self-service | **TAM-facilitated** |
-| **Operations Reviews** | No | No | No | **Yes (quarterly)** |
-| **Training and Workshops** | No | No | No | **Yes (available)** |
-| **Proactive Guidance** | No | No | No | **Yes (ongoing)** |
+| **Technical Account Manager (TAM)** | No | No | No | **Sí (dedicado)** |
+| **Equipo de soporte Concierge** | No | No | No | **Sí** |
+| **Infrastructure Event Management** | No | No | No | **Sí** |
+| **Well-Architected Reviews** | No | No | Autoservicio | **Facilitada por el TAM** |
+| **Revisiones de operaciones** | No | No | No | **Sí (trimestral)** |
+| **Formación y talleres** | No | No | No | **Sí (disponibles)** |
+| **Orientación proactiva** | No | No | No | **Sí (continua)** |
 
-#### AWS Programs Access
+#### Acceso a Programas de AWS
 
-| Program | Basic | Developer | Business | Enterprise |
+| Programa | Basic | Developer | Business | Enterprise |
 |---------|-------|-----------|----------|------------|
-| **AWS Health API** | No | No | **Yes** | **Yes** |
-| **AWS Support API** | No | No | **Yes** | **Yes** |
-| **Support Automation Workflows** | No | No | Limited | **Yes** |
-| **AWS re:Post** | Yes | Yes | Yes | Yes |
-| **AWS Training Credits** | No | No | Some | **Yes** |
-| **Beta Program Access** | Limited | Limited | Available | **Priority access** |
+| **API de AWS Health** | No | No | **Sí** | **Sí** |
+| **API de AWS Support** | No | No | **Sí** | **Sí** |
+| **Flujos de trabajo de automatización de soporte** | No | No | Limitados | **Sí** |
+| **AWS re:Post** | Sí | Sí | Sí | Sí |
+| **Créditos de formación de AWS** | No | No | Algunos | **Sí** |
+| **Acceso a programas Beta** | Limitado | Limitado | Disponible | **Acceso prioritario** |
 
-#### Cost Breakdown
+#### Desglose de Costes
 
-**Developer Plan Pricing**:
+**Precios del Plan Developer**:
 ```
-Greater of:
-- $29/month (minimum)
-- 3% of monthly AWS usage
+El mayor de:
+- 29 $/mes (mínimo)
+- 3% del uso mensual de AWS
 
-Examples:
-$500 AWS spend: $29 (3% = $15, but minimum is $29)
-$1,000 AWS spend: $30 (3% of $1,000)
-$5,000 AWS spend: $150 (3% of $5,000)
-```
-
-**Business Plan Pricing**:
-```
-Greater of:
-- $100/month (minimum)
-- Tiered percentage of monthly AWS usage:
-  - 10% for first $0-$10K
-  - 7% for next $10K-$80K
-  - 5% for next $80K-$250K
-  - 3% for over $250K
-
-Examples:
-$1,000 AWS spend: $100 (10% = $100, equals minimum)
-$10,000 AWS spend: $1,000 (10% of $10K)
-$50,000 AWS spend:
-  $10K × 10% = $1,000
-  $40K × 7% = $2,800
-  Total: $3,800/month
+Ejemplos:
+Gasto de 500 $ en AWS: 29 $ (el 3% son 15 $, pero el mínimo es 29 $)
+Gasto de 1.000 $ en AWS: 30 $ (3% de 1.000 $)
+Gasto de 5.000 $ en AWS: 150 $ (3% de 5.000 $)
 ```
 
-**Enterprise Plan Pricing**:
+**Precios del Plan Business**:
 ```
-Greater of:
-- $15,000/month (minimum)
-- Tiered percentage of monthly AWS usage:
-  - 10% for first $0-$150K
-  - 7% for next $150K-$500K
-  - 5% for next $500K-$1M
-  - 3% for over $1M
+El mayor de:
+- 100 $/mes (mínimo)
+- Porcentaje escalonado del uso mensual de AWS:
+  - 10% para los primeros 0-10.000 $
+  - 7% para los siguientes 10.000-80.000 $
+  - 5% para los siguientes 80.000-250.000 $
+  - 3% para más de 250.000 $
 
-Examples:
-$50,000 AWS spend: $15,000 (below minimum)
-$200,000 AWS spend:
-  $150K × 10% = $15,000
-  $50K × 7% = $3,500
-  Total: $18,500/month
-$1,000,000 AWS spend:
-  $150K × 10% = $15,000
-  $350K × 7% = $24,500
-  $500K × 5% = $25,000
-  Total: $64,500/month
+Ejemplos:
+Gasto de 1.000 $ en AWS: 100 $ (10% son 100 $, igual al mínimo)
+Gasto de 10.000 $ en AWS: 1.000 $ (10% de 10.000 $)
+Gasto de 50.000 $ en AWS:
+  10.000 $ × 10% = 1.000 $
+  40.000 $ × 7% = 2.800 $
+  Total: 3.800 $/mes
 ```
 
-#### Upgrade/Downgrade Policies
+**Precios del Plan Enterprise**:
+```
+El mayor de:
+- 15.000 $/mes (mínimo)
+- Porcentaje escalonado del uso mensual de AWS:
+  - 10% para los primeros 0-150.000 $
+  - 7% para los siguientes 150.000-500.000 $
+  - 5% para los siguientes 500.000-1.000.000 $
+  - 3% para más de 1.000.000 $
+
+Ejemplos:
+Gasto de 50.000 $ en AWS: 15.000 $ (por debajo del mínimo)
+Gasto de 200.000 $ en AWS:
+  150.000 $ × 10% = 15.000 $
+  50.000 $ × 7% = 3.500 $
+  Total: 18.500 $/mes
+Gasto de 1.000.000 $ en AWS:
+  150.000 $ × 10% = 15.000 $
+  350.000 $ × 7% = 24.500 $
+  500.000 $ × 5% = 25.000 $
+  Total: 64.500 $/mes
+```
+
+#### Políticas de Mejora/Reducción de Plan (Upgrade/Downgrade)
 
 ```
-Upgrading:
-- Can upgrade plan at any time
-- New benefits effective immediately
-- Charged at new rate from date of upgrade
+Mejora de plan (Upgrading):
+- Se puede mejorar el plan en cualquier momento.
+- Los nuevos beneficios son efectivos de inmediato.
+- Se factura a la nueva tarifa desde la fecha de la mejora.
 
-Downgrading:
-- Can downgrade at end of current billing period
-- Must give 30 days notice
-- Open cases may be closed or deprioritized
-- Lose access to premium features (TAM, etc.)
+Reducción de plan (Downgrading):
+- Se puede reducir al final del periodo de facturación actual.
+- Se debe avisar con 30 días de antelación.
+- Los casos abiertos pueden cerrarse o perder prioridad.
+- Se pierde el acceso a las funciones premium (TAM, etc.).
 
-Cancellation:
-- Can cancel support plan with 30 days notice
-- Cannot cancel Basic support (always included)
-- Downgrade to Basic instead of canceling
+Cancelación:
+- Se puede cancelar el plan de soporte con 30 días de antelación.
+- No se puede cancelar el soporte Basic (siempre está incluido).
+- Reducir a Basic en lugar de cancelar.
 ```
 
-#### Third-Party Software Support
+#### Soporte de Software de Terceros
 
-**Business and Enterprise Plans Only**:
+**Solo para los planes Business y Enterprise**:
 ```
-Supported Integrations:
-├── Operating Systems: Amazon Linux, RHEL, Windows Server, Ubuntu
-├── Web Servers: Apache, Nginx, IIS
-├── Databases: MySQL, PostgreSQL, Microsoft SQL Server
-├── Application Servers: Tomcat, JBoss, WebSphere
-└── Other: Docker, Kubernetes, Jenkins, Git, etc.
+Integraciones compatibles:
+├── Sistemas operativos: Amazon Linux, RHEL, Windows Server, Ubuntu
+├── Servidores web: Apache, Nginx, IIS
+├── Bases de datos: MySQL, PostgreSQL, Microsoft SQL Server
+├── Servidores de aplicaciones: Tomcat, JBoss, WebSphere
+└── Otros: Docker, Kubernetes, Jenkins, Git, etc.
 
-Scope of Support:
-- Installation and configuration on AWS
-- Interaction with AWS services
-- Performance on AWS infrastructure
-- Troubleshooting connectivity issues
-- Best practices for AWS integration
+Alcance del soporte:
+- Instalación y configuración en AWS.
+- Interacción con los servicios de AWS.
+- Rendimiento en la infraestructura de AWS.
+- Resolución de problemas de conectividad.
+- Mejores prácticas para la integración con AWS.
 
-NOT Supported:
-- Application code debugging
-- Software licensing issues
-- Product bugs (refer to vendor)
-- Feature requests
+NO compatible:
+- Depuración del código de la aplicación.
+- Problemas de licencias de software.
+- Errores del producto (consultar al proveedor).
+- Solicitudes de nuevas características.
 ```
 
 ---
 
-### Key Differences
+### Diferencias Clave
 
-**Basic Support** (Free):
-- Access to:
-  - Customer Service (billing and account questions)
-  - AWS documentation, whitepapers, support forums
-  - AWS Trusted Advisor (7 core checks)
-  - AWS Personal Health Dashboard
-- **No technical support**
+**Soporte Basic** (Gratuito):
+- Acceso a:
+  - Servicio de atención al cliente (preguntas sobre facturación y cuenta).
+  - Documentación de AWS, informes técnicos (whitepapers), foros de soporte.
+  - AWS Trusted Advisor (7 comprobaciones básicas).
+  - AWS Personal Health Dashboard.
+- **Sin soporte técnico**.
 
-**Developer Support** ($29/month minimum):
-- For experimentation and testing
-- **One** primary contact can open support cases
-- Business hours email access
-- General architectural guidance
+**Soporte Developer** (mínimo 29 $/mes):
+- Para experimentación y pruebas.
+- **Un** contacto principal puede abrir casos de soporte.
+- Acceso por correo electrónico en horario comercial.
+- Orientación arquitectónica general.
 
-**Business Support** ($100/month minimum):
-- For production workloads
-- **Unlimited** contacts can open cases
-- **24/7 phone, email, and chat support**
-- Full Trusted Advisor checks
-- Third-party software support (interactions with AWS services)
-- Contextual architectural guidance
+**Soporte Business** (mínimo 100 $/mes):
+- Para cargas de trabajo de producción.
+- **Contactos ilimitados** pueden abrir casos.
+- **Soporte 24/7 por teléfono, correo electrónico y chat**.
+- Comprobaciones completas de Trusted Advisor.
+- Soporte para software de terceros (interacciones con servicios de AWS).
+- Orientación arquitectónica contextual.
 
-**Enterprise Support** ($15,000/month minimum):
-- For mission-critical workloads
-- All Business features, PLUS:
-- **Technical Account Manager (TAM)**: Designated technical point of contact
-- **Concierge Support Team**: Billing and account experts
-- **Infrastructure Event Management**: Support for product launches, events
-- **Well-Architected Reviews**: Architectural guidance
-- **15-minute response time** for mission-critical issues
+**Soporte Enterprise** (mínimo 15.000 $/mes):
+- Para cargas de trabajo de misión crítica.
+- Todas las características de Business, ADEMÁS DE:
+- **Technical Account Manager (TAM)**: Punto de contacto técnico designado.
+- **Equipo de soporte Concierge**: Expertos en facturación y cuentas.
+- **Infrastructure Event Management**: Soporte para lanzamientos de productos, eventos.
+- **Well-Architected Reviews**: Orientación arquitectónica.
+- **Tiempo de respuesta de 15 minutos** para problemas de misión crítica.
 
 ---
 
-### Additional Support Resources
+### Recursos Adicionales de Soporte
 
 #### AWS Personal Health Dashboard
 
-- **Personalized** view of AWS service health affecting your resources
-- **Proactive notifications** about scheduled maintenance, security issues
-- **Alerts** for events impacting your resources
-- Detailed **remediation guidance**
-- **Available to all customers** (all support plans)
-- Integrated with CloudWatch Events for automation
+- Vista **personalizada** del estado de los servicios de AWS que afectan a tus recursos.
+- **Notificaciones proactivas** sobre mantenimiento programado, problemas de seguridad.
+- **Alertas** de eventos que impactan en tus recursos.
+- **Orientación detallada para la remediación**.
+- **Disponible para todos los clientes** (todos los planes de soporte).
+- Integrado con CloudWatch Events para la automatización.
 
-**Difference from Service Health Dashboard**:
-- **Service Health Dashboard**: General AWS service status (all customers see the same view)
-- **Personal Health Dashboard**: Customized to YOUR resources and accounts
+**Diferencia con el Service Health Dashboard**:
+- **Service Health Dashboard**: Estado general de los servicios de AWS (todos los clientes ven la misma vista).
+- **Personal Health Dashboard**: Personalizado para TUS recursos y cuentas.
 
-#### AWS Health API
+#### API de AWS Health
 
-- **Programmatic access** to AWS Health information
-- Integrate health events with monitoring and incident management systems
-- Requires **Business or Enterprise Support**
-- Automate responses to health events (Lambda triggers, etc.)
+- **Acceso programático** a la información de AWS Health.
+- Integra los eventos de estado con los sistemas de monitorización y gestión de incidentes.
+- Requiere **Soporte Business o Enterprise**.
+- Automatiza las respuestas a los eventos de estado (activadores de Lambda, etc.).
 
 #### AWS Managed Services (AMS)
 
-- AWS **operates your infrastructure** on your behalf
-- Features:
-  - 24/7 infrastructure operations
-  - Incident detection and management
-  - Patching, backup, monitoring
-  - Security and compliance
-  - Change management
-- **Separate service** with additional cost
-- Ideal for organizations wanting AWS to handle operations
+- AWS **opera tu infraestructura** en tu nombre.
+- Características:
+  - Operaciones de infraestructura 24/7.
+  - Detección y gestión de incidentes.
+  - Parcheo, copia de seguridad, monitorización.
+  - Seguridad y cumplimiento.
+  - Gestión de cambios.
+- **Servicio independiente** con coste adicional.
+- Ideal para organizaciones que desean que AWS se encargue de las operaciones.
 
 #### AWS Professional Services
 
-- **Global team of AWS experts**
-- Services:
-  - Help design and architect solutions
-  - Build, migrate, and modernize applications
-  - Work alongside your team
-  - Training and knowledge transfer
-- **Consulting engagement** (separate fees)
-- Specialized teams: Migration, DevOps, Analytics, Machine Learning, etc.
+- **Equipo global de expertos de AWS**.
+- Servicios:
+  - Ayuda a diseñar y crear arquitecturas de soluciones.
+  - Crea, migra y moderniza aplicaciones.
+  - Trabaja junto a tu equipo.
+  - Formación y transferencia de conocimientos.
+- **Contratación de consultoría** (tarifas independientes).
+- Equipos especializados: Migración, DevOps, Analítica, Aprendizaje Automático (Machine Learning), etc.
 
 #### AWS Partner Network (APN)
 
-- **Global community** of AWS partners
-- **Consulting Partners**: Professional services, system integration
-- **Technology Partners**: Software solutions integrated with AWS
-- **AWS Marketplace**: Purchase third-party software and services
-- Find partners at: https://partners.amazonaws.com
+- **Comunidad global** de socios de AWS.
+- **Consulting Partners**: Servicios profesionales, integración de sistemas.
+- **Technology Partners**: Soluciones de software integradas con AWS.
+- **AWS Marketplace**: Compra de software y servicios de terceros.
+- Encuentra socios en: https://partners.amazonaws.com
 
 ---
 
-## Cost Optimization Strategies
+## Estrategias de Optimización de Costes
 
-### 1. Right Sizing
+### 1. Dimensionamiento Adecuado (Right Sizing)
 
-**What is it**: Matching instance types and sizes to workload requirements
+**Qué es**: Ajustar los tipos y tamaños de las instancias a los requisitos de la carga de trabajo.
 
-**How to implement**:
-- Use **CloudWatch metrics** to identify underutilized resources
-- Use **AWS Compute Optimizer** for ML-powered recommendations
-- Analyze CPU, memory, network, and disk utilization
-- Downsize or change instance families based on actual usage
-- Review regularly (monthly or quarterly)
+**Cómo implementarlo**:
+- Utilizar **métricas de CloudWatch** para identificar recursos infrautilizados.
+- Utilizar **AWS Compute Optimizer** para obtener recomendaciones basadas en aprendizaje automático (ML).
+- Analizar el uso de CPU, memoria, red y disco.
+- Reducir el tamaño o cambiar las familias de instancias en función del uso real.
+- Revisar periódicamente (mensual o trimestralmente).
 
-**Example**:
-- Running an m5.2xlarge instance with 10% CPU usage
-- Right-size to m5.large → Save ~50% on compute costs
+**Ejemplo**:
+- Ejecución de una instancia m5.2xlarge con un uso de CPU del 10%.
+- Dimensionar adecuadamente a m5.large → Ahorro de ~50% en costes de computación.
 
-**Tools**:
-- AWS Compute Optimizer
-- AWS Cost Explorer Right Sizing Recommendations
-- CloudWatch metrics and alarms
-
----
-
-### 2. Reserved Capacity
-
-**Services with Reserved options**:
-- **Reserved Instances**: EC2, RDS, ElastiCache, Redshift, Elasticsearch
-- **Savings Plans**: EC2, Fargate, Lambda (Compute Savings Plans)
-
-**Savings**: Up to **75%** compared to On-Demand pricing
-
-**Commitment Terms**:
-- 1 year or 3 years
-- Payment options:
-  - All Upfront (highest discount)
-  - Partial Upfront (medium discount)
-  - No Upfront (lowest discount, monthly payments)
-
-**Best Practices**:
-- Analyze usage patterns for 1-3 months before purchasing
-- Start with 1-year commitments
-- Use Reserved Instances for steady-state workloads
-- Consider Savings Plans for flexibility across instance families
-
-**Example**:
-- Baseline workload: 10 m5.large instances running 24/7
-- Purchase 10 Reserved Instances (3-year, All Upfront)
-- Save ~72% compared to On-Demand
+**Herramientas**:
+- AWS Compute Optimizer.
+- Recomendaciones de dimensionamiento de AWS Cost Explorer.
+- Métricas y alarmas de CloudWatch.
 
 ---
 
-### 3. Spot Instances
+### 2. Capacidad Reservada (Reserved Capacity)
 
-**Discount**: Up to **90%** compared to On-Demand
+**Servicios con opciones de reserva**:
+- **Instancias reservadas (Reserved Instances)**: EC2, RDS, ElastiCache, Redshift, OpenSearch (anteriormente Elasticsearch).
+- **Savings Plans**: EC2, Fargate, Lambda (Compute Savings Plans).
 
-**How it works**:
-- Bid on unused EC2 capacity
-- AWS can reclaim instances with 2-minute warning
-- Price varies based on supply and demand
+**Ahorro**: Hasta un **75%** en comparación con los precios bajo demanda (On-Demand).
 
-**Ideal for**:
-- Fault-tolerant applications
-- Flexible start/end times
-- Batch processing jobs
-- Big data analytics
-- Containerized workloads (with auto-restart)
-- CI/CD pipeline workers
-- Rendering and transcoding
+**Plazos de compromiso**:
+- 1 año o 3 años.
+- Opciones de pago:
+  - Pago total por adelantado (All Upfront): mayor descuento.
+  - Pago parcial por adelantado (Partial Upfront): descuento medio.
+  - Sin pago inicial (No Upfront): menor descuento, pagos mensuales.
 
-**NOT suitable for**:
-- Databases (without proper architecture)
-- Stateful applications (without checkpointing)
-- Applications requiring guaranteed availability
+**Mejores prácticas**:
+- Analizar los patrones de uso durante 1-3 meses antes de comprar.
+- Empezar con compromisos de 1 año.
+- Utilizar instancias reservadas para cargas de trabajo de estado estable.
+- Considerar los Savings Plans para obtener flexibilidad entre familias de instancias.
 
-**Best Practices**:
-- Use **Spot Fleet** to launch multiple instance types/AZs
-- Implement **checkpointing** to save progress
-- Use **Spot Instance interruption notices** (2-minute warning)
+**Ejemplo**:
+- Carga de trabajo base: 10 instancias m5.large ejecutándose 24/7.
+- Compra de 10 instancias reservadas (3 años, pago total por adelantado).
+- Ahorro de ~72% en comparación con On-Demand.
+
+---
+
+### 3. Instancias Spot (Spot Instances)
+
+**Descuento**: Hasta un **90%** en comparación con On-Demand.
+
+**Cómo funciona**:
+- Pujar por la capacidad de EC2 no utilizada.
+- AWS puede reclamar las instancias con un aviso de 2 minutos.
+- El precio varía en función de la oferta y la demanda.
+
+**Ideal para**:
+- Aplicaciones tolerantes a fallos.
+- Horarios de inicio/finalización flexibles.
+- Trabajos de procesamiento por lotes (batch).
+- Análisis de Big Data.
+- Cargas de trabajo contenedorizadas (con reinicio automático).
+- Trabajadores de canalizaciones CI/CD.
+- Renderizado y transcodificación.
+
+**NO apto para**:
+- Bases de datos (sin la arquitectura adecuada).
+- Aplicaciones con estado (sin puntos de control o checkpointing).
+- Aplicaciones que requieren disponibilidad garantizada.
+
+**Mejores prácticas**:
+- Utilizar **Spot Fleet** para lanzar múltiples tipos de instancias y zonas de disponibilidad (AZs).
+- Implementar **puntos de control (checkpointing)** para guardar el progreso.
+- Utilizar las **notificaciones de interrupción de instancias Spot** (aviso de 2 minutos).
 
 ---
 
 ### 4. Auto Scaling
 
-**Benefits**:
-- Scale resources based on actual demand
-- Avoid over-provisioning
-- Reduce costs during low-demand periods
-- Maintain performance during high-demand
+**Beneficios**:
+- Escalar los recursos en función de la demanda real.
+- Evitar el exceso de aprovisionamiento.
+- Reducir los costes durante los periodos de baja demanda.
+- Mantener el rendimiento durante la alta demanda.
 
-**Services with Auto Scaling**:
-- EC2 Auto Scaling
-- DynamoDB Auto Scaling
-- Aurora Auto Scaling
-- ECS/EKS Auto Scaling
-- Application Auto Scaling (Lambda, etc.)
+**Servicios con Auto Scaling**:
+- EC2 Auto Scaling.
+- DynamoDB Auto Scaling.
+- Aurora Auto Scaling.
+- ECS/EKS Auto Scaling.
+- Application Auto Scaling (Lambda, etc.).
 
-**Example**:
-- Web application with variable traffic
-- Scale from 2 instances (off-peak) to 10 instances (peak)
-- Average 4 instances instead of always running 10
-- Save ~60% on compute costs
+**Ejemplo**:
+- Aplicación web con tráfico variable.
+- Escalar de 2 instancias (fuera de horas punta) a 10 instancias (horas punta).
+- Promedio de 4 instancias en lugar de ejecutar siempre 10.
+- Ahorro de ~60% en costes de computación.
 
 ---
 
-### 5. Storage Optimization
+### 5. Optimización del Almacenamiento
 
-**S3 Storage Classes**:
+**Clases de almacenamiento de S3**:
 
-| Storage Class | Use Case | Cost (relative) |
+| Clase de almacenamiento | Caso de uso | Coste (relativo) |
 |--------------|----------|-----------------|
-| S3 Standard | Frequently accessed | Baseline ($$$) |
-| S3 Intelligent-Tiering | Unknown or changing access | Automatic optimization |
-| S3 Standard-IA | Infrequent access | ~50% cheaper ($$) |
-| S3 One Zone-IA | Infrequent, non-critical | ~60% cheaper ($) |
-| S3 Glacier Instant Retrieval | Archive, millisecond retrieval | ~70% cheaper ($) |
-| S3 Glacier Flexible Retrieval | Archive, minute-hour retrieval | ~80% cheaper ($) |
-| S3 Glacier Deep Archive | Long-term archive, 12-hour retrieval | ~90% cheaper ($) |
+| S3 Standard | Acceso frecuente | Base ($$$) |
+| S3 Intelligent-Tiering | Acceso desconocido o cambiante | Optimización automática |
+| S3 Standard-IA | Acceso infrecuente | ~50% más barato ($$) |
+| S3 One Zone-IA | Infrecuente, no crítico | ~60% más barato ($) |
+| S3 Glacier Instant Retrieval | Archivo, recuperación en milisegundos | ~70% más barato ($) |
+| S3 Glacier Flexible Retrieval | Archivo, recuperación en minutos/horas | ~80% más barato ($) |
+| S3 Glacier Deep Archive | Archivo a largo plazo, recuperación en 12 horas | ~90% más barato ($) |
 
-**Optimization Strategies**:
-- Implement **S3 Lifecycle Policies** to transition objects automatically
-- Use **S3 Intelligent-Tiering** for unpredictable access patterns
-- Delete **unused EBS volumes** and **snapshots**
-- Use **EBS gp3** instead of gp2 (20% cheaper with better performance)
-- Enable **EBS snapshot archival** for long-term backups
+**Estrategias de optimización**:
+- Implementar **políticas de ciclo de vida de S3 (S3 Lifecycle Policies)** para transicionar objetos automáticamente.
+- Utilizar **S3 Intelligent-Tiering** para patrones de acceso impredecibles.
+- Eliminar **volúmenes EBS no utilizados** y **snapshots**.
+- Utilizar **EBS gp3** en lugar de gp2 (un 20% más barato con mejor rendimiento).
+- Habilitar el **archivo de snapshots de EBS** para copias de seguridad a largo plazo.
 
-**Example Lifecycle Policy**:
+**Ejemplo de política de ciclo de vida**:
 ```
-Day 0-30: S3 Standard
-Day 31-90: S3 Standard-IA
-Day 91-365: S3 Glacier Flexible Retrieval
-Day 365+: Delete or move to Glacier Deep Archive
-```
-
----
-
-### 6. Data Transfer Optimization
-
-**Strategies**:
-
-1. **Use CloudFront** for content delivery
-   - Cache content at edge locations
-   - Reduce data transfer from origin
-   - Lower data transfer pricing than direct from S3/EC2
-
-2. **Keep data in same Region** when possible
-   - Avoid cross-region data transfer charges
-   - Use multi-AZ for high availability (minimal cost)
-
-3. **Use VPC Endpoints** for S3 and DynamoDB
-   - Traffic stays within AWS network
-   - No data transfer charges
-   - No need for Internet Gateway
-
-4. **Compress data** before transfer
-   - Reduce amount of data transferred
-   - Use gzip, Brotli, or other compression
-
-5. **Use AWS Direct Connect** for large data transfers
-   - Dedicated network connection to AWS
-   - Lower data transfer costs than internet
-   - More consistent performance
-
-**Cost Comparison**:
-```
-Scenario: Transfer 1 TB/month from EC2 to internet
-- Direct from EC2: 1,024 GB × $0.09/GB = $92.16
-- Via CloudFront: $85.00 (CloudFront pricing)
-- Savings: ~$7/TB
+Día 0-30: S3 Standard
+Día 31-90: S3 Standard-IA
+Día 91-365: S3 Glacier Flexible Retrieval
+Día 365+: Eliminar o mover a Glacier Deep Archive
 ```
 
 ---
 
-### 7. Use AWS Cost Optimization Tools
+### 6. Optimización de la Transferencia de Datos
 
-**Tools and Services**:
+**Estrategias**:
+
+1. **Utilizar CloudFront** para la entrega de contenidos.
+   - Almacenar en caché el contenido en ubicaciones de borde (edge locations).
+   - Reducir la transferencia de datos desde el origen.
+   - Precios de transferencia de datos más bajos que directamente desde S3/EC2.
+
+2. **Mantener los datos en la misma región** siempre que sea posible.
+   - Evitar cargos por transferencia de datos entre regiones.
+   - Utilizar multi-AZ para alta disponibilidad (coste mínimo).
+
+3. **Utilizar puntos de enlace de la VPC (VPC Endpoints)** para S3 y DynamoDB.
+   - El tráfico permanece dentro de la red de AWS.
+   - Sin cargos por transferencia de datos.
+   - No es necesario una pasarela de Internet (Internet Gateway).
+
+4. **Comprimir los datos** antes de la transferencia.
+   - Reducir la cantidad de datos transferidos.
+   - Utilizar gzip, Brotli u otra compresión.
+
+5. **Utilizar AWS Direct Connect** para grandes transferencias de datos.
+   - Conexión de red dedicada a AWS.
+   - Costes de transferencia de datos más bajos que por Internet.
+   - Rendimiento más consistente.
+
+**Comparativa de costes**:
+```
+Escenario: Transferir 1 TB/mes desde EC2 a Internet
+- Directamente desde EC2: 1.024 GB × 0,09 $/GB = 92,16 $
+- A través de CloudFront: 85,00 $ (precios de CloudFront)
+- Ahorro: ~$7/TB
+```
+
+---
+
+### 7. Utilizar las Herramientas de Optimización de Costes de AWS
+
+**Herramientas y servicios**:
 
 1. **AWS Compute Optimizer**
-   - ML-powered recommendations for EC2, EBS, Lambda
-   - Analyze utilization patterns
-   - Suggest right-sized resources
+   - Recomendaciones basadas en ML para EC2, EBS, Lambda.
+   - Analizar patrones de utilización.
+   - Sugerir recursos con el tamaño adecuado.
 
-2. **AWS Trusted Advisor** (Business/Enterprise Support)
-   - Cost optimization checks:
-     - Idle RDS instances
-     - Underutilized EC2 instances
-     - Unassociated Elastic IP addresses
-     - Low utilization EBS volumes
-     - Idle Load Balancers
+2. **AWS Trusted Advisor** (Soporte Business/Enterprise)
+   - Comprobaciones de optimización de costes:
+     - Instancias de RDS inactivas.
+     - Instancias de EC2 infrautilizadas.
+     - Direcciones IP elásticas no asociadas.
+     - Volúmenes de EBS con baja utilización.
+     - Equilibradores de carga (Load Balancers) inactivos.
 
-3. **Cost Explorer Recommendations**
-   - Reserved Instance purchase recommendations
-   - Savings Plans recommendations
-   - Based on your historical usage
+3. **Recomendaciones de Cost Explorer**
+   - Recomendaciones de compra de instancias reservadas.
+   - Recomendaciones de Savings Plans.
+   - Basadas en tu historial de uso.
 
 4. **AWS Cost Anomaly Detection**
-   - Detect unexpected cost spikes
-   - Get alerted to unusual spending
+   - Detectar picos de costes inesperados.
+   - Recibir alertas sobre gastos inusuales.
 
-**Best Practice**: Review recommendations monthly and implement applicable suggestions
+**Mejor práctica**: Revisar las recomendaciones mensualmente e implementar las sugerencias aplicables.
 
 ---
 
-### Service-Specific Optimization
+### Optimización por Servicio Específico
 
-#### EC2 Cost Optimization
+#### Optimización de Costes de EC2
 
-**1. Instance Right-Sizing**:
+**1. Dimensionamiento adecuado de instancias**:
 ```
-Actions:
-├── Use CloudWatch metrics (CPU, memory, network, disk)
-├── AWS Compute Optimizer recommendations
-├── Review utilization over 2-week period minimum
-├── Downsize or change instance family
-└── Test performance after changes
+Acciones:
+├── Utilizar métricas de CloudWatch (CPU, memoria, red, disco)
+├── Recomendaciones de AWS Compute Optimizer
+├── Revisar la utilización durante un periodo mínimo de 2 semanas
+├── Reducir el tamaño o cambiar la familia de instancias
+└── Probar el rendimiento tras los cambios
 
-Example:
-Current: m5.2xlarge @ 15% CPU utilization
-Right-sized: m5.large (save 50%)
-OR
-Current: m5.xlarge (general purpose)
-Optimized: c5.large (compute-optimized, better $/performance)
-```
-
-**2. Spot Instance Integration**:
-```
-Strategies:
-├── Spot Fleet with diversified instance types
-├── Spot + On-Demand Auto Scaling groups (mixed)
-├── Spot Block for defined duration workloads
-└── EC2 Fleet for complex requirements
-
-Savings: 60-90% vs On-Demand
-Best for: Batch jobs, CI/CD, containers, big data
+Ejemplo:
+Actual: m5.2xlarge @ 15% de utilización de CPU
+Ajustado: m5.large (ahorro del 50%)
+O
+Actual: m5.xlarge (propósito general)
+Optimizado: c5.large (optimizado para computación, mejor $/rendimiento)
 ```
 
-**3. Scheduled Scaling**:
+**2. Integración de instancias Spot**:
+```
+Estrategias:
+├── Spot Fleet con tipos de instancias diversificados
+├── Grupos de Auto Scaling mixtos (Spot + On-Demand)
+├── Spot Block para cargas de trabajo de duración definida
+└── EC2 Fleet para requisitos complejos
+
+Ahorro: 60-90% frente a On-Demand
+Ideal para: Trabajos por lotes, CI/CD, contenedores, Big Data
+```
+
+**3. Escalado programado**:
 ```python
-# Stop development instances outside business hours
+# Detener instancias de desarrollo fuera del horario comercial
 import boto3
 
 ec2 = boto3.client('ec2')
 
 def stop_dev_instances():
-    """Stop instances tagged Environment=Dev at 7 PM"""
+    """Detener instancias etiquetadas como Environment=Dev a las 7 PM"""
     instances = ec2.describe_instances(
         Filters=[
             {'Name': 'tag:Environment', 'Values': ['Dev', 'Test']},
@@ -4105,111 +4021,111 @@ def stop_dev_instances():
     for reservation in instances['Reservations']:
         for instance in reservation['Instances']:
             ec2.stop_instances(InstanceIds=[instance['InstanceId']])
-            print(f"Stopped: {instance['InstanceId']}")
+            print(f"Detenida: {instance['InstanceId']}")
 
-# Schedule with EventBridge: 7 PM weekdays
-# Savings: 67% (11 hrs/day vs 24 hrs/day)
+# Programar con EventBridge: 7 PM entre semana
+# Ahorro: 67% (11 h/día frente a 24 h/día)
 ```
 
-**4. Reserved Instance Strategy**:
+**4. Estrategia de instancias reservadas**:
 ```
-Baseline workload analysis:
-- Monitor 30-day usage patterns
-- Identify always-on instances
-- Purchase RIs for 70% of baseline
-- Keep 30% flexible for scaling
+Análisis de carga de trabajo base:
+- Monitorizar los patrones de uso de 30 días.
+- Identificar instancias siempre activas.
+- Comprar RIs para el 70% de la base.
+- Mantener un 30% flexible para el escalado.
 
-Example:
-Average utilization: 20 instances
-RI purchase: 14 instances (1-year Standard RI)
-Variable: 6 instances (On-Demand + Spot)
-Savings: 40% on baseline + 70% on variable (Spot)
-```
-
-#### RDS Cost Optimization
-
-**1. Instance Right-Sizing**:
-```
-Metrics to monitor:
-├── CPU Utilization (target: 40-70%)
-├── DatabaseConnections (vs max_connections)
-├── FreeableMemory (should stay > 1 GB)
-├── ReadIOPS / WriteIOPS (check if provisioned IOPS needed)
-└── Network throughput
-
-Actions:
-- Downsize if consistently < 40% CPU
-- Consider Aurora Serverless v2 for variable workloads
-- Use Read Replicas instead of larger primary instance
+Ejemplo:
+Utilización media: 20 instancias
+Compra de RI: 14 instancias (RI estándar de 1 año)
+Variable: 6 instancias (On-Demand + Spot)
+Ahorro: 40% en la base + 70% en la variable (Spot)
 ```
 
-**2. Storage Optimization**:
+#### Optimización de Costes de RDS
+
+**1. Dimensionamiento adecuado de instancias**:
 ```
-Strategy:
-├── Use gp3 instead of gp2 (20% cheaper, better performance)
-├── Enable storage auto-scaling (pay for what you use)
-├── Set max allocated storage appropriately
-├── Clean up old automated backups (keep 7-14 days)
-└── Use AWS Backup for long-term retention (cheaper than RDS backups)
+Métricas a monitorizar:
+├── Utilización de CPU (objetivo: 40-70%)
+├── DatabaseConnections (frente a max_connections)
+├── FreeableMemory (debería mantenerse > 1 GB)
+├── ReadIOPS / WriteIOPS (comprobar si se necesitan IOPS aprovisionadas)
+└── Rendimiento de red (Network throughput)
 
-Example:
-Current: 1 TB gp2 provisioned, 400 GB used
-Optimized: 500 GB gp3 with auto-scaling
-Immediate savings: 50% on unused capacity
-Ongoing: Save 20% by using gp3
-```
-
-**3. Multi-AZ Considerations**:
-```
-Question: Do you need Multi-AZ?
-
-Production databases: YES (99.95% SLA)
-Development/Test: NO (Single-AZ, save 50%)
-Staging: MAYBE (depends on testing needs)
-
-Alternative for dev/test:
-- Single-AZ with automated snapshots
-- Restore from snapshot if needed (15-30 min)
-- Cost: 50% reduction
+Acciones:
+- Reducir el tamaño si la CPU está consistentemente por debajo del 40%.
+- Considerar Aurora Serverless v2 para cargas de trabajo variables.
+- Utilizar réplicas de lectura (Read Replicas) en lugar de una instancia principal más grande.
 ```
 
-**4. Aurora Serverless vs Provisioned**:
+**2. Optimización del almacenamiento**:
+```
+Estrategia:
+├── Utilizar gp3 en lugar de gp2 (un 20% más barato, mejor rendimiento)
+├── Habilitar el autoescalado del almacenamiento (pagar por lo que se usa)
+├── Establecer el almacenamiento máximo asignado de forma adecuada
+├── Limpiar backups automatizados antiguos (mantener 7-14 días)
+└── Utilizar AWS Backup para la retención a largo plazo (más barato que los backups de RDS)
+
+Ejemplo:
+Actual: 1 TB gp2 aprovisionado, 400 GB utilizados
+Optimizado: 500 GB gp3 con autoescalado
+Ahorro inmediato: 50% en capacidad no utilizada
+Continuo: Ahorro del 20% al utilizar gp3
+```
+
+**3. Consideraciones de Multi-AZ**:
+```
+Pregunta: ¿Necesitas Multi-AZ?
+
+Bases de datos de producción: SÍ (99,95% SLA)
+Desarrollo/Pruebas: NO (Single-AZ, ahorro del 50%)
+Staging: TAL VEZ (depende de las necesidades de las pruebas)
+
+Alternativa para desarrollo/pruebas:
+- Single-AZ con snapshots automatizados.
+- Restaurar desde un snapshot si es necesario (15-30 min).
+- Coste: reducción del 50%.
+```
+
+**4. Aurora Serverless frente a Provisioned**:
 ```
 Aurora Serverless v2:
-- Variable workloads (daily/weekly patterns)
-- Unpredictable traffic
-- Development and test databases
-- Pay only for ACUs (Aurora Capacity Units) used
+- Cargas de trabajo variables (patrones diarios/semanales).
+- Tráfico impredecible.
+- Bases de datos de desarrollo y pruebas.
+- Pagar solo por las ACUs (Aurora Capacity Units) utilizadas.
 
 Aurora Provisioned:
-- Steady, predictable workloads
-- Need specific instance sizing
-- Use Reserved Instances for savings
+- Cargas de trabajo constantes y predecibles.
+- Necesidad de un tamaño de instancia específico.
+- Utilizar instancias reservadas para ahorrar.
 
-Example workload (variable usage):
-Aurora Provisioned: db.r5.large 24/7 = $350/month
-Aurora Serverless v2: Average 2 ACUs, 12 hrs/day = $108/month
-Savings: 69%
+Ejemplo de carga de trabajo (uso variable):
+Aurora Provisioned: db.r5.large 24/7 = 350 $/mes
+Aurora Serverless v2: Promedio de 2 ACUs, 12 h/día = 108 $/mes
+Ahorro: 69%
 ```
 
-#### S3 Cost Optimization
+#### Optimización de Costes de S3
 
-**1. Storage Class Selection**:
+**1. Selección de la clase de almacenamiento**:
 ```
-Decision tree:
-├── Accessed frequently? → S3 Standard
-├── Accessed < 1/month? → S3 Standard-IA
-├── Unknown pattern? → S3 Intelligent-Tiering
-├── Archive (rarely accessed)? → S3 Glacier Flexible Retrieval
-└── Long-term archive (7-10 years)? → S3 Glacier Deep Archive
+Árbol de decisión:
+├── ¿Acceso frecuente? → S3 Standard
+├── ¿Acceso < 1 vez al mes? → S3 Standard-IA
+├── ¿Patrón desconocido? → S3 Intelligent-Tiering
+├── ¿Archivo (acceso muy raro)? → S3 Glacier Flexible Retrieval
+└── ¿Archivo a largo plazo (7-10 años)? → S3 Glacier Deep Archive
 
-Automatic optimization:
-Use Lifecycle Policies to transition automatically
+Optimización automática:
+Utilizar políticas de ciclo de vida para transicionar automáticamente.
 ```
 
-**2. Lifecycle Policy Examples**:
+**2. Ejemplos de políticas de ciclo de vida**:
 ```xml
-<!-- Log files lifecycle -->
+<!-- Ciclo de vida de los archivos de registro (logs) -->
 <LifecycleConfiguration>
   <Rule>
     <Status>Enabled</Status>
@@ -4230,309 +4146,310 @@ Use Lifecycle Policies to transition automatically
   </Rule>
 </LifecycleConfiguration>
 
-Cost impact example (1 TB logs):
-Day 0-30: 1 TB Standard @ $23/month
-Day 31-90: 1 TB Standard-IA @ $12.50/month (save 46%)
-Day 91-365: 1 TB Glacier @ $4/month (save 83%)
-Annual savings: ~$180/TB
+Ejemplo de impacto en el coste (1 TB de logs):
+Día 0-30: 1 TB Standard @ 23 $/mes
+Día 31-90: 1 TB Standard-IA @ 12,50 $/mes (ahorro del 46%)
+Día 91-365: 1 TB Glacier @ 4 $/mes (ahorro del 83%)
+Ahorro anual: ~$180/TB
 ```
 
-**3. Request Optimization**:
+**3. Optimización de solicitudes (Requests)**:
 ```
-Expensive operations:
-- LIST requests: $0.005 per 1,000
-- PUT/POST requests: $0.005 per 1,000
+Operaciones costosas:
+- Solicitudes LIST: 0,005 $ por cada 1.000
+- Solicitudes PUT/POST: 0,005 $ por cada 1.000
 
-Optimizations:
-├── Batch operations instead of individual requests
-├── Use S3 Inventory instead of LIST for large buckets
-├── Implement client-side caching
-└── Use CloudFront for frequent reads (lower request costs)
+Optimizaciones:
+├── Operaciones por lotes (batch) en lugar de solicitudes individuales
+├── Utilizar S3 Inventory en lugar de LIST para buckets grandes
+├── Implementar almacenamiento en caché en el lado del cliente
+└── Utilizar CloudFront para lecturas frecuentes (menores costes de solicitud)
 
-Example:
-Current: 1M LIST requests/month = $5
-Optimized: S3 Inventory daily + client cache = $0.50
-Savings: 90%
-```
-
-**4. S3 Select and Glacier Select**:
-```
-Problem: Retrieving full objects then filtering
-Solution: Query in-place with S3 Select
-
-Example:
-CSV file: 100 GB, need 1 GB of filtered data
-Standard approach: Download 100 GB, filter locally
-  Cost: 100 GB × $0.09 = $9.00
-
-S3 Select: Filter server-side
-  Cost: 100 GB scanned × $0.002/GB + 1 GB returned × $0.0007/GB
-  = $0.20 + $0.0007 = $0.20
-Savings: 97%
+Ejemplo:
+Actual: 1M de solicitudes LIST/mes = 5 $
+Optimizado: S3 Inventory diario + caché de cliente = 0,50 $
+Ahorro: 90%
 ```
 
-#### Lambda Cost Optimization
-
-**1. Memory Optimization**:
+**4. S3 Select y Glacier Select**:
 ```
-Lambda pricing:
-- Per request: $0.20 per 1M requests
-- Per GB-second: $0.0000166667
+Problema: Recuperar objetos completos y luego filtrar.
+Solución: Consultar in situ con S3 Select.
 
-Key insight: More memory = faster execution (up to a point)
+Ejemplo:
+Archivo CSV: 100 GB, se necesitan 1 GB de datos filtrados.
+Enfoque estándar: Descargar 100 GB, filtrar localmente.
+  Coste: 100 GB × 0,09 $ = 9,00 $
 
-Example optimization:
-Configuration A: 128 MB, 3000ms execution
-Cost: 0.128 GB × 3 seconds = 0.384 GB-seconds
+S3 Select: Filtrar en el lado del servidor.
+  Coste: 100 GB escaneados × 0,002 $/GB + 1 GB devuelto × 0,0007 $/GB
+  = 0,20 $ + 0,0007 $ = 0,20 $
+Ahorro: 97%
+```
 
-Configuration B: 512 MB, 800ms execution
-Cost: 0.512 GB × 0.8 seconds = 0.410 GB-seconds
+#### Optimización de Costes de Lambda
 
-Configuration C: 1024 MB, 400ms execution
-Cost: 1.024 GB × 0.4 seconds = 0.410 GB-seconds
+**1. Optimización de la memoria**:
+```
+Precios de Lambda:
+- Por solicitud: 0,20 $ por cada 1M de solicitudes
+- Por GB-segundo: 0,0000166667 $
 
-Result: B or C may be optimal (faster execution, similar cost)
+Información clave: Más memoria = ejecución más rápida (hasta cierto punto).
 
-Use AWS Lambda Power Tuning tool:
+Ejemplo de optimización:
+Configuración A: 128 MB, 3000 ms de ejecución
+Coste: 0,128 GB × 3 segundos = 0,384 GB-segundos
+
+Configuración B: 512 MB, 800 ms de ejecución
+Coste: 0,512 GB × 0,8 segundos = 0,410 GB-segundos
+
+Configuración C: 1024 MB, 400 ms de ejecución
+Coste: 1,024 GB × 0,4 segundos = 0,410 GB-segundos
+
+Resultado: B o C pueden ser óptimos (ejecución más rápida, coste similar).
+
+Utiliza la herramienta AWS Lambda Power Tuning:
 https://github.com/alexcasalboni/aws-lambda-power-tuning
 ```
 
-**2. Code Optimization**:
+**2. Optimización del código**:
 ```python
-# BEFORE: Inefficient (creates new connection each invocation)
+# ANTES: Ineficiente (crea una nueva conexión en cada invocación)
 def lambda_handler(event, context):
     import boto3
-    s3 = boto3.client('s3')  # New connection every time
-    # Process data
+    s3 = boto3.client('s3')  # Nueva conexión cada vez
+    # Procesar datos
     return response
 
-# AFTER: Efficient (reuses connection)
+# DESPUÉS: Eficiente (reutiliza la conexión)
 import boto3
-s3 = boto3.client('s3')  # Created once, reused across invocations
+s3 = boto3.client('s3')  # Creado una vez, reutilizado entre invocaciones
 
 def lambda_handler(event, context):
-    # Reuse existing s3 client
-    # Process data
+    # Reutilizar el cliente s3 existente
+    # Procesar datos
     return response
 
-Savings: 30-50% reduction in execution time
+Ahorro: reducción del 30-50% en el tiempo de ejecución
 ```
 
-**3. Reserve Concurrency (careful!)**:
+**3. Concurrencia reservada (¡con cuidado!)**:
 ```
-Reserve concurrency for critical functions
-BUT: Reserved concurrency counts against account limit
+Reservar concurrencia para funciones críticas.
+PERO: La concurrencia reservada cuenta para el límite de la cuenta.
 
-Use case:
-- Production API function: Reserve 100
-- Background processing: Unreserved (use available capacity)
+Caso de uso:
+- Función de API de producción: Reservar 100
+- Procesamiento en segundo plano: Sin reserva (utilizar la capacidad disponible)
 
-Cost impact: No direct cost, but prevents over-provisioning
-```
-
-**4. Lambda vs Fargate vs EC2**:
-```
-Lambda best for:
-- Event-driven, sporadic workloads
-- < 15 minute execution time
-- Millisecond billing precision
-
-Fargate best for:
-- Containerized, long-running processes
-- Consistent usage patterns
-- 15 min - hours execution
-
-EC2 best for:
-- Always-on applications
-- Specific compliance requirements
-- Customized OS needs
-
-Cost comparison (example workload: 10 hours/month):
-Lambda: 10 hrs × 1 GB × 3600s × $0.0000166667 = $0.60
-Fargate: 10 hrs × 1 vCPU, 2 GB = $4.50
-EC2 (t3.small, On-Demand): 730 hrs × $0.0208 = $15.18
-EC2 with stop/start: 10 hrs × $0.0208 = $0.21
-
-Winner for this use case: Lambda or stopped EC2
+Impacto en el coste: Sin coste directo, pero evita el sobreaprovisionamiento.
 ```
 
-#### CloudFront Cost Optimization
-
-**1. Optimize Data Transfer**:
+**4. Lambda frente a Fargate frente a EC2**:
 ```
-Strategies:
-├── Compress content (gzip, brotli)
-├── Serve appropriate image sizes
-├── Use modern formats (WebP, AVIF)
-├── Implement client-side caching
-└── Set appropriate TTL values
+Lambda es ideal para:
+- Cargas de trabajo esporádicas y basadas en eventos.
+- Tiempo de ejecución < 15 minutos.
+- Precisión de facturación en milisegundos.
 
-Example:
-Uncompressed: 10 TB/month × $0.085/GB = $850
-Compressed (70% reduction): 3 TB/month × $0.085/GB = $255
-Savings: $595/month (70%)
+Fargate es ideal para:
+- Procesos contenedorizados de larga duración.
+- Patrones de uso constantes.
+- Ejecución de 15 minutos a horas.
+
+EC2 es ideal para:
+- Aplicaciones siempre activas.
+- Requisitos de cumplimiento específicos.
+- Necesidades de un SO personalizado.
+
+Comparativa de costes (ejemplo de carga de trabajo: 10 horas/mes):
+Lambda: 10 h × 1 GB × 3600 s × 0,0000166667 $ = 0,60 $
+Fargate: 10 h × 1 vCPU, 2 GB = 4,50 $
+EC2 (t3.small, On-Demand): 730 h × 0,0208 $ = 15,18 $
+EC2 con parada/inicio: 10 h × 0,0208 $ = 0,21 $
+
+Ganador para este caso de uso: Lambda o EC2 con parada.
+```
+
+#### Optimización de Costes de CloudFront
+
+**1. Optimizar la transferencia de datos**:
+```
+Estrategias:
+├── Comprimir contenido (gzip, brotli)
+├── Servir tamaños de imagen adecuados
+├── Utilizar formatos modernos (WebP, AVIF)
+├── Implementar almacenamiento en caché en el lado del cliente
+└── Establecer valores de TTL adecuados
+
+Ejemplo:
+Sin comprimir: 10 TB/mes × 0,085 $/GB = 850 $
+Comprimido (reducción del 70%): 3 TB/mes × 0,085 $/GB = 255 $
+Ahorro: 595 $/mes (70%)
 ```
 
 **2. Origin Shield**:
 ```
-What: Additional caching layer between CloudFront and origin
+Qué: Capa de almacenamiento en caché adicional entre CloudFront y el origen.
 
-When to use:
-- Multiple CloudFront distributions accessing same origin
-- Origin has rate limits or scaling concerns
-- Frequent cache invalidations
+Cuándo usarlo:
+- Múltiples distribuciones de CloudFront que acceden al mismo origen.
+- El origen tiene límites de velocidad o problemas de escalado.
+- Invalidaciones de caché frecuentes.
 
-Cost: $0.01/10,000 requests + small hourly fee
-Benefit: Reduces origin requests by 50-80%
+Coste: 0,01 $/10.000 solicitudes + una pequeña tarifa horaria.
+Beneficio: Reduce las solicitudes al origen en un 50-80%.
 
-Example:
-Origin requests without Shield: 100M/month
-Cost (API Gateway): 100M × $3.50/M = $350
+Ejemplo:
+Solicitudes al origen sin Shield: 100M/mes
+Coste (API Gateway): 100M × 3,50 $/M = 350 $
 
-With Origin Shield:
-CloudFront Shield: $100 (hourly fee + requests)
-Origin requests reduced to 20M: 20M × $3.50/M = $70
-Total: $170 (save $180/month, 51%)
+Con Origin Shield:
+CloudFront Shield: 100 $ (tarifa horaria + solicitudes)
+Solicitudes al origen reducidas a 20M: 20M × 3,50 $/M = 70 $
+Total: 170 $ (ahorro de 180 $/mes, 51%)
 ```
 
-**3. Regional Price Classes**:
+**3. Clases de precio regionales (Price Classes)**:
 ```
-Price classes determine edge location usage:
+Las clases de precio determinan el uso de las ubicaciones de borde:
 
-Class All: All global edge locations (highest cost)
-Class 200: North America, Europe, Asia, Middle East, Africa
-Class 100: North America and Europe only
+Class All: Todas las ubicaciones de borde globales (coste más alto).
+Class 200: América del Norte, Europa, Asia, Oriente Medio, África.
+Class 100: Solo América del Norte y Europa.
 
-Example (10 TB transfer):
-All Locations: $850
-Price Class 200: $765 (save 10%)
-Price Class 100: $680 (save 20%)
+Ejemplo (transferencia de 10 TB):
+Todas las ubicaciones: 850 $
+Price Class 200: 765 $ (ahorro del 10%)
+Price Class 100: 680 $ (ahorro del 20%)
 
-Choose based on user geography
-```
-
-#### EBS Cost Optimization
-
-**1. Volume Type Selection**:
-```
-Volume type decision tree:
-├── Transactional database? → io2 or io2 Block Express
-├── General purpose, SSD? → gp3 (not gp2!)
-├── Large sequential I/O? → st1 (HDD)
-├── Infrequent access? → sc1 (HDD, cheapest)
-└── Boot volume? → gp3
-
-Price comparison (1 TB):
-gp2: $100/month
-gp3: $80/month (20% cheaper)
-io2: $125/month + $65 per 1,000 IOPS
-st1: $45/month
-sc1: $15/month
+Elegir en función de la geografía de los usuarios.
 ```
 
-**2. EBS Snapshots Optimization**:
+#### Optimización de Costes de EBS
+
+**1. Selección del tipo de volumen**:
 ```
-Problem: Incremental snapshots accumulate cost
+Árbol de decisión del tipo de volumen:
+├── ¿Base de datos transaccional? → io2 o io2 Block Express
+├── ¿Propósito general, SSD? → gp3 (¡no gp2!)
+├── ¿E/S secuencial grande? → st1 (HDD)
+├── ¿Acceso infrecuente? → sc1 (HDD, el más barato)
+└── ¿Volumen de arranque? → gp3
 
-Solutions:
-├── Delete old snapshots (automate with Data Lifecycle Manager)
-├── Use EBS Snapshot Archive (75% cheaper)
-├── Copy snapshots to S3 Glacier for long-term retention
-└── Use AWS Backup for centralized management
-
-Example (100 GB snapshots, 12 months retention):
-Standard snapshots: 12 × 100 GB × $0.05 = $60/month
-Snapshot Archive: 12 × 100 GB × $0.0125 = $15/month
-Savings: 75%
+Comparativa de precios (1 TB):
+gp2: 100 $/mes
+gp3: 80 $/mes (20% más barato)
+io2: 125 $/mes + 65 $ por cada 1.000 IOPS
+st1: 45 $/mes
+sc1: 15 $/mes
 ```
 
-**3. Unused Volume Cleanup**:
+**2. Optimización de Snapshots de EBS**:
+```
+Problema: Los snapshots incrementales acumulan costes.
+
+Soluciones:
+├── Eliminar snapshots antiguos (automatizar con Data Lifecycle Manager)
+├── Utilizar EBS Snapshot Archive (75% más barato)
+├── Copiar snapshots a S3 Glacier para retención a largo plazo
+└── Utilizar AWS Backup para una gestión centralizada
+
+Ejemplo (snapshots de 100 GB, retención de 12 meses):
+Snapshots estándar: 12 × 100 GB × 0,05 $ = 60 $/mes
+Snapshot Archive: 12 × 100 GB × 0,0125 $ = 15 $/mes
+Ahorro: 75%
+```
+
+**3. Limpieza de volúmenes no utilizados**:
 ```python
 import boto3
+from datetime import datetime
 
 ec2 = boto3.client('ec2')
 
 def find_unused_volumes():
-    """Find unattached EBS volumes"""
+    """Buscar volúmenes EBS no asociados"""
     volumes = ec2.describe_volumes(
         Filters=[{'Name': 'status', 'Values': ['available']}]
     )
 
     unused = []
     for volume in volumes['Volumes']:
-        age_days = (datetime.now() - volume['CreateTime']).days
+        age_days = (datetime.now().replace(tzinfo=None) - volume['CreateTime'].replace(tzinfo=None)).days
 
-        if age_days > 7:  # Unattached for > 7 days
+        if age_days > 7:  # No asociado durante más de 7 días
             unused.append({
                 'VolumeId': volume['VolumeId'],
                 'Size': volume['Size'],
                 'CreateTime': volume['CreateTime'],
-                'MonthlyCost': volume['Size'] * 0.10  # gp3 pricing
+                'MonthlyCost': volume['Size'] * 0,10  # Precios de gp3
             })
 
     return unused
 
-# Common issue: Volumes from terminated instances
-# Action: Delete or snapshot then delete
+# Problema común: Volúmenes de instancias terminadas
+# Acción: Eliminar o hacer un snapshot y luego eliminar
 ```
 
 ---
 
-## Cost Governance and FinOps
+## Gobernanza de Costes y FinOps
 
-### FinOps Framework
+### Marco de Trabajo FinOps (FinOps Framework)
 
-**What is FinOps**:
-- Financial Operations for cloud
-- Collaboration between Finance, Engineering, and Business
-- Goal: Maximize business value from cloud spending
-- Continuous optimization, not one-time project
+**Qué es FinOps**:
+- Operaciones financieras (Financial Operations) para la nube.
+- Colaboración entre Finanzas, Ingeniería y Negocio.
+- Objetivo: Maximizar el valor de negocio del gasto en la nube.
+- Optimización continua, no un proyecto puntual.
 
-**Three Phases of FinOps**:
+**Las tres fases de FinOps**:
 
 ```
-1. Inform Phase
-   ├── Visibility into cloud costs
-   ├── Accurate cost allocation
-   ├── Benchmarking and forecasting
-   └── Reporting and analytics
+1. Fase de Información (Inform)
+   ├── Visibilidad de los costes de la nube.
+   ├── Asignación precisa de costes.
+   ├── Evaluación comparativa (benchmarking) y previsión.
+   └── Elaboración de informes y analítica.
 
-2. Optimize Phase
-   ├── Right-sizing resources
-   ├── Eliminating waste
-   ├── Commitment-based discounts (RIs/SPs)
-   └── Architectural optimization
+2. Fase de Optimización (Optimize)
+   ├── Dimensionamiento adecuado de los recursos.
+   ├── Eliminación de desperdicios.
+   ├── Descuentos basados en compromisos (RIs/SPs).
+   └── Optimización arquitectónica.
 
-3. Operate Phase
-   ├── Continuous monitoring
-   ├── Automated policies
-   ├── Governance and compliance
-   └── Cultural adoption
+3. Fase de Operación (Operate)
+   ├── Monitorización continua.
+   ├── Políticas automatizadas.
+   ├── Gobernanza y cumplimiento.
+   └── Adopción cultural.
 ```
 
-**FinOps Team Structure**:
+**Estructura del Equipo FinOps**:
 ```
-FinOps Leader (Finance background)
-├── Cloud Architects (Technical optimization)
-├── Engineering Teams (Implementers)
-├── Finance Analysts (Reporting, forecasting)
-├── Product Managers (Business value alignment)
-└── Executives (Strategy, accountability)
+Líder de FinOps (trasfondo financiero)
+├── Arquitectos de la nube (optimización técnica)
+├── Equipos de ingeniería (implementadores)
+├── Analistas financieros (informes, previsiones)
+├── Gerentes de producto (alineación con el valor de negocio)
+└── Ejecutivos (estrategia, responsabilidad)
 
-Responsibilities:
-- Monthly cost reviews
-- Quarterly planning
-- Annual budgeting
-- Continuous education
+Responsabilidades:
+- Revisiones mensuales de costes.
+- Planificación trimestral.
+- Presupuestación anual.
+- Educación continua.
 ```
 
 ---
 
-### Governance Policies
+### Políticas de Gobernanza
 
-#### 1. Spending Guardrails
+#### 1. Barreras de Protección del Gasto (Spending Guardrails)
 
-**Service Control Policies (SCPs)**:
+**Políticas de Control de Servicios (SCPs)**:
 ```json
 {
   "Version": "2012-10-17",
@@ -4557,62 +4474,62 @@ Responsibilities:
 }
 ```
 
-**Service Quotas**:
+**Cuotas de Servicio (Service Quotas)**:
 ```
-Set service limits to prevent runaway costs:
-├── EC2: Max 50 instances per account
-├── RDS: Max 10 DB instances
-├── S3: Request rate limits
-└── Lambda: Reserved concurrent executions limit
+Establecer límites de servicio para evitar costes descontrolados:
+├── EC2: Máximo 50 instancias por cuenta.
+├── RDS: Máximo 10 instancias de DB.
+├── S3: Límites de tasa de solicitudes.
+└── Lambda: Límite de ejecuciones concurrentes reservadas.
 
-Monitor with Service Quotas console
-Alert when approaching limits
+Monitorizar con la consola de Service Quotas.
+Alertar cuando se acerque a los límites.
 ```
 
-#### 2. Budget Enforcement
+#### 2. Cumplimiento del Presupuesto (Budget Enforcement)
 
-**AWS Budgets with Actions**:
+**AWS Budgets con Acciones**:
 ```yaml
-Budget Configuration:
-  Name: Production-Monthly-Budget
-  Amount: $10,000
-  Period: Monthly
+Configuración del presupuesto:
+  Nombre: Presupuesto-Mensual-Produccion
+  Importe: 10.000 $
+  Periodo: Mensual
 
-  Alert Thresholds:
-    - 80% ($8,000): Email team lead
-    - 90% ($9,000): Email team + manager
-    - 100% ($10,000): Trigger Lambda action
+  Umbrales de alerta:
+    - 80% (8.000 $): Correo electrónico al líder del equipo.
+    - 90% (9.000 $): Correo electrónico al equipo + gerente.
+    - 100% (10.000 $): Activar acción de Lambda.
 
-  Budget Actions (at 100%):
-    - Apply restrictive SCP to prevent new resource creation
-    - Stop non-critical EC2 instances
-    - Send PagerDuty alert
-    - Create Jira ticket for review
+  Acciones del presupuesto (al 100%):
+    - Aplicar una SCP restrictiva para evitar la creación de nuevos recursos.
+    - Detener instancias de EC2 no críticas.
+    - Enviar alerta de PagerDuty.
+    - Crear ticket de Jira para revisión.
 ```
 
-**Automated Response Lambda**:
+**Lambda de Respuesta Automatizada**:
 ```python
 import boto3
 
 def budget_action_handler(event, context):
-    """Execute budget enforcement actions"""
+    """Ejecutar acciones de cumplimiento del presupuesto"""
 
     budget_limit = event['budgetLimit']
     actual_spend = event['actualSpend']
     percentage = (actual_spend / budget_limit) * 100
 
     if percentage >= 100:
-        # Stop non-production instances
+        # Detener instancias que no sean de producción
         stop_non_production_instances()
 
-        # Apply restrictive SCP
+        # Aplicar SCP de emergencia
         apply_emergency_scp()
 
-        # Notify stakeholders
+        # Notificar a las partes interesadas
         send_urgent_notification(actual_spend, budget_limit)
 
     elif percentage >= 90:
-        # Warning notification
+        # Notificación de advertencia
         send_warning_notification(actual_spend, budget_limit)
 
 def stop_non_production_instances():
@@ -4630,9 +4547,9 @@ def stop_non_production_instances():
             ec2.stop_instances(InstanceIds=[instance['InstanceId']])
 ```
 
-#### 3. Tagging Policies
+#### 3. Políticas de Etiquetado
 
-**AWS Organizations Tag Policies**:
+**Políticas de Etiquetas de AWS Organizations**:
 ```json
 {
   "tags": {
@@ -4680,6 +4597,216 @@ def stop_non_production_instances():
 
 ---
 
+### Responsabilidad y Propiedad (Accountability and Ownership)
+
+#### 1. Modelo de Propiedad de Costes (Cost Ownership Model)
+
+**Propiedad de Ingeniería**:
+```
+Principio: Los equipos son dueños de sus costes de infraestructura.
+
+Implementación:
+├── Cada equipo tiene una cuenta de AWS dedicada.
+├── El líder del equipo revisa los costes mensuales.
+├── Los costes se atribuyen al presupuesto del equipo.
+├── Revisiones trimestrales de optimización de costes.
+└── Las métricas de rendimiento incluyen la eficiencia de costes.
+
+Beneficios:
+- Responsabilidad directa.
+- Decisiones de optimización más rápidas.
+- Eficiencia impulsada por la ingeniería.
+- Reducción de la carga de trabajo de Finanzas.
+```
+
+**Responsabilidad Compartida**:
+```
+Equipo de Finanzas:
+├── Proporcionar herramientas de visibilidad de costes.
+├── Generar informes e información (insights).
+├── Establecer políticas de gobernanza.
+├── Negociar programas de descuento empresarial (Enterprise Discount Programs).
+└── Apoyar la planificación presupuestaria.
+
+Equipos de Ingeniería:
+├── Diseñar soluciones eficientes en costes.
+├── Dimensionar adecuadamente los recursos.
+├── Implementar el autoescalado (auto-scaling).
+├── Eliminar recursos no utilizados.
+└── Optimizar continuamente.
+
+Equipos de Producto:
+├── Justificar el gasto en infraestructura con el valor de negocio.
+├── Priorizar características basadas en el ROI.
+├── Aprobar cambios importantes en la infraestructura.
+└── Establecer equilibrios entre rendimiento y coste.
+```
+
+#### 2. Asignación de Centros de Coste
+
+**Asignación de Costes Jerárquica**:
+```
+Total de la empresa: 500.000 $/mes
+├── Ingeniería (300.000 $ - 60%)
+│   ├── Equipo de Producto A (120.000 $)
+│   ├── Equipo de Producto B (100.000 $)
+│   ├── Equipo de Plataforma (50.000 $)
+│   └── Equipo de Datos (30.000 $)
+├── Ventas (100.000 $ - 20%)
+│   ├── Sistemas CRM (60.000 $)
+│   └── Analítica (40.000 $)
+├── Marketing (80.000 $ - 16%)
+│   └── Infraestructura de Campañas (80.000 $)
+└── Servicios Compartidos (20.000 $ - 4%)
+    ├── Registro/Monitorización (10.000 $)
+    └── Herramientas de Seguridad (10.000 $)
+```
+
+**Métodos de Asignación**:
+```
+1. Atribución Directa:
+   - Recursos etiquetados con CostCenter.
+   - Costes asignados automáticamente.
+   - Método más preciso.
+
+2. Asignación Proporcional:
+   - Los recursos compartidos se dividen por uso.
+   - Ejemplo: Costes de NAT Gateway divididos por transferencia de datos.
+   - Requiere métricas de uso.
+
+3. Asignación Fija:
+   - Los costes generales se dividen a partes iguales o por número de empleados.
+   - Ejemplo: Cuenta de servicios compartidos.
+   - Sencillo pero menos preciso.
+```
+
+#### 3. KPIs y Métricas
+
+**KPIs Financieros**:
+```
+Métricas de coste:
+├── Tasa de crecimiento mes a mes (objetivo: < 10%).
+├── Coste por cliente/transacción (seguimiento de la tendencia).
+├── Coste de infraestructura como % de los ingresos (objetivo: < 25%).
+├── Gasto desperdiciado (recursos no utilizados) (objetivo: < 5%).
+└── Cobertura de instancias reservadas/Savings Plans (objetivo: > 70%).
+
+Métricas de eficiencia:
+├── Utilización media de CPU en EC2 (objetivo: 60-80%).
+├── Utilización del almacenamiento (objetivo: > 70%).
+├── Adopción de instancias Spot (objetivo: > 30% de las cargas de trabajo por lotes).
+└── Efectividad del autoescalado (eventos de escalado por semana).
+```
+
+**KPIs de Optimización**:
+```
+Métricas de proceso:
+├── Tiempo para implementar recomendaciones (objetivo: < 30 días).
+├── Número de anomalías de coste detectadas (monitorizar tendencia).
+├── Porcentaje de recursos con las etiquetas requeridas (objetivo: 100%).
+├── Precisión de la previsión presupuestaria (objetivo: ± 10%).
+└── Tasa de finalización de la revisión de costes mensual (objetivo: 100%).
+
+Compromiso del equipo:
+├── Equipos de ingeniería con formación en costes (objetivo: 100%).
+├── Ideas de optimización de costes enviadas (fomentar la participación).
+├── Ahorros de costes implementados por equipo (gamificación).
+└── Revisiones arquitectónicas conscientes del coste (% utilizando Well-Architected).
+```
+
+---
+
+## Resolución de Problemas de Facturación (Billing Troubleshooting)
+
+### Problemas Comunes
+
+#### 1. Cargos Inesperados
+
+**Problema**: Factura más alta de lo esperado.
+
+**Pasos de investigación**:
+```
+1. Identificar el servicio o servicios con cargos inesperados:
+   - Revisar Cost Explorer.
+   - Comparar mes a mes por servicio.
+   - Comprobar las alertas de detección de anomalías.
+
+2. Profundizar en recursos específicos:
+   - Utilizar el Informe de Costes y Uso (Cost and Usage Report).
+   - Filtrar por servicio, región, ID de recurso.
+   - Comprobar las etiquetas para la propiedad.
+
+3. Revisar los registros de CloudTrail:
+   - Buscar quién creó los recursos.
+   - Cuándo se crearon.
+   - Por qué se crearon (comprobar notas, tickets).
+
+4. Causas comunes:
+   - Recursos olvidados (instancias de prueba dejadas en ejecución).
+   - Eventos de autoescalado.
+   - Costes de transferencia de datos.
+   - Acumulación de snapshots.
+   - Capacidad reservada no utilizada por completo.
+```
+
+**Ejemplo de investigación**:
+```
+Síntoma: Los costes de EC2 aumentaron de 5.000 $ a 15.000 $.
+
+Paso 1: Cost Explorer muestra un pico en us-west-2.
+#### 2. Excesos del Nivel Gratuito (Free Tier Overages)
+
+**Problema**: Cargos a pesar de esperar cobertura del Nivel Gratuito.
+
+**Errores comunes**:
+- **Nivel Gratuito caducado**: Las ofertas de 12 meses (EC2, S3, RDS) terminan tras 1 año.
+- **Límites superados**: 750 horas/mes totales de EC2, no por instancia.
+- **Tipo incorrecto**: Solo t2.micro/t3.micro están incluidos.
+- **Transferencia de datos**: El Nivel Gratuito tiene límites estrictos de salida a Internet.
+
+#### 3. La Instancia Reservada no se aplica
+
+**Problema**: Se compró una RI pero se siguen viendo cargos On-Demand.
+
+**Razones**:
+- **Desajuste de atributos**: El tipo de instancia, región, plataforma o tenencia no coincide.
+- **Tiempo de activación**: Puede tardar hasta 48 horas en reflejarse en la factura.
+- **RI caducada**: Verificar la fecha de vencimiento en la consola de EC2.
+
+#### 4. Cargos por Transferencia de Datos
+
+**Problema**: Altos costes de transferencia.
+
+**Causas comunes**:
+- **Transferencia entre regiones**: Mover datos entre regiones de AWS tiene coste.
+- **NAT Gateway**: El procesamiento de datos tiene un coste por GB.
+- **Uso de IP pública**: El tráfico entre AZs usando IPs públicas se cobra como tráfico a Internet.
+
+---
+
+### Pasos de Resolución
+
+#### Proceso de Resolución de Problemas Estándar
+
+```
+Paso 1: Identificar el problema (Revisar alertas, notar cargos).
+Paso 2: Recopilar datos (Cost Explorer, CloudTrail, CloudWatch).
+Paso 3: Determinar la causa raíz (Identificar recursos y responsables).
+Paso 4: Acciones inmediatas (Detener recursos, fijar límites).
+Paso 5: Prevención a largo plazo (SCPs, alertas, formación).
+Paso 6: Solicitar crédito (Abrir caso de soporte si procede).
+```
+
+#### Cuándo contactar con el Soporte de AWS
+
+**Contactar con el soporte para**:
+- Disputas de facturación.
+- Problemas técnicos que afectan a los costes.
+- Solicitudes de crédito por interrupciones o errores de documentación.
+- Orientación experta (planes Business/Enterprise).
+
+---
+
 ### Accountability and Ownership
 
 #### 1. Cost Ownership Model
@@ -4687,8 +4814,6 @@ def stop_non_production_instances():
 **Engineering Ownership**:
 ```
 Principle: Teams own their infrastructure costs
-
-Implementation:
 ├── Each team has dedicated AWS account
 ├── Team lead reviews monthly costs
 ├── Costs attributed to team budget
@@ -4799,27 +4924,6 @@ Team Engagement:
 
 ---
 
-## Billing Troubleshooting
-
-### Common Issues
-
-#### 1. Unexpected Charges
-
-**Problem**: Bill higher than expected
-
-**Investigation Steps**:
-```
-1. Identify the service(s) with unexpected charges:
-   - Review Cost Explorer
-   - Compare month-over-month by service
-   - Check for anomaly detection alerts
-
-2. Drill down into specific resources:
-   - Use Cost and Usage Report
-   - Filter by service, region, resource ID
-   - Check tags for ownership
-
-3. Review CloudTrail logs:
    - Find who created the resources
    - When were they created
    - Why were they created (check notes, tickets)
@@ -4838,959 +4942,820 @@ Symptom: EC2 costs increased from $5,000 to $15,000
 
 Step 1: Cost Explorer shows spike in us-west-2
 Step 2: Drill down reveals 20 new m5.4xlarge instances
-Step 3: CloudTrail shows instances launched by AutoScaling group
-Step 4: AutoScaling triggered by CloudWatch alarm misconfiguration
-Step 5: Alarm threshold set too low (CPU > 10% instead of 70%)
+Step 3: C### Pasos de Resolución
 
-Resolution:
-- Terminate unnecessary instances
-- Fix CloudWatch alarm threshold
-- Update AutoScaling policy
-- Add budget alert to prevent recurrence
+#### Proceso de Resolución de Problemas Estándar
 
-Recovery:
-- Stopped instances within 4 hours
-- Cost impact: ~$150 (4 hours of excess capacity)
-- Prevented monthly cost of $10,000+
+```
+Paso 1: Identificar el problema
+[ ] Revisar la alerta de facturación o notar un cargo inesperado.
+[ ] Anotar el rango de fechas y el importe.
+[ ] Identificar el servicio o servicios específicos involucrados.
+
+Paso 2: Recopilar datos
+[ ] Cost Explorer: Ver costes por servicio, región, etiqueta.
+[ ] Informe de Costes y Uso: Análisis detallado de partidas individuales.
+[ ] CloudTrail: Llamadas a la API y eventos de creación de recursos.
+[ ] CloudWatch: Métricas de utilización de recursos.
+
+Paso 3: Determinar la causa raíz
+[ ] Identificar los recursos específicos que causan los cargos.
+[ ] Buscar quién creó/modificó los recursos (usuario/rol de IAM).
+[ ] Comprender el contexto de negocio (¿estaba planificado?).
+[ ] Comprobar si hay configuraciones incorrectas o errores.
+
+Paso 4: Acciones inmediatas
+[ ] Detener/terminar los recursos innecesarios.
+[ ] Deshabilitar las características problemáticas.
+[ ] Aplicar límites de gasto temporales.
+[ ] Documentar los hallazgos.
+
+Paso 5: Prevención a largo plazo
+[ ] Implementar barreras de protección (SCPs, políticas de IAM).
+[ ] Añadir monitorización/alertas.
+[ ] Actualizar los libros de ejecución (runbooks).
+[ ] Formar a los miembros del equipo.
+[ ] Programar revisiones periódicas.
+
+Paso 6: Solicitar crédito (si procede)
+[ ] Recopilar pruebas del problema.
+[ ] Abrir un caso de soporte.
+[ ] Explicar la situación con claridad.
+[ ] Proporcionar los pasos de mitigación tomados.
+[ ] Solicitar la consideración de un crédito.
 ```
 
-#### 2. Free Tier Overages
+#### Cuándo contactar con el Soporte de AWS
 
-**Problem**: Charged despite expecting Free Tier coverage
-
-**Common Mistakes**:
+**Contactar con el soporte para**:
 ```
-1. Free Tier expired (12-month offers):
-   - Check account creation date
-   - EC2, S3, RDS 12-month offers expire after 1 year
-   - Solution: Set calendar reminder, plan for costs
+1. Disputas de facturación:
+   - Cargos que crees que son incorrectos.
+   - Instancia reservada que no se aplica correctamente.
+   - Créditos prometidos pero no recibidos.
 
-2. Exceeded Free Tier limits:
-   - EC2: 750 hours/month (not per instance!)
-   - Example: Running 2 t2.micro instances = 1,460 hours (over limit)
-   - Solution: Run only 1 instance or upgrade plan
+2. Problemas específicos del servicio:
+   - Comportamiento inesperado del servicio.
+   - Característica que no funciona como se documenta.
+   - Problemas de rendimiento que afectan a los costes.
 
-3. Wrong instance/service tier:
-   - Free Tier: t2.micro or t3.micro only
-   - Launched t2.small instead: Charged immediately
-   - Solution: Terminate and recreate correct instance type
+3. Solicitudes de crédito:
+   - Una interrupción del servicio causó excesos.
+   - Configuración incorrecta debido a una documentación poco clara.
+   - Un problema de la infraestructura de AWS provocó costes.
 
-4. Data transfer charges:
-   - Free Tier doesn't cover all data transfer
-   - OUT to internet still charged
-   - Solution: Minimize external data transfer
-
-5. Regional availability:
-   - Free Tier applies to specific regions
-   - Using non-Free Tier region: Charged
-   - Solution: Check region, deploy to Free Tier region
+4. Orientación:
+   - Preguntas complejas sobre facturación.
+   - Estrategias de optimización de costes (Business/Enterprise).
+   - Recomendaciones de instancias reservadas.
 ```
 
-**Prevention**:
+**Información a proporcionar**:
 ```
-1. Enable Free Tier usage alerts:
-   - Billing Preferences > Receive Free Tier Usage Alerts
-   - Set email for notifications
+Al abrir un caso de soporte:
+├── ID de cuenta.
+├── Rango de fechas afectado.
+├── Recursos específicos (IDs de instancia, ARNs).
+├── Capturas de pantalla de Cost Explorer.
+├── Pasos ya tomados para investigar.
+├── Impacto en el negocio.
+└── Resolución solicitada.
 
-2. Create budget for $1:
-   - Alert if ANY charges occur
-   - Investigate immediately
-
-3. Tag Free Tier resources:
-   - Tag: FreeTier=true
-   - Easy to identify and monitor
-
-4. Use Free Tier dashboard:
-   - Billing Console > Free Tier
-   - Shows usage vs limits in real-time
-```
-
-#### 3. Reserved Instance Not Applying
-
-**Problem**: Purchased RI but still seeing On-Demand charges
-
-**Reasons**:
-```
-1. Instance type mismatch:
-   - RI: m5.large, Region: us-east-1
-   - Running: m5.xlarge (won't match)
-   - Solution: Modify RI or change instance size
-
-2. Region mismatch:
-   - RI purchased in us-east-1
-   - Instances running in us-west-2
-   - Solution: Regional RIs don't cross regions
-
-3. Platform mismatch:
-   - RI: Linux/UNIX
-   - Instance: Windows (different platform)
-   - Solution: Purchase Windows RI
-
-4. Tenancy mismatch:
-   - RI: Default tenancy
-   - Instance: Dedicated tenancy
-   - Solution: Match tenancy types
-
-5. Not enough hours:
-   - RI applies billing-hourly
-   - Takes 24-48 hours to appear on bill
-   - Solution: Wait for next bill cycle
-
-6. RI sold or expired:
-   - Check RI Marketplace for sales
-   - Verify expiration date
-   - Solution: Purchase new RI if needed
+Ejemplo:
+"Cuenta: 123456789012
+Fecha: 15-18 de enero de 2024
+Problema: Cargos inesperados de EC2 en us-west-2 (10.000 $ por encima del presupuesto)
+Recursos: 20 instancias m5.4xlarge (IDs: i-xxx, i-yyy...)
+Investigación: CloudTrail muestra que AutoScaling lanzó instancias debido a una
+               configuración incorrecta de una alarma de CloudWatch.
+Acciones tomadas: Se terminaron las instancias, se corrigió el umbral de la alarma.
+Impacto en el negocio: Presupuesto de desarrollo excedido, equipo bloqueado.
+Solicitud: Por favor, considere un crédito por las 20 horas de uso no intencionado
+          (2.000 $ estimados), ya que se trató de un error de configuración detectado rápidamente."
 ```
 
-**Verification**:
+---
+
+**Mejor práctica**: Revisar las recomendaciones mensualmente e implementar las sugerencias aplicables.
+
+---
+
+## Resumen de Conceptos Clave
+
+### Modelos de Precios para Recordar
+
+| Modelo | Descuento | Compromiso | Ideal para |
+|-------|----------|------------|----------|
+| **On-Demand** | 0% | Ninguno | Cargas de trabajo impredecibles. |
+| **Reserved** (1 año) | ~40% | 1 año | Cargas de trabajo constantes. |
+| **Reserved** (3 años) | ~60-75% | 3 años | Cargas de trabajo constantes a largo plazo. |
+| **Spot Instances** | ~90% | Ninguno (puede interrumpirse) | Tolerante a fallos, flexible. |
+| **Savings Plans** | ~72% | 1-3 años | Uso de computación flexible. |
+
+### Planes de Soporte para Recordar
+
+| Plan | Coste | TAM | Respuesta (Crítica) | Trusted Advisor |
+|------|------|-----|---------------------|----------------|
+| **Basic** | Gratuito | No | N/A | 7 comprobaciones. |
+| **Developer** | 29 $/mes | No | N/A | 7 comprobaciones. |
+| **Business** | 100 $/mes | No | < 1 hora | Todas las comprobaciones. |
+| **Enterprise** | 15.000 $/mes | **Sí** | **< 15 min** | Todas las comprobaciones. |
+
+### Nivel Gratuito para Recordar
+
+- **EC2**: 750 horas/mes durante 12 meses.
+- **S3**: 5 GB de almacenamiento durante 12 meses.
+- **Lambda**: 1 millón de solicitudes/mes (siempre gratuito).
+- **DynamoDB**: 25 GB de almacenamiento (siempre gratuito).
+- **CloudFront**: 50 GB de transferencia de salida durante 12 meses.
+
+---
+### Optimización de Transferencia de Datos
+
 ```
-1. Check RI utilization report:
-   AWS Console > EC2 > Reserved Instances
-   View utilization percentage (should be near 100%)
+4. Transferencia de datos entre AZ:
+   - Se cobra como transferencia de internet si se usan IPs públicas.
+   - Solución: Use IPs privadas (gratuito dentro de la misma AZ).
 
-2. Use Cost Explorer:
-   Enable "Show costs as" > Amortized costs
-   Group by: Instance Type
-   Verify RI discount applied
-
-3. Review Cost and Usage Report:
-   Filter: ReservationARN field (should match your RI)
-   Check pricing: Should be lower than On-Demand
+5. Replicación innecesaria:
+   - Replicación entre regiones de S3 (CRR) activada.
+   - Replicar datos que no son necesarios en ambas regiones.
+   - Solución: Desactive CRR o use S3 Batch Replication.
 ```
 
-#### 4. Data Transfer Charges
-
-**Problem**: High data transfer costs
-
-**Common Causes**:
+**Optimización**:
 ```
-1. Cross-Region transfer:
-   - Application in us-east-1
-   - Database in eu-west-1
-   - Every query incurs transfer cost
-   - Solution: Deploy database in same region
+1. Revisión de arquitectura:
+   - Mantenga los recursos relacionados en la misma región.
+   - Use CloudFront para la entrega de contenido.
+   - Implemente VPC Endpoints.
 
-2. NAT Gateway data processing:
-   - $0.045/GB processed
-   - High-traffic applications accumulate cost
-   - Solution: Use VPC Endpoints for AWS services
-
-3. CloudFront not used:
-   - Serving content directly from S3/EC2
-   - Higher data transfer rates
-   - Solution: Add CloudFront CDN
-
-4. Public IP usage:
-   - Traffic between AZs using public IPs
-   - Charged as internet transfer
-   - Solution: Use private IPs (free within AZ)
-
-5. Unnecessary replication:
-   - S3 Cross-Region Replication enabled
-   - Replicating data not needed in both regions
-   - Solution: Disable CRR or use S3 Batch Replication
-```
-
-**Optimization**:
-```
-1. Architecture review:
-   - Keep related resources in same region
-   - Use CloudFront for content delivery
-   - Implement VPC Endpoints
-
-2. Compression:
-   - Compress data before transfer
-   - Use gzip/brotli
-   - 60-80% reduction typical
+2. Compresión:
+   - Comprima los datos antes de la transferencia.
+   - Use gzip/brotli.
+   - Reducción típica del 60-80%.
 
 3. Caching:
-   - Implement ElastiCache
-   - Reduce database queries
-   - Lower data transfer needs
+   - Implemente ElastiCache.
+   - Reduzca las consultas a la base de datos.
+   - Disminuya las necesidades de transferencia de datos.
 
-4. Monitor with Cost Explorer:
-   - Filter by data transfer charges
-   - Identify top contributors
-   - Optimize highest costs first
-```
-
-### Resolution Steps
-
-#### Standard Troubleshooting Process
-
-```
-Step 1: Identify the Issue
-[ ] Review billing alert or notice unexpected charge
-[ ] Note date range and amount
-[ ] Identify specific service(s) involved
-
-Step 2: Gather Data
-[ ] Cost Explorer: View costs by service, region, tag
-[ ] Cost and Usage Report: Detailed line-item analysis
-[ ] CloudTrail: API calls and resource creation events
-[ ] CloudWatch: Resource utilization metrics
-
-Step 3: Determine Root Cause
-[ ] Identify specific resources causing charges
-[ ] Find who created/modified resources (IAM user/role)
-[ ] Understand business context (was this planned?)
-[ ] Check for misconfigurations or errors
-
-Step 4: Immediate Actions
-[ ] Stop/terminate unnecessary resources
-[ ] Disable problematic features
-[ ] Apply temporary spending limits
-[ ] Document findings
-
-Step 5: Long-Term Prevention
-[ ] Implement guardrails (SCPs, IAM policies)
-[ ] Add monitoring/alerts
-[ ] Update runbooks
-[ ] Train team members
-[ ] Schedule regular reviews
-
-Step 6: Request Credit (if applicable)
-[ ] Gather evidence of issue
-[ ] Open support case
-[ ] Explain situation clearly
-[ ] Provide mitigation steps taken
-[ ] Request credit consideration
-```
-
-#### When to Contact AWS Support
-
-**Contact Support For**:
-```
-1. Billing disputes:
-   - Charges you believe are incorrect
-   - Reserved Instance not applying correctly
-   - Credits promised but not received
-
-2. Service-specific issues:
-   - Unexpected service behavior
-   - Feature not working as documented
-   - Performance issues affecting costs
-
-3. Credit requests:
-   - Service disruption caused overages
-   - Misconfiguration due to unclear documentation
-   - AWS infrastructure issue led to costs
-
-4. Guidance:
-   - Complex billing questions
-   - Cost optimization strategies (Business/Enterprise)
-   - Reserved Instance recommendations
-```
-
-**Information to Provide**:
-```
-When opening support case:
-├── Account ID
-├── Affected date range
-├── Specific resources (instance IDs, ARNs)
-├── Screenshots of Cost Explorer
-├── Steps already taken to investigate
-├── Business impact
-└── Requested resolution
-
-Example:
-"Account: 123456789012
-Date: January 15-18, 2024
-Issue: Unexpected EC2 charges in us-west-2 ($10,000 over budget)
-Resources: 20 m5.4xlarge instances (IDs: i-xxx, i-yyy...)
-Investigation: CloudTrail shows AutoScaling launched instances due to
-              CloudWatch alarm misconfiguration
-Actions Taken: Terminated instances, fixed alarm threshold
-Business Impact: Development budget exceeded, team blocked
-Request: Please consider credit for 20 hours of unintended usage
-         ($2,000 estimated), as this was configuration error caught quickly"
+4. Monitoreo con Cost Explorer:
+   - Filtre por cargos de transferencia de datos.
+   - Identifique los principales contribuyentes.
+   - Optimice primero los costos más altos.
 ```
 
 ---
 
-**Best Practice**: Review recommendations monthly and implement applicable suggestions
+## Preguntas de Repaso
 
----
+### Pregunta 1
+¿Qué principio de precios de **AWS** permite a los clientes pagar solo por los recursos de cómputo que consumen?
 
-## Summary of Key Concepts
-
-### Pricing Models to Remember
-
-| Model | Discount | Commitment | Best For |
-|-------|----------|------------|----------|
-| On-Demand | 0% | None | Unpredictable workloads |
-| Reserved (1-year) | ~40% | 1 year | Steady workloads |
-| Reserved (3-year) | ~60-75% | 3 years | Long-term steady workloads |
-| Spot Instances | ~90% | None (can be interrupted) | Fault-tolerant, flexible |
-| Savings Plans | ~72% | 1-3 years | Flexible compute usage |
-
-### Support Plans to Remember
-
-| Plan | Cost | TAM | Response (Critical) | Trusted Advisor |
-|------|------|-----|---------------------|----------------|
-| Basic | Free | No | N/A | 7 checks |
-| Developer | $29/mo | No | N/A | 7 checks |
-| Business | $100/mo | No | < 1 hour | All checks |
-| Enterprise | $15,000/mo | **Yes** | **< 15 min** | All checks |
-
-### Free Tier to Remember
-
-- **EC2**: 750 hours/month for 12 months
-- **S3**: 5 GB storage for 12 months
-- **Lambda**: 1 million requests/month (always free)
-- **DynamoDB**: 25 GB storage (always free)
-- **CloudFront**: 50 GB transfer out for 12 months
-
----
-
-## Review Questions
-
-### Question 1
-Which AWS pricing principle allows customers to pay only for the compute resources they consume?
-
-A. Pay less when you reserve
-B. Pay-as-you-go
-C. Volume-based discounts
-D. Reserved capacity
+A. Pague menos al reservar (**Pay less when you reserve**)
+B. Pago por uso (**Pay-as-you-go**)
+C. Descuentos por volumen (**Volume-based discounts**)
+D. Capacidad reservada (**Reserved capacity**)
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. Pay-as-you-go**
+**Respuesta: B. Pago por uso (Pay-as-you-go)**
 
-Explanation: The pay-as-you-go pricing model is the core principle that allows customers to pay only for what they use, with no upfront costs or long-term commitments.
+Explicación: El modelo de precios de pago por uso es el principio fundamental que permite a los clientes pagar solo por lo que usan, sin costos iniciales ni compromisos a largo plazo.
 </details>
 
 ---
 
-### Question 2
-A company wants to reduce EC2 costs for a steady-state production workload that runs 24/7. Which purchasing option provides the MOST cost savings?
+### Pregunta 2
+Una empresa desea reducir los costos de **EC2** para una carga de trabajo de producción en estado estable que se ejecuta las 24 horas, los 7 días de la semana. ¿Qué opción de compra proporciona el MAYOR ahorro de costos?
 
-A. On-Demand Instances
-B. Spot Instances
-C. 3-year Reserved Instances with All Upfront payment
-D. Dedicated Hosts
+A. Instancias **On-Demand**
+B. Instancias **Spot**
+C. **Reserved Instances** de 3 años con pago **All Upfront**
+D. **Dedicated Hosts**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: C. 3-year Reserved Instances with All Upfront payment**
+**Respuesta: C. Reserved Instances de 3 años con pago All Upfront**
 
-Explanation: For steady-state workloads running continuously, Reserved Instances with 3-year commitment and All Upfront payment provide the highest discount (up to 75%). Spot Instances offer higher discounts but can be interrupted, making them unsuitable for steady production workloads.
+Explicación: Para cargas de trabajo constantes que se ejecutan continuamente, las **Reserved Instances** con un compromiso de 3 años y pago total por adelantado (**All Upfront**) proporcionan el descuento más alto (hasta un 75%). Las instancias **Spot** ofrecen descuentos más altos pero pueden interrumpirse, lo que las hace inadecuadas para cargas de trabajo de producción estables.
 </details>
 
 ---
 
-### Question 3
-Which AWS Support plan provides a Technical Account Manager (TAM)?
+### Pregunta 3
+¿Qué plan de soporte de **AWS** proporciona un Gerente Técnico de Cuentas (**TAM**)?
 
-A. Basic
-B. Developer
-C. Business
-D. Enterprise
+A. **Basic**
+B. **Developer**
+C. **Business**
+D. **Enterprise**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: D. Enterprise**
+**Respuesta: D. Enterprise**
 
-Explanation: Only the Enterprise Support plan includes a Technical Account Manager (TAM) who serves as a designated technical point of contact.
+Explicación: Solo el plan de soporte **Enterprise** incluye un Gerente Técnico de Cuentas (**TAM**) que sirve como un punto de contacto técnico designado.
 </details>
 
 ---
 
-### Question 4
-What is the response time for a business-critical system down issue under the Business Support plan?
+### Pregunta 4
+¿Cuál es el tiempo de respuesta para un problema de caída de sistema crítico para el negocio bajo el plan de soporte **Business**?
 
-A. < 15 minutes
-B. < 1 hour
-C. < 4 hours
-D. < 12 hours
+A. < 15 minutos
+B. < 1 hora
+C. < 4 horas
+D. < 12 horas
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. < 1 hour**
+**Respuesta: B. < 1 hora**
 
-Explanation: Business Support provides < 1 hour response for business-critical system down issues. Enterprise Support provides < 15 minutes for mission-critical issues.
+Explicación: El soporte **Business** proporciona una respuesta de < 1 hora para problemas de caída de sistemas críticos para el negocio. El soporte **Enterprise** proporciona < 15 minutos para problemas de misión crítica.
 </details>
 
 ---
 
-### Question 5
-Which tool should a company use to estimate costs BEFORE deploying resources to AWS?
+### Pregunta 5
+¿Qué herramienta debería usar una empresa para estimar los costos ANTES de desplegar recursos en **AWS**?
 
-A. AWS Cost Explorer
-B. AWS Pricing Calculator
-C. AWS Budgets
-D. AWS Cost and Usage Report
+A. **AWS Cost Explorer**
+B. **AWS Pricing Calculator**
+C. **AWS Budgets**
+D. **AWS Cost and Usage Report**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. AWS Pricing Calculator**
+**Respuesta: B. AWS Pricing Calculator**
 
-Explanation: AWS Pricing Calculator is designed to estimate costs before deployment. Cost Explorer analyzes historical costs, Budgets sets cost alerts, and Cost and Usage Report provides detailed billing data.
+Explicación: **AWS Pricing Calculator** está diseñado para estimar costos antes del despliegue. **Cost Explorer** analiza los costos históricos, **Budgets** establece alertas de costos y el **Cost and Usage Report** proporciona datos de facturación detallados.
 </details>
 
 ---
 
-### Question 6
-A company has multiple AWS accounts and wants to receive a single bill for all accounts. Which feature should they use?
+### Pregunta 6
+Una empresa tiene múltiples cuentas de **AWS** y desea recibir una sola factura para todas las cuentas. ¿Qué característica deberían usar?
 
-A. AWS Organizations with consolidated billing
-B. AWS Cost Explorer
-C. AWS Budgets
-D. AWS Cost Allocation Tags
+A. **AWS Organizations** con facturación consolidada
+B. **AWS Cost Explorer**
+C. **AWS Budgets**
+D. Etiquetas de asignación de costos de **AWS**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: A. AWS Organizations with consolidated billing**
+**Respuesta: A. AWS Organizations con facturación consolidada**
 
-Explanation: Consolidated billing through AWS Organizations combines usage from all accounts into a single bill, potentially providing volume discounts.
+Explicación: La facturación consolidada a través de **AWS Organizations** combina el uso de todas las cuentas en una sola factura, lo que potencialmente proporciona descuentos por volumen.
 </details>
 
 ---
 
-### Question 7
-Which AWS service uses machine learning to detect unusual spending patterns and send alerts?
+### Pregunta 7
+¿Qué servicio de **AWS** utiliza el aprendizaje automático para detectar patrones de gasto inusuales y enviar alertas?
 
-A. AWS Budgets
-B. AWS Cost Anomaly Detection
-C. AWS Cost Explorer
-D. AWS Trusted Advisor
+A. **AWS Budgets**
+B. **AWS Cost Anomaly Detection**
+C. **AWS Cost Explorer**
+D. **AWS Trusted Advisor**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. AWS Cost Anomaly Detection**
+**Respuesta: B. AWS Cost Anomaly Detection**
 
-Explanation: AWS Cost Anomaly Detection uses machine learning to automatically identify unusual spending patterns and send alerts, with no manual threshold configuration required.
+Explicación: **AWS Cost Anomaly Detection** utiliza el aprendizaje automático para identificar automáticamente patrones de gasto inusuales y enviar alertas, sin necesidad de configuración manual de umbrales.
 </details>
 
 ---
 
-### Question 8
-How many Trusted Advisor checks are available with the Basic and Developer support plans?
+### Pregunta 8
+¿Cuántas verificaciones de **Trusted Advisor** están disponibles con los planes de soporte **Basic** y **Developer**?
 
-A. None
-B. 7 core checks
-C. 50 checks
-D. All checks
+A. Ninguna
+B. 7 verificaciones principales
+C. 50 verificaciones
+D. Todas las verificaciones
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. 7 core checks**
+**Respuesta: B. 7 verificaciones principales**
 
-Explanation: Basic and Developer support plans have access to 7 core Trusted Advisor checks. Business and Enterprise plans have access to all checks (50+).
+Explicación: Los planes de soporte **Basic** y **Developer** tienen acceso a 7 verificaciones principales de **Trusted Advisor**. Los planes **Business** y **Enterprise** tienen acceso a todas las verificaciones (más de 50).
 </details>
 
 ---
 
-### Question 9
-Which AWS Free Tier offering NEVER expires?
+### Pregunta 9
+¿Qué oferta del Nivel Gratuito de **AWS** NUNCA expira?
 
-A. 750 hours/month of EC2 t2.micro
-B. 5 GB of S3 Standard storage
-C. 1 million Lambda requests per month
-D. 750 hours/month of RDS db.t2.micro
+A. 750 horas/mes de **EC2 t2.micro**
+B. 5 GB de almacenamiento **S3 Standard**
+C. 1 millón de solicitudes de **Lambda** por mes
+D. 750 horas/mes de **RDS db.t2.micro**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: C. 1 million Lambda requests per month**
+**Respuesta: C. 1 millón de solicitudes de Lambda por mes**
 
-Explanation: Lambda's 1 million requests/month is part of the "Always Free" tier that never expires. EC2, S3, and RDS offerings mentioned are part of the 12-month free tier.
+Explicación: El millón de solicitudes mensuales de **Lambda** es parte del nivel "Siempre gratis" (**Always Free**) que nunca expira. Las ofertas de **EC2**, **S3** y **RDS** mencionadas son parte del nivel gratuito de 12 meses.
 </details>
 
 ---
 
-### Question 10
-A development team needs to track their AWS spending and receive alerts when costs exceed $1,000 per month. Which service should they use?
+### Pregunta 10
+Un equipo de desarrollo necesita rastrear su gasto en **AWS** y recibir alertas cuando los costos superen los $1,000 por mes. ¿Qué servicio deberían usar?
 
-A. AWS Cost Explorer
-B. AWS Budgets
-C. AWS Pricing Calculator
-D. AWS Organizations
+A. **AWS Cost Explorer**
+B. **AWS Budgets**
+C. **AWS Pricing Calculator**
+D. **AWS Organizations**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. AWS Budgets**
+**Respuesta: B. AWS Budgets**
 
-Explanation: AWS Budgets allows you to set custom cost budgets and receive alerts (via email or SNS) when spending exceeds thresholds. The first two budgets are free.
+Explicación: **AWS Budgets** le permite establecer presupuestos de costos personalizados y recibir alertas (vía correo electrónico o **SNS**) cuando el gasto supera los umbrales. Los dos primeros presupuestos son gratuitos.
 </details>
 
 ---
 
-### Question 11
-Which data transfer scenario is typically FREE in AWS?
+### Pregunta 11
+¿Qué escenario de transferencia de datos suele ser GRATUITO en **AWS**?
 
-A. Data transfer out to the internet
-B. Data transfer from S3 to the internet
-C. Data transfer IN to AWS from the internet
-D. Data transfer between AWS Regions
+A. Transferencia de datos hacia internet
+B. Transferencia de datos desde **S3** hacia internet
+C. Transferencia de datos ENTRANTE a **AWS** desde internet
+D. Transferencia de datos entre regiones de **AWS**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: C. Data transfer IN to AWS from the internet**
+**Respuesta: C. Transferencia de datos ENTRANTE a AWS desde internet**
 
-Explanation: Data transfer INTO AWS from the internet is generally free. Data transfer OUT to the internet and between Regions is charged.
+Explicación: La transferencia de datos HACIA **AWS** desde internet suele ser gratuita. La transferencia de datos SALIENTE hacia internet y entre regiones tiene cargo.
 </details>
 
 ---
 
-### Question 12
-Which EC2 pricing option is BEST for fault-tolerant workloads that can handle interruptions?
+### Pregunta 12
+¿Qué opción de precio de **EC2** es MEJOR para cargas de trabajo tolerantes a fallos que pueden manejar interrupciones?
 
-A. On-Demand Instances
-B. Reserved Instances
-C. Spot Instances
-D. Dedicated Hosts
+A. Instancias **On-Demand**
+B. Instancias **Reserved**
+C. Instancias **Spot**
+D. **Dedicated Hosts**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: C. Spot Instances**
+**Respuesta: C. Instancias Spot**
 
-Explanation: Spot Instances offer up to 90% discount but can be interrupted by AWS with a 2-minute warning, making them ideal for fault-tolerant, flexible workloads like batch processing.
+Explicación: Las instancias **Spot** ofrecen hasta un 90% de descuento pero **AWS** puede interrumpirlas con un aviso de 2 minutos, lo que las hace ideales para cargas de trabajo flexibles y tolerantes a fallos como el procesamiento por lotes.
 </details>
 
 ---
 
-### Question 13
-What is the MOST comprehensive source of detailed AWS cost and usage data?
+### Pregunta 13
+¿Cuál es la fuente más completa de datos detallados de costos y uso de **AWS**?
 
-A. AWS Cost Explorer
-B. AWS Cost and Usage Report
-C. AWS Budgets
-D. Monthly billing statement
+A. **AWS Cost Explorer**
+B. **AWS Cost and Usage Report**
+C. **AWS Budgets**
+D. Estado de cuenta mensual
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. AWS Cost and Usage Report**
+**Respuesta: B. AWS Cost and Usage Report**
 
-Explanation: AWS Cost and Usage Report provides the most detailed line-item breakdown of costs and usage, delivered to S3 for analysis with tools like Athena or Redshift.
+Explicación: El **AWS Cost and Usage Report** proporciona el desglose más detallado de los costos y el uso, entregado a **S3** para su análisis con herramientas como **Athena** o **Redshift**.
 </details>
 
 ---
 
-### Question 14
-Which AWS Support plan is the MINIMUM required for 24/7 phone support?
+### Pregunta 14
+¿Cuál es el plan de soporte de **AWS** MÍNIMO requerido para soporte telefónico 24/7?
 
-A. Basic
-B. Developer
-C. Business
-D. Enterprise
+A. **Basic**
+B. **Developer**
+C. **Business**
+D. **Enterprise**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: C. Business**
+**Respuesta: C. Business**
 
-Explanation: Business Support is the minimum plan that provides 24/7 phone, email, and chat support. Developer only provides business hours email support.
+Explicación: El soporte **Business** es el plan mínimo que proporciona soporte telefónico, por correo electrónico y por chat las 24 horas, los 7 días de la semana. **Developer** solo proporciona soporte por correo electrónico en horario comercial.
 </details>
 
 ---
 
-### Question 15
-A company wants architectural guidance specific to their use cases and production environment. Which support plan should they choose at MINIMUM?
+### Pregunta 15
+Una empresa desea orientación arquitectónica específica para sus casos de uso y entorno de producción. ¿Qué plan de soporte deberían elegir como MÍNIMO?
 
-A. Basic
-B. Developer (General guidance)
-C. Business (Contextual guidance)
-D. Enterprise (Consultative guidance)
+A. **Basic**
+B. **Developer** (orientación general)
+C. **Business** (orientación contextual)
+D. **Enterprise** (orientación consultiva)
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: C. Business**
+**Respuesta: C. Business**
 
-Explanation: Business Support provides contextual architectural guidance related to specific use cases. Developer provides only general guidance, while Enterprise provides consultative guidance with a TAM.
+Explicación: El soporte **Business** proporciona orientación arquitectónica contextual relacionada con casos de uso específicos. **Developer** solo proporciona orientación general, mientras que **Enterprise** proporciona orientación consultiva con un **TAM**.
 </details>
 
 ---
 
-### Question 16
-Which AWS service helps you forecast future costs based on historical usage patterns?
+### Pregunta 16
+¿Qué servicio de **AWS** le ayuda a pronosticar costos futuros basados en patrones de uso históricos?
 
-A. AWS Budgets
-B. AWS Cost Explorer
-C. AWS Pricing Calculator
-D. AWS Cost and Usage Report
+A. **AWS Budgets**
+B. **AWS Cost Explorer**
+C. **AWS Pricing Calculator**
+D. **AWS Cost and Usage Report**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. AWS Cost Explorer**
+**Respuesta: B. AWS Cost Explorer**
 
-Explanation: Cost Explorer includes forecasting capabilities that predict future costs based on historical usage patterns for up to 12 months. AWS Budgets sets spending limits, Pricing Calculator estimates new deployments, and Cost and Usage Report provides detailed data but not forecasting.
+Explicación: **Cost Explorer** incluye capacidades de pronóstico que predicen los costos futuros basados en patrones de uso históricos hasta por 12 meses. **AWS Budgets** establece límites de gasto, **Pricing Calculator** estima nuevos despliegues y el **Cost and Usage Report** proporciona datos detallados pero no pronósticos.
 </details>
 
 ---
 
-### Question 17
-A company wants to prevent users from launching EC2 instances in regions outside of us-east-1 and us-west-2. Which AWS feature should they use?
+### Pregunta 17
+Una empresa quiere evitar que los usuarios lancen instancias **EC2** en regiones fuera de **us-east-1** y **us-west-2**. ¿Qué característica de **AWS** deberían usar?
 
-A. IAM policies
-B. Service Control Policies (SCPs)
-C. AWS Budgets
-D. Resource Groups
+A. Políticas de **IAM**
+B. Políticas de Control de Servicios (**SCPs**)
+C. **AWS Budgets**
+D. Grupos de Recursos (**Resource Groups**)
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. Service Control Policies (SCPs)**
+**Respuesta: B. Políticas de Control de Servicios (SCPs)**
 
-Explanation: Service Control Policies (SCPs) in AWS Organizations can restrict actions across accounts, including preventing resource creation in specific regions. While IAM policies can also restrict regions, SCPs provide organization-wide enforcement.
+Explicación: Las **Service Control Policies (SCPs)** en **AWS Organizations** pueden restringir acciones a través de las cuentas, incluyendo evitar la creación de recursos en regiones específicas. Aunque las políticas de **IAM** también pueden restringir regiones, las **SCPs** proporcionan una aplicación a nivel de toda la organización.
 </details>
 
 ---
 
-### Question 18
-What is the primary benefit of using cost allocation tags in AWS?
+### Pregunta 18
+¿Cuál es el beneficio principal de usar etiquetas de asignación de costos en **AWS**?
 
-A. Improve application performance
-B. Track and allocate costs to specific projects or teams
-C. Reduce data transfer costs
-D. Increase EC2 instance limits
+A. Mejorar el rendimiento de la aplicación
+B. Rastrear y asignar costos a proyectos o equipos específicos
+C. Reducir los costos de transferencia de datos
+D. Aumentar los límites de instancias **EC2**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. Track and allocate costs to specific projects or teams**
+**Respuesta: B. Rastrear y asignar costos a proyectos o equipos específicos**
 
-Explanation: Cost allocation tags allow you to organize and track AWS costs by tagging resources with meaningful labels (like project, department, or environment), enabling detailed cost tracking and chargeback/showback reporting.
+Explicación: Las etiquetas de asignación de costos le permiten organizar y rastrear los costos de **AWS** etiquetando los recursos con etiquetas significativas (como proyecto, departamento o entorno), lo que permite un seguimiento detallado de los costos y informes de facturación interna (**chargeback/showback**).
 </details>
 
 ---
 
-### Question 19
-Which Reserved Instance payment option provides the HIGHEST discount?
+### Pregunta 19
+¿Qué opción de pago de **Reserved Instance** proporciona el descuento MÁS alto?
 
-A. No Upfront
-B. Partial Upfront
-C. All Upfront
-D. On-Demand
+A. **No Upfront** (Sin pago inicial)
+B. **Partial Upfront** (Pago inicial parcial)
+C. **All Upfront** (Todo el pago inicial)
+D. **On-Demand** (Bajo demanda)
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: C. All Upfront**
+**Respuesta: C. All Upfront**
 
-Explanation: All Upfront payment for Reserved Instances provides the highest discount because you pay the entire cost upfront. Partial Upfront offers a medium discount, and No Upfront provides the lowest discount (but requires no upfront payment).
+Explicación: El pago **All Upfront** para **Reserved Instances** proporciona el descuento más alto porque usted paga el costo total por adelantado. **Partial Upfront** ofrece un descuento medio y **No Upfront** proporciona el descuento más bajo (pero no requiere pago inicial).
 </details>
 
 ---
 
-### Question 20
-A development team only uses their AWS resources during business hours (8 AM - 6 PM, Monday-Friday). What is the BEST way to optimize costs?
+### Pregunta 20
+Un equipo de desarrollo solo usa sus recursos de **AWS** durante el horario comercial (8 AM - 6 PM, lunes a viernes). ¿Cuál es la MEJOR manera de optimizar los costos?
 
-A. Purchase Reserved Instances
-B. Use Spot Instances
-C. Implement scheduled scaling to stop/start instances
-D. Use Savings Plans
+A. Comprar **Reserved Instances**
+B. Usar **Spot Instances**
+C. Implementar escalado programado para detener/iniciar instancias
+D. Usar **Savings Plans**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: C. Implement scheduled scaling to stop/start instances**
+**Respuesta: C. Implementar escalado programado para detener/iniciar instancias**
 
-Explanation: For resources used only during business hours, stopping instances when not in use (using AWS Instance Scheduler or scheduled scaling) provides the best cost optimization. Reserved Instances and Savings Plans require longer-term commitment and are better for 24/7 workloads.
+Explicación: Para los recursos utilizados solo durante el horario comercial, detener las instancias cuando no están en uso (usando **AWS Instance Scheduler** o escalado programado) proporciona la mejor optimización de costos. Las **Reserved Instances** y los **Savings Plans** requieren un compromiso a largo plazo y son mejores para cargas de trabajo 24/7.
 </details>
 
 ---
 
-### Question 21
-Which AWS support plan includes access to ALL Trusted Advisor checks?
+### Pregunta 21
+¿Qué plan de soporte de **AWS** incluye acceso a TODAS las verificaciones de **Trusted Advisor**?
 
-A. Basic
-B. Developer
-C. Business
-D. Both Business and Enterprise
+A. **Basic**
+B. **Developer**
+C. **Business**
+D. Tanto **Business** como **Enterprise**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: D. Both Business and Enterprise**
+**Respuesta: D. Tanto Business como Enterprise**
 
-Explanation: Both Business and Enterprise support plans provide access to all Trusted Advisor checks (50+ checks). Basic and Developer plans only have access to 7 core checks covering basic security and service limits.
+Explicación: Tanto los planes de soporte **Business** como **Enterprise** proporcionan acceso a todas las verificaciones de **Trusted Advisor** (más de 50 verificaciones). Los planes **Basic** y **Developer** solo tienen acceso a 7 verificaciones principales que cubren seguridad básica y límites de servicio.
 </details>
 
 ---
 
-### Question 22
-What is the response time SLA for a mission-critical system down issue under the Enterprise Support plan?
+### Pregunta 22
+¿Cuál es el **SLA** de tiempo de respuesta para un problema de caída de sistema crítico bajo el plan de soporte **Enterprise**?
 
-A. < 1 hour
-B. < 30 minutes
-C. < 15 minutes
-D. < 4 hours
+A. < 1 hora
+B. < 30 minutos
+C. < 15 minutos
+D. < 4 horas
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: C. < 15 minutes**
+**Respuesta: C. < 15 minutos**
 
-Explanation: Enterprise Support provides < 15 minutes response time for mission-critical system down issues. This is the fastest response time available and is exclusive to the Enterprise plan.
+Explicación: El soporte **Enterprise** proporciona un tiempo de respuesta de < 15 minutos para problemas de caída de sistemas críticos. Este es el tiempo de respuesta más rápido disponible y es exclusivo del plan **Enterprise**.
 </details>
 
 ---
 
-### Question 23
-A company has a 100 TB dataset that is accessed once per year for compliance audits. Which S3 storage class provides the LOWEST cost?
+### Pregunta 23
+Una empresa tiene un conjunto de datos de 100 TB al que se accede una vez al año para auditorías de cumplimiento. ¿Qué clase de almacenamiento de **S3** proporciona el costo MÁS bajo?
 
-A. S3 Standard
-B. S3 Standard-IA
-C. S3 Glacier Flexible Retrieval
-D. S3 Glacier Deep Archive
+A. **S3 Standard**
+B. **S3 Standard-IA**
+C. **S3 Glacier Flexible Retrieval**
+D. **S3 Glacier Deep Archive**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: D. S3 Glacier Deep Archive**
+**Respuesta: D. S3 Glacier Deep Archive**
 
-Explanation: S3 Glacier Deep Archive is the lowest-cost storage class, designed for data that is rarely accessed (once or twice per year). It's ideal for long-term archival and compliance data with retrieval times of 12-48 hours.
+Explicación: **S3 Glacier Deep Archive** es la clase de almacenamiento de más bajo costo, diseñada para datos que rara vez se acceden (una o dos veces al año). Es ideal para el archivo a largo plazo y datos de cumplimiento con tiempos de recuperación de 12 a 48 horas.
 </details>
 
 ---
 
-### Question 24
-Which consolidated billing benefit allows multiple AWS accounts to receive volume pricing discounts?
+### Pregunta 24
+¿Qué beneficio de facturación consolidada permite que múltiples cuentas de **AWS** reciban descuentos por volumen?
 
-A. Combined usage across accounts qualifies for tiered pricing
-B. Shared Reserved Instances
-C. Free data transfer between accounts
-D. Unified IAM policies
+A. El uso combinado entre cuentas califica para precios por niveles
+B. **Reserved Instances** compartidas
+C. Transferencia de datos gratuita entre cuentas
+D. Políticas de **IAM** unificadas
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: A. Combined usage across accounts qualifies for tiered pricing**
+**Respuesta: A. El uso combinado entre cuentas califica para precios por niveles**
 
-Explanation: Consolidated billing combines usage across all linked accounts, allowing the organization to reach higher volume tiers faster and receive better pricing. For example, if one account uses 8 TB of S3 and another uses 4 TB, the combined 12 TB qualifies for volume discounts.
+Explicación: La facturación consolidada combina el uso de todas las cuentas vinculadas, lo que permite a la organización alcanzar niveles de volumen más altos más rápido y recibir mejores precios. Por ejemplo, si una cuenta usa 8 TB de **S3** y otra usa 4 TB, los 12 TB combinados califican para descuentos por volumen.
 </details>
 
 ---
 
-### Question 25
-What AWS tool provides ML-powered recommendations for right-sizing EC2 instances?
+### Pregunta 25
+¿Qué herramienta de **AWS** proporciona recomendaciones impulsadas por **ML** para ajustar el tamaño de las instancias **EC2**?
 
-A. AWS Trusted Advisor
-B. AWS Compute Optimizer
-C. AWS Cost Explorer
-D. AWS Budgets
+A. **AWS Trusted Advisor**
+B. **AWS Compute Optimizer**
+C. **AWS Cost Explorer**
+D. **AWS Budgets**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. AWS Compute Optimizer**
+**Respuesta: B. AWS Compute Optimizer**
 
-Explanation: AWS Compute Optimizer uses machine learning to analyze historical utilization metrics and provide recommendations for optimal EC2 instance types, EBS volumes, and Lambda functions. Trusted Advisor also provides recommendations, but Compute Optimizer uses more sophisticated ML analysis.
+Explicación: **AWS Compute Optimizer** utiliza el aprendizaje automático (**machine learning**) para analizar las métricas de utilización históricas y proporcionar recomendaciones para los tipos óptimos de instancias **EC2**, volúmenes **EBS** y funciones **Lambda**. **Trusted Advisor** también proporciona recomendaciones, pero **Compute Optimizer** utiliza un análisis de **ML** más sofisticado.
 </details>
 
 ---
 
-### Question 26
-Which data transfer scenario is typically FREE in AWS?
+### Pregunta 26
+¿Qué escenario de transferencia de datos suele ser GRATUITO en **AWS**?
 
-A. Data transfer from EC2 to the internet
-B. Data transfer from EC2 to S3 in the same region
-C. Data transfer between AWS regions
-D. Data transfer from CloudFront to the internet
+A. Transferencia de datos desde **EC2** a internet
+B. Transferencia de datos desde **EC2** a **S3** en la misma región
+C. Transferencia de datos entre regiones de **AWS**
+D. Transferencia de datos desde **CloudFront** a internet
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. Data transfer from EC2 to S3 in the same region**
+**Respuesta: B. Transferencia de datos desde EC2 a S3 en la misma región**
 
-Explanation: Data transfer between AWS services within the same region is typically free. Data transfer OUT to the internet, between regions, and from CloudFront all incur charges (though CloudFront rates are often lower than direct transfers).
+Explicación: La transferencia de datos entre servicios de **AWS** dentro de la misma región suele ser gratuita. La transferencia de datos SALIENTE a internet, entre regiones y desde **CloudFront** incurre en cargos (aunque las tarifas de **CloudFront** suelen ser más bajas que las transferencias directas).
 </details>
 
 ---
 
-### Question 27
-A company wants to automatically delete S3 objects older than 90 days. Which feature should they use?
+### Pregunta 27
+Una empresa quiere eliminar automáticamente los objetos de **S3** con más de 90 días. ¿Qué característica deberían usar?
 
-A. S3 Versioning
-B. S3 Lifecycle Policies
-C. S3 Replication
-D. S3 Inventory
+A. Control de versiones de **S3** (**S3 Versioning**)
+B. Políticas de ciclo de vida de **S3** (**S3 Lifecycle Policies**)
+C. Replicación de **S3** (**S3 Replication**)
+D. Inventario de **S3** (**S3 Inventory**)
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. S3 Lifecycle Policies**
+**Respuesta: B. Políticas de ciclo de vida de S3 (S3 Lifecycle Policies)**
 
-Explanation: S3 Lifecycle Policies allow you to automatically transition objects to different storage classes or delete them based on age or other criteria. This is ideal for automating data retention and reducing storage costs.
+Explicación: Las **S3 Lifecycle Policies** le permiten transicionar automáticamente objetos a diferentes clases de almacenamiento o eliminarlos según la antigüedad u otros criterios. Esto es ideal para automatizar la retención de datos y reducir los costos de almacenamiento.
 </details>
 
 ---
 
-### Question 28
-Which AWS service provides a personalized view of AWS service health affecting YOUR specific resources?
+### Pregunta 28
+¿Qué servicio de **AWS** proporciona una vista personalizada del estado del servicio de **AWS** que afecta a SUS recursos específicos?
 
-A. AWS Service Health Dashboard
-B. AWS Personal Health Dashboard
-C. AWS Trusted Advisor
-D. AWS CloudWatch
+A. **AWS Service Health Dashboard**
+B. **AWS Personal Health Dashboard**
+C. **AWS Trusted Advisor**
+D. **AWS CloudWatch**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. AWS Personal Health Dashboard**
+**Respuesta: B. AWS Personal Health Dashboard**
 
-Explanation: AWS Personal Health Dashboard provides personalized, account-specific notifications about events affecting your resources. The Service Health Dashboard shows general AWS service status for all customers, not personalized information.
+Explicación: **AWS Personal Health Dashboard** proporciona notificaciones personalizadas y específicas de la cuenta sobre eventos que afectan a sus recursos. El **Service Health Dashboard** muestra el estado general del servicio de **AWS** para todos los clientes, no información personalizada.
 </details>
 
 ---
 
-### Question 29
-What is the minimum monthly cost for AWS Business Support?
+### Pregunta 29
+¿Cuál es el costo mensual mínimo para el soporte **AWS Business**?
 
-A. Free
+A. Gratis
 B. $29
 C. $100
 D. $15,000
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: C. $100**
+**Respuesta: C. $100**
 
-Explanation: Business Support has a minimum monthly cost of $100 or 10% of monthly AWS usage (whichever is greater, with tiered pricing). Developer is $29 minimum, and Enterprise is $15,000 minimum.
+Explicación: El soporte **Business** tiene un costo mensual mínimo de $100 o el 10% del uso mensual de **AWS** (lo que sea mayor, con precios por niveles). **Developer** tiene un mínimo de $29 y **Enterprise** tiene un mínimo de $15,000.
 </details>
 
 ---
 
-### Question 30
-A company has purchased Reserved Instances but they are not being applied to their running EC2 instances. What is the MOST likely reason?
+### Pregunta 30
+Una empresa ha comprado **Reserved Instances** pero no se están aplicando a sus instancias **EC2** en ejecución. ¿Cuál es la razón MÁS probable?
 
-A. Reserved Instances take 30 days to activate
-B. Instance type or region mismatch
-C. Reserved Instances only apply to new instances
-D. Billing cycle has not completed
+A. Las **Reserved Instances** tardan 30 días en activarse
+B. Desajuste en el tipo de instancia o región
+C. Las **Reserved Instances** solo se aplican a nuevas instancias
+D. El ciclo de facturación no se ha completado
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. Instance type or region mismatch**
+**Respuesta: B. Desajuste en el tipo de instancia o región**
 
-Explanation: Reserved Instances must match the instance type, platform (OS), tenancy, and region of the running instances. If any of these attributes don't match, the RI discount won't apply. RIs typically activate within hours, not days.
+Explicación: Las **Reserved Instances** deben coincidir con el tipo de instancia, la plataforma (**OS**), la tenencia y la región de las instancias en ejecución. Si alguno de estos atributos no coincide, el descuento de **RI** no se aplicará. Las **RIs** suelen activarse en cuestión de horas, no días.
 </details>
 
 ---
 
-### Question 31
-Which EC2 purchasing option can provide up to 90% discount but instances can be interrupted with 2-minute notice?
+### Pregunta 31
+¿Qué opción de compra de **EC2** puede proporcionar hasta un 90% de descuento pero las instancias pueden interrumpirse con un aviso de 2 minutos?
 
-A. On-Demand Instances
-B. Reserved Instances
-C. Spot Instances
-D. Dedicated Hosts
+A. Instancias **On-Demand**
+B. Instancias **Reserved**
+C. Instancias **Spot**
+D. **Dedicated Hosts**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: C. Spot Instances**
+**Respuesta: C. Instancias Spot**
 
-Explanation: Spot Instances offer up to 90% discount compared to On-Demand pricing by using unused EC2 capacity. However, AWS can reclaim these instances with a 2-minute warning when capacity is needed, making them suitable for fault-tolerant workloads.
+Explicación: Las instancias **Spot** ofrecen hasta un 90% de descuento en comparación con los precios **On-Demand** al utilizar la capacidad **EC2** no utilizada. Sin embargo, **AWS** puede reclamar estas instancias con un aviso de 2 minutos cuando se necesita capacidad, lo que las hace adecuadas para cargas de trabajo tolerantes a fallos.
 </details>
 
 ---
 
-### Question 32
-What is the primary difference between Compute Savings Plans and EC2 Instance Savings Plans?
+### Pregunta 32
+¿Cuál es la diferencia principal entre los **Compute Savings Plans** y los **EC2 Instance Savings Plans**?
 
-A. Compute SPs offer higher discounts
-B. Compute SPs apply to EC2, Fargate, and Lambda; EC2 Instance SPs only apply to specific EC2 instance families
-C. EC2 Instance SPs are more flexible
-D. Compute SPs require longer commitments
+A. Los **Compute SPs** ofrecen descuentos más altos
+B. Los **Compute SPs** se aplican a **EC2**, **Fargate** y **Lambda**; los **EC2 Instance SPs** solo se aplican a familias de instancias **EC2** específicas
+C. Los **EC2 Instance SPs** son más flexibles
+D. Los **Compute SPs** requieren compromisos más largos
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. Compute SPs apply to EC2, Fargate, and Lambda; EC2 Instance SPs only apply to specific EC2 instance families**
+**Respuesta: B. Los Compute SPs se aplican a EC2, Fargate y Lambda; los EC2 Instance SPs solo se aplican a familias de instancias EC2 específicas**
 
-Explanation: Compute Savings Plans provide the most flexibility, applying to EC2, Fargate, and Lambda across any instance family, size, region, or OS. EC2 Instance Savings Plans offer higher discounts but only apply to a specific instance family in a chosen region.
+Explicación: Los **Compute Savings Plans** proporcionan la mayor flexibilidad, aplicándose a **EC2**, **Fargate** y **Lambda** en cualquier familia de instancias, tamaño, región o sistema operativo. Los **EC2 Instance Savings Plans** ofrecen descuentos más altos pero solo se aplican a una familia de instancias específica en una región elegida.
 </details>
 
 ---
 
-### Question 33
-Which AWS tool should you use to create a detailed cost estimate BEFORE deploying resources?
+### Pregunta 33
+¿Qué herramienta de **AWS** debería usar para crear una estimación de costos detallada ANTES de desplegar recursos?
 
-A. AWS Cost Explorer
-B. AWS Budgets
-C. AWS Pricing Calculator
-D. AWS Cost and Usage Report
+A. **AWS Cost Explorer**
+B. **AWS Budgets**
+C. **AWS Pricing Calculator**
+D. **AWS Cost and Usage Report**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: C. AWS Pricing Calculator**
+**Respuesta: C. AWS Pricing Calculator**
 
-Explanation: AWS Pricing Calculator allows you to model and estimate costs for AWS services before deployment. Cost Explorer analyzes historical costs, Budgets sets spending limits, and Cost and Usage Report provides detailed billing data for existing resources.
+Explicación: **AWS Pricing Calculator** le permite modelar y estimar los costos de los servicios de **AWS** antes del despliegue. **Cost Explorer** analiza los costos históricos, **Budgets** establece límites de gasto y el **Cost and Usage Report** proporciona datos de facturación detallados para los recursos existentes.
 </details>
 
 ---
 
-### Question 34
-A company wants to receive alerts when their monthly AWS bill is forecasted to exceed $5,000. Which service should they use?
+### Pregunta 34
+Una empresa quiere recibir alertas cuando se pronostica que su factura mensual de **AWS** superará los $5,000. ¿Qué servicio deberían usar?
 
-A. AWS Cost Anomaly Detection
-B. AWS Budgets
-C. AWS Trusted Advisor
-D. CloudWatch Alarms
+A. **AWS Cost Anomaly Detection**
+B. **AWS Budgets**
+C. **AWS Trusted Advisor**
+D. Alarmas de **CloudWatch**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: B. AWS Budgets**
+**Respuesta: B. AWS Budgets**
 
-Explanation: AWS Budgets allows you to set custom cost and usage budgets with alerts based on actual spending or forecasted amounts. You can configure alerts at specific thresholds (e.g., when forecasted to exceed $5,000).
+Explicación: **AWS Budgets** le permite establecer presupuestos de costos y uso personalizados con alertas basadas en el gasto real o en los montos pronosticados. Puede configurar alertas en umbrales específicos (por ejemplo, cuando se pronostica que superará los $5,000).
 </details>
 
 ---
 
-### Question 35
-Which AWS support plan provides a Technical Account Manager (TAM) and Infrastructure Event Management?
+### Pregunta 35
+¿Qué plan de soporte de **AWS** proporciona un Gerente Técnico de Cuentas (**TAM**) y Gestión de Eventos de Infraestructura (**Infrastructure Event Management**)?
 
-A. Developer
-B. Business
-C. Enterprise
-D. Both Business and Enterprise
+A. **Developer**
+B. **Business**
+C. **Enterprise**
+D. Tanto **Business** como **Enterprise**
 
 <details>
-<summary>Show Answer</summary>
+<summary>Mostrar respuesta</summary>
 
-**Answer: C. Enterprise**
+**Respuesta: C. Enterprise**
 
-Explanation: Only Enterprise Support includes a dedicated Technical Account Manager (TAM) and Infrastructure Event Management (IEM). These services provide proactive guidance, coordination for product launches, and ongoing operational reviews.
+Explicación: Solo el soporte **Enterprise** incluye un Gerente Técnico de Cuentas (**TAM**) dedicado y Gestión de Eventos de Infraestructura (**IEM**). Estos servicios proporcionan orientación proactiva, coordinación para lanzamientos de productos y revisiones operativas continuas.
 </details>
 
 ---
 
-## Key Takeaways
+## Conclusiones Clave
 
-✅ **Pricing Fundamentals**: Understand pay-as-you-go, reserved capacity, volume discounts, and no upfront costs
+✅ **Fundamentos de Precios**: Entienda el pago por uso, la capacidad reservada, los descuentos por volumen y la ausencia de costos iniciales.
 
-✅ **Free Tier**: Know the three types - Always Free, 12 Months Free, and Trials
+✅ **Capa Gratuita**: Conozca los tres tipos: Siempre Gratis, 12 meses gratis y pruebas.
 
-✅ **Cost Management Tools**: Pricing Calculator (estimate), Cost Explorer (analyze), Budgets (alert), Cost and Usage Report (detailed data)
+✅ **Herramientas de Gestión de Costos**: **Pricing Calculator** (estimar), **Cost Explorer** (analizar), **Budgets** (alertar), **Cost and Usage Report** (datos detallados).
 
-✅ **Support Plans**: Memorize response times, TAM availability (Enterprise only), and Trusted Advisor access
+✅ **Planes de Soporte**: Memorice los tiempos de respuesta, la disponibilidad del **TAM** (solo **Enterprise**) y el acceso a **Trusted Advisor**.
 
-✅ **Cost Optimization**: Right-sizing, Reserved Instances, Spot Instances, Auto Scaling, storage optimization, and data transfer optimization
+✅ **Optimización de Costos**: Ajuste de tamaño (**right-sizing**), **Reserved Instances**, **Spot Instances**, **Auto Scaling**, optimización de almacenamiento y optimización de transferencia de datos.
 
-✅ **Consolidated Billing**: Combine accounts in AWS Organizations for volume discounts and single billing
+✅ **Facturación Consolidada**: Combine cuentas en **AWS Organizations** para obtener descuentos por volumen y una facturación única.
 
-✅ **Data Transfer**: Inbound is free, outbound and cross-region are charged
+✅ **Transferencia de Datos**: La entrada es gratuita, la salida y entre regiones tienen cargo.
 
 ---
 
-[Previous: Technology and Services](./04-technology-services.md) | [Table of Contents](./README.md) | [Next: Practice Questions](./06-practice-questions.md)
+[Anterior: Tecnología y Servicios](./04-technology-services.md) | [Tabla de Contenidos](./README.md) | [Siguiente: Plan de Estudio](./06-study-plan.md)
