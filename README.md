@@ -1,640 +1,640 @@
-# AWS Certified Cloud Practitioner Study Guide
+# Guía de Estudio AWS Certified Cloud Practitioner
 
-> **Comprehensive Study Materials for AWS Certified Cloud Practitioner (CLF-C02)**
+> **Materiales de Estudio Integrales para AWS Certified Cloud Practitioner (CLF-C02)**
 
-## 📊 Study Guide Statistics
+## 📊 Estadísticas de la Guía de Estudio
 
-| Metric | Value |
-|--------|-------|
-| **Total Pages** | 372 (PDF) |
-| **Study Chapters** | 10 core chapters |
-| **Practice Questions** | 200+ with detailed explanations |
-| **Hands-On Labs** | 15 comprehensive labs |
-| **Exam Scenarios** | 12 real-world case studies |
-| **Service Comparisons** | 11 detailed comparison tables |
-| **Content Size** | 850+ KB (expanded edition) |
+| Métrica | Valor |
+|---------|-------|
+| **Total de Páginas** | 372 (PDF) |
+| **Capítulos de Estudio** | 10 capítulos principales |
+| **Preguntas de Práctica** | 200+ con explicaciones detalladas |
+| **Laboratorios Prácticos** | 15 laboratorios completos |
+| **Escenarios del Examen** | 12 casos de estudio del mundo real |
+| **Comparaciones de Servicios** | 11 tablas de comparación detalladas |
+| **Tamaño del Contenido** | 850+ KB (edición expandida) |
 
-## 🎯 Certification Overview
+## 🎯 Resumen de la Certificación
 
-- **Exam Code:** CLF-C02
-- **Duration:** 90 minutes
-- **Question Format:** 65 questions (multiple choice and multiple response)
-- **Passing Score:** 700 out of 1000
-- **Cost:** $100 USD
-- **Validity:** 3 years
-- **Delivery:** Pearson VUE testing center or online proctored
+- **Código del Examen:** CLF-C02
+- **Duración:** 90 minutos
+- **Formato de Preguntas:** 65 preguntas (opción múltiple y respuesta múltiple)
+- **Puntaje para Aprobar:** 700 de 1000
+- **Costo:** $100 USD
+- **Vigencia:** 3 años
+- **Modalidad:** Centro de pruebas Pearson VUE o en línea con supervisor
 
-## 📚 Available Formats
+## 📚 Formatos Disponibles
 
-This study guide is available in multiple formats:
+Esta guía de estudio está disponible en múltiples formatos:
 
-### PDF Versions
-- **`aws-practitioner-expanded.pdf`** (372 pages, 854 KB) - **RECOMMENDED**
-  - Comprehensive expanded edition with detailed examples
-  - Real-world case studies and company examples
-  - 200 practice questions
-  - 15 hands-on labs
-  - Extensive troubleshooting guides
+### Versiones PDF
+- **`aws-practitioner-expanded.pdf`** (372 páginas, 854 KB) - **RECOMENDADO**
+  - Edición expandida integral con ejemplos detallados
+  - Casos de estudio del mundo real y ejemplos de empresas
+  - 200 preguntas de práctica
+  - 15 laboratorios prácticos
+  - Guías extensas de solución de problemas
 
-- **`aws-cloud-practitioner-study-guide.pdf`** (114 pages, 289 KB)
-  - Original concise edition
-  - Core content only
+- **`aws-cloud-practitioner-study-guide.pdf`** (114 páginas, 289 KB)
+  - Edición concisa original
+  - Solo contenido principal
 
-### Markdown Files
-All content is also available as individual markdown files for easy navigation and searchability:
-- Fully searchable with Ctrl/Cmd+F
-- Mobile-friendly
-- Copy-paste friendly code examples
-- Perfect for version control (Git)
-- Can be read with any markdown viewer
+### Archivos Markdown
+Todo el contenido también está disponible como archivos markdown individuales para fácil navegación y búsqueda:
+- Completamente buscable con Ctrl/Cmd+F
+- Compatible con dispositivos móviles
+- Ejemplos de código fáciles de copiar y pegar
+- Perfecto para control de versiones (Git)
+- Se puede leer con cualquier visor de markdown
 
-### LaTeX Source
-Complete LaTeX source files included for customization:
-- Main file: `aws-cloud-practitioner-study-guide.tex`
-- Modular chapter files: `chapter-*.tex`
-- Compile your own PDF with custom modifications
+### Fuente LaTeX
+Archivos fuente LaTeX completos incluidos para personalización:
+- Archivo principal: `aws-cloud-practitioner-study-guide.tex`
+- Archivos de capítulos modulares: `chapter-*.tex`
+- Compila tu propio PDF con modificaciones personalizadas
 
-## 🚀 Quick Start
+## 🚀 Inicio Rápido
 
-### For Complete Beginners (4-6 weeks)
-1. Start with **[QUICK-START.md](QUICK-START.md)** for navigation guide
-2. Read **[01-introduction.md](01-introduction.md)** to understand the exam
-3. Follow the **4-week study plan** in [06-study-plan.md](06-study-plan.md)
-4. Complete all 15 hands-on labs as you study each domain
+### Para Principiantes Completos (4-6 semanas)
+1. Comienza con **[QUICK-START.md](QUICK-START.md)** para la guía de navegación
+2. Lee **[01-introduction.md](01-introduction.md)** para entender el examen
+3. Sigue el **plan de estudio de 4 semanas** en [06-study-plan.md](06-study-plan.md)
+4. Completa los 15 laboratorios prácticos mientras estudias cada dominio
 
-### For IT Professionals (2-3 weeks)
-1. Review **[EXPANSION-SUMMARY.md](EXPANSION-SUMMARY.md)** for what's new
-2. Focus on exam domains by percentage (Security 30%, Technology 34%)
-3. Practice with all 200 questions in [exam-questions.json](exam-questions.json)
-4. Work through 12 exam scenarios in [09-exam-scenarios.md](09-exam-scenarios.md)
+### Para Profesionales de TI (2-3 semanas)
+1. Revisa **[EXPANSION-SUMMARY.md](EXPANSION-SUMMARY.md)** para ver las novedades
+2. Enfócate en los dominios del examen por porcentaje (Seguridad 30%, Tecnología 34%)
+3. Practica con las 200 preguntas en [exam-questions.json](exam-questions.json)
+4. Trabaja con los 12 escenarios del examen en [09-exam-scenarios.md](09-exam-scenarios.md)
 
-### For Visual Learners
-1. Use **decision trees** in [08-service-comparisons.md](08-service-comparisons.md)
-2. Study **comparison matrices** for quick reference
-3. Follow **architecture diagrams** in exam scenarios
-4. Complete hands-on labs for practical experience
+### Para Aprendices Visuales
+1. Usa los **árboles de decisión** en [08-service-comparisons.md](08-service-comparisons.md)
+2. Estudia las **matrices de comparación** para referencia rápida
+3. Sigue los **diagramas de arquitectura** en los escenarios del examen
+4. Completa los laboratorios prácticos para experiencia práctica
 
-## 📖 Exam Domain Breakdown
+## 📖 Distribución de Dominios del Examen
 
-| Domain | Percentage | Study Chapter |
-|--------|-----------|---------------|
-| **Domain 1: Cloud Concepts** | 24% | [02-cloud-concepts.md](02-cloud-concepts.md) |
-| **Domain 2: Security and Compliance** | 30% | [03-security-compliance.md](03-security-compliance.md) |
-| **Domain 3: Cloud Technology and Services** | 34% | [04-technology-services.md](04-technology-services.md) |
-| **Domain 4: Billing, Pricing, and Support** | 12% | [05-billing-pricing-support.md](05-billing-pricing-support.md) |
+| Dominio | Porcentaje | Capítulo de Estudio |
+|---------|-----------|---------------------|
+| **Dominio 1: Conceptos de la Nube** | 24% | [02-cloud-concepts.md](02-cloud-concepts.md) |
+| **Dominio 2: Seguridad y Cumplimiento** | 30% | [03-security-compliance.md](03-security-compliance.md) |
+| **Dominio 3: Tecnología y Servicios en la Nube** | 34% | [04-technology-services.md](04-technology-services.md) |
+| **Dominio 4: Facturación, Precios y Soporte** | 12% | [05-billing-pricing-support.md](05-billing-pricing-support.md) |
 
-## 📋 Complete Table of Contents
+## 📋 Tabla de Contenidos Completa
 
-### Core Exam Domains
+### Dominios Principales del Examen
 
-#### 1. [Introduction](01-introduction.md) (8 KB)
-- Certification overview and exam format
-- Target audience and prerequisites
-- How to use this study guide effectively
-- Success tips and common pitfalls
+#### 1. [Introducción](01-introduction.md) (8 KB)
+- Resumen de la certificación y formato del examen
+- Público objetivo y prerrequisitos
+- Cómo usar esta guía de estudio efectivamente
+- Consejos para el éxito y errores comunes
 
-#### 2. [Cloud Concepts - 24%](02-cloud-concepts.md) (64 KB)
-**Expanded with:**
-- What is Cloud Computing? (with real-world analogies)
-- Six advantages with company examples (Netflix, Airbnb, GE, etc.)
-- Cloud computing models (IaaS, PaaS, SaaS) with use cases
-- Cloud deployment models (Public, Private, Hybrid)
-- **AWS Well-Architected Framework** - All 6 pillars in detail:
-  - Operational Excellence
-  - Security
-  - Reliability
-  - Performance Efficiency
-  - Cost Optimization
-  - Sustainability
-- Migration strategies (6 R's) with ROI calculations
-- Common pitfalls and exam tips
-- **14 review questions** with detailed explanations
+#### 2. [Conceptos de la Nube - 24%](02-cloud-concepts.md) (64 KB)
+**Expandido con:**
+- ¿Qué es el Cómputo en la Nube? (con analogías del mundo real)
+- Seis ventajas con ejemplos de empresas (Netflix, Airbnb, GE, etc.)
+- Modelos de cómputo en la nube (IaaS, PaaS, SaaS) con casos de uso
+- Modelos de despliegue en la nube (Público, Privado, Híbrido)
+- **Marco AWS Well-Architected** - Los 6 pilares en detalle:
+  - Excelencia Operacional
+  - Seguridad
+  - Confiabilidad
+  - Eficiencia de Rendimiento
+  - Optimización de Costos
+  - Sostenibilidad
+- Estrategias de migración (las 6 R's) con cálculos de ROI
+- Errores comunes y consejos para el examen
+- **14 preguntas de repaso** con explicaciones detalladas
 
-#### 3. [Security and Compliance - 30%](03-security-compliance.md) (100 KB)
-**Expanded with:**
-- AWS Shared Responsibility Model (detailed breakdown)
-- **Identity and Access Management (IAM)**
-  - Users, Groups, Roles, Policies explained
-  - **10 detailed IAM policy examples with JSON**
-  - MFA implementation guide
-- **60+ Security Best Practices** across 8 major areas
-- Security Services deep dive:
+#### 3. [Seguridad y Cumplimiento - 30%](03-security-compliance.md) (100 KB)
+**Expandido con:**
+- Modelo de Responsabilidad Compartida de AWS (desglose detallado)
+- **Gestión de Identidades y Accesos (IAM)**
+  - Usuarios, Grupos, Roles y Políticas explicados
+  - **10 ejemplos detallados de políticas IAM con JSON**
+  - Guía de implementación de MFA
+- **60+ Mejores Prácticas de Seguridad** en 8 áreas principales
+- Análisis profundo de Servicios de Seguridad:
   - AWS Organizations, KMS, Shield, GuardDuty
   - Inspector, WAF, Macie, Artifact, Config
   - Security Hub, Network Firewall
-- **Compliance Programs** (HIPAA, PCI DSS, SOC, ISO, FedRAMP, GDPR)
-- Security incident response framework
-- 12 common security mistakes with solutions
-- **25 review questions** with explanations
+- **Programas de Cumplimiento** (HIPAA, PCI DSS, SOC, ISO, FedRAMP, GDPR)
+- Marco de respuesta a incidentes de seguridad
+- 12 errores de seguridad comunes con soluciones
+- **25 preguntas de repaso** con explicaciones
 
-#### 4. [Cloud Technology and Services - 34%](04-technology-services.md) (116 KB)
-**Expanded with:**
-- AWS Global Infrastructure (Regions, AZs, Edge Locations)
-- **Compute Services:**
+#### 4. [Tecnología y Servicios en la Nube - 34%](04-technology-services.md) (116 KB)
+**Expandido con:**
+- Infraestructura Global de AWS (Regiones, AZs, Ubicaciones de Borde)
+- **Servicios de Cómputo:**
   - EC2, Lambda, ECS, EKS, Fargate, Lightsail, Batch
-  - Instance types, pricing models, use cases
-- **Storage Services:**
+  - Tipos de instancias, modelos de precios, casos de uso
+- **Servicios de Almacenamiento:**
   - S3, EBS, EFS, Storage Gateway, Snow Family
-  - Storage classes, lifecycle policies, performance
-- **Database Services:**
+  - Clases de almacenamiento, políticas de ciclo de vida, rendimiento
+- **Servicios de Bases de Datos:**
   - RDS, DynamoDB, Aurora, Redshift, ElastiCache
-  - Database selection decision trees
-- **Networking Services:**
+  - Árboles de decisión para selección de bases de datos
+- **Servicios de Redes:**
   - VPC, CloudFront, Route 53, Direct Connect, VPN
-  - Load balancers (ALB, NLB, GLB, CLB)
-- **Management Tools:**
+  - Balanceadores de carga (ALB, NLB, GLB, CLB)
+- **Herramientas de Gestión:**
   - CloudWatch, CloudTrail, Systems Manager, Trusted Advisor
-- Real-world use cases with cost analysis
-- **48 common configuration mistakes**
-- **45 review questions** with explanations
+- Casos de uso del mundo real con análisis de costos
+- **48 errores comunes de configuración**
+- **45 preguntas de repaso** con explicaciones
 
-#### 5. [Billing, Pricing, and Support - 12%](05-billing-pricing-support.md) (168 KB)
-**Expanded with:**
-- **Pricing Models** with detailed calculations
-- **Cost Optimization Strategies:**
-  - 3 real case studies (69%, 83%, 87% savings)
-  - Reserved Instances vs Savings Plans comparison
-  - Spot Instances best practices
-- **Cost Management Tools:**
+#### 5. [Facturación, Precios y Soporte - 12%](05-billing-pricing-support.md) (168 KB)
+**Expandido con:**
+- **Modelos de Precios** con cálculos detallados
+- **Estrategias de Optimización de Costos:**
+  - 3 casos de estudio reales (ahorro del 69%, 83%, 87%)
+  - Comparación de Instancias Reservadas vs Planes de Ahorro
+  - Mejores prácticas de Instancias Spot
+- **Herramientas de Gestión de Costos:**
   - Cost Explorer, Budgets, Cost and Usage Reports
   - Cost Anomaly Detection, Compute Optimizer
-- **AWS Support Plans** comparison matrix:
+- **Planes de Soporte de AWS** matriz de comparación:
   - Basic, Developer, Business, Enterprise On-Ramp, Enterprise
-  - Response times, features, pricing
-- **Tagging Strategies** with automation code
-- Multi-account billing with AWS Organizations
-- TCO Calculator walkthrough ($421K savings example)
-- FinOps framework and governance
-- **35 review questions** with explanations
+  - Tiempos de respuesta, características, precios
+- **Estrategias de Etiquetado** con código de automatización
+- Facturación multicuenta con AWS Organizations
+- Guía del Calculador TCO (ejemplo de $421K en ahorros)
+- Marco FinOps y gobernanza
+- **35 preguntas de repaso** con explicaciones
 
-### Practical Application
+### Aplicación Práctica
 
-#### 6. [Study Plan and Exam Preparation](06-study-plan.md) (24 KB)
-- **4-week comprehensive study plan** (for beginners)
-- **2-week intensive study plan** (for IT professionals)
-- Exam registration step-by-step process
-- Day-of-exam preparation checklist
-- Test-taking strategies and time management
-- Mental preparation and stress management
-- Post-exam next steps
+#### 6. [Plan de Estudio y Preparación para el Examen](06-study-plan.md) (24 KB)
+- **Plan de estudio integral de 4 semanas** (para principiantes)
+- **Plan de estudio intensivo de 2 semanas** (para profesionales de TI)
+- Proceso de registro para el examen paso a paso
+- Lista de verificación de preparación el día del examen
+- Estrategias para el examen y gestión del tiempo
+- Preparación mental y manejo del estrés
+- Próximos pasos después del examen
 
-#### 7. [Hands-On Labs](07-hands-on-labs.md) (136 KB)
-**15 Comprehensive Labs:**
+#### 7. [Laboratorios Prácticos](07-hands-on-labs.md) (136 KB)
+**15 Laboratorios Completos:**
 
-**Foundation Labs:**
-1. **Billing Alerts & Budget** (15 min) - Cost monitoring setup
-2. **IAM Setup** (30 min) - Users, groups, roles, MFA configuration
-3. **EC2 Launch** (45 min) - Virtual servers and web hosting
-4. **S3 Storage** (40 min) - Object storage and static websites
-5. **VPC Networking** (60 min) - Custom networks and security
+**Laboratorios de Fundamentos:**
+1. **Alertas de Facturación y Presupuesto** (15 min) - Configuración de monitoreo de costos
+2. **Configuración de IAM** (30 min) - Usuarios, grupos, roles, configuración MFA
+3. **Lanzamiento de EC2** (45 min) - Servidores virtuales y alojamiento web
+4. **Almacenamiento S3** (40 min) - Almacenamiento de objetos y sitios web estáticos
+5. **Redes VPC** (60 min) - Redes personalizadas y seguridad
 
-**Intermediate Labs:**
-6. **RDS Database** (30 min) - Managed database deployment
-7. **CloudWatch Monitoring** (25 min) - Metrics and alarms
-8. **Cost Management Tools** (30 min) - Hands-on cost optimization
-9. **Lambda Serverless** (25 min) - Serverless functions
-10. **CloudFormation IaC** (20 min) - Infrastructure as Code
+**Laboratorios Intermedios:**
+6. **Base de Datos RDS** (30 min) - Despliegue de bases de datos administradas
+7. **Monitoreo CloudWatch** (25 min) - Métricas y alarmas
+8. **Herramientas de Gestión de Costos** (30 min) - Optimización de costos práctica
+9. **Lambda Sin Servidor** (25 min) - Funciones sin servidor
+10. **CloudFormation IaC** (20 min) - Infraestructura como Código
 
-**Advanced Labs:**
-11. **Auto Scaling & Load Balancing** (45 min) - High availability setup
-12. **DynamoDB NoSQL** (35 min) - NoSQL database operations
-13. **SNS & SQS Messaging** (30 min) - Application integration
-14. **Route 53 DNS** (25 min) - DNS management and routing
-15. **Organizations Multi-Account** (40 min) - Account management
+**Laboratorios Avanzados:**
+11. **Auto Scaling y Balanceo de Carga** (45 min) - Configuración de alta disponibilidad
+12. **DynamoDB NoSQL** (35 min) - Operaciones de bases de datos NoSQL
+13. **Mensajería SNS y SQS** (30 min) - Integración de aplicaciones
+14. **DNS Route 53** (25 min) - Gestión de DNS y enrutamiento
+15. **Organizations Multi-Cuenta** (40 min) - Gestión de cuentas
 
-**Each lab includes:**
-- Prerequisites checklist
-- Step-by-step instructions with screenshots
-- Verification steps
-- Cleanup procedures (avoid unexpected charges)
-- Knowledge check questions
-- Troubleshooting tips
+**Cada laboratorio incluye:**
+- Lista de verificación de prerrequisitos
+- Instrucciones paso a paso con capturas de pantalla
+- Pasos de verificación
+- Procedimientos de limpieza (evita cargos inesperados)
+- Preguntas de verificación de conocimientos
+- Consejos de solución de problemas
 
-**Additional Resources:**
-- Pre-lab AWS account setup guide
-- Lab difficulty guide with 4 learning paths
-- Comprehensive troubleshooting FAQ (45+ Q&A)
+**Recursos Adicionales:**
+- Guía de configuración de cuenta AWS previa al laboratorio
+- Guía de dificultad de laboratorios con 4 rutas de aprendizaje
+- FAQ integral de solución de problemas (45+ preguntas y respuestas)
 
-#### 8. [Service Comparisons and Decision Trees](08-service-comparisons.md) (60 KB)
-**11 Detailed Comparison Tables:**
-- Storage services (S3, EBS, EFS, Instance Store, Glacier)
-- Database services (RDS, DynamoDB, Aurora, Redshift, etc.)
-- Compute services (EC2, Lambda, ECS, Fargate, Batch)
-- Load balancers (ALB, NLB, GLB, CLB)
-- Security services comprehensive matrix
-- Serverless services comparison
-- Analytics services (Athena, EMR, Glue, QuickSight)
-- Migration services (DMS, SMS, Snow Family, DataSync)
-- Container services (ECS, EKS, Fargate)
-- Monitoring services (CloudWatch, CloudTrail, X-Ray)
-- AI/ML services overview
+#### 8. [Comparaciones de Servicios y Árboles de Decisión](08-service-comparisons.md) (60 KB)
+**11 Tablas de Comparación Detalladas:**
+- Servicios de almacenamiento (S3, EBS, EFS, Instance Store, Glacier)
+- Servicios de bases de datos (RDS, DynamoDB, Aurora, Redshift, etc.)
+- Servicios de cómputo (EC2, Lambda, ECS, Fargate, Batch)
+- Balanceadores de carga (ALB, NLB, GLB, CLB)
+- Matriz integral de servicios de seguridad
+- Comparación de servicios sin servidor
+- Servicios de análisis (Athena, EMR, Glue, QuickSight)
+- Servicios de migración (DMS, SMS, Snow Family, DataSync)
+- Servicios de contenedores (ECS, EKS, Fargate)
+- Servicios de monitoreo (CloudWatch, CloudTrail, X-Ray)
+- Resumen de servicios de IA/ML
 
-**5 Decision Trees:**
-- Storage decision flowchart
-- Database selection guide
-- Compute service selector
-- Load balancer chooser
-- Migration strategy selector
+**5 Árboles de Decisión:**
+- Diagrama de flujo de decisión de almacenamiento
+- Guía de selección de bases de datos
+- Selector de servicio de cómputo
+- Selector de balanceador de carga
+- Selector de estrategia de migración
 
-**Additional Features:**
-- Cost comparison matrices for major services
-- When to use which service scenarios
-- 35 service anti-patterns to avoid
-- 15 common misconceptions clarified
-- Service limits quick reference (40+ services)
+**Características Adicionales:**
+- Matrices de comparación de costos para servicios principales
+- Cuándo usar qué servicio por escenarios
+- 35 antipatrones de servicios a evitar
+- 15 conceptos erróneos comunes aclarados
+- Referencia rápida de límites de servicio (40+ servicios)
 
-#### 9. [Exam Scenarios and Solutions](09-exam-scenarios.md) (108 KB)
-**12 Real-World Scenarios:**
+#### 9. [Escenarios del Examen y Soluciones](09-exam-scenarios.md) (108 KB)
+**12 Escenarios del Mundo Real:**
 
-1. **Cost Optimization** - Reduce costs for predictable workloads
-   - Analysis, solution architecture, implementation
-   - Cost breakdown: $12,500/mo → $3,875/mo (69% savings)
+1. **Optimización de Costos** - Reducir costos para cargas de trabajo predecibles
+   - Análisis, arquitectura de solución, implementación
+   - Desglose de costos: $12,500/mes → $3,875/mes (69% de ahorro)
 
-2. **High Availability** - Design fault-tolerant multi-region architecture
-   - RTO/RPO requirements, architecture diagram
-   - Cost: $8,450/month
+2. **Alta Disponibilidad** - Diseñar arquitectura tolerante a fallos multirregión
+   - Requisitos RTO/RPO, diagrama de arquitectura
+   - Costo: $8,450/mes
 
-3. **Data Migration** - Migrate 500TB to AWS
-   - Strategy selection, timeline, cost analysis
-   - Solution: AWS Snowball + DataSync
+3. **Migración de Datos** - Migrar 500TB a AWS
+   - Selección de estrategia, cronograma, análisis de costos
+   - Solución: AWS Snowball + DataSync
 
-4. **Serverless Application** - Build scalable event-driven system
-   - Architecture: API Gateway + Lambda + DynamoDB
-   - Cost: $890/month at 1M requests/day
+4. **Aplicación Sin Servidor** - Construir sistema escalable orientado a eventos
+   - Arquitectura: API Gateway + Lambda + DynamoDB
+   - Costo: $890/mes a 1M solicitudes/día
 
-5. **Compliance Enforcement** - HIPAA-compliant healthcare application
-   - Services, controls, audit requirements
-   - Cost: $5,200/month
+5. **Cumplimiento Normativo** - Aplicación de salud conforme a HIPAA
+   - Servicios, controles, requisitos de auditoría
+   - Costo: $5,200/mes
 
-6. **Disaster Recovery** - RPO 1hr, RTO 4hr requirements
-   - Warm standby strategy, failover process
-   - Cost: $4,300/month
+6. **Recuperación ante Desastres** - Requisitos RPO 1hr, RTO 4hr
+   - Estrategia warm standby, proceso de conmutación por error
+   - Costo: $4,300/mes
 
-7. **Hybrid Connectivity** - Connect on-premises to AWS
-   - Direct Connect + VPN backup architecture
-   - Cost: $1,850/month
+7. **Conectividad Híbrida** - Conectar entorno local a AWS
+   - Arquitectura Direct Connect + VPN de respaldo
+   - Costo: $1,850/mes
 
-8. **Multi-Region Global App** - Low-latency worldwide access
-   - CloudFront + Route 53 + Multi-region deployment
-   - Cost: $7,350/month
+8. **App Global Multi-Región** - Acceso mundial de baja latencia
+   - CloudFront + Route 53 + despliegue multi-región
+   - Costo: $7,350/mes
 
-9. **Security Incident Response** - Detect and respond to threats
-   - GuardDuty + Security Hub + automated remediation
-   - Cost: $2,325/month
+9. **Respuesta a Incidentes de Seguridad** - Detectar y responder a amenazas
+   - GuardDuty + Security Hub + remediación automatizada
+   - Costo: $2,325/mes
 
-10. **Modernizing Monolith** - Migrate to microservices
-    - Containerization strategy, service mesh
-    - 74% cost reduction through optimization
+10. **Modernización de Monolito** - Migrar a microservicios
+    - Estrategia de containerización, malla de servicios
+    - 74% de reducción de costos mediante optimización
 
-11. **Big Data Analytics** - Process petabyte-scale data
-    - S3 + Glue + Athena + QuickSight architecture
-    - Cost: $21,500/month
+11. **Análisis de Big Data** - Procesar datos a escala de petabytes
+    - Arquitectura S3 + Glue + Athena + QuickSight
+    - Costo: $21,500/mes
 
-12. **DevOps CI/CD Pipeline** - Automated deployment
+12. **Pipeline CI/CD DevOps** - Despliegue automatizado
     - CodePipeline + CodeBuild + CodeDeploy
-    - Infrastructure as Code with CloudFormation
+    - Infraestructura como Código con CloudFormation
 
-**8 Troubleshooting Scenarios:**
-- Cannot SSH to EC2 instance
-- S3 bucket access denied errors
-- RDS connection timeout issues
-- High AWS bill investigation
-- Lambda function timing out
-- CloudFormation stack rollback
-- VPC connectivity problems
-- IAM permission denied errors
+**8 Escenarios de Solución de Problemas:**
+- No se puede conectar por SSH a la instancia EC2
+- Errores de acceso denegado al bucket S3
+- Problemas de timeout en la conexión RDS
+- Investigación de factura alta de AWS
+- Timeout de función Lambda
+- Reversión de pila CloudFormation
+- Problemas de conectividad VPC
+- Errores de permisos denegados en IAM
 
-**Code Examples in:**
+**Ejemplos de Código en:**
 - Python (boto3 SDK)
-- YAML (CloudFormation templates)
+- YAML (plantillas CloudFormation)
 - TypeScript (CDK)
-- JSON (IAM policies, API responses)
+- JSON (políticas IAM, respuestas API)
 
-#### 10. [Additional AWS Services](10-additional-services.md) (16 KB)
-**60+ Additional Services by Category:**
-- Developer Tools (CodeCommit, CodeBuild, CodeDeploy, CodePipeline)
-- Application Integration (SNS, SQS, EventBridge, Step Functions)
-- End User Computing (WorkSpaces, AppStream 2.0)
-- IoT Services (IoT Core, IoT Analytics, Greengrass)
-- Media Services (MediaConvert, Elemental MediaLive)
-- AI/ML Services (SageMaker, Rekognition, Comprehend, Polly)
-- Business Applications (Chime, WorkDocs, WorkMail, Connect)
-- Advanced Management (Service Catalog, Control Tower, Proton)
-- Migration Services (Application Discovery, Migration Hub)
-- Advanced Networking (Transit Gateway, PrivateLink)
-- Blockchain and Quantum Computing (Managed Blockchain, Braket)
+#### 10. [Servicios Adicionales de AWS](10-additional-services.md) (16 KB)
+**60+ Servicios Adicionales por Categoría:**
+- Herramientas de Desarrollo (CodeCommit, CodeBuild, CodeDeploy, CodePipeline)
+- Integración de Aplicaciones (SNS, SQS, EventBridge, Step Functions)
+- Cómputo para Usuarios Finales (WorkSpaces, AppStream 2.0)
+- Servicios IoT (IoT Core, IoT Analytics, Greengrass)
+- Servicios de Medios (MediaConvert, Elemental MediaLive)
+- Servicios de IA/ML (SageMaker, Rekognition, Comprehend, Polly)
+- Aplicaciones Empresariales (Chime, WorkDocs, WorkMail, Connect)
+- Gestión Avanzada (Service Catalog, Control Tower, Proton)
+- Servicios de Migración (Application Discovery, Migration Hub)
+- Redes Avanzadas (Transit Gateway, PrivateLink)
+- Blockchain y Computación Cuántica (Managed Blockchain, Braket)
 
-### Practice and Review
+### Práctica y Repaso
 
-#### 11. [Practice Exam Questions](exam-questions.json) (140 KB)
-**200 High-Quality Practice Questions:**
-- **Domain Distribution:**
-  - Cloud Concepts: 48 questions (24%)
-  - Security & Compliance: 60 questions (30%)
-  - Technology & Services: 68 questions (34%)
-  - Billing & Support: 24 questions (12%)
+#### 11. [Preguntas de Práctica del Examen](exam-questions.json) (140 KB)
+**200 Preguntas de Práctica de Alta Calidad:**
+- **Distribución por Dominio:**
+  - Conceptos de la Nube: 48 preguntas (24%)
+  - Seguridad y Cumplimiento: 60 preguntas (30%)
+  - Tecnología y Servicios: 68 preguntas (34%)
+  - Facturación y Soporte: 24 preguntas (12%)
 
-- **Difficulty Levels:**
-  - Easy: 60 questions (30%)
-  - Medium: 100 questions (50%)
-  - Hard: 40 questions (20%)
+- **Niveles de Dificultad:**
+  - Fácil: 60 preguntas (30%)
+  - Medio: 100 preguntas (50%)
+  - Difícil: 40 preguntas (20%)
 
-- **Question Types:**
-  - Multiple choice (1 correct answer)
-  - Multiple response (2-3 correct answers)
+- **Tipos de Preguntas:**
+  - Opción múltiple (1 respuesta correcta)
+  - Respuesta múltiple (2-3 respuestas correctas)
 
-- **Features:**
-  - Detailed explanations for every answer
-  - References to study guide sections
-  - Difficulty ratings
-  - Topic tags for targeted practice
-  - JSON format for building custom quiz apps
+- **Características:**
+  - Explicaciones detalladas para cada respuesta
+  - Referencias a secciones de la guía de estudio
+  - Calificaciones de dificultad
+  - Etiquetas de temas para práctica específica
+  - Formato JSON para crear apps de quiz personalizadas
 
-**Sample Topics Covered:**
-- EMR, Glue, QuickSight, SageMaker (Big Data & ML)
-- Timestream, Neptune, QLDB (Specialized databases)
-- IoT, Wavelength, Outposts (Edge computing)
-- Security Hub, Network Firewall (Advanced security)
-- Cost Anomaly Detection, Compute Optimizer (Cost management)
+**Temas de Muestra Cubiertos:**
+- EMR, Glue, QuickSight, SageMaker (Big Data y ML)
+- Timestream, Neptune, QLDB (Bases de datos especializadas)
+- IoT, Wavelength, Outposts (Cómputo en el borde)
+- Security Hub, Network Firewall (Seguridad avanzada)
+- Cost Anomaly Detection, Compute Optimizer (Gestión de costos)
 
-## 🎓 How to Use This Guide
+## 🎓 Cómo Usar Esta Guía
 
-### Recommended Study Paths
+### Rutas de Estudio Recomendadas
 
-#### Path 1: Complete Beginner (4-6 weeks, ~2 hours/day)
+#### Ruta 1: Principiante Completo (4-6 semanas, ~2 horas/día)
 ```
-Week 1-2: Foundation
-├─ Read 01-introduction.md
-├─ Study 02-cloud-concepts.md (read twice)
-├─ Study 03-security-compliance.md (focus on IAM)
-├─ Complete Labs 1-2 (Billing, IAM)
-└─ Answer Cloud Concepts + Security practice questions
+Semanas 1-2: Fundamentos
+├─ Leer 01-introduction.md
+├─ Estudiar 02-cloud-concepts.md (leer dos veces)
+├─ Estudiar 03-security-compliance.md (enfocarse en IAM)
+├─ Completar Laboratorios 1-2 (Facturación, IAM)
+└─ Responder preguntas de práctica de Conceptos de la Nube + Seguridad
 
-Week 3-4: Core Services
-├─ Study 04-technology-services.md (largest domain)
-├─ Study 05-billing-pricing-support.md
-├─ Complete Labs 3-10 (EC2, S3, VPC, RDS, etc.)
-├─ Review 08-service-comparisons.md
-└─ Answer Technology + Billing practice questions
+Semanas 3-4: Servicios Principales
+├─ Estudiar 04-technology-services.md (dominio más grande)
+├─ Estudiar 05-billing-pricing-support.md
+├─ Completar Laboratorios 3-10 (EC2, S3, VPC, RDS, etc.)
+├─ Revisar 08-service-comparisons.md
+└─ Responder preguntas de práctica de Tecnología + Facturación
 
-Week 5: Application
-├─ Work through all 12 scenarios in 09-exam-scenarios.md
-├─ Complete Labs 11-15 (advanced labs)
-├─ Review 10-additional-services.md
-└─ Take full practice exam (65 questions, 90 min)
+Semana 5: Aplicación
+├─ Trabajar con los 12 escenarios en 09-exam-scenarios.md
+├─ Completar Laboratorios 11-15 (laboratorios avanzados)
+├─ Revisar 10-additional-services.md
+└─ Tomar examen de práctica completo (65 preguntas, 90 min)
 
-Week 6: Final Prep
-├─ Review weak areas from practice exams
-├─ Re-read all "Exam Tip" sections
-├─ Review service comparison tables
-├─ Take 2-3 more practice exams
-├─ Read 06-study-plan.md exam day checklist
-└─ Schedule and pass exam!
-```
-
-#### Path 2: IT Professional (2-3 weeks, ~3 hours/day)
-```
-Week 1: Core Content
-├─ Skim 01-introduction.md
-├─ Focus on 03-security-compliance.md (30% of exam)
-├─ Deep dive into 04-technology-services.md (34% of exam)
-├─ Complete Labs 2, 3, 4, 5 (IAM, EC2, S3, VPC)
-└─ Answer 100 practice questions
-
-Week 2: Scenarios & Practice
-├─ Study 05-billing-pricing-support.md (know support plans)
-├─ Work through all 12 exam scenarios
-├─ Complete remaining labs (6-15)
-├─ Review 08-service-comparisons.md (memorize tables)
-├─ Answer all 200 practice questions
-└─ Take 3+ full practice exams
-
-Week 3: Polish & Exam
-├─ Review all incorrect practice questions
-├─ Re-study weak domains
-├─ Memorize decision trees and comparison matrices
-├─ Final review of exam scenarios
-└─ Take exam
+Semana 6: Preparación Final
+├─ Revisar áreas débiles de los exámenes de práctica
+├─ Releer todas las secciones "Consejo para el Examen"
+├─ Revisar tablas de comparación de servicios
+├─ Tomar 2-3 exámenes de práctica más
+├─ Leer la lista de verificación del examen en 06-study-plan.md
+└─ ¡Programar y aprobar el examen!
 ```
 
-#### Path 3: Visual/Hands-On Learner
+#### Ruta 2: Profesional de TI (2-3 semanas, ~3 horas/día)
 ```
-Start: Complete all 15 labs first
-├─ Labs 1-5: Foundation (4 hours)
-├─ Labs 6-10: Intermediate (2.5 hours)
-└─ Labs 11-15: Advanced (3 hours)
+Semana 1: Contenido Principal
+├─ Revisar rápidamente 01-introduction.md
+├─ Enfocarse en 03-security-compliance.md (30% del examen)
+├─ Análisis profundo de 04-technology-services.md (34% del examen)
+├─ Completar Laboratorios 2, 3, 4, 5 (IAM, EC2, S3, VPC)
+└─ Responder 100 preguntas de práctica
 
-Then: Study by domain
-├─ For each concept in study chapters:
-│   └─ Find related lab or scenario
-├─ Use decision trees and comparison tables heavily
-├─ Draw your own architecture diagrams
-└─ Create flashcards from comparison matrices
+Semana 2: Escenarios y Práctica
+├─ Estudiar 05-billing-pricing-support.md (conocer planes de soporte)
+├─ Trabajar con los 12 escenarios del examen
+├─ Completar laboratorios restantes (6-15)
+├─ Revisar 08-service-comparisons.md (memorizar tablas)
+├─ Responder las 200 preguntas de práctica
+└─ Tomar 3+ exámenes de práctica completos
 
-Practice: Scenario-based learning
-├─ Work through exam scenarios with paper/whiteboard
-├─ Design solutions before reading provided answers
-└─ Practice explaining architectures verbally
+Semana 3: Pulir y Examinar
+├─ Revisar todas las preguntas de práctica incorrectas
+├─ Reestudiar dominios débiles
+├─ Memorizar árboles de decisión y matrices de comparación
+├─ Revisión final de escenarios del examen
+└─ Tomar el examen
 ```
 
-### Study Techniques
+#### Ruta 3: Aprendiz Visual/Práctico
+```
+Inicio: Completar los 15 laboratorios primero
+├─ Laboratorios 1-5: Fundamentos (4 horas)
+├─ Laboratorios 6-10: Intermedio (2.5 horas)
+└─ Laboratorios 11-15: Avanzado (3 horas)
 
-**Active Learning:**
-- Complete all hands-on labs (don't just read them)
-- Answer practice questions before checking answers
-- Draw architecture diagrams for scenarios
-- Teach concepts to someone else
+Luego: Estudiar por dominio
+├─ Para cada concepto en los capítulos de estudio:
+│   └─ Encontrar laboratorio o escenario relacionado
+├─ Usar árboles de decisión y tablas de comparación intensivamente
+├─ Dibujar tus propios diagramas de arquitectura
+└─ Crear tarjetas de memoria a partir de matrices de comparación
 
-**Spaced Repetition:**
-- Review each domain 3 times over your study period
-- Revisit incorrect practice questions after 3 days
-- Re-read "Exam Tip" sections weekly
+Práctica: Aprendizaje basado en escenarios
+├─ Trabajar con escenarios del examen en papel/pizarra
+├─ Diseñar soluciones antes de leer las respuestas proporcionadas
+└─ Practicar explicando arquitecturas verbalmente
+```
 
-**Focus on High-Value Areas:**
-- Security & Compliance (30%) - Know IAM cold
-- Technology & Services (34%) - Understand use cases
-- Service comparisons - Memorize key differences
-- Support plans - Know all tiers and response times
+### Técnicas de Estudio
 
-## 💡 Key Study Tips
+**Aprendizaje Activo:**
+- Completar todos los laboratorios prácticos (no solo leerlos)
+- Responder preguntas de práctica antes de revisar las respuestas
+- Dibujar diagramas de arquitectura para escenarios
+- Enseñar conceptos a otra persona
 
-### Must-Know Concepts
-✅ **Shared Responsibility Model** - Crystal clear on who manages what
-✅ **IAM** - Users, groups, roles, policies, least privilege
-✅ **EC2** - Instance types, pricing models, when to use
-✅ **S3** - Storage classes, lifecycle policies, use cases
-✅ **VPC** - Subnets, route tables, security groups, NACLs
-✅ **RDS vs DynamoDB** - When to use which
-✅ **Well-Architected Framework** - All 6 pillars
-✅ **Support Plans** - Features and pricing of all tiers
-✅ **Cost Optimization** - Reserved, Spot, Savings Plans
+**Repetición Espaciada:**
+- Revisar cada dominio 3 veces durante tu período de estudio
+- Revisitar preguntas de práctica incorrectas después de 3 días
+- Releer las secciones "Consejo para el Examen" semanalmente
 
-### Common Exam Traps
-❌ Confusing IAM roles with IAM users
-❌ Not knowing which services are region-specific
-❌ Mixing up storage service use cases
-❌ Forgetting what AWS manages vs customer manages
-❌ Not understanding pricing models clearly
+**Enfocarse en Áreas de Alto Valor:**
+- Seguridad y Cumplimiento (30%) - Conocer IAM a fondo
+- Tecnología y Servicios (34%) - Entender casos de uso
+- Comparaciones de servicios - Memorizar diferencias clave
+- Planes de soporte - Conocer todos los niveles y tiempos de respuesta
 
-### Exam Day Strategy
-1. **Time Management:** ~80 seconds per question
-2. **Flag and Skip:** Don't get stuck on hard questions
-3. **Eliminate Wrong Answers:** Narrow down choices
-4. **No Penalty for Guessing:** Answer every question
-5. **Review Flagged:** Use remaining time to review
+## 💡 Consejos Clave de Estudio
 
-## 🎯 Target Audience
+### Conceptos Imprescindibles
+✅ **Modelo de Responsabilidad Compartida** - Claridad total sobre quién gestiona qué
+✅ **IAM** - Usuarios, grupos, roles, políticas, privilegio mínimo
+✅ **EC2** - Tipos de instancias, modelos de precios, cuándo usar
+✅ **S3** - Clases de almacenamiento, políticas de ciclo de vida, casos de uso
+✅ **VPC** - Subredes, tablas de rutas, grupos de seguridad, NACLs
+✅ **RDS vs DynamoDB** - Cuándo usar cuál
+✅ **Marco Well-Architected** - Los 6 pilares
+✅ **Planes de Soporte** - Características y precios de todos los niveles
+✅ **Optimización de Costos** - Reservadas, Spot, Planes de Ahorro
 
-This study guide is ideal for:
-- ✅ Individuals new to AWS Cloud (complete beginners welcome)
-- ✅ Sales and marketing professionals (non-technical backgrounds)
-- ✅ Business analysts and project managers
-- ✅ IT professionals transitioning to cloud
-- ✅ Students and recent graduates
-- ✅ Anyone seeking foundational AWS knowledge
-- ✅ Developers wanting AWS certification
-- ✅ Solutions architects starting their AWS journey
+### Trampas Comunes del Examen
+❌ Confundir roles IAM con usuarios IAM
+❌ No saber qué servicios son específicos de región
+❌ Mezclar casos de uso de servicios de almacenamiento
+❌ Olvidar qué gestiona AWS vs qué gestiona el cliente
+❌ No entender claramente los modelos de precios
 
-## 📋 Prerequisites
+### Estrategia para el Día del Examen
+1. **Gestión del Tiempo:** ~80 segundos por pregunta
+2. **Marcar y Saltar:** No te atasques en preguntas difíciles
+3. **Eliminar Respuestas Incorrectas:** Reduce las opciones
+4. **Sin Penalización por Adivinar:** Responde todas las preguntas
+5. **Revisar Marcadas:** Usa el tiempo restante para revisar
 
-- **Required:** None! This is a foundational certification
-- **Recommended:**
-  - 6 months exposure to AWS Cloud (hands-on or theoretical)
-  - Basic understanding of IT concepts (helpful but not required)
-  - Completed AWS Cloud Practitioner Essentials course (free)
+## 🎯 Público Objetivo
 
-- **For Hands-On Labs:**
-  - AWS account (Free Tier eligible)
-  - Credit card for account verification (won't be charged if you stay in Free Tier)
-  - Email address for account creation
+Esta guía de estudio es ideal para:
+- ✅ Personas nuevas en la Nube de AWS (principiantes completos bienvenidos)
+- ✅ Profesionales de ventas y marketing (sin experiencia técnica)
+- ✅ Analistas de negocios y gerentes de proyectos
+- ✅ Profesionales de TI que transicionan a la nube
+- ✅ Estudiantes y recién graduados
+- ✅ Cualquier persona que busque conocimientos fundamentales de AWS
+- ✅ Desarrolladores que quieren certificación AWS
+- ✅ Arquitectos de soluciones que inician su camino en AWS
 
-## 📊 What's New in Expanded Edition
+## 📋 Prerrequisitos
 
-This comprehensive expanded edition includes:
+- **Requeridos:** ¡Ninguno! Esta es una certificación fundamental
+- **Recomendados:**
+  - 6 meses de exposición a la Nube de AWS (práctico o teórico)
+  - Comprensión básica de conceptos de TI (útil pero no requerido)
+  - Completado el curso AWS Cloud Practitioner Essentials (gratuito)
 
-### Content Expansion
-- **Pages:** 114 → 372 pages (3.3x larger)
-- **Practice Questions:** 120 → 200 questions (+67%)
-- **Hands-On Labs:** 10 → 15 labs (+50%)
-- **Exam Scenarios:** 7 → 12 scenarios (+71%)
-- **Review Questions:** 49 → 119 in domain chapters (+143%)
+- **Para Laboratorios Prácticos:**
+  - Cuenta de AWS (elegible para Nivel Gratuito)
+  - Tarjeta de crédito para verificación de cuenta (no se cobrará si te mantienes en el Nivel Gratuito)
+  - Dirección de correo electrónico para crear la cuenta
 
-### New Content
-- ✨ 40+ real company case studies (Netflix, Airbnb, Capital One, etc.)
-- ✨ 10 detailed IAM policy examples with JSON
-- ✨ 60+ security best practices across 8 categories
-- ✨ 3 cost optimization case studies (69%, 83%, 87% savings)
-- ✨ TCO calculator walkthrough with $421K savings example
-- ✨ 48 common configuration mistakes with solutions
-- ✨ 45+ troubleshooting Q&A for hands-on labs
-- ✨ 11 service comparison tables (expanded from 6)
-- ✨ 5 decision trees for service selection
-- ✨ Code examples in Python, YAML, TypeScript, JSON
-- ✨ Architecture diagrams for complex scenarios
-- ✨ Multi-account billing architecture guide
-- ✨ FinOps framework and governance practices
-- ✨ Security incident response framework
+## 📊 Novedades en la Edición Expandida
 
-See **[EXPANSION-SUMMARY.md](EXPANSION-SUMMARY.md)** for complete details.
+Esta edición expandida integral incluye:
 
-## 🔗 Additional Resources
+### Expansión de Contenido
+- **Páginas:** 114 → 372 páginas (3.3 veces más grande)
+- **Preguntas de Práctica:** 120 → 200 preguntas (+67%)
+- **Laboratorios Prácticos:** 10 → 15 laboratorios (+50%)
+- **Escenarios del Examen:** 7 → 12 escenarios (+71%)
+- **Preguntas de Repaso:** 49 → 119 en capítulos de dominio (+143%)
 
-### Official AWS Resources
-- [AWS Official Exam Guide](https://aws.amazon.com/certification/certified-cloud-practitioner/)
-- [AWS Free Tier](https://aws.amazon.com/free/) - Practice without cost
-- [AWS Documentation](https://docs.aws.amazon.com/) - Detailed service docs
-- [AWS Training and Certification](https://aws.amazon.com/training/)
-- [AWS Skill Builder](https://explore.skillbuilder.aws/) - Free digital training
-- [AWS Whitepapers](https://aws.amazon.com/whitepapers/) - Well-Architected Framework
+### Nuevo Contenido
+- ✨ 40+ casos de estudio de empresas reales (Netflix, Airbnb, Capital One, etc.)
+- ✨ 10 ejemplos detallados de políticas IAM con JSON
+- ✨ 60+ mejores prácticas de seguridad en 8 categorías
+- ✨ 3 casos de estudio de optimización de costos (ahorros del 69%, 83%, 87%)
+- ✨ Guía del Calculador TCO con ejemplo de $421K en ahorros
+- ✨ 48 errores comunes de configuración con soluciones
+- ✨ 45+ preguntas y respuestas de solución de problemas para laboratorios
+- ✨ 11 tablas de comparación de servicios (expandidas de 6)
+- ✨ 5 árboles de decisión para selección de servicios
+- ✨ Ejemplos de código en Python, YAML, TypeScript, JSON
+- ✨ Diagramas de arquitectura para escenarios complejos
+- ✨ Guía de arquitectura de facturación multicuenta
+- ✨ Marco FinOps y prácticas de gobernanza
+- ✨ Marco de respuesta a incidentes de seguridad
 
-### Community Resources
-- [AWS Certification Subreddit](https://www.reddit.com/r/AWSCertifications/)
-- [AWS Community Forums](https://repost.aws/)
-- [AWS on Stack Overflow](https://stackoverflow.com/questions/tagged/amazon-web-services)
+Consulta **[EXPANSION-SUMMARY.md](EXPANSION-SUMMARY.md)** para detalles completos.
 
-### Practice Exams
-- AWS Skill Builder (official practice questions)
-- Tutorials Dojo (highly recommended)
-- Whizlabs practice tests
-- **This guide:** 200 practice questions included!
+## 🔗 Recursos Adicionales
 
-## 🛠️ Technical Details
+### Recursos Oficiales de AWS
+- [Guía Oficial del Examen de AWS](https://aws.amazon.com/certification/certified-cloud-practitioner/)
+- [Nivel Gratuito de AWS](https://aws.amazon.com/free/) - Practica sin costo
+- [Documentación de AWS](https://docs.aws.amazon.com/) - Documentación detallada de servicios
+- [Capacitación y Certificación de AWS](https://aws.amazon.com/training/)
+- [AWS Skill Builder](https://explore.skillbuilder.aws/) - Capacitación digital gratuita
+- [Whitepapers de AWS](https://aws.amazon.com/whitepapers/) - Marco Well-Architected
 
-### File Formats Available
-- **PDF:** Both original and expanded versions
-- **Markdown:** All chapters as individual .md files
-- **JSON:** Practice questions in structured format
-- **LaTeX:** Source files for PDF generation
+### Recursos de la Comunidad
+- [Subreddit de Certificaciones AWS](https://www.reddit.com/r/AWSCertifications/)
+- [Foros de la Comunidad AWS](https://repost.aws/)
+- [AWS en Stack Overflow](https://stackoverflow.com/questions/tagged/amazon-web-services)
 
-### Building Your Own PDF
-If you want to customize the PDF:
+### Exámenes de Práctica
+- AWS Skill Builder (preguntas de práctica oficiales)
+- Tutorials Dojo (muy recomendado)
+- Exámenes de práctica de Whizlabs
+- **Esta guía:** ¡200 preguntas de práctica incluidas!
+
+## 🛠️ Detalles Técnicos
+
+### Formatos de Archivo Disponibles
+- **PDF:** Versiones original y expandida
+- **Markdown:** Todos los capítulos como archivos .md individuales
+- **JSON:** Preguntas de práctica en formato estructurado
+- **LaTeX:** Archivos fuente para generación de PDF
+
+### Compilar Tu Propio PDF
+Si quieres personalizar el PDF:
 ```bash
-# Compile the main LaTeX file
+# Compilar el archivo LaTeX principal
 pdflatex aws-cloud-practitioner-study-guide.tex
 
-# Run twice for cross-references
+# Ejecutar dos veces para las referencias cruzadas
 pdflatex aws-cloud-practitioner-study-guide.tex
 ```
 
-Requirements: TeX Live or MiKTeX with packages:
+Requisitos: TeX Live o MiKTeX con paquetes:
 - hyperref, tcolorbox, booktabs, longtable, listings
 
-## 📝 License and Disclaimer
+## 📝 Licencia y Descargo de Responsabilidad
 
-This study guide is for **educational purposes only**.
+Esta guía de estudio es **solo para fines educativos**.
 
-- AWS and all related marks are trademarks of Amazon.com, Inc. or its affiliates
-- This is an unofficial study guide, not endorsed by AWS
-- Content is provided "as-is" for exam preparation
-- Always verify information with official AWS documentation
-- Prices and features mentioned are subject to change
+- AWS y todas las marcas relacionadas son marcas registradas de Amazon.com, Inc. o sus afiliados
+- Esta es una guía de estudio no oficial, no respaldada por AWS
+- El contenido se proporciona "tal cual" para preparación del examen
+- Siempre verifica la información con la documentación oficial de AWS
+- Los precios y características mencionados están sujetos a cambios
 
-## 🤝 Contributing
+## 🤝 Contribuciones
 
-Found an error or want to improve content?
-- This guide is maintained as a study resource
-- Check official AWS documentation for latest updates
-- Practice with AWS Free Tier for hands-on verification
+¿Encontraste un error o quieres mejorar el contenido?
+- Esta guía se mantiene como recurso de estudio
+- Verifica la documentación oficial de AWS para las últimas actualizaciones
+- Practica con el Nivel Gratuito de AWS para verificación práctica
 
-## ✅ Study Checklist
+## ✅ Lista de Verificación de Estudio
 
-Track your progress:
+Rastrea tu progreso:
 
-**Chapters:**
-- [ ] Read 01-introduction.md
-- [ ] Study 02-cloud-concepts.md
-- [ ] Study 03-security-compliance.md
-- [ ] Study 04-technology-services.md
-- [ ] Study 05-billing-pricing-support.md
-- [ ] Review 06-study-plan.md
+**Capítulos:**
+- [ ] Leer 01-introduction.md
+- [ ] Estudiar 02-cloud-concepts.md
+- [ ] Estudiar 03-security-compliance.md
+- [ ] Estudiar 04-technology-services.md
+- [ ] Estudiar 05-billing-pricing-support.md
+- [ ] Revisar 06-study-plan.md
 
-**Practice:**
-- [ ] Complete all 15 hands-on labs
-- [ ] Work through all 12 exam scenarios
-- [ ] Answer all 200 practice questions
-- [ ] Take 3+ full-length practice exams
-- [ ] Review all service comparison tables
-- [ ] Memorize decision trees
+**Práctica:**
+- [ ] Completar los 15 laboratorios prácticos
+- [ ] Trabajar con los 12 escenarios del examen
+- [ ] Responder las 200 preguntas de práctica
+- [ ] Tomar 3+ exámenes de práctica completos
+- [ ] Revisar todas las tablas de comparación de servicios
+- [ ] Memorizar árboles de decisión
 
-**Exam Prep:**
-- [ ] Schedule exam date
-- [ ] Review exam day checklist
-- [ ] Final review of weak areas
-- [ ] Get good sleep before exam
-- [ ] **Pass AWS Cloud Practitioner!** 🎉
+**Preparación para el Examen:**
+- [ ] Programar fecha del examen
+- [ ] Revisar la lista de verificación del día del examen
+- [ ] Revisión final de áreas débiles
+- [ ] Dormir bien antes del examen
+- [ ] **¡Aprobar AWS Cloud Practitioner!** 🎉
 
-## 🎉 Ready to Start?
+## 🎉 ¿Listo para Comenzar?
 
-1. **Begin here:** [QUICK-START.md](QUICK-START.md)
-2. **Then read:** [01-introduction.md](01-introduction.md)
-3. **Follow the plan:** Choose your study path above
-4. **Stay consistent:** 2-3 hours daily for 4-6 weeks
-5. **Practice hands-on:** Complete all labs
-6. **Test yourself:** Take practice exams
-7. **Pass the exam:** You've got this!
+1. **Empieza aquí:** [QUICK-START.md](QUICK-START.md)
+2. **Luego lee:** [01-introduction.md](01-introduction.md)
+3. **Sigue el plan:** Elige tu ruta de estudio arriba
+4. **Sé constante:** 2-3 horas diarias durante 4-6 semanas
+5. **Practica hands-on:** Completa todos los laboratorios
+6. **Evalúate:** Toma exámenes de práctica
+7. **Aprueba el examen:** ¡Tú puedes!
 
 ---
 
-**Good luck with your AWS Cloud Practitioner certification journey! 🚀**
+**¡Buena suerte en tu camino hacia la certificación AWS Cloud Practitioner! 🚀**
 
-*Last updated: December 2025 | Exam Version: CLF-C02*
+*Última actualización: Diciembre 2025 | Versión del Examen: CLF-C02*

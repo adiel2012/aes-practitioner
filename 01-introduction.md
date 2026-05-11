@@ -1,161 +1,161 @@
-# Introduction
+# Introducción
 
-[← Back to Main](README.md) | [Next: Cloud Concepts →](02-cloud-concepts.md)
+[← Volver al Inicio](README.md) | [Siguiente: Conceptos de la Nube →](02-cloud-concepts.md)
 
-## About This Guide
+## Acerca de Esta Guía
 
-This comprehensive study guide is designed to help you prepare for and pass the **AWS Certified Cloud Practitioner (CLF-C02)** exam. This certification validates your overall understanding of the AWS Cloud, independent of specific technical roles.
+Esta guía de estudio integral está diseñada para ayudarte a prepararte y aprobar el examen **AWS Certified Cloud Practitioner (CLF-C02)**. Esta certificación valida tu comprensión general de la Nube de AWS, independientemente de roles técnicos específicos.
 
-## Certification Overview
+## Resumen de la Certificación
 
-- **Exam Code:** CLF-C02
-- **Duration:** 90 minutes
-- **Question Format:** 65 questions (multiple choice and multiple response)
-- **Passing Score:** 700 out of 1000
-- **Cost:** $100 USD
-- **Validity:** 3 years
-- **Delivery:** Pearson VUE testing center or online proctored
+- **Código del Examen:** CLF-C02
+- **Duración:** 90 minutos
+- **Formato de Preguntas:** 65 preguntas (opción múltiple y respuesta múltiple)
+- **Puntaje para Aprobar:** 700 de 1000
+- **Costo:** $100 USD
+- **Vigencia:** 3 años
+- **Modalidad:** Centro de pruebas Pearson VUE o en línea con supervisor
 
-## Exam Domain Breakdown
+## Distribución de Dominios del Examen
 
-| Domain | Percentage |
-|--------|-----------|
-| Domain 1: Cloud Concepts | 24% |
-| Domain 2: Security and Compliance | 30% |
-| Domain 3: Cloud Technology and Services | 34% |
-| Domain 4: Billing, Pricing, and Support | 12% |
+| Dominio | Porcentaje |
+|---------|-----------|
+| Dominio 1: Conceptos de la Nube | 24% |
+| Dominio 2: Seguridad y Cumplimiento | 30% |
+| Dominio 3: Tecnología y Servicios en la Nube | 34% |
+| Dominio 4: Facturación, Precios y Soporte | 12% |
 
-## Target Audience
+## Público Objetivo
 
-This certification is ideal for:
-- Individuals new to AWS Cloud
-- Sales and marketing professionals
-- Business analysts and project managers
-- IT professionals transitioning to cloud
-- Students and recent graduates
-- Anyone seeking foundational AWS knowledge
+Esta certificación es ideal para:
+- Personas nuevas en la Nube de AWS
+- Profesionales de ventas y marketing
+- Analistas de negocios y gerentes de proyectos
+- Profesionales de TI que transicionan a la nube
+- Estudiantes y recién graduados
+- Cualquier persona que busque conocimientos fundamentales de AWS
 
-> **Exam Tip:** No technical prerequisites are required, but 6 months of exposure to AWS Cloud is recommended for success.
+> **Consejo para el Examen:** No se requieren requisitos técnicos previos, pero se recomienda 6 meses de exposición a la Nube de AWS para tener éxito.
 
-## What You'll Learn
+## Lo Que Aprenderás
 
-By completing this study guide, you will:
+Al completar esta guía de estudio, podrás:
 
-1. **Understand cloud computing fundamentals**
-   - Benefits and value proposition of AWS Cloud
-   - Cloud deployment models
-   - Cloud service models (IaaS, PaaS, SaaS)
+1. **Comprender los fundamentos del cómputo en la nube**
+   - Beneficios y propuesta de valor de la Nube de AWS
+   - Modelos de despliegue en la nube
+   - Modelos de servicio en la nube (IaaS, PaaS, SaaS)
 
-2. **Master AWS security and compliance**
-   - Shared Responsibility Model
-   - Identity and Access Management (IAM)
-   - Security best practices
-   - Compliance programs
+2. **Dominar la seguridad y el cumplimiento de AWS**
+   - Modelo de Responsabilidad Compartida
+   - Gestión de Identidades y Accesos (IAM)
+   - Mejores prácticas de seguridad
+   - Programas de cumplimiento
 
-3. **Know core AWS services**
-   - Compute services (EC2, Lambda, ECS, etc.)
-   - Storage services (S3, EBS, EFS)
-   - Database services (RDS, DynamoDB)
-   - Networking services (VPC, CloudFront, Route 53)
+3. **Conocer los servicios principales de AWS**
+   - Servicios de cómputo (EC2, Lambda, ECS, etc.)
+   - Servicios de almacenamiento (S3, EBS, EFS)
+   - Servicios de bases de datos (RDS, DynamoDB)
+   - Servicios de redes (VPC, CloudFront, Route 53)
 
-4. **Understand AWS pricing and billing**
-   - Pricing models
-   - Cost management tools
-   - Support plans
-   - Cost optimization strategies
+4. **Entender los precios y la facturación de AWS**
+   - Modelos de precios
+   - Herramientas de gestión de costos
+   - Planes de soporte
+   - Estrategias de optimización de costos
 
-## How to Use This Guide
+## Cómo Usar Esta Guía
 
-### Recommended Study Approach
+### Enfoque de Estudio Recomendado
 
-1. **Week 1-2: Core Concepts**
-   - Read chapters on Cloud Concepts and Security
-   - Complete related hands-on labs
-   - Review service comparisons
+1. **Semanas 1-2: Conceptos Fundamentales**
+   - Leer los capítulos sobre Conceptos de la Nube y Seguridad
+   - Completar los laboratorios prácticos relacionados
+   - Revisar las comparaciones de servicios
 
-2. **Week 3-4: Services and Billing**
-   - Study Technology & Services chapter
-   - Learn Billing and Support concepts
-   - Practice with AWS console
+2. **Semanas 3-4: Servicios y Facturación**
+   - Estudiar el capítulo de Tecnología y Servicios
+   - Aprender los conceptos de Facturación y Soporte
+   - Practicar con la consola de AWS
 
-3. **Week 5: Review and Practice**
-   - Work through exam scenarios
-   - Take practice exams
-   - Review weak areas
+3. **Semana 5: Repaso y Práctica**
+   - Trabajar a través de los escenarios del examen
+   - Realizar exámenes de práctica
+   - Revisar áreas débiles
 
-4. **Week 6: Final Preparation**
-   - Review all service comparisons
-   - Complete remaining practice questions
-   - Read exam tips
+4. **Semana 6: Preparación Final**
+   - Repasar todas las comparaciones de servicios
+   - Completar las preguntas de práctica restantes
+   - Leer los consejos para el examen
 
-### Study Resources
+### Recursos de Estudio
 
-- **This guide:** Comprehensive coverage of all exam topics
-- **Hands-on labs:** Practical experience with AWS console
-- **Practice questions:** 120 exam-style questions
-- **AWS Free Tier:** Real-world practice without cost
-- **AWS Documentation:** Deep dives into specific services
+- **Esta guía:** Cobertura integral de todos los temas del examen
+- **Laboratorios prácticos:** Experiencia práctica con la consola de AWS
+- **Preguntas de práctica:** 120 preguntas al estilo del examen
+- **Nivel Gratuito de AWS:** Práctica en el mundo real sin costo
+- **Documentación de AWS:** Análisis detallados de servicios específicos
 
-### Tips for Success
+### Consejos para el Éxito
 
-✅ **Do:**
-- Practice with AWS console regularly
-- Understand concepts, not just memorize
-- Complete all hands-on labs
-- Take multiple practice exams
-- Join study groups or forums
-- Review incorrect practice question answers
+✅ **Haz:**
+- Practica regularmente con la consola de AWS
+- Comprende los conceptos, no solo los memorices
+- Completa todos los laboratorios prácticos
+- Realiza múltiples exámenes de práctica
+- Únete a grupos de estudio o foros
+- Revisa las respuestas incorrectas de las preguntas de práctica
 
-❌ **Don't:**
-- Cram the night before
-- Skip hands-on practice
-- Only read without practicing
-- Ignore exam scenarios
-- Forget to register early for exam
+❌ **No hagas:**
+- Estudiar de última hora la noche anterior
+- Omitir la práctica hands-on
+- Solo leer sin practicar
+- Ignorar los escenarios del examen
+- Olvidar registrarte con anticipación para el examen
 
-## Exam Format
+## Formato del Examen
 
-### Question Types
+### Tipos de Preguntas
 
-1. **Multiple Choice**
-   - One correct answer from four options
-   - Majority of questions
-   - Example: "Which service provides object storage?"
+1. **Opción Múltiple**
+   - Una respuesta correcta de cuatro opciones
+   - Mayoría de las preguntas
+   - Ejemplo: "¿Qué servicio proporciona almacenamiento de objetos?"
 
-2. **Multiple Response**
-   - Two or more correct answers from five or more options
-   - Question will specify how many to select
-   - Example: "Which TWO are benefits of cloud computing?"
+2. **Respuesta Múltiple**
+   - Dos o más respuestas correctas de cinco o más opciones
+   - La pregunta especificará cuántas seleccionar
+   - Ejemplo: "¿Cuáles DOS son beneficios del cómputo en la nube?"
 
-### Content Areas
+### Áreas de Contenido
 
-The exam tests your knowledge across:
-- Cloud concepts and value proposition
-- AWS security and compliance concepts
-- Core AWS services and use cases
-- Billing, pricing, and support models
+El examen evalúa tu conocimiento en:
+- Conceptos de la nube y propuesta de valor
+- Conceptos de seguridad y cumplimiento de AWS
+- Servicios principales de AWS y casos de uso
+- Modelos de facturación, precios y soporte
 
-### Scoring
+### Puntuación
 
-- **Scaled score:** 100-1000 (passing score: 700)
-- **Unanswered questions:** Scored as incorrect
-- **No penalty:** For wrong answers (guess if unsure)
-- **Result:** Pass/Fail (score provided)
+- **Puntaje escalado:** 100-1000 (puntaje para aprobar: 700)
+- **Preguntas sin responder:** Se cuentan como incorrectas
+- **Sin penalización:** Por respuestas incorrectas (adivina si no estás seguro)
+- **Resultado:** Aprobado/Reprobado (se proporciona el puntaje)
 
-## After This Guide
+## Después de Esta Guía
 
-Once you complete this study guide:
+Una vez que completes esta guía de estudio:
 
-1. ✅ Register for the AWS Cloud Practitioner exam
-2. ✅ Schedule your exam date (2-3 weeks out)
-3. ✅ Take final practice exams
-4. ✅ Review exam scenarios one more time
-5. ✅ Complete exam with confidence!
+1. ✅ Regístrate para el examen AWS Cloud Practitioner
+2. ✅ Programa tu fecha de examen (2-3 semanas de anticipación)
+3. ✅ Realiza los exámenes de práctica finales
+4. ✅ Repasa los escenarios del examen una vez más
+5. ✅ ¡Completa el examen con confianza!
 
-## Next Steps
+## Próximos Pasos
 
-Ready to begin? Let's start with [Cloud Concepts](02-cloud-concepts.md) →
+¿Listo para comenzar? Empecemos con [Conceptos de la Nube](02-cloud-concepts.md) →
 
 ---
 
-[← Back to Main](README.md) | [Next: Cloud Concepts →](02-cloud-concepts.md)
+[← Volver al Inicio](README.md) | [Siguiente: Conceptos de la Nube →](02-cloud-concepts.md)
