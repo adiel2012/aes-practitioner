@@ -492,4 +492,4 @@ Sistemas de archivos completamente administrados con dos opciones principales:
 
 ---
 
-[← Anterior: Capítulo 9](09-management-governance.md) | [Siguiente: Apéndice →](appendix.md)
+[← Anterior: Escenarios de Examen](09-exam-scenarios.md) | [Volver al Inicio](README.md)

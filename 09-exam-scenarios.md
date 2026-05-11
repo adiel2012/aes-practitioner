@@ -3562,4 +3562,4 @@ aws lambda invoke \
 
 ---
 
-[← Anterior: Preparación para el Examen](08-exam-preparation.md) | [Siguiente: Recursos Adicionales →](10-additional-resources.md)
+[← Anterior: Comparación de Servicios](08-service-comparisons.md) | [Siguiente: Servicios Adicionales →](10-additional-services.md)

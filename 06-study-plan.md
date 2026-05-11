@@ -737,4 +737,4 @@ Whitepapers imprescindibles:
 
 ---
 
-[← Volver a la Guía Principal](README.md) | [Siguiente: Laboratorios Prácticos →](07-hands-on-labs.md)
+[← Anterior: Facturación y Soporte](05-billing-pricing-support.md) | [Volver al Inicio](README.md) | [Siguiente: Laboratorios Prácticos →](07-hands-on-labs.md)

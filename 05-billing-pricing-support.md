@@ -5758,4 +5758,4 @@ Explicación: Solo el soporte **Enterprise** incluye un Gerente Técnico de Cuen
 
 ---
 
-[Anterior: Tecnología y Servicios](./04-technology-services.md) | [Tabla de Contenidos](./README.md) | [Siguiente: Plan de Estudio](./06-study-plan.md)
+[← Anterior: Tecnología y Servicios](04-technology-services.md) | [Volver al Inicio](README.md) | [Siguiente: Plan de Estudio →](06-study-plan.md)

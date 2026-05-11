@@ -4364,4 +4364,4 @@ Este conocimiento práctico le ayudará significativamente en el examen de **AWS
 
 ---
 
-[← Volver al Plan de Estudio](06-study-plan.md) | [Regresar a la Guía Principal →](README.md)
+[← Volver al Plan de Estudio](06-study-plan.md) | [Volver al Inicio](README.md) | [Siguiente: Comparación de Servicios →](08-service-comparisons.md)

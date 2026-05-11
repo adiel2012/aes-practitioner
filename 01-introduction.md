@@ -158,4 +158,4 @@ Una vez que completes esta guía de estudio:
 
 ---
 
-[← Volver al Inicio](README.md) | [Siguiente: Conceptos de la Nube →](02-cloud-concepts.md)
+[Volver al Inicio](README.md) | [Siguiente: Conceptos de la Nube →](02-cloud-concepts.md)
