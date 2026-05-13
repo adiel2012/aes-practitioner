@@ -57,13 +57,13 @@ Archivos fuente LaTeX completos incluidos para personalización:
 ## 🚀 Inicio Rápido
 
 ### Para Principiantes Completos (4-6 semanas)
-1. Comienza con **[QUICK-START.md](QUICK-START.md)** para la guía de navegación
-2. Lee **[01-introduction.md](01-introduction.md)** para entender el examen
-3. Sigue el **plan de estudio de 4 semanas** en [06-study-plan.md](06-study-plan.md)
+1. Comienza con **[QUICK-START.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/QUICK-START.md)** para la guía de navegación
+2. Lee **[01-introduction.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/01-introduction.md)** para entender el examen
+3. Sigue el **plan de estudio de 4 semanas** en [06-study-plan.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/06-study-plan.md)
 4. Completa los 15 laboratorios prácticos mientras estudias cada dominio
 
 ### Para Profesionales de TI (2-3 semanas)
-1. Revisa **[EXPANSION-SUMMARY.md](EXPANSION-SUMMARY.md)** para ver las novedades
+1. Revisa **[EXPANSION-SUMMARY.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/EXPANSION-SUMMARY.md)** para ver las novedades
 2. Enfócate en los dominios del examen por porcentaje (Seguridad 30%, Tecnología 34%)
 3. Practica con las 200 preguntas en [exam-questions.json](exam-questions.json)
 4. Trabaja con los 12 escenarios del examen en [09-exam-scenarios.md](09-exam-scenarios.md)
@@ -78,22 +78,22 @@ Archivos fuente LaTeX completos incluidos para personalización:
 
 | Dominio | Porcentaje | Capítulo de Estudio |
 |---------|-----------|---------------------|
-| **Dominio 1: Conceptos de la Nube** | 24% | [02-cloud-concepts.md](02-cloud-concepts.md) |
-| **Dominio 2: Seguridad y Cumplimiento** | 30% | [03-security-compliance.md](03-security-compliance.md) |
-| **Dominio 3: Tecnología y Servicios en la Nube** | 34% | [04-technology-services.md](04-technology-services.md) |
-| **Dominio 4: Facturación, Precios y Soporte** | 12% | [05-billing-pricing-support.md](05-billing-pricing-support.md) |
+| **Dominio 1: Conceptos de la Nube** | 24% | [02-cloud-concepts.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/02-cloud-concepts.md) |
+| **Dominio 2: Seguridad y Cumplimiento** | 30% | [03-security-compliance.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/03-security-compliance.md) |
+| **Dominio 3: Tecnología y Servicios en la Nube** | 34% | [04-technology-services.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/04-technology-services.md) |
+| **Dominio 4: Facturación, Precios y Soporte** | 12% | [05-billing-pricing-support.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/05-billing-pricing-support.md) |
 
 ## 📋 Tabla de Contenidos Completa
 
 ### Dominios Principales del Examen
 
-#### 1. [Introducción](01-introduction.md) (8 KB)
+#### 1. [Introducción](https://github.com/adiel2012/aes-practitioner/blob/spanish/01-introduction.md) (8 KB)
 - Resumen de la certificación y formato del examen
 - Público objetivo y prerrequisitos
 - Cómo usar esta guía de estudio efectivamente
 - Consejos para el éxito y errores comunes
 
-#### 2. [Conceptos de la Nube - 24%](02-cloud-concepts.md) (64 KB)
+#### 2. [Conceptos de la Nube - 24%](https://github.com/adiel2012/aes-practitioner/blob/spanish/02-cloud-concepts.md) (81 KB)
 **Expandido con:**
 - ¿Qué es el Cómputo en la Nube? (con analogías del mundo real)
 - Seis ventajas con ejemplos de empresas (Netflix, Airbnb, GE, etc.)
@@ -110,7 +110,7 @@ Archivos fuente LaTeX completos incluidos para personalización:
 - Errores comunes y consejos para el examen
 - **14 preguntas de repaso** con explicaciones detalladas
 
-#### 3. [Seguridad y Cumplimiento - 30%](03-security-compliance.md) (100 KB)
+#### 3. [Seguridad y Cumplimiento - 30%](https://github.com/adiel2012/aes-practitioner/blob/spanish/03-security-compliance.md) (39 KB)
 **Expandido con:**
 - Modelo de Responsabilidad Compartida de AWS (desglose detallado)
 - **Gestión de Identidades y Accesos (IAM)**
@@ -127,7 +127,7 @@ Archivos fuente LaTeX completos incluidos para personalización:
 - 12 errores de seguridad comunes con soluciones
 - **25 preguntas de repaso** con explicaciones
 
-#### 4. [Tecnología y Servicios en la Nube - 34%](04-technology-services.md) (116 KB)
+#### 4. [Tecnología y Servicios en la Nube - 34%](https://github.com/adiel2012/aes-practitioner/blob/spanish/04-technology-services.md) (18 KB)
 **Expandido con:**
 - Infraestructura Global de AWS (Regiones, AZs, Ubicaciones de Borde)
 - **Servicios de Cómputo:**
@@ -148,7 +148,7 @@ Archivos fuente LaTeX completos incluidos para personalización:
 - **48 errores comunes de configuración**
 - **45 preguntas de repaso** con explicaciones
 
-#### 5. [Facturación, Precios y Soporte - 12%](05-billing-pricing-support.md) (168 KB)
+#### 5. [Facturación, Precios y Soporte - 12%](https://github.com/adiel2012/aes-practitioner/blob/spanish/05-billing-pricing-support.md) (209 KB)
 **Expandido con:**
 - **Modelos de Precios** con cálculos detallados
 - **Estrategias de Optimización de Costos:**
@@ -169,7 +169,7 @@ Archivos fuente LaTeX completos incluidos para personalización:
 
 ### Aplicación Práctica
 
-#### 6. [Plan de Estudio y Preparación para el Examen](06-study-plan.md) (24 KB)
+#### 6. [Plan de Estudio y Preparación para el Examen](https://github.com/adiel2012/aes-practitioner/blob/spanish/06-study-plan.md) (27 KB)
 - **Plan de estudio integral de 4 semanas** (para principiantes)
 - **Plan de estudio intensivo de 2 semanas** (para profesionales de TI)
 - Proceso de registro para el examen paso a paso
@@ -178,7 +178,7 @@ Archivos fuente LaTeX completos incluidos para personalización:
 - Preparación mental y manejo del estrés
 - Próximos pasos después del examen
 
-#### 7. [Laboratorios Prácticos](07-hands-on-labs.md) (136 KB)
+#### 7. [Laboratorios Prácticos](https://github.com/adiel2012/aes-practitioner/blob/spanish/07-hands-on-labs.md) (173 KB)
 **15 Laboratorios Completos:**
 
 **Laboratorios de Fundamentos:**
@@ -215,7 +215,7 @@ Archivos fuente LaTeX completos incluidos para personalización:
 - Guía de dificultad de laboratorios con 4 rutas de aprendizaje
 - FAQ integral de solución de problemas (45+ preguntas y respuestas)
 
-#### 8. [Comparaciones de Servicios y Árboles de Decisión](08-service-comparisons.md) (60 KB)
+#### 8. [Comparaciones de Servicios y Árboles de Decisión](https://github.com/adiel2012/aes-practitioner/blob/spanish/08-service-comparisons.md) (76 KB)
 **11 Tablas de Comparación Detalladas:**
 - Servicios de almacenamiento (S3, EBS, EFS, Instance Store, Glacier)
 - Servicios de bases de datos (RDS, DynamoDB, Aurora, Redshift, etc.)
@@ -243,7 +243,7 @@ Archivos fuente LaTeX completos incluidos para personalización:
 - 15 conceptos erróneos comunes aclarados
 - Referencia rápida de límites de servicio (40+ servicios)
 
-#### 9. [Escenarios del Examen y Soluciones](09-exam-scenarios.md) (108 KB)
+#### 9. [Escenarios del Examen y Soluciones](https://github.com/adiel2012/aes-practitioner/blob/spanish/09-exam-scenarios.md) (139 KB)
 **12 Escenarios del Mundo Real:**
 
 1. **Optimización de Costos** - Reducir costos para cargas de trabajo predecibles
@@ -310,7 +310,7 @@ Archivos fuente LaTeX completos incluidos para personalización:
 - TypeScript (CDK)
 - JSON (políticas IAM, respuestas API)
 
-#### 10. [Servicios Adicionales de AWS](10-additional-services.md) (16 KB)
+#### 10. [Servicios Adicionales de AWS](https://github.com/adiel2012/aes-practitioner/blob/spanish/10-additional-services.md) (15 KB)
 **60+ Servicios Adicionales por Categoría:**
 - Herramientas de Desarrollo (CodeCommit, CodeBuild, CodeDeploy, CodePipeline)
 - Integración de Aplicaciones (SNS, SQS, EventBridge, Step Functions)
@@ -326,7 +326,7 @@ Archivos fuente LaTeX completos incluidos para personalización:
 
 ### Práctica y Repaso
 
-#### 11. [Preguntas de Práctica del Examen](exam-questions.json) (140 KB)
+#### 11. [Preguntas de Práctica del Examen](https://github.com/adiel2012/aes-practitioner/blob/spanish/exam-questions.json) (143 KB)
 **200 Preguntas de Práctica de Alta Calidad:**
 - **Distribución por Dominio:**
   - Conceptos de la Nube: 48 preguntas (24%)
@@ -535,7 +535,7 @@ Esta edición expandida integral incluye:
 - ✨ Marco FinOps y prácticas de gobernanza
 - ✨ Marco de respuesta a incidentes de seguridad
 
-Consulta **[EXPANSION-SUMMARY.md](EXPANSION-SUMMARY.md)** para detalles completos.
+Consulta **[EXPANSION-SUMMARY.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/EXPANSION-SUMMARY.md)** para detalles completos.
 
 ## 🔗 Recursos Adicionales
 
@@ -601,12 +601,12 @@ Esta guía de estudio es **solo para fines educativos**.
 Rastrea tu progreso:
 
 **Capítulos:**
-- [ ] Leer 01-introduction.md
-- [ ] Estudiar 02-cloud-concepts.md
-- [ ] Estudiar 03-security-compliance.md
-- [ ] Estudiar 04-technology-services.md
-- [ ] Estudiar 05-billing-pricing-support.md
-- [ ] Revisar 06-study-plan.md
+- [ ] Leer [01-introduction.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/01-introduction.md)
+- [ ] Estudiar [02-cloud-concepts.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/02-cloud-concepts.md)
+- [ ] Estudiar [03-security-compliance.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/03-security-compliance.md)
+- [ ] Estudiar [04-technology-services.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/04-technology-services.md)
+- [ ] Estudiar [05-billing-pricing-support.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/05-billing-pricing-support.md)
+- [ ] Revisar [06-study-plan.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/06-study-plan.md)
 
 **Práctica:**
 - [ ] Completar los 15 laboratorios prácticos
@@ -625,8 +625,8 @@ Rastrea tu progreso:
 
 ## 🎉 ¿Listo para Comenzar?
 
-1. **Empieza aquí:** [QUICK-START.md](QUICK-START.md)
-2. **Luego lee:** [01-introduction.md](01-introduction.md)
+1. **Empieza aquí:** [QUICK-START.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/QUICK-START.md)
+2. **Luego lee:** [01-introduction.md](https://github.com/adiel2012/aes-practitioner/blob/spanish/01-introduction.md)
 3. **Sigue el plan:** Elige tu ruta de estudio arriba
 4. **Sé constante:** 2-3 horas diarias durante 4-6 semanas
 5. **Practica hands-on:** Completa todos los laboratorios
