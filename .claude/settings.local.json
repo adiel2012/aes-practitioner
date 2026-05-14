@@ -16,7 +16,9 @@
       "Bash(do sed -i '0,/\\\\\\\\section{/{s/\\\\\\\\section{/\\\\\\\\chapter{/}' \"$file\")",
       "Bash(done)",
       "Bash(pdfinfo:*)",
-      "Bash(sort:*)"
+      "Bash(sort:*)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }

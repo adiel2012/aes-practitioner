@@ -48,6 +48,22 @@ All content is also available as individual markdown files for easy navigation a
 - Perfect for version control (Git)
 - Can be read with any markdown viewer
 
+### Class / Lecture Files (Text-to-Speech Optimized)
+Teacher-style narrated versions of each exam domain, written as spoken classroom lectures. All markdown formatting, tables, code blocks, and symbols have been removed so these files read naturally aloud with any text-to-speech tool or screen reader.
+
+| File | Domain | Exam Weight |
+|------|--------|-------------|
+| [01-introduction-class.md](01-introduction-class.md) | Introduction and Exam Overview | — |
+| [02-cloud-concepts-class.md](02-cloud-concepts-class.md) | Cloud Concepts | 24% |
+| [03-security-compliance-class.md](03-security-compliance-class.md) | Security and Compliance | 30% |
+| [04-technology-services-class.md](04-technology-services-class.md) | Cloud Technology and Services | 34% |
+| [05-billing-pricing-support-class.md](05-billing-pricing-support-class.md) | Billing, Pricing, and Support | 12% |
+| [06-study-plan-class.md](06-study-plan-class.md) | Study Plan, Exam Strategy, and Next Steps | — |
+| [07-hands-on-labs-class.md](07-hands-on-labs-class.md) | Hands-On Labs — Introduction and Concepts | — |
+| [08-service-comparisons-class.md](08-service-comparisons-class.md) | Service Comparisons and Decision Guides | — |
+| [09-exam-scenarios-class.md](09-exam-scenarios-class.md) | Exam Scenarios and Real-World Solutions | — |
+| [10-additional-services-class.md](10-additional-services-class.md) | Additional AWS Services | — |
+
 ### LaTeX Source
 Complete LaTeX source files included for customization:
 - Main file: `aws-cloud-practitioner-study-guide.tex`
@@ -76,12 +92,12 @@ Complete LaTeX source files included for customization:
 
 ## 📖 Exam Domain Breakdown
 
-| Domain | Percentage | Study Chapter |
-|--------|-----------|---------------|
-| **Domain 1: Cloud Concepts** | 24% | [02-cloud-concepts.md](02-cloud-concepts.md) |
-| **Domain 2: Security and Compliance** | 30% | [03-security-compliance.md](03-security-compliance.md) |
-| **Domain 3: Cloud Technology and Services** | 34% | [04-technology-services.md](04-technology-services.md) |
-| **Domain 4: Billing, Pricing, and Support** | 12% | [05-billing-pricing-support.md](05-billing-pricing-support.md) |
+| Domain | Percentage | Study Chapter | Class / Lecture Version |
+|--------|-----------|---------------|------------------------|
+| **Domain 1: Cloud Concepts** | 24% | [02-cloud-concepts.md](02-cloud-concepts.md) | [02-cloud-concepts-class.md](02-cloud-concepts-class.md) |
+| **Domain 2: Security and Compliance** | 30% | [03-security-compliance.md](03-security-compliance.md) | [03-security-compliance-class.md](03-security-compliance-class.md) |
+| **Domain 3: Cloud Technology and Services** | 34% | [04-technology-services.md](04-technology-services.md) | [04-technology-services-class.md](04-technology-services-class.md) |
+| **Domain 4: Billing, Pricing, and Support** | 12% | [05-billing-pricing-support.md](05-billing-pricing-support.md) | [05-billing-pricing-support-class.md](05-billing-pricing-support-class.md) |
 
 ## 📋 Complete Table of Contents
 
@@ -607,6 +623,18 @@ Track your progress:
 - [ ] Study 04-technology-services.md
 - [ ] Study 05-billing-pricing-support.md
 - [ ] Review 06-study-plan.md
+
+**Class / Lecture Files (audio/TTS study):**
+- [ ] Listen to 01-introduction-class.md
+- [ ] Listen to 02-cloud-concepts-class.md
+- [ ] Listen to 03-security-compliance-class.md
+- [ ] Listen to 04-technology-services-class.md
+- [ ] Listen to 05-billing-pricing-support-class.md
+- [ ] Listen to 06-study-plan-class.md
+- [ ] Listen to 07-hands-on-labs-class.md
+- [ ] Listen to 08-service-comparisons-class.md
+- [ ] Listen to 09-exam-scenarios-class.md
+- [ ] Listen to 10-additional-services-class.md
 
 **Practice:**
 - [ ] Complete all 15 hands-on labs
